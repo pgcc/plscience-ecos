@@ -1,0 +1,36 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <header>
+        <h1>Collaborative PL-Science</h1>
+        <h:form>  
+            <p:menubar>
+                <p:menuitem value="Home" icon="ui-icon-home" url="/faces/index.xhtml" />
+                <p:submenu label="Product Line" icon="ui-icon-copy">
+                    <p:menuitem value="Products"/>
+                    <p:menuitem value="Core Artifact"/>
+                    <p:menuitem value="Domain Engineering"/>
+                </p:submenu>
+                <p:submenu label="Experiments" icon="ui-icon-lightbulb">
+                    <p:menuitem value="My Experiments" url="/faces/myExperiments.xhtml"/>
+                    <p:menuitem value="Browse Experiments"/>
+                    <p:menuitem value="Experiment Life Cycle" url="/faces/experimentLifeCycle.xhtml"/>
+                </p:submenu>
+                <p:submenu label="Scientific Workflow" icon="ui-icon-gear">
+                    <p:menuitem value="My Workflows" url="/faces/myWorkflows.xhtml"/>
+                    <p:menuitem value="Browse Workflows"/>
+                    <p:menuitem value="Workflow Management System"/>
+                </p:submenu>
+                <p:menuitem value="Network" icon="ui-icon-person" />
+                <p:menuitem value="Developers API" icon="ui-icon-script" />
+                <p:menuitem value="Settings" icon="ui-icon-wrench" />
+                <f:facet name="options">
+                    <p:commandButton value="New Experiment" icon="ui-icon-plusthick" action="newExperiment.xhtml?faces-redirect=true" />
+                </f:facet>
+            </p:menubar>
+        </h:form>
+    </header>
+</ui:composition>

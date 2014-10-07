@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <ui:include src="/WEB-INF/templates/head.xhtml" />
+        <h:outputStylesheet library="css" name="workspace.css" />
+        <h:outputScript library="js" name="guid.js" />
+        <h:outputScript library="js" name="workflow.js" />
+        <h:outputScript library="js" name="dom.jsPlumb-1.6.4-min.js" />
+    </h:head>
+    <h:body>
+        <ui:include src="/WEB-INF/templates/header.xhtml" />
+        <p:layout>
+            <p:layoutUnit id="palette" position="east" size="250" header="Palette" resizable="true" collapsible="true">
+                <p:commandButton value="Add Workflow" id="newWorkflow" type="button" />
+                <p:commandButton value="Add Task" id="newTask" type="button" />
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <ui:insert name="content"></ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

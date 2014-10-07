@@ -1,0 +1,23 @@
+<ui:composition template="/WEB-INF/templates/workflowLayout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">New Workflow</h2>
+        <h:form>
+            <p:breadCrumb>
+                <p:menuitem value="Home" url="/" />
+                <p:menuitem value="My Workflows" url="/faces/myWorkflows.xhtml" />
+                <p:menuitem value="New Workflow" url="/faces/newWorkflow.xhtml" />
+            </p:breadCrumb>
+        </h:form>
+        <h:form id="workspace">
+            <div class="window" id="flowchartWindow1"><strong>1</strong><br/><br/></div>
+            <div class="window" id="flowchartWindow2"><strong>2</strong><br/><br/></div>
+            <div class="window" id="flowchartWindow3"><strong>3</strong><br/><br/></div>
+            <div class="window" id="flowchartWindow4"><strong>4</strong><br/><br/></div>
+        </h:form>
+    </ui:define>
+</ui:composition>

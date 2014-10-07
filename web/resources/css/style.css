@@ -1,0 +1,52 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Aug 14, 2014, 5:43:06 PM
+    Author     : vitorfs
+*/
+
+@import url(http://fonts.googleapis.com/css?family=Jockey+One);
+
+body {
+    font-size: 14px;
+    margin: 0;
+}
+
+header {
+    background-image: url(images/shattered.png);
+}
+
+header h1 {
+    padding: 15px 10px;
+    font-family: "Jockey One", sans-serif;
+    margin: 0;
+    color: #FFFFFF;
+    font-size: 40px;
+    text-shadow: 1px 1px 0 #333333;
+}
+
+.page-header {
+    margin: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #DDD;
+}
+
+.ui-layout-container {
+    margin: 10px 20px;
+    min-height: 400px;
+}
+
+.ui-layout-center {
+    border: none;
+}
+
+.ui-breadcrumb ul li a {
+    text-decoration: none;
+}
+
+.hide {
+    display: none;
+}

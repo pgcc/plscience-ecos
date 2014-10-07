@@ -1,0 +1,103 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Experiment Life Cycle</h2>
+
+        <h:form>
+            <p:panel header="Problem Investigation" style="margin-bottom:20px">
+                <h:panelGrid columns="1" cellpadding="10">
+                    <ul>
+                        <li>
+                            Search for related researches
+                            <ul>
+                                <li>Systematic Literature Review Tool (Parsifal) Integration</li>
+                                <li>Mendeley Integration</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Integration with other researchers
+                            <ul>
+                                <li>Maintain interaction data</li>
+                                <li>Explore new knowledges from interaction data</li>
+                                <li>Data mining from Research Social Networks (ResearchGate, Mendeley, etc)</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Integrate heterogeneous research data
+                            <ul>
+                                <li>Collaborative support</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </h:panelGrid>
+            </p:panel>
+            
+            <p:panel header="Experiment Prototyping" style="margin-bottom:20px">
+                <h:panelGrid columns="1" cellpadding="10">
+                    <ul>
+                        <li>
+                            Explore available resources on the scientific community
+                            <ul>
+                                <li>myExperiment Integration (workflows)</li>
+                                <li>OpenDOAR Integration</li>
+                                <li>OpenArchives Ore Integration</li>
+                                <li>BioCatalog Integration (Biological Webservices)</li>
+                            </ul>
+                        </li>
+                        <li>Development of new artifacts through the Product Line</li>
+                        <li>Reuse of existing artifacts on the Core Artifact</li>
+                        <li>Scientifical workflow usage</li>
+                        <li>Product development</li>
+                    </ul>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel header="Experiment Execution" style="margin-bottom:20px">
+                <h:panelGrid columns="1" cellpadding="10">
+                    <ul>
+                        <li>
+                            Execution on a external Workflow Management System
+                            <ul>
+                                <li>Taverna</li>
+                                <li>VisTrails</li>
+                                <li>Kepler</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Execution on a internal Workflow Management System
+                            <ul>
+                                <li>Monitor the execution</li>
+                                <li>Interact with the execution</li>
+                            </ul>
+                        </li>
+                        <li>Execution on a external Workflow Management System through a Web API</li>
+                        <li>Integrate results to the Core Artifact</li>
+                    </ul>
+                </h:panelGrid>
+            </p:panel>
+            
+            <p:panel header="Results Publication" style="margin-bottom:20px">
+                <h:panelGrid columns="1" cellpadding="10">
+                    <ul>
+                        <li>
+                            Publish contributions
+                            <ul>
+                                <li>Experiment steps</li>
+                                <li>Special conditions of execution</li>
+                                <li>Input data</li>
+                                <li>Necessary interactions</li>
+                                <li>Results analysis</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </h:panelGrid>
+            </p:panel>
+            
+        </h:form>
+
+    </ui:define>
+</ui:composition>
