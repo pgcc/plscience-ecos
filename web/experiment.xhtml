@@ -16,9 +16,73 @@
                 </p:tab>
 
                 <p:tab title="Experiment Prototyping">
-                    <h:panelGrid columns="1" cellpadding="10">
-
-                    </h:panelGrid>
+                    <table style="width: 100%">
+                        <tr>
+                            <td valign="top">
+                                <div style="margin-bottom: 10px">
+                                    <h:outputText value="DNA Alignment" style="font-size: 18px; font-weight: bold; margin-right: 10px" />
+                                    <p:button value="Edit" icon="ui-icon-pencil" style="font-size: 14px"></p:button>
+                                </div>
+                                <div style="margin-bottom: 10px">
+                                    <h:outputText value="Number of Steps:" style="font-size: 16px; font-weight: bold; margin-right: 10px" />
+                                    <p:inputText style="width: 50px; margin-right: 10px" />
+                                    <p:button value="OK" icon="ui-icon-check" style="font-size: 14px"></p:button>
+                                </div>
+                                <table style="width: 100%; margin-top: 20px">
+                                    <tr>
+                                        <td style="width: 30%">
+                                            <p:panel header="DNA">
+                                                <p:link value="WSDL" style="display: block"/>
+                                                <p:link value="Input Port" style="display: block"/>
+                                                <p:link value="Output Port" style="display: block"/>
+                                                <p:link value="Details" style="display: block"/>
+                                                <br />
+                                                <p:button value="Edit" icon="ui-icon-pencil" style="font-size: 14px"></p:button>
+                                                <p:button value="Search" icon="ui-icon-search" style="font-size: 14px"></p:button>
+                                            </p:panel>
+                                        </td>
+                                        <td style="text-align: center; width: 5%">
+                                            <span class="fa fa-arrow-right"></span>
+                                        </td>
+                                        <td style="width: 30%">
+                                            <p:panel header="RNA">
+                                                <p:link value="WSDL" style="display: block"/>
+                                                <p:link value="Input Port" style="display: block"/>
+                                                <p:link value="Output Port" style="display: block"/>
+                                                <p:link value="Details" style="display: block"/>
+                                                <br />
+                                                <p:button value="Edit" icon="ui-icon-pencil" style="font-size: 14px"></p:button>
+                                                <p:button value="Search" icon="ui-icon-search" style="font-size: 14px"></p:button>
+                                            </p:panel>
+                                        </td>
+                                        <td style="text-align: center; width: 5%">
+                                            <span class="fa fa-arrow-right"></span>
+                                        </td>
+                                        <td style="width: 30%">
+                                            <p:panel header="Empty">
+                                                <h:outputText value="Add a WebService..." style="display: block"></h:outputText>
+                                                <br />
+                                                <p:button value="Search" icon="ui-icon-search" style="font-size: 14px"></p:button>
+                                            </p:panel>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 300px">
+                                <p:panel id="services" header="Services">
+                                    <h:panelGrid cellpadding="5" style="width: 100%">
+                                        <h:outputText value="DNA" />
+                                        <h:outputText value="RNA" />
+                                        <h:outputText value="Protein 45" />
+                                        <h:outputText value="Protein 46" />
+                                        <hr />
+                                        <p:button value="Search" icon="ui-icon-search"></p:button>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </td>
+                        </tr>
+                    </table>
+                    <p:button value="Save changes" icon="ui-icon-disk" style="margin-top: 10px"></p:button>
                 </p:tab>
                 
                 <p:tab title="Experiment Execution">
