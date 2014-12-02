@@ -8,12 +8,10 @@ package br.ufjf.pgcc.plscience.bean.experiments;
 
 import br.ufjf.pgcc.plscience.domain.Experiment;
 import br.ufjf.pgcc.plscience.repository.ExperimentRepository;
+import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -29,7 +27,13 @@ public class MyExperiments {
     
     public MyExperiments() {
         repository = new ExperimentRepository();
-        experiments = repository.findAll();
+        //experiments = repository.findAll();
+        experiments = new ArrayList<Experiment>();
+        Experiment e = new Experiment();
+        e.setTitle("Teste");
+        e.setDescription("Teste");
+        e.setId((long)1);
+        experiments.add(e);
     }
     
     public List<Experiment> getExperiments() {

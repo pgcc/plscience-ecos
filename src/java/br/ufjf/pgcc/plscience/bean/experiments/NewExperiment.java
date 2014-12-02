@@ -23,16 +23,16 @@ import org.hibernate.HibernateException;
 public class NewExperiment {
     
     private Experiment experiment;
-    private final ExperimentRepository repository;
+    //private final ExperimentRepository repository;
     
     public NewExperiment() {
         this.experiment = new Experiment();
-        this.repository = new ExperimentRepository();
+        //this.repository = new ExperimentRepository();
     }
     
     public void save() {
         try {
-            repository.save(experiment);
+            //repository.save(experiment);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment created with success!"));   
         } catch (HibernateException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   

@@ -21,21 +21,22 @@ import org.hibernate.service.ServiceRegistryBuilder;
 public class HibernateUtil implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final SessionFactory sessionFactory;
+    //private static final SessionFactory sessionFactory;
 
     static {
         try {
             Configuration configuration = new Configuration();
             configuration.configure();
-            ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            //ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+            //sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (HibernateException ex) {
             throw new ExceptionInInitializerError(ex);
         }
     }
 
     public static Session getSession() {
-        return sessionFactory.openSession();
+        //return sessionFactory.openSession();
+        return null;
     }
 
 }
