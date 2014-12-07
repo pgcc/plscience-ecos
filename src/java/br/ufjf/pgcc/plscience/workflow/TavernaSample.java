@@ -13,22 +13,23 @@ public class TavernaSample {
     
     public static void main(String[] args) {
         TavernaClient client = new TavernaClient();
-        client.setBaseUri("http://localhost:8080/TavernaServer-2.5.4/rest");
+        //client.setBaseUri("http://localhost:8080/TavernaServer-2.5.4/rest");
         client.setBaseUri("http://ec2-54-191-44-161.us-west-2.compute.amazonaws.com:8080/TavernaServer-2.5.4/rest");
         client.setAuthorization("taverna", "taverna");
         
         try {
-            String uuid = "";
+            
+            String uuid = "93bee8ba-7f85-45dc-aa8d-ba11feeb419e";
             String status = "";
             String output = "";
             
-            uuid = client.create("/Users/vitorfs/Downloads/Workflow_Bruno.t2flow");
+            //uuid = client.create("/Users/vitorfs/Downloads/Workflow_Bruno.t2flow");
             System.out.println(uuid);
             
             status = client.getStatus(uuid);
             System.out.println(status);
             
-            client.start(uuid);
+            //client.start(uuid);
 
             do {
                 status = client.getStatus(uuid);
@@ -37,12 +38,12 @@ public class TavernaSample {
                     Thread.sleep(1000);
                 } catch (Exception e) {
                 }
-            } while (status != "Finished");
+            } while (!"Finished".equals(status));
                 
             output = client.getOutput(uuid);
             System.out.println(output);
             
-            client.destroy(uuid);
+            //client.destroy(uuid);
             
         } catch (Exception e) {
             e.printStackTrace();

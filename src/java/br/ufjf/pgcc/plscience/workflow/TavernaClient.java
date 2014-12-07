@@ -151,11 +151,14 @@ public class TavernaClient {
         if (response != null) {
             response.disconnect();
         }
+        if (content != null) {
+            content = content.replace("\n", "");
+        }
         return content;
     }
     
     public String getOutput(String uuid) throws TavernaException {
-        String url = String.format("/runs/%s/wd", uuid);
+        String url = String.format("/runs/%s/wd/out", uuid);
         HttpURLConnection response = request(url, TavernaServerMethods.GET, HttpURLConnection.HTTP_OK, "application/json");
         String content = parseResponse(response);
         if (response != null) {
