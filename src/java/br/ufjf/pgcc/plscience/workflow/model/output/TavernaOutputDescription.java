@@ -16,6 +16,7 @@ public class TavernaOutputDescription {
     private String workflowRun;
     private String workflowRunId;
     private ArrayList<TavernaOutput> output;
+    private TavernaOutput singleOutput;
 
     /**
      * @return the workflowId
@@ -63,6 +64,10 @@ public class TavernaOutputDescription {
      * @return the output
      */
     public ArrayList<TavernaOutput> getOutput() {
+        if (output == null && singleOutput != null) {
+            output = new ArrayList<TavernaOutput>();
+            output.add(singleOutput);
+        }
         return output;
     }
 
@@ -72,4 +77,19 @@ public class TavernaOutputDescription {
     public void setOutput(ArrayList<TavernaOutput> output) {
         this.output = output;
     }
+
+    /**
+     * @return the singleOutput
+     */
+    public TavernaOutput getSingleOutput() {
+        return this.singleOutput;
+    }
+
+    /**
+     * @param singleOutput the singleOutput to set
+     */
+    public void setSingleOutput(TavernaOutput singleOutput) {
+        this.singleOutput = singleOutput;
+    }
+    
 }

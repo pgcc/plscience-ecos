@@ -1,9 +1,11 @@
 package br.ufjf.pgcc.plscience.workflow;
 
-import br.ufjf.pgcc.plscience.workflow.model.input.TavernaInput;
 import br.ufjf.pgcc.plscience.workflow.model.input.TavernaExpectedInput;
 import br.ufjf.pgcc.plscience.workflow.model.output.TavernaWorkflowOutput;
+import br.ufjf.pgcc.plscience.workflow.model.runs.TavernaRun;
+import br.ufjf.pgcc.plscience.workflow.model.runs.TavernaRuns;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -152,6 +155,37 @@ public class TavernaClient {
         return uuid;
     }
     
+    public ArrayList<TavernaRun> getRuns() throws TavernaException {
+        String url = "/runs";
+        HttpURLConnection response = request(url, TavernaServerMethods.GET, HttpURLConnection.HTTP_OK, "application/json");
+        String content = parseResponse(response);
+        content = content.replace("@", "");
+        content = content.replace("$", "uuid");
+        Gson gson = new Gson();
+        TavernaRuns tavernaRuns = null;
+        
+        try {
+            tavernaRuns = gson.fromJson(content, TavernaRuns.class);
+        } catch (JsonSyntaxException arrayException) { // Expected array, found single result
+            try {
+                content = content.replace("\"run\"", "\"singleRun\"");
+                tavernaRuns = gson.fromJson(content, TavernaRuns.class);
+            } catch (JsonSyntaxException singleResultException) { // Expected single result, found none
+                
+            }
+        } 
+        finally {
+            if (response != null) {
+                response.disconnect();
+            }            
+        }
+        
+        if (tavernaRuns != null && tavernaRuns.getRunList() != null) {
+            return tavernaRuns.getRunList().getRun();
+        }
+        return new ArrayList<TavernaRun>();
+    }
+    
     public String getStatus(String uuid) throws TavernaException {
         String url = String.format("/runs/%s/status", uuid);
         HttpURLConnection response = request(url, TavernaServerMethods.GET, HttpURLConnection.HTTP_OK, null, "text/plain");
@@ -171,9 +205,18 @@ public class TavernaClient {
         String content = parseResponse(response);
         content = content.replace("@", "");
         Gson gson = new Gson();
-        TavernaWorkflowOutput output = gson.fromJson(content, TavernaWorkflowOutput.class);
-        if (response != null) {
-            response.disconnect();
+        TavernaWorkflowOutput output = null;
+        try {
+            output = gson.fromJson(content, TavernaWorkflowOutput.class);
+        } catch (JsonSyntaxException e) { // TavernaServer returned only one output tag
+            content = content.replace("output", "singleOutput");
+            output = gson.fromJson(content, TavernaWorkflowOutput.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (response != null) {
+                response.disconnect();
+            }   
         }
         return output;
     }
