@@ -5,8 +5,10 @@
  */
 package br.ufjf.pgcc.plscience.workflow;
 
-import br.ufjf.pgcc.plscience.workflow.model.TavernaExpectedInput;
-import br.ufjf.pgcc.plscience.workflow.model.TavernaInput;
+import br.ufjf.pgcc.plscience.workflow.model.input.TavernaExpectedInput;
+import br.ufjf.pgcc.plscience.workflow.model.input.TavernaInput;
+import br.ufjf.pgcc.plscience.workflow.model.output.TavernaOutput;
+import br.ufjf.pgcc.plscience.workflow.model.output.TavernaWorkflowOutput;
 
 /**
  *
@@ -22,27 +24,27 @@ public class TavernaSample {
         
         try {
             
-            String uuid = "";
+            String uuid = "0595961e-3001-4627-bc42-5f533f0c6426";
             String status = "";
-            TavernaExpectedInput inputs = new TavernaExpectedInput();
-            String output = "";
+            TavernaExpectedInput tavernaInput = new TavernaExpectedInput();
+            TavernaWorkflowOutput tavernaOutput = new TavernaWorkflowOutput();
             
-            uuid = client.create("/Users/vitorfs/Downloads/Web_Service_example.t2flow");
+            //uuid = client.create("/Users/vitorfs/Downloads/Web_Service_example.t2flow");
             System.out.println(uuid);
             
             status = client.getStatus(uuid);
             System.out.println(status);
             
-            inputs = client.getExpectedInputs(uuid);
-            for (TavernaInput input : inputs.getInputDescription().getInput()) {
+            tavernaInput = client.getExpectedInputs(uuid);
+            for (TavernaInput input : tavernaInput.getInputDescription().getInput()) {
                 System.out.println(input.getName());
             }
             
-            System.out.println(client.setInputValue(uuid, "Country", "Brazil"));
-            System.out.println(client.setInputValue(uuid, "City", "Juiz de Fora"));
+            //System.out.println(client.setInputValue(uuid, "Country", "Brazil"));
+            //System.out.println(client.setInputValue(uuid, "City", "Juiz de Fora"));
             
             
-            client.start(uuid);
+            /*client.start(uuid);
 
             do {
                 status = client.getStatus(uuid);
@@ -52,12 +54,14 @@ public class TavernaSample {
                 } catch (Exception e) {
                 }
             } while (!"Finished".equals(status));
-             
-            output = client.getOutput(uuid);
+            */
             
-            System.out.println(output);
+            tavernaOutput = client.getOutput(uuid);
+            for (TavernaOutput output : tavernaOutput.getWorkflowOutputs().getOutput()) {
+                System.out.println(output.getName());
+            }
             
-            client.destroy(uuid);
+            //client.destroy(uuid);
             
         } catch (Exception e) {
             e.printStackTrace();

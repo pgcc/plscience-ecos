@@ -1,7 +1,8 @@
 package br.ufjf.pgcc.plscience.workflow;
 
-import br.ufjf.pgcc.plscience.workflow.model.TavernaInput;
-import br.ufjf.pgcc.plscience.workflow.model.TavernaExpectedInput;
+import br.ufjf.pgcc.plscience.workflow.model.input.TavernaInput;
+import br.ufjf.pgcc.plscience.workflow.model.input.TavernaExpectedInput;
+import br.ufjf.pgcc.plscience.workflow.model.output.TavernaWorkflowOutput;
 import com.google.gson.Gson;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -164,14 +165,17 @@ public class TavernaClient {
         return content;
     }
     
-    public String getOutput(String uuid) throws TavernaException {
-        String url = String.format("/runs/%s/wd/out", uuid);
-        HttpURLConnection response = request(url, TavernaServerMethods.GET, HttpURLConnection.HTTP_OK, "application/json", "application/json");
+    public TavernaWorkflowOutput getOutput(String uuid) throws TavernaException {
+        String url = String.format("/runs/%s/output", uuid);
+        HttpURLConnection response = request(url, TavernaServerMethods.GET, HttpURLConnection.HTTP_OK, "application/json");
         String content = parseResponse(response);
+        content = content.replace("@", "");
+        Gson gson = new Gson();
+        TavernaWorkflowOutput output = gson.fromJson(content, TavernaWorkflowOutput.class);
         if (response != null) {
             response.disconnect();
         }
-        return content;
+        return output;
     }
     
     public TavernaExpectedInput getExpectedInputs(String uuid) throws TavernaException {
@@ -181,6 +185,9 @@ public class TavernaClient {
         content = content.replace("@", "");
         Gson gson = new Gson();
         TavernaExpectedInput input = gson.fromJson(content, TavernaExpectedInput.class);
+        if (response != null) {
+            response.disconnect();
+        }
         return input;        
     }
     
