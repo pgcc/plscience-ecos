@@ -5,6 +5,9 @@
  */
 package br.ufjf.pgcc.plscience.workflow;
 
+import br.ufjf.pgcc.plscience.workflow.model.TavernaExpectedInput;
+import br.ufjf.pgcc.plscience.workflow.model.TavernaInput;
+
 /**
  *
  * @author vitorfs
@@ -19,17 +22,27 @@ public class TavernaSample {
         
         try {
             
-            String uuid = "93bee8ba-7f85-45dc-aa8d-ba11feeb419e";
+            String uuid = "";
             String status = "";
+            TavernaExpectedInput inputs = new TavernaExpectedInput();
             String output = "";
             
-            //uuid = client.create("/Users/vitorfs/Downloads/Workflow_Bruno.t2flow");
+            uuid = client.create("/Users/vitorfs/Downloads/Web_Service_example.t2flow");
             System.out.println(uuid);
             
             status = client.getStatus(uuid);
             System.out.println(status);
             
-            //client.start(uuid);
+            inputs = client.getExpectedInputs(uuid);
+            for (TavernaInput input : inputs.getInputDescription().getInput()) {
+                System.out.println(input.getName());
+            }
+            
+            System.out.println(client.setInputValue(uuid, "Country", "Brazil"));
+            System.out.println(client.setInputValue(uuid, "City", "Juiz de Fora"));
+            
+            
+            client.start(uuid);
 
             do {
                 status = client.getStatus(uuid);
@@ -39,11 +52,12 @@ public class TavernaSample {
                 } catch (Exception e) {
                 }
             } while (!"Finished".equals(status));
-                
+             
             output = client.getOutput(uuid);
+            
             System.out.println(output);
             
-            //client.destroy(uuid);
+            client.destroy(uuid);
             
         } catch (Exception e) {
             e.printStackTrace();
