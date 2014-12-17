@@ -7,24 +7,10 @@
     <ui:define name="content">
         <div class="row">
             <div class="col-md-2">
-                <h:form>
-                    <p:menu style="width: 100%">
-                        <p:submenu label="Prototype">
-                            <p:menuitem value="Save" icon="ui-icon-disk" />
-                            <p:menuitem value="Update" icon="ui-icon-arrowrefresh-1-w"/>
-                        </p:submenu>
-                        <p:submenu label="BioCatalogue">
-                            <p:menuitem value="Search" outcome="/faces/experiments/experiment.xhtml" />
-                            <p:menuitem value="Lookup" outcome="/faces/experiments/experiment.xhtml" />
-                        </p:submenu>
-                        <p:submenu label="myExperiment">
-                            <p:menuitem value="Search Workflows" outcome="/faces/experiments/experiment.xhtml" />
-                        </p:submenu>
-                    </p:menu>
-                </h:form>
+                <ui:include src="contextMenu.xhtml" />
             </div>
             <div class="col-md-10">
-                <h2>Discover Web Services at BioCatalogue</h2>
+                <h2>Search at BioCatalogue</h2>
                 <h:form id="searchBioCatalogueForm">
                     <h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
                         <h:outputLabel value="Search Query: " for="searchBioCatalogue" />
@@ -34,11 +20,11 @@
                         <p:outputLabel for="scope" value="Scope:" />
                         <p:selectOneMenu id="scope" value="#{discoverBioCatalogue.scope}">
                             <f:selectItem itemLabel="All" itemValue="" />
-                            <f:selectItem itemLabel="Service" itemValue="Service" />
-                            <f:selectItem itemLabel="Soap Operation" itemValue="SoapOperation" />
-                            <f:selectItem itemLabel="Service Provider" itemValue="ServiceProvider" />
-                            <f:selectItem itemLabel="User" itemValue="User" />
-                            <f:selectItem itemLabel="Registry" itemValue="Registry" />
+                            <f:selectItem itemLabel="Service" itemValue="services" />
+                            <f:selectItem itemLabel="Soap Operation" itemValue="soap_operations" />
+                            <f:selectItem itemLabel="Service Provider" itemValue="service_providers" />
+                            <f:selectItem itemLabel="User" itemValue="users" />
+                            <f:selectItem itemLabel="Registry" itemValue="registries" />
                         </p:selectOneMenu>
                         <p:commandButton value="Search" icon="ui-icon-search" actionListener="#{discoverBioCatalogue.search}" update="searchResults" />
                     </h:panelGrid>
@@ -57,7 +43,6 @@
 
                         </p:column>
                     </p:dataTable>
-
                 </h:form>
             </div>
         </div>
