@@ -22,6 +22,7 @@ public class DiscoverBioCatalogue {
     
     private BioCatalogueClient client;
     private String searchQuery;
+    private String scope;
     private ArrayList<Result> results;
     private Result selectedResult;
     
@@ -32,7 +33,11 @@ public class DiscoverBioCatalogue {
     
     public void search() {
         try {
-            Search result = client.search(searchQuery);
+            String query = searchQuery;
+            if (scope != null && !scope.isEmpty()) {
+                query += "&scope=" + scope;
+            }
+            Search result = client.search(query);
             if (result != null) {
                 results = result.getResults();
             }
@@ -94,6 +99,20 @@ public class DiscoverBioCatalogue {
      */
     public void setSelectedResult(Result selectedResult) {
         this.selectedResult = selectedResult;
+    }
+
+    /**
+     * @return the scope
+     */
+    public String getScope() {
+        return scope;
+    }
+
+    /**
+     * @param scope the scope to set
+     */
+    public void setScope(String scope) {
+        this.scope = scope;
     }
     
 }

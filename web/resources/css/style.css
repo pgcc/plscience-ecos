@@ -1,14 +1,16 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Aug 14, 2014, 5:43:06 PM
-    Author     : vitorfs
-*/
-
 @import url(http://fonts.googleapis.com/css?family=Jockey+One);
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
 
 body {
     font-family: Arial,sans-serif;
@@ -35,14 +37,17 @@ header h1 {
     border-bottom: 1px solid #DDD;
 }
 
-.main {
-    margin: 20px;
-}
-
 .ui-breadcrumb ul li a {
     text-decoration: none;
 }
 
 .hide {
     display: none;
+}
+
+/* Prime Faces bug fixes caused by global box-sizing */
+.ui-selectonemenu .ui-selectonemenu-trigger {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
 }

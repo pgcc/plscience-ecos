@@ -5,6 +5,10 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
     <header>
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="/images/ajax-loader.gif" />
+        </p:dialog>
         <h1>Collaborative PL-Science</h1>
         <h:form>  
             <p:menubar>
@@ -15,9 +19,9 @@
                     <p:menuitem value="Domain Engineering"/>
                 </p:submenu>
                 <p:submenu label="Experiments" icon="ui-icon-lightbulb">
-                    <p:menuitem value="My Experiments" url="/faces/myExperiments.xhtml"/>
+                    <p:menuitem value="My Experiments" url="/faces/experiments/myExperiments.xhtml"/>
                     <p:menuitem value="Browse Experiments"/>
-                    <p:menuitem value="Experiment Life Cycle" url="/faces/experimentLifeCycle.xhtml"/>
+                    <p:menuitem value="Experiment Life Cycle" url="/faces/experiments/experimentLifeCycle.xhtml"/>
                 </p:submenu>
                 <p:submenu label="Scientific Workflow" icon="ui-icon-gear">
                     <p:menuitem value="My Workflows" url="/faces/myWorkflows.xhtml"/>
@@ -28,7 +32,7 @@
                 <p:menuitem value="Developers API" icon="ui-icon-script" />
                 <p:menuitem value="Settings" icon="ui-icon-wrench" />
                 <f:facet name="options">
-                    <p:commandButton value="New Experiment" icon="ui-icon-plusthick" action="newExperiment.xhtml?faces-redirect=true" />
+                    <p:commandButton value="New Experiment" icon="ui-icon-plusthick" action="experiments/newExperiment.xhtml?faces-redirect=true" />
                 </f:facet>
             </p:menubar>
         </h:form>

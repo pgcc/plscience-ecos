@@ -1,0 +1,65 @@
+<ui:composition template="/WEB-INF/templates/experimentLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-md-2">
+                <h:form>
+                    <p:menu style="width: 100%">
+                        <p:submenu label="Prototype">
+                            <p:menuitem value="Save" icon="ui-icon-disk" />
+                            <p:menuitem value="Update" icon="ui-icon-arrowrefresh-1-w"/>
+                        </p:submenu>
+                        <p:submenu label="BioCatalogue">
+                            <p:menuitem value="Search" outcome="/faces/experiments/experiment.xhtml" />
+                            <p:menuitem value="Lookup" outcome="/faces/experiments/experiment.xhtml" />
+                        </p:submenu>
+                        <p:submenu label="myExperiment">
+                            <p:menuitem value="Search Workflows" outcome="/faces/experiments/experiment.xhtml" />
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </div>
+            <div class="col-md-10">
+                <h2>Discover Web Services at BioCatalogue</h2>
+                <h:form id="searchBioCatalogueForm">
+                    <h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
+                        <h:outputLabel value="Search Query: " for="searchBioCatalogue" />
+                        <p:inputText id="searchBioCatalogue" value="#{discoverBioCatalogue.searchQuery}" required="true" label="Search">
+                            <f:validateLength minimum="1" />
+                        </p:inputText>
+                        <p:outputLabel for="scope" value="Scope:" />
+                        <p:selectOneMenu id="scope" value="#{discoverBioCatalogue.scope}">
+                            <f:selectItem itemLabel="All" itemValue="" />
+                            <f:selectItem itemLabel="Service" itemValue="Service" />
+                            <f:selectItem itemLabel="Soap Operation" itemValue="SoapOperation" />
+                            <f:selectItem itemLabel="Service Provider" itemValue="ServiceProvider" />
+                            <f:selectItem itemLabel="User" itemValue="User" />
+                            <f:selectItem itemLabel="Registry" itemValue="Registry" />
+                        </p:selectOneMenu>
+                        <p:commandButton value="Search" icon="ui-icon-search" actionListener="#{discoverBioCatalogue.search}" update="searchResults" />
+                    </h:panelGrid>
+
+                    <p:dataTable var="result" value="#{discoverBioCatalogue.results}" id="searchResults" style="margin-top: 20px">
+                        <p:column headerText="Name">
+                            <h:outputText value="#{result.name}" />
+                        </p:column>
+                        <p:column headerText="Description">
+                            <h:outputText value="#{result.description}" />
+                        </p:column>
+                        <p:column headerText="Resource">
+                            <a href="#{result.resource}" target="_blank">#{result.resource}</a>
+                        </p:column>
+                        <p:column headerText="" width="100">
+
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

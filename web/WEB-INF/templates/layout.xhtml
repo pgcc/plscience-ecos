@@ -2,19 +2,14 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <ui:include src="/WEB-INF/templates/head.xhtml" />
     </h:head>
     <h:body>
         <ui:include src="/WEB-INF/templates/header.xhtml" />
-        <div class="main" role="main">
+        <div class="container-fluid">
             <ui:insert name="content"></ui:insert>
         </div>
-        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-            <p:graphicImage name="/images/ajax-loader.gif" />
-        </p:dialog>
     </h:body>
 </html>

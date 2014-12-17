@@ -17,17 +17,14 @@
                 <p:column headerText="Id">
                     <h:outputText value="#{experiment.id}" />
                 </p:column>
-
                 <p:column headerText="Title">
                     <h:outputText value="#{experiment.title}" />
                 </p:column>
-
                 <p:column headerText="Description">
                     <h:outputText value="#{experiment.description}" />
                 </p:column>
-
                 <p:column>
-                    <p:commandButton action="experiment" value="Edit" icon="ui-icon-pencil" />
+                    <p:button href="/faces/experiments/experiment.xhtml" value="Edit" icon="ui-icon-pencil" />
                 </p:column>
             </p:dataTable>
         </h:form>

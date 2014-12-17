@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <ui:include src="/WEB-INF/templates/head.xhtml" />
+    </h:head>
+    <h:body>
+        <ui:include src="/WEB-INF/templates/header.xhtml" />
+        <div class="container-fluid">
+            <h2 class="page-header">Experiment</h2>
+            <p:tabMenu activeIndex="#{param.tab}">
+                <p:menuitem value="Experiment" outcome="/faces/experiments/experiment.xhtml">
+                    <f:param name="tab" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Problem Investigation" outcome="/faces/experiments/problemInvestigation.xhtml">
+                    <f:param name="tab" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Experiment Prototyping" outcome="/faces/experiments/experimentPrototyping.xhtml">
+                    <f:param name="tab" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Experiment Execution" outcome="/faces/experiments/experimentPrototyping.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Results Publication" outcome="/faces/experiments/resultsPublication.xhtml">
+                    <f:param name="tab" value="4" />
+                </p:menuitem>
+            </p:tabMenu>
+            <ui:insert name="content"></ui:insert>
+        </div>
+    </h:body>
+</html>
