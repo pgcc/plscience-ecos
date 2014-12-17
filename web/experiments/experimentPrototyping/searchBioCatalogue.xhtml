@@ -28,7 +28,6 @@
                         </p:selectOneMenu>
                         <p:commandButton value="Search" icon="ui-icon-search" actionListener="#{discoverBioCatalogue.search}" update="searchResults" />
                     </h:panelGrid>
-
                     <p:dataTable var="result" value="#{discoverBioCatalogue.results}" id="searchResults" style="margin-top: 20px">
                         <p:column headerText="Name">
                             <h:outputText value="#{result.name}" />
@@ -39,10 +38,58 @@
                         <p:column headerText="Resource">
                             <a href="#{result.resource}" target="_blank">#{result.resource}</a>
                         </p:column>
-                        <p:column headerText="" width="100">
-
+                        <p:column headerText="" width="150">
+                            <p:commandButton update=":searchBioCatalogueForm:resourceDetails" oncomplete="PF('resourceDetailsDialog').show()" title="View Details" value="View Details">
+                                <f:setPropertyActionListener value="#{result}" target="#{discoverBioCatalogue.selectedResult}" />
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
+                    
+                    <p:dialog header="Resource Details" widgetVar="resourceDetailsDialog" modal="true" height="600" width="800">
+                        <p:outputPanel id="resourceDetails">
+                            <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty discoverBioCatalogue.selectedResult}">
+                                <h:outputText value="Name: " style="font-weight: bold" />
+                                <h:outputText value="#{discoverBioCatalogue.selectedResult.name}" />
+
+                                <h:outputText value="Description: " style="font-weight: bold" />
+                                <h:outputText value="#{discoverBioCatalogue.selectedResult.description}" />
+
+                                <h:outputText value="Resource: " style="font-weight: bold" />
+                                <a href="#{discoverBioCatalogue.selectedResult.resource}" target="_blank">#{discoverBioCatalogue.selectedResult.resource}</a>
+                                
+                                <h:outputText value="Submitter: " style="font-weight: bold" />
+                                <a href="#{discoverBioCatalogue.selectedResult.submitter}" target="_blank">#{discoverBioCatalogue.selectedResult.submitter}</a>
+                                
+                                <h:outputText value="Created at: " style="font-weight: bold" />
+                                <h:outputText value="#{discoverBioCatalogue.selectedResult.created_at}" />
+                                
+                                <h:outputText value="Archived at: " style="font-weight: bold" />
+                                <h:outputText value="#{discoverBioCatalogue.selectedResult.archived_at}" />
+                                
+                                <h:outputText value="Parameter Order: " style="font-weight: bold" />
+                                <h:outputText value="#{discoverBioCatalogue.selectedResult.parameter_order}" />
+                                
+                                <h:outputText value="Technology Types: " style="font-weight: bold" />
+                                <p:dataList value="#{discoverBioCatalogue.selectedResult.service_technology_types}" var="technologyType">
+                                    #{technologyType}
+                                </p:dataList>
+                                
+                                <h:outputText value="Latest Monitoring Status: " style="font-weight: bold" />
+                                <p:dataTable var="monitoringStatus" value="#{discoverBioCatalogue.selectedResult.latest_monitoring_status}">
+                                    <p:column headerText="Status">
+                                        <h:graphicImage url="#{monitoringStatus.small_symbol}" />
+                                        <h:outputText value="#{monitoringStatus.label}" />
+                                    </p:column>
+                                    <p:column headerText="Message">
+                                        <h:outputText value="#{monitoringStatus.message}" />
+                                    </p:column>
+                                    <p:column headerText="Last Checked">
+                                        <h:outputText value="#{monitoringStatus.last_checked}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog> 
                 </h:form>
             </div>
         </div>

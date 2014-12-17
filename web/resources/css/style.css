@@ -51,3 +51,7 @@ header h1 {
      -moz-box-sizing: content-box;
           box-sizing: content-box;
 }
+
+.container, .container-fluid {
+    margin-bottom: 20px;
+}
