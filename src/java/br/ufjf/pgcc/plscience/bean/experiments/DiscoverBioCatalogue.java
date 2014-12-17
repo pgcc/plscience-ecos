@@ -23,6 +23,7 @@ public class DiscoverBioCatalogue {
     private BioCatalogueClient client;
     private String searchQuery;
     private ArrayList<Result> results;
+    private Result selectedResult;
     
     public DiscoverBioCatalogue() {
         client = new BioCatalogueClient();
@@ -79,6 +80,20 @@ public class DiscoverBioCatalogue {
      */
     public void setResults(ArrayList<Result> results) {
         this.results = results;
+    }
+
+    /**
+     * @return the selectedResult
+     */
+    public Result getSelectedResult() {
+        return selectedResult;
+    }
+
+    /**
+     * @param selectedResult the selectedResult to set
+     */
+    public void setSelectedResult(Result selectedResult) {
+        this.selectedResult = selectedResult;
     }
     
 }
