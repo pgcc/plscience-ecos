@@ -9,10 +9,12 @@
     </h:head>
     <h:body>
         <ui:include src="/WEB-INF/templates/header.xhtml" />
-        <p:layout>
-            <p:layoutUnit position="center">
-                <ui:insert name="content"></ui:insert>
-            </p:layoutUnit>
-        </p:layout>
+        <div class="main" role="main">
+            <ui:insert name="content"></ui:insert>
+        </div>
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="/images/ajax-loader.gif" />
+        </p:dialog>
     </h:body>
 </html>
