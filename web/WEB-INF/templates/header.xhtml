@@ -20,17 +20,30 @@
                 </p:submenu>
                 <p:submenu label="Experiments" icon="ui-icon-lightbulb">
                     <p:menuitem value="My Experiments" url="/faces/experiments/myExperiments.xhtml"/>
+                    <p:menuitem icon="ui-icon-locked" value="Experiments" url="/faces/experiments.xhtml"/>
+                    <p:menuitem icon="ui-icon-locked" value="Workflow x Experiment" url="/faces/workflowxexperiment.xhtml"/>
                     <p:menuitem value="Browse Experiments"/>
                     <p:menuitem value="Experiment Life Cycle" url="/faces/experiments/experimentLifeCycle.xhtml"/>
                 </p:submenu>
                 <p:submenu label="Scientific Workflow" icon="ui-icon-gear">
                     <p:menuitem value="My Workflows" url="/faces/myWorkflows.xhtml"/>
+                    <p:menuitem icon="ui-icon-document" value="Workflows" url="/faces/workflows.xhtml"/>
+                    <p:menuitem icon="ui-icon-document" value="Tasks" url="/faces/tasks.xhtml"/>
                     <p:menuitem value="Browse Workflows"/>
                     <p:menuitem value="Workflow Management System"/>
                 </p:submenu>
+                <p:submenu label="Members" icon="ui-icon-contact">
+                    <p:menuitem icon="ui-icon-person" value="Research" url="/faces/research.xhtml"/>
+                    <p:menuitem icon="ui-icon-search" value="Research Group" url="/faces/researchgroup.xhtml"/>
+                    <p:menuitem icon="ui-icon-search" value="Research x Group" url="/faces/researchxgroup.xhtml"/>
+                    <p:menuitem icon="ui-icon-comment" value="Vídeo Chat" url="/faces/videochat.xhtml"/>
+                </p:submenu>
                 <p:menuitem value="Network" icon="ui-icon-person" />
                 <p:menuitem value="Developers API" icon="ui-icon-script" />
-                <p:menuitem value="Settings" icon="ui-icon-wrench" />
+                <p:submenu label="Settings" icon="ui-icon-wrench">
+                    <p:menuitem value="Manager Institute" icon="ui-icon-gear" url="/faces/institute.xhtml" />
+                    <p:menuitem value="Manager Activity" icon="ui-icon-gear" url="/faces/activity.xhtml" />
+                </p:submenu>
                 <f:facet name="options">
                     <p:commandButton value="New Experiment" icon="ui-icon-plusthick" action="experiments/newExperiment.xhtml?faces-redirect=true" />
                 </f:facet>
