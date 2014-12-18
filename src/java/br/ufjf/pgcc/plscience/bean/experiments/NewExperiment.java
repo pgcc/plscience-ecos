@@ -30,7 +30,7 @@ public class NewExperiment {
     
     public void save() {
         try {
-            new ExperimentDAO().persist(experiment);
+            new ExperimentDAO().save(experiment);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment created with success!"));   
         } catch (HibernateException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   

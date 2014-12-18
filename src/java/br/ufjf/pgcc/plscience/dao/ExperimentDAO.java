@@ -16,10 +16,18 @@ import javax.persistence.Query;
  */
 public class ExperimentDAO extends GenericDAO {
     
-    public Long persist(Experiment experiment) {
+    public Long save(Experiment experiment) {
         EntityManager em = getEntityManager();
-        em.persist(experiment);
-        return experiment.getId();    
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }
+        if (experiment.getId() == null) {
+            em.persist(experiment);
+        } else {
+            experiment = em.merge(experiment);
+        }
+        em.getTransaction().commit();
+        return experiment.getId();
     }
     
     public List<Experiment> getAll() {
