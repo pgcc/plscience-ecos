@@ -6,8 +6,8 @@
 
 package br.ufjf.pgcc.plscience.bean.experiments;
 
-import br.ufjf.pgcc.plscience.domain.Experiment;
-import br.ufjf.pgcc.plscience.repository.ExperimentRepository;
+import br.ufjf.pgcc.plscience.model.Experiment;
+import br.ufjf.pgcc.plscience.dao.ExperimentRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;

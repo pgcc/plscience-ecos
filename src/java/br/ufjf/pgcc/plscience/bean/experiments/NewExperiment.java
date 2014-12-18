@@ -10,8 +10,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import br.ufjf.pgcc.plscience.domain.Experiment;
-import br.ufjf.pgcc.plscience.repository.ExperimentRepository;
+import br.ufjf.pgcc.plscience.model.Experiment;
+import br.ufjf.pgcc.plscience.dao.ExperimentRepository;
 import org.hibernate.HibernateException;
 
 /**
