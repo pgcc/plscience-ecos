@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufjf.pgcc.plscience.bean.experiments;
+package br.ufjf.pgcc.plscience.bean.experiments.prototyping;
 
 import br.ufjf.myexperiment.core.MyExperimentClient;
 import br.ufjf.myexperiment.model.File;
@@ -36,7 +36,7 @@ public class SearchMyExperiment {
     
     public SearchMyExperiment() {
         client = new MyExperimentClient();
-        client.setBaseUri("http://www.myexperiment.org/");
+        client.setBaseUri("http://www.myexperiment.org");
     }
     
     public void search() {

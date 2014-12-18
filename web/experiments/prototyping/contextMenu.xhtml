@@ -6,25 +6,25 @@
     <h:form>
         <p:menu style="width: 100%">
             <p:submenu label="Workspace">
-                <p:menuitem value="Prototype" outcome="experimentPrototyping.xhtml">
+                <p:menuitem value="Prototype" outcome="/experiments/prototyping/experimentPrototyping.xhtml">
                     <f:param name="tab" value="2" />
                 </p:menuitem>
                 <p:menuitem value="Save" icon="ui-icon-disk" />
                 <p:menuitem value="Update" icon="ui-icon-arrowrefresh-1-w"/>
             </p:submenu>
             <p:submenu label="BioCatalogue">
-                <p:menuitem value="Search Resources" outcome="searchBioCatalogue.xhtml">
+                <p:menuitem value="Search Resources" outcome="/experiments/prototyping/searchBioCatalogue.xhtml">
                     <f:param name="tab" value="2" />
                 </p:menuitem>
-                <p:menuitem value="Discover Web Services" outcome="searchBioCatalogue.xhtml">
+                <p:menuitem value="Discover Web Services">
                     <f:param name="tab" value="2" />
                 </p:menuitem>
             </p:submenu>
             <p:submenu label="myExperiment">
-                <p:menuitem value="Search Resources" outcome="searchMyExperiment.xhtml">
+                <p:menuitem value="Search Resources" outcome="/experiments/prototyping/searchMyExperiment.xhtml">
                     <f:param name="tab" value="2" />
                 </p:menuitem>
-                <p:menuitem value="Discover Workflows" outcome="searchBioCatalogue.xhtml">
+                <p:menuitem value="Discover Workflows">
                     <f:param name="tab" value="2" />
                 </p:menuitem>
             </p:submenu>

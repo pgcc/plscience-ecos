@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufjf.pgcc.plscience.bean.experiments;
+package br.ufjf.pgcc.plscience.bean.experiments.prototyping;
 
 import br.ufjf.biocatalogue.core.BioCatalogueClient;
 import br.ufjf.biocatalogue.model.Result;
