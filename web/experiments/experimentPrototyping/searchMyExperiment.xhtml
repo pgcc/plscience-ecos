@@ -1,0 +1,118 @@
+<ui:composition template="/WEB-INF/templates/experimentLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-md-2">
+                <ui:include src="contextMenu.xhtml" />
+            </div>
+            <div class="col-md-10">
+                <h2>Search at myExperiment</h2>
+                <h:form id="searchMyExperimentForm">
+                    <h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
+                        <h:outputLabel value="Search Query: " for="searchMyExperiment" />
+                        <p:inputText id="searchMyExperiment" value="#{searchMyExperiment.searchQuery}" required="true" label="Search">
+                            <f:validateLength minimum="1" />
+                        </p:inputText>
+                        <p:outputLabel for="type" value="Type:" />
+                        <p:selectOneMenu id="type" value="#{searchMyExperiment.type}">
+                            <f:selectItem itemLabel="All" itemValue="" />
+                            <f:selectItem itemLabel="User" itemValue="user" />
+                            <f:selectItem itemLabel="Workflow" itemValue="workflow" />
+                            <f:selectItem itemLabel="File" itemValue="file" />
+                            <f:selectItem itemLabel="Group" itemValue="group" />
+                            <f:selectItem itemLabel="Pack" itemValue="pack" />
+                        </p:selectOneMenu>
+                        <p:commandButton value="Search" icon="ui-icon-search" actionListener="#{searchMyExperiment.search}" update="searchResults" />
+                    </h:panelGrid>
+                    <p:outputPanel id="searchResults">
+                        <p:dataTable var="result" value="#{searchMyExperiment.workflows}" rendered="#{searchMyExperiment.workflows ne null}" style="margin-top: 20px">
+                            <f:facet name="header">
+                                Workflows
+                            </f:facet>
+                            <p:column headerText="Id" width="100">
+                                <h:outputText value="#{result.id}" />
+                            </p:column>
+                            <p:column headerText="Version" width="100">
+                                <h:outputText value="#{result.version}" />
+                            </p:column>
+                            <p:column headerText="Description">
+                                <h:outputText value="#{result.description}" />
+                            </p:column>
+                            <p:column headerText="Resource">
+                                <a href="#{result.resource}" target="_blank">#{result.resource}</a>
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <p:dataTable var="result" value="#{searchMyExperiment.files}" rendered="#{searchMyExperiment.files ne null}" style="margin-top: 20px">
+                            <f:facet name="header">
+                                Files
+                            </f:facet>
+                            <p:column headerText="Id" width="100">
+                                <h:outputText value="#{result.id}" />
+                            </p:column>
+                            <p:column headerText="Version" width="100">
+                                <h:outputText value="#{result.version}" />
+                            </p:column>
+                            <p:column headerText="Description">
+                                <h:outputText value="#{result.description}" />
+                            </p:column>
+                            <p:column headerText="Resource">
+                                <a href="#{result.resource}" target="_blank">#{result.resource}</a>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:dataTable var="result" value="#{searchMyExperiment.packs}" rendered="#{searchMyExperiment.packs ne null}" style="margin-top: 20px">
+                            <f:facet name="header">
+                                Packs
+                            </f:facet>
+                            <p:column headerText="Id" width="100">
+                                <h:outputText value="#{result.id}" />
+                            </p:column>
+                            <p:column headerText="Description">
+                                <h:outputText value="#{result.description}" />
+                            </p:column>
+                            <p:column headerText="Resource">
+                                <a href="#{result.resource}" target="_blank">#{result.resource}</a>
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <p:dataTable var="result" value="#{searchMyExperiment.groups}" rendered="#{searchMyExperiment.groups ne null}" style="margin-top: 20px">
+                            <f:facet name="header">
+                                Groups
+                            </f:facet>
+                            <p:column headerText="Id" width="100">
+                                <h:outputText value="#{result.id}" />
+                            </p:column>
+                            <p:column headerText="Description">
+                                <h:outputText value="#{result.description}" />
+                            </p:column>
+                            <p:column headerText="Resource">
+                                <a href="#{result.resource}" target="_blank">#{result.resource}</a>
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <p:dataTable var="result" value="#{searchMyExperiment.users}" rendered="#{searchMyExperiment.users ne null}" style="margin-top: 20px">
+                            <f:facet name="header">
+                                Users
+                            </f:facet>
+                            <p:column headerText="Id" width="100">
+                                <h:outputText value="#{result.id}" />
+                            </p:column>
+                            <p:column headerText="Description">
+                                <h:outputText value="#{result.description}" />
+                            </p:column>
+                            <p:column headerText="Resource">
+                                <a href="#{result.resource}" target="_blank">#{result.resource}</a>
+                            </p:column>
+                        </p:dataTable>
+                        
+                    </p:outputPanel>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

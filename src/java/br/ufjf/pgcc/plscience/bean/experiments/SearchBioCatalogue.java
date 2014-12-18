@@ -18,15 +18,15 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean()
 @ViewScoped
-public class DiscoverBioCatalogue {
+public class SearchBioCatalogue {
     
-    private BioCatalogueClient client;
+    private final BioCatalogueClient client;
     private String searchQuery;
     private String scope;
     private ArrayList<Result> results;
     private Result selectedResult;
     
-    public DiscoverBioCatalogue() {
+    public SearchBioCatalogue() {
         client = new BioCatalogueClient();
         client.setBaseUri("https://www.biocatalogue.org");
     }
@@ -43,20 +43,6 @@ public class DiscoverBioCatalogue {
             }
         } catch (Exception e) {
         }
-    }
-
-    /**
-     * @return the client
-     */
-    public BioCatalogueClient getClient() {
-        return client;
-    }
-
-    /**
-     * @param client the client to set
-     */
-    public void setClient(BioCatalogueClient client) {
-        this.client = client;
     }
 
     /**
