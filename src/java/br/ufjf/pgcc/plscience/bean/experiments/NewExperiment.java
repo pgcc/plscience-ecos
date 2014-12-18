@@ -11,7 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import br.ufjf.pgcc.plscience.model.Experiment;
-import br.ufjf.pgcc.plscience.dao.ExperimentRepository;
+import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import org.hibernate.HibernateException;
 
 /**
@@ -23,16 +23,14 @@ import org.hibernate.HibernateException;
 public class NewExperiment {
     
     private Experiment experiment;
-    //private final ExperimentRepository repository;
     
     public NewExperiment() {
         this.experiment = new Experiment();
-        //this.repository = new ExperimentRepository();
     }
     
     public void save() {
         try {
-            //repository.save(experiment);
+            new ExperimentDAO().persist(experiment);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment created with success!"));   
         } catch (HibernateException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   

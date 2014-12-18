@@ -7,8 +7,7 @@
 package br.ufjf.pgcc.plscience.bean.experiments;
 
 import br.ufjf.pgcc.plscience.model.Experiment;
-import br.ufjf.pgcc.plscience.dao.ExperimentRepository;
-import java.util.ArrayList;
+import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -21,23 +20,14 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class MyExperiments {
     
-    private List<Experiment> experiments;
-    private final ExperimentRepository repository;
     private Experiment selectedExperiment;
     
     public MyExperiments() {
-        repository = new ExperimentRepository();
-        //experiments = repository.findAll();
-        experiments = new ArrayList<Experiment>();
-        Experiment e = new Experiment();
-        e.setTitle("Teste");
-        e.setDescription("Teste");
-        e.setId((long)1);
-        experiments.add(e);
+        
     }
     
     public List<Experiment> getExperiments() {
-        return experiments;
+        return new ExperimentDAO().getAll();
     }
     
     public String editExperiment() {
