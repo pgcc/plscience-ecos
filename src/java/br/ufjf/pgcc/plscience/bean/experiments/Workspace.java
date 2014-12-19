@@ -21,40 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.ufjf.pgcc.plscience.dao;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+package br.ufjf.pgcc.plscience.bean.experiments;
 
 /**
  *
  * @author vitorfs
  */
-public class GenericDAO {
-
-    private EntityManager entityManager = null;
-
-    public GenericDAO() {
-
-    }
-
-    protected void createEntityManager() {
-        entityManager = Persistence.createEntityManagerFactory("PLSciencePU").createEntityManager();
-    }
-
-    public EntityManager getEntityManager() {
-        if (entityManager == null || !entityManager.isOpen()) {
-            createEntityManager();
-        }
-        return entityManager;
-    }
-
-    @Override
-    public void finalize() throws Throwable {
-        if (this.entityManager != null && this.entityManager.isOpen()) {
-            this.entityManager.close();
-            this.entityManager = null;
-        }
-        super.finalize();
-    }
+public class Workspace {
+    
 }
