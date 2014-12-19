@@ -23,27 +23,38 @@
  */
 package br.ufjf.pgcc.plscience.dao;
 
-import br.ufjf.pgcc.plscience.model.Experiment;
-import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author vitorfs
  */
-public class ExperimentDAO extends GenericDAO {
+public abstract class GenericDAO {
     
-    public void save(Experiment experiment) {
-        getEntityManager().getTransaction().begin();
-        getEntityManager().persist(experiment);
-        getEntityManager().getTransaction().commit();
-        finish();
+    private EntityManagerFactory emf;
+    private EntityManager em;
+    
+    public EntityManager getEntityManager() {
+        if (emf == null || !emf.isOpen()) {
+            emf = Persistence.createEntityManagerFactory("PLSciencePU");
+        }
+        if (em == null || !em.isOpen()) {
+            em = emf.createEntityManager();
+        }
+        return em;
     }
     
-    public List<Experiment> getAll() {
-        Query query = getEntityManager().createQuery("SELECT e FROM Experiment e");
-        List<Experiment> experiments = query.getResultList();
-        finish();
-        return experiments;
+    public void finish() {
+        if (emf != null && emf.isOpen()) {
+            emf.close();
+            emf = null;
+        }
+        if (em != null && em.isOpen()) {
+            em.close();
+            em = null;
+        }
     }
+    
 }

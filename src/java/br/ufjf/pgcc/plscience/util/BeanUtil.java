@@ -21,39 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.ufjf.pgcc.plscience.bean.experiments.execution;
+package br.ufjf.pgcc.plscience.util;
 
-import br.ufjf.taverna.core.TavernaClient;
-import br.ufjf.taverna.model.run.TavernaRun;
-import java.io.Serializable;
-import java.util.ArrayList;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.el.ELContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author vitorfs
  */
-@ManagedBean()
-@ViewScoped
-public class TavernaWorkflow implements Serializable {
+public class BeanUtil {
     
-    private static final long serialVersionUID = 1L;
-
-    private final TavernaClient client;
-    
-    public TavernaWorkflow() {
-        client = new TavernaClient();
-        client.setBaseUri("http://ec2-54-191-44-161.us-west-2.compute.amazonaws.com:8080/TavernaServer-2.5.4/rest");
-        client.setAuthorization("taverna", "taverna");   
-    }
-    
-    public ArrayList<TavernaRun> getRuns() {
-        try {
-            return client.getRuns();
-        } catch (Exception e) {
-        }
-        return new ArrayList<TavernaRun>();
+    public static Object getManagedBean(String managedBean) {
+        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+        Object object = FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, managedBean);
+        return object;
     }
     
 }
