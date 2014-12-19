@@ -1,0 +1,20 @@
+<ui:composition template="/WEB-INF/templates/experimentLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-md-2">
+                <ui:include src="/experiments/execution/contextMenu.xhtml" />
+            </div>
+            <div class="col-md-10">
+                <h2>Import T2flow</h2>
+                <h:form enctype="multipart/form-data"> 
+                    <p:fileUpload value="#{tavernaWorkflows.t2flowFile}" mode="advanced" allowTypes="/(\.|\/)t2flow$/" />
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -25,7 +25,6 @@ package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.Experiment;
 import java.util.List;
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 /**
  *

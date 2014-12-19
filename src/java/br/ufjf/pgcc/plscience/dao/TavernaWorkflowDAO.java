@@ -25,9 +25,6 @@ package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.TavernaWorkflow;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
