@@ -18,8 +18,8 @@ import javax.persistence.Table;
  * @author vitorfs
  */
 @Entity
-@Table(name="user")
-public class User implements Serializable {
+@Table(name="scientist")
+public class Scientist implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

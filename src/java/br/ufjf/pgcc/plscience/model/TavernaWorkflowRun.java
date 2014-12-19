@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -34,6 +36,14 @@ public class TavernaWorkflowRun implements Serializable {
     
     @Column(name="status")
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name="experiment_id")
+    private Experiment experiment;
+    
+    @ManyToOne
+    @JoinColumn(name="scientist_id")
+    private Scientist scientist;
 
     /**
      * @return the id
@@ -89,6 +99,34 @@ public class TavernaWorkflowRun implements Serializable {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the scientist
+     */
+    public Scientist getScientist() {
+        return scientist;
+    }
+
+    /**
+     * @param scientist the scientist to set
+     */
+    public void setScientist(Scientist scientist) {
+        this.scientist = scientist;
+    }
+
+    /**
+     * @return the experiment
+     */
+    public Experiment getExperiment() {
+        return experiment;
+    }
+
+    /**
+     * @param experiment the experiment to set
+     */
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
     }
     
 }

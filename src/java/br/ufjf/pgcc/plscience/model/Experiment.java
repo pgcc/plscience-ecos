@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,6 +34,10 @@ public class Experiment implements Serializable {
     
     @Column(name="description")
     private String description;
+    
+    @ManyToOne
+    @JoinColumn(name="scientist_id")
+    private Scientist scientist;
 
     /**
      * @return the id
@@ -73,6 +79,20 @@ public class Experiment implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the scientist
+     */
+    public Scientist getScientist() {
+        return scientist;
+    }
+
+    /**
+     * @param scientist the scientist to set
+     */
+    public void setScientist(Scientist scientist) {
+        this.scientist = scientist;
     }
     
 }
