@@ -38,26 +38,24 @@ import javax.persistence.Table;
  * @author vitorfs
  */
 @Entity
-@Table(name="taverna_workflow_run")
-public class TavernaWorkflowRun implements Serializable {
-    
+@Table(name="taverna_workflow")
+public class TavernaWorkflow implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     private Long id;
     
-    @Column(name="uuid")
-    private String uuid;
-
-    @Column(name="name")
-    private String name;
-    
-    @Column(name="status")
-    private String status;
+    @Column(name="t2flow", columnDefinition="MEDIUMTEXT")
+    private String t2flow;
     
     @ManyToOne
-    @JoinColumn(name="taverna_workflow_id")
-    private TavernaWorkflow tavernaWorkflow;
+    @JoinColumn(name="experiment_id")
+    private Experiment experiment;
+    
+    @ManyToOne
+    @JoinColumn(name="scientist_id")
+    private Scientist scientist;
 
     /**
      * @return the id
@@ -74,45 +72,45 @@ public class TavernaWorkflowRun implements Serializable {
     }
 
     /**
-     * @return the uuid
+     * @return the t2flow
      */
-    public String getUuid() {
-        return uuid;
+    public String getT2flow() {
+        return t2flow;
     }
 
     /**
-     * @param uuid the uuid to set
+     * @param t2flow the t2flow to set
      */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setT2flow(String t2flow) {
+        this.t2flow = t2flow;
     }
 
     /**
-     * @return the name
+     * @return the experiment
      */
-    public String getName() {
-        return name;
+    public Experiment getExperiment() {
+        return experiment;
     }
 
     /**
-     * @param name the name to set
+     * @param experiment the experiment to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
     }
 
     /**
-     * @return the status
+     * @return the scientist
      */
-    public String getStatus() {
-        return status;
+    public Scientist getScientist() {
+        return scientist;
     }
 
     /**
-     * @param status the status to set
+     * @param scientist the scientist to set
      */
-    public void setStatus(String status) {
-        this.status = status;
+    public void setScientist(Scientist scientist) {
+        this.scientist = scientist;
     }
     
 }
