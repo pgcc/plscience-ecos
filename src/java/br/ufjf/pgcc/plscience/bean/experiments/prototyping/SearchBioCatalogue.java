@@ -39,6 +39,8 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class SearchBioCatalogue implements Serializable {
     
+    private static final long serialVersionUID = 1L;
+    
     private final BioCatalogueClient client;
     private String searchQuery;
     private String scope;

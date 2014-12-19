@@ -38,7 +38,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class MyExperiments implements Serializable {
     
-    private Experiment selectedExperiment;
+    private static final long serialVersionUID = 1L;
     
     public MyExperiments() {
         
@@ -46,24 +46,6 @@ public class MyExperiments implements Serializable {
     
     public List<Experiment> getExperiments() {
         return new ExperimentDAO().getAll();
-    }
-    
-    public String editExperiment() {
-        return "experiment?faces-redirect=true";
-    }
-
-    /**
-     * @return the selectedExperiment
-     */
-    public Experiment getSelectedExperiment() {
-        return selectedExperiment;
-    }
-
-    /**
-     * @param selectedExperiment the selectedExperiment to set
-     */
-    public void setSelectedExperiment(Experiment selectedExperiment) {
-        this.selectedExperiment = selectedExperiment;
     }
     
 }

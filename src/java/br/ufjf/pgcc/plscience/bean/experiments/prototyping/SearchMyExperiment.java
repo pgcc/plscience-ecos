@@ -43,6 +43,8 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class SearchMyExperiment implements Serializable {
     
+    private static final long serialVersionUID = 1L;
+    
     private final MyExperimentClient client;
     private String searchQuery;
     private String type;

@@ -23,10 +23,35 @@
  */
 package br.ufjf.pgcc.plscience.bean.experiments;
 
+import br.ufjf.pgcc.plscience.model.Experiment;
+import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 /**
  *
  * @author vitorfs
  */
-public class Workspace {
+@ManagedBean()
+@SessionScoped
+public class Workspace implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
+    private Experiment experiment;
+
+    /**
+     * @return the experiment
+     */
+    public Experiment getExperiment() {
+        return experiment;
+    }
+
+    /**
+     * @param experiment the experiment to set
+     */
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
+    }
     
 }

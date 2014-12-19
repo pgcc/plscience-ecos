@@ -8,12 +8,8 @@
         <h2 class="page-header">My Experiments</h2>
 
         <h:form>
-            <p:dataTable var="experiment" 
-                         value="#{myExperiments.experiments}" 
-                         selection="#{myExperiments.selectedExperiment}" 
-                         selectionMode="single"
-                         style="margin: 20px 0"
-                         rowKey="#{experiment.id}">
+            <p:dataTable var="experiment" value="#{myExperiments.experiments}" style="margin: 20px 0">
+                
                 <p:column headerText="Id">
                     <h:outputText value="#{experiment.id}" />
                 </p:column>
@@ -24,7 +20,13 @@
                     <h:outputText value="#{experiment.description}" />
                 </p:column>
                 <p:column>
-                    
+                    <p:commandButton title="Edit" 
+                                     value="Edit" 
+                                     icon="ui-icon-pencil" 
+                                     action="/faces/experiments/experiment.xhtml?faces-redirect=true"
+                                     ajax="false">
+                        <f:setPropertyActionListener value="#{experiment}" target="#{workspace.experiment}" />
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
         </h:form>

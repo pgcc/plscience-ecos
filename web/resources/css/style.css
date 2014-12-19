@@ -45,6 +45,12 @@ header h1 {
     display: none;
 }
 
+.panelGridLabel {
+    text-align: right;
+    display: block;
+    font-weight: bold;
+}
+
 /* Prime Faces bug fixes caused by global box-sizing */
 .ui-selectonemenu .ui-selectonemenu-trigger {
   -webkit-box-sizing: content-box;

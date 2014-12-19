@@ -5,6 +5,18 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputLabel value="Id:" styleClass="panelGridLabel" />
+                <h:outputText value="#{workspace.experiment.id}" />
+                
+                <h:outputLabel value="Title:" styleClass="panelGridLabel" />
+                <h:outputText value="#{workspace.experiment.title}" />
+                
+                <h:outputLabel value="Description:" styleClass="panelGridLabel" />
+                <h:outputText value="#{workspace.experiment.description}" />
+                
+            </h:panelGrid>
+        </h:form>
     </ui:define>
 </ui:composition>

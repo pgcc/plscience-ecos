@@ -40,6 +40,8 @@ import org.hibernate.HibernateException;
 @ViewScoped
 public class NewExperiment implements Serializable {
     
+    private static final long serialVersionUID = 1L;
+    
     private Experiment experiment;
     
     public NewExperiment() {
