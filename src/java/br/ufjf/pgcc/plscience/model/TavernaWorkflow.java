@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -70,9 +71,12 @@ public class TavernaWorkflow implements Serializable {
     @Column(name="created_at")
     private Date createdAt;
     
-    @OneToMany
-    private Set<TavernaWorkflowRun> runs = new HashSet<TavernaWorkflowRun>(0);
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tavernaWorkflow")
+    private Set<TavernaWorkflowRun> runs = new HashSet<TavernaWorkflowRun>();
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tavernaWorkflow")
+    private Set<TavernaWorkflowInput> inputs = new HashSet<TavernaWorkflowInput>();
+        
     /**
      * @return the id
      */
@@ -169,6 +173,20 @@ public class TavernaWorkflow implements Serializable {
      */
     public void setRuns(Set<TavernaWorkflowRun> runs) {
         this.runs = runs;
+    }
+
+    /**
+     * @return the inputs
+     */
+    public Set<TavernaWorkflowInput> getInputs() {
+        return inputs;
+    }
+
+    /**
+     * @param inputs the inputs to set
+     */
+    public void setInputs(Set<TavernaWorkflowInput> inputs) {
+        this.inputs = inputs;
     }
     
 }

@@ -13,7 +13,7 @@
                 <h2>TavernaServer Active Runs</h2>
                 
                 <h:form>
-                    <p:dataTable var="run" value="#{tavernaWorkflows.runs}" id="tavernaRuns" style="margin-top: 20px">
+                    <p:dataTable var="run" value="#{tavernaWorkflows.tavernaServerRuns}" id="tavernaRuns" style="margin-top: 20px">
                         <p:column headerText="UUID">
                             <h:outputText value="#{run.uuid}" />
                         </p:column>
@@ -22,6 +22,11 @@
                         </p:column>
                         <p:column headerText="Resource">
                             <a href="#{run.href}" target="_blank">#{run.href}</a>
+                        </p:column>
+                        <p:column headerText="" width="150">
+                            <p:commandButton update="tavernaRuns" title="Destroy" value="Destroy" action="#{tavernaWorkflows.destroyRun}">
+                                <f:setPropertyActionListener value="#{run}" target="#{tavernaWorkflows.selectedTavernaServerRun}" />
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:form>

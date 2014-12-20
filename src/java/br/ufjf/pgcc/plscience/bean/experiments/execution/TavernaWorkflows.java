@@ -25,21 +25,23 @@ package br.ufjf.pgcc.plscience.bean.experiments.execution;
 
 import br.ufjf.pgcc.plscience.bean.experiments.Workspace;
 import br.ufjf.pgcc.plscience.dao.TavernaWorkflowDAO;
+import br.ufjf.pgcc.plscience.dao.TavernaWorkflowInputDAO;
 import br.ufjf.pgcc.plscience.dao.TavernaWorkflowRunDAO;
 import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.model.TavernaWorkflow;
+import br.ufjf.pgcc.plscience.model.TavernaWorkflowInput;
 import br.ufjf.pgcc.plscience.model.TavernaWorkflowRun;
 import br.ufjf.pgcc.plscience.util.BeanUtil;
 import br.ufjf.pgcc.plscience.util.StringUtil;
 import br.ufjf.taverna.core.TavernaClient;
+import br.ufjf.taverna.model.input.TavernaInput;
 import br.ufjf.taverna.model.run.TavernaRun;
 import java.io.File;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -64,7 +66,9 @@ public class TavernaWorkflows implements Serializable {
     private Experiment experiment;
     private List<TavernaWorkflow> workflows;
     private TavernaWorkflow selectedWorkflow;
-    private TavernaWorkflowRun selectedRun;
+    
+    private List<TavernaRun> tavernaServerRuns;
+    private TavernaRun selectedTavernaServerRun;
     
     public TavernaWorkflows() {
         client = new TavernaClient();
@@ -95,6 +99,26 @@ public class TavernaWorkflows implements Serializable {
         }
     }
     
+    public void startRun() {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, String> parameterMap = (Map<String, String>) context.getRequestParameterMap();
+        for (String key : parameterMap.keySet()) {
+            System.out.println(key);
+        }
+    }
+    
+    public void destroyRun() {
+        try {
+            client.destroy(selectedTavernaServerRun.getUuid());
+            FacesMessage message = new FacesMessage("Succesful", "Taverna Run " + selectedTavernaServerRun.getUuid() + " destroyed with success.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+    
     public void handleT2flowUpload(FileUploadEvent event) {
         UploadedFile file = event.getFile();
         TavernaWorkflow workflow = new TavernaWorkflow();
@@ -104,23 +128,33 @@ public class TavernaWorkflows implements Serializable {
             workflow.setName(file.getFileName());
             workflow.setExperiment(experiment);
             workflow.setCreatedAt(new Date());
-            new TavernaWorkflowDAO().save(workflow);
+            workflow = new TavernaWorkflowDAO().save(workflow);
+            
+            File t2flow = new File("tmp.t2flow");
+            FileUtils.writeStringToFile(t2flow, workflow.getT2flow());
+            String uuid = client.create("tmp.t2flow");
+            t2flow.delete();
+            
+            List<TavernaInput> inputs = client.getExpectedInputs(uuid);
+            
+            for (TavernaInput input : inputs) {
+                TavernaWorkflowInput workflowInput = new TavernaWorkflowInput();
+                workflowInput.setTavernaWorkflow(workflow);
+                workflowInput.setName(input.getName());
+                workflowInput = new TavernaWorkflowInputDAO().save(workflowInput);
+                workflow.getInputs().add(workflowInput);
+            }
+            
+            client.destroy(uuid);
+            
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/faces/experiments/execution/taverna/workflows.xhtml?tab=3");
+            
             FacesMessage message = new FacesMessage("Succesful", "Workflow files uploaded successfully.");
             FacesContext.getCurrentInstance().addMessage(null, message);
-            
         } catch (Exception e) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ocurred an error while trying to upload your t2flow file.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
         }
             
-    }
-    
-    public List<TavernaRun> getRuns() {
-        try {
-            return client.getRuns();
-        } catch (Exception e) {
-            return new ArrayList<TavernaRun>();
-        }
     }
 
     /**
@@ -164,6 +198,38 @@ public class TavernaWorkflows implements Serializable {
      */
     public void setExperiment(Experiment experiment) {
         this.experiment = experiment;
+    }
+
+    /**
+     * @return the tavernaServerRuns
+     */
+    public List<TavernaRun> getTavernaServerRuns() {
+        try {
+            tavernaServerRuns = client.getRuns();
+        } catch (Exception e) {
+        }
+        return tavernaServerRuns;
+    }
+
+    /**
+     * @param tavernaServerRuns the tavernaServerRuns to set
+     */
+    public void setTavernaServerRuns(List<TavernaRun> tavernaServerRuns) {
+        this.tavernaServerRuns = tavernaServerRuns;
+    }
+
+    /**
+     * @return the selectedTavernaServerRun
+     */
+    public TavernaRun getSelectedTavernaServerRun() {
+        return selectedTavernaServerRun;
+    }
+
+    /**
+     * @param selectedTavernaServerRun the selectedTavernaServerRun to set
+     */
+    public void setSelectedTavernaServerRun(TavernaRun selectedTavernaServerRun) {
+        this.selectedTavernaServerRun = selectedTavernaServerRun;
     }
     
 }

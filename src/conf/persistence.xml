@@ -6,27 +6,29 @@
     <class>br.ufjf.pgcc.plscience.model.TavernaWorkflow</class>
     <class>br.ufjf.pgcc.plscience.model.TavernaWorkflowRun</class>
     <class>br.ufjf.pgcc.plscience.model.Scientist</class>
+    <class>br.ufjf.pgcc.plscience.model.TavernaWorkflowInput</class>
+    <class>br.ufjf.pgcc.plscience.model.TavernaWorkflowRunInputValue</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/plscience"/>
-        <property name="javax.persistence.jdbc.user" value="root"/>
-        <property name="javax.persistence.jdbc.password" value=""/>
-        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-        <property name="hibernate.show_sql" value="true"/>
-        <property name="hibernate.format_sql" value="true"/>
-        <property name="hibernate.hbm2ddl.auto" value="update" />
-        <property name="hibernate.archive.autodetection" value="class" />
-        <property name="hibernate.current_session_context_class" value="thread" />
-        <property name="hibernate.connection.pool_size" value="10" />
-        <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" />
-        <property name="hibernate.bytecode.use_reflection_optimizer" value="true" />
-        <property name="hibernate.c3p0.acquire_increment" value="3" />
-        <property name="hibernate.c3p0.min_size" value="3" />
-        <property name="hibernate.c3p0.max_size" value="5" />
-        <property name="hibernate.c3p0.timeout" value="10800" />
-        <property name="hibernate.c3p0.idleConnectionTestPeriod" value="1800" />
-        <property name="hibernate.c3p0.max_statements" value="0" />
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/plscience"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.archive.autodetection" value="class"/>
+      <property name="hibernate.current_session_context_class" value="thread"/>
+      <property name="hibernate.connection.pool_size" value="10"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <property name="hibernate.bytecode.use_reflection_optimizer" value="true"/>
+      <property name="hibernate.c3p0.acquire_increment" value="3"/>
+      <property name="hibernate.c3p0.min_size" value="3"/>
+      <property name="hibernate.c3p0.max_size" value="5"/>
+      <property name="hibernate.c3p0.timeout" value="10800"/>
+      <property name="hibernate.c3p0.idleConnectionTestPeriod" value="1800"/>
+      <property name="hibernate.c3p0.max_statements" value="0"/>
     </properties>
   </persistence-unit>
 </persistence>

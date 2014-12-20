@@ -12,7 +12,7 @@
             <div class="col-md-10">
                 <h:form>
                     <h2>Taverna Workflow Run</h2>
-                    <p:commandButton value="Start" icon="ui-icon-play" disabled="#{workspace.tavernaRun.status ne 'Initialized'}"/>
+                    <p:commandButton type="button" value="Start" icon="ui-icon-play" disabled="#{workspace.tavernaRun.status ne 'Initialized'}" onclick="PF('workflowRunInputDialog').show()" />
                     <p:tabView style="margin-top: 20px">
                         <p:tab title="General">
                             <h:panelGrid columns="2" cellpadding="10">
@@ -32,6 +32,26 @@
                         <p:tab title="Workflow Directory">
                         </p:tab>
                     </p:tabView>
+                    
+                    <p:dialog header="Confirm Execution" widgetVar="workflowRunInputDialog" modal="true" height="480" width="640">
+                        <p:outputPanel>
+                            <h:form id="workflowRunInputForm">
+                                <p:dataTable var="input" value="#{workspace.tavernaRun.tavernaWorkflow.inputs}" id="workflowRunInputs">
+                                    <p:column headerText="Input">
+                                        <h:outputText value="#{input.name}" />
+                                    </p:column>
+                                    <p:column headerText="Value">
+                                        <input type="text" 
+                                               name="#{input.name}"
+                                               class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
+                                               role="textbox"/>
+                                    </p:column>
+                                </p:dataTable>
+                                <p:commandButton value="Submit" actionListener="#{tavernaWorkflows.startRun}" />
+                            </h:form>
+                        </p:outputPanel>
+                    </p:dialog>
+                    
                 </h:form>
             </div>
         </div>
