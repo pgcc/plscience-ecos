@@ -10,21 +10,18 @@
                 <ui:include src="/experiments/execution/contextMenu.xhtml" />
             </div>
             <div class="col-md-10">
-                <h2>Runs</h2>
+                <h2>TavernaServer Active Runs</h2>
                 
                 <h:form>
                     <p:dataTable var="run" value="#{tavernaWorkflows.runs}" id="tavernaRuns" style="margin-top: 20px">
                         <p:column headerText="UUID">
                             <h:outputText value="#{run.uuid}" />
                         </p:column>
-                        <p:column headerText="Server Version" width="100">
+                        <p:column headerText="Server Version" width="150">
                             <h:outputText value="#{run.serverVersion}" />
                         </p:column>
                         <p:column headerText="Resource">
                             <a href="#{run.href}" target="_blank">#{run.href}</a>
-                        </p:column>
-                        <p:column headerText="" width="150">
-
                         </p:column>
                     </p:dataTable>
                 </h:form>

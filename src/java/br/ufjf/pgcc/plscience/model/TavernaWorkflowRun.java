@@ -48,9 +48,6 @@ public class TavernaWorkflowRun implements Serializable {
     
     @Column(name="uuid")
     private String uuid;
-
-    @Column(name="name")
-    private String name;
     
     @Column(name="status")
     private String status;
@@ -88,20 +85,6 @@ public class TavernaWorkflowRun implements Serializable {
     }
 
     /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * @return the status
      */
     public String getStatus() {
@@ -113,6 +96,20 @@ public class TavernaWorkflowRun implements Serializable {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the tavernaWorkflow
+     */
+    public TavernaWorkflow getTavernaWorkflow() {
+        return tavernaWorkflow;
+    }
+
+    /**
+     * @param tavernaWorkflow the tavernaWorkflow to set
+     */
+    public void setTavernaWorkflow(TavernaWorkflow tavernaWorkflow) {
+        this.tavernaWorkflow = tavernaWorkflow;
     }
     
 }

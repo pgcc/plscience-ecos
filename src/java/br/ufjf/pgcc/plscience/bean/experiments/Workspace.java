@@ -24,6 +24,7 @@
 package br.ufjf.pgcc.plscience.bean.experiments;
 
 import br.ufjf.pgcc.plscience.model.Experiment;
+import br.ufjf.pgcc.plscience.model.TavernaWorkflowRun;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -39,6 +40,7 @@ public class Workspace implements Serializable {
     private static final long serialVersionUID = 1L;
     
     private Experiment experiment;
+    private TavernaWorkflowRun tavernaRun;
 
     /**
      * @return the experiment
@@ -52,6 +54,20 @@ public class Workspace implements Serializable {
      */
     public void setExperiment(Experiment experiment) {
         this.experiment = experiment;
+    }
+
+    /**
+     * @return the tavernaRun
+     */
+    public TavernaWorkflowRun getTavernaRun() {
+        return tavernaRun;
+    }
+
+    /**
+     * @param tavernaRun the tavernaRun to set
+     */
+    public void setTavernaRun(TavernaWorkflowRun tavernaRun) {
+        this.tavernaRun = tavernaRun;
     }
     
 }

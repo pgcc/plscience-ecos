@@ -25,22 +25,27 @@ package br.ufjf.pgcc.plscience.bean.experiments.execution;
 
 import br.ufjf.pgcc.plscience.bean.experiments.Workspace;
 import br.ufjf.pgcc.plscience.dao.TavernaWorkflowDAO;
+import br.ufjf.pgcc.plscience.dao.TavernaWorkflowRunDAO;
 import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.model.TavernaWorkflow;
+import br.ufjf.pgcc.plscience.model.TavernaWorkflowRun;
 import br.ufjf.pgcc.plscience.util.BeanUtil;
+import br.ufjf.pgcc.plscience.util.StringUtil;
 import br.ufjf.taverna.core.TavernaClient;
 import br.ufjf.taverna.model.run.TavernaRun;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.File;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import org.apache.commons.io.FileUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -59,6 +64,7 @@ public class TavernaWorkflows implements Serializable {
     private Experiment experiment;
     private List<TavernaWorkflow> workflows;
     private TavernaWorkflow selectedWorkflow;
+    private TavernaWorkflowRun selectedRun;
     
     public TavernaWorkflows() {
         client = new TavernaClient();
@@ -71,35 +77,39 @@ public class TavernaWorkflows implements Serializable {
         }
     }
     
-    public void uploadT2flow() {
-        
+    public void newRun() {
+        TavernaWorkflowRun run = new TavernaWorkflowRun();
+        run.setTavernaWorkflow(selectedWorkflow);
+        try {
+            File t2flow = new File("tmp.t2flow");
+            FileUtils.writeStringToFile(t2flow, selectedWorkflow.getT2flow());
+            String uuid = client.create("tmp.t2flow");
+            t2flow.delete();
+            run.setUuid(uuid);
+            run.setStatus(client.getStatus(uuid));
+            run = new TavernaWorkflowRunDAO().save(run);
+            workspace.setTavernaRun(run);
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/faces/experiments/execution/taverna/run.xhtml?tab=3");
+        } catch (Exception e) {
+        }
     }
     
     public void handleT2flowUpload(FileUploadEvent event) {
         UploadedFile file = event.getFile();
         TavernaWorkflow workflow = new TavernaWorkflow();
         try {
-            InputStream responseStream = new BufferedInputStream(file.getInputstream());
-            BufferedReader responseStreamReader = new BufferedReader(new InputStreamReader(responseStream));
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-            while ((line = responseStreamReader.readLine()) != null)
-            {
-                stringBuilder.append(line);
-            }
-            String output = stringBuilder.toString();
-            responseStreamReader.close();
-            responseStream.close();
-            
-            workflow.setT2flow(output);
+            String t2flowContent = StringUtil.InputStreamToString(file.getInputstream());
+            workflow.setT2flow(t2flowContent);
             workflow.setName(file.getFileName());
             workflow.setExperiment(experiment);
+            workflow.setCreatedAt(new Date());
             new TavernaWorkflowDAO().save(workflow);
-            FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+            FacesMessage message = new FacesMessage("Succesful", "Workflow files uploaded successfully.");
             FacesContext.getCurrentInstance().addMessage(null, message);
             
         } catch (Exception e) {
-            FacesMessage message = new FacesMessage("Error", "Ocurred an error while trying to upload your t2flow file.");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ocurred an error while trying to upload your t2flow file.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
             

@@ -24,6 +24,9 @@
 package br.ufjf.pgcc.plscience.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +34,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -59,6 +65,13 @@ public class TavernaWorkflow implements Serializable {
     @ManyToOne
     @JoinColumn(name="scientist_id")
     private Scientist scientist;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="created_at")
+    private Date createdAt;
+    
+    @OneToMany
+    private Set<TavernaWorkflowRun> runs = new HashSet<TavernaWorkflowRun>(0);
 
     /**
      * @return the id
@@ -128,6 +141,34 @@ public class TavernaWorkflow implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the createdAt
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * @return the runs
+     */
+    public Set<TavernaWorkflowRun> getRuns() {
+        return runs;
+    }
+
+    /**
+     * @param runs the runs to set
+     */
+    public void setRuns(Set<TavernaWorkflowRun> runs) {
+        this.runs = runs;
     }
     
 }

@@ -21,31 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.ufjf.pgcc.plscience.dao;
+package br.ufjf.pgcc.plscience.util;
 
-import br.ufjf.pgcc.plscience.model.TavernaWorkflow;
-import java.util.List;
-import javax.persistence.Query;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  *
  * @author vitorfs
  */
-public class TavernaWorkflowDAO extends GenericDAO {
-
-    public void save(TavernaWorkflow tavernaWorkflow) {
-        getEntityManager().getTransaction().begin();
-        getEntityManager().persist(tavernaWorkflow);
-        getEntityManager().getTransaction().commit();
-        finish();    
-    }
+public class StringUtil {
     
-    public List<TavernaWorkflow> getExperimentWorkflows(Long experimentId) {
-        Query query = getEntityManager().createQuery("SELECT t FROM TavernaWorkflow t WHERE t.experiment.id = :p_experiment_id ORDER BY t.createdAt DESC");
-        query.setParameter("p_experiment_id", experimentId);
-        List<TavernaWorkflow> workflows = query.getResultList();
-        finish();
-        return workflows;
+    public static String InputStreamToString(InputStream inputStream) {
+        try {
+            InputStream responseStream = new BufferedInputStream(inputStream);
+            BufferedReader responseStreamReader = new BufferedReader(new InputStreamReader(responseStream));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = responseStreamReader.readLine()) != null)
+            {
+                stringBuilder.append(line);
+            }
+            responseStreamReader.close();
+            responseStream.close();   
+            return stringBuilder.toString();
+        } catch (Exception e) {
+        }
+        return "";
     }
     
 }
