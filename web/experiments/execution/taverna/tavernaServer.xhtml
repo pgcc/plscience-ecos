@@ -10,27 +10,26 @@
                 <ui:include src="/experiments/execution/contextMenu.xhtml" />
             </div>
             <div class="col-md-10">
-                <h2>Taverna Runs</h2>
+                <h2>TavernaServer Active Runs</h2>
                 
                 <h:form>
-                    <p:dataTable var="run" value="#{tavernaWorkflows.tavernaRuns}" id="tavernaRuns" style="margin-top: 20px">
+                    <p:dataTable var="run" value="#{tavernaWorkflows.tavernaServerRuns}" id="tavernaRuns" style="margin-top: 20px">
                         <p:column headerText="UUID">
                             <h:outputText value="#{run.uuid}" />
                         </p:column>
-                        <p:column headerText="Filename">
-                            <h:outputText value="#{run.tavernaWorkflow.name}" />
+                        <p:column headerText="Server Version" width="150">
+                            <h:outputText value="#{run.serverVersion}" />
                         </p:column>
-                        <p:column headerText="Status">
-                            <h:outputText value="#{run.status}" />
+                        <p:column headerText="Resource">
+                            <a href="#{run.href}" target="_blank">#{run.href}</a>
                         </p:column>
                         <p:column headerText="" width="150">
-                            <p:commandButton title="View Details" value="View Details" action="#{tavernaWorkflows.tavernaRunDetails}">
-                                <f:setPropertyActionListener value="#{run}" target="#{tavernaWorkflows.selectedTavernaRun}" />
+                            <p:commandButton update="tavernaRuns" title="Destroy" value="Destroy" action="#{tavernaWorkflows.destroyRun}">
+                                <f:setPropertyActionListener value="#{run}" target="#{tavernaWorkflows.selectedTavernaServerRun}" />
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                
             </div>
         </div>
     </ui:define>

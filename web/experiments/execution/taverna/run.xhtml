@@ -10,10 +10,12 @@
                 <ui:include src="/experiments/execution/contextMenu.xhtml" />
             </div>
             <div class="col-md-10">
+                <h2>Taverna Workflow Run</h2>
                 <h:form>
-                    <h2>Taverna Workflow Run</h2>
                     <p:commandButton type="button" value="Start" icon="ui-icon-play" disabled="#{workspace.tavernaRun.status ne 'Initialized'}" onclick="PF('workflowRunInputDialog').show()" />
-                    <p:tabView style="margin-top: 20px">
+                </h:form>
+                <h:form id="workflowRunForm">
+                    <p:tabView style="margin-top: 20px" id="workflowRun">
                         <p:tab title="General">
                             <h:panelGrid columns="2" cellpadding="10">
                                 <h:outputLabel value="UUID:" styleClass="panelGridLabel" />
@@ -47,7 +49,7 @@
                                                role="textbox"/>
                                     </p:column>
                                 </p:dataTable>
-                                <p:commandButton value="Submit" actionListener="#{tavernaWorkflows.startRun}" />
+                                <p:commandButton value="Submit" actionListener="#{tavernaWorkflows.startRun}" style="margin-top: 20px" />
                             </h:form>
                         </p:outputPanel>
                     </p:dialog>

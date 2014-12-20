@@ -27,18 +27,20 @@ import br.ufjf.pgcc.plscience.bean.experiments.Workspace;
 import br.ufjf.pgcc.plscience.dao.TavernaWorkflowDAO;
 import br.ufjf.pgcc.plscience.dao.TavernaWorkflowInputDAO;
 import br.ufjf.pgcc.plscience.dao.TavernaWorkflowRunDAO;
+import br.ufjf.pgcc.plscience.dao.TavernaWorkflowRunInputValueDAO;
 import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.model.TavernaWorkflow;
 import br.ufjf.pgcc.plscience.model.TavernaWorkflowInput;
 import br.ufjf.pgcc.plscience.model.TavernaWorkflowRun;
+import br.ufjf.pgcc.plscience.model.TavernaWorkflowRunInputValue;
 import br.ufjf.pgcc.plscience.util.BeanUtil;
 import br.ufjf.pgcc.plscience.util.StringUtil;
 import br.ufjf.taverna.core.TavernaClient;
+import br.ufjf.taverna.core.TavernaServerStatus;
 import br.ufjf.taverna.model.input.TavernaInput;
 import br.ufjf.taverna.model.run.TavernaRun;
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +67,8 @@ public class TavernaWorkflows implements Serializable {
     private final Workspace workspace;
     private Experiment experiment;
     private List<TavernaWorkflow> workflows;
+    private List<TavernaWorkflowRun> tavernaRuns;
+    private TavernaWorkflowRun selectedTavernaRun;
     private List<TavernaRun> tavernaServerRuns;
     private TavernaRun selectedTavernaServerRun;
     
@@ -98,11 +102,55 @@ public class TavernaWorkflows implements Serializable {
     }
     
     public void startRun() {
-        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, String> parameterMap = (Map<String, String>) context.getRequestParameterMap();
-        for (String key : parameterMap.keySet()) {
-            System.out.println(key);
+        TavernaWorkflowRun run = workspace.getTavernaRun();
+        String uuid = workspace.getTavernaRun().getUuid();
+        try {
+            String status = client.getStatus(run.getUuid());
+            if (TavernaServerStatus.INITIALIZED.getStatus().equals(status)) {
+                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                Map<String, String> parameterMap = (Map<String, String>) context.getRequestParameterMap();
+                for (TavernaWorkflowInput expectedInput : run.getTavernaWorkflow().getInputs()) {
+                    TavernaWorkflowRunInputValue inputValue = new TavernaWorkflowRunInputValue();
+                    String value = parameterMap.getOrDefault(expectedInput.getName(), "");
+                    inputValue.setInput(expectedInput);
+                    inputValue.setInputValue(value);
+                    new TavernaWorkflowRunInputValueDAO().save(inputValue);
+                    client.setInputValue(uuid, expectedInput.getName(), value);
+                }
+                client.start(uuid);
+                run.setStatus(client.getStatus(uuid));
+            }
+            else {
+                run.setStatus(status);
+            }
+            new TavernaWorkflowRunDAO().update(run);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        try {
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/faces/experiments/execution/taverna/run.xhtml?tab=3");
+        } catch (Exception e) {
+        }
+    }
+    
+    public void tavernaRunDetails() {
+        String status;
+        try {
+            status = client.getStatus(selectedTavernaRun.getUuid());
+        } catch (Exception e) {
+            status = TavernaServerStatus.FINISHED.getStatus();
+        }
+        selectedTavernaRun.setStatus(status);
+        selectedTavernaRun = new TavernaWorkflowRunDAO().update(selectedTavernaRun);
+        try {
+            workspace.setTavernaRun(selectedTavernaRun);
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/faces/experiments/execution/taverna/run.xhtml?tab=3");            
+        } catch (Exception e) {
+            
+        }
+
     }
     
     public void destroyRun() {
@@ -226,6 +274,35 @@ public class TavernaWorkflows implements Serializable {
      */
     public void setSelectedTavernaServerRun(TavernaRun selectedTavernaServerRun) {
         this.selectedTavernaServerRun = selectedTavernaServerRun;
+    }
+
+    /**
+     * @return the tavernaRuns
+     */
+    public List<TavernaWorkflowRun> getTavernaRuns() {
+        tavernaRuns = new TavernaWorkflowRunDAO().getExperimentWorkflowRuns(experiment.getId());
+        return tavernaRuns;
+    }
+
+    /**
+     * @param tavernaRuns the tavernaRuns to set
+     */
+    public void setTavernaRuns(List<TavernaWorkflowRun> tavernaRuns) {
+        this.tavernaRuns = tavernaRuns;
+    }
+
+    /**
+     * @return the selectedTavernaRun
+     */
+    public TavernaWorkflowRun getSelectedTavernaRun() {
+        return selectedTavernaRun;
+    }
+
+    /**
+     * @param selectedTavernaRun the selectedTavernaRun to set
+     */
+    public void setSelectedTavernaRun(TavernaWorkflowRun selectedTavernaRun) {
+        this.selectedTavernaRun = selectedTavernaRun;
     }
     
 }

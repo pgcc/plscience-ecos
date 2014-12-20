@@ -23,38 +23,21 @@
  */
 package br.ufjf.pgcc.plscience.dao;
 
-import br.ufjf.pgcc.plscience.model.TavernaWorkflow;
-import br.ufjf.pgcc.plscience.model.TavernaWorkflowRun;
-import java.util.List;
-import javax.persistence.Query;
+import br.ufjf.pgcc.plscience.model.TavernaWorkflowRunInputValue;
 
 /**
  *
  * @author vitorfs
  */
-public class TavernaWorkflowRunDAO extends GenericDAO {
+public class TavernaWorkflowRunInputValueDAO extends GenericDAO {
     
-    public TavernaWorkflowRun save(TavernaWorkflowRun tavernaWorkflowRun) {
+    public TavernaWorkflowRunInputValue save(TavernaWorkflowRunInputValue inputValue) {
         getEntityManager().getTransaction().begin();
-        getEntityManager().persist(tavernaWorkflowRun);
+        inputValue.setInput(getEntityManager().merge(inputValue.getInput()));
+        getEntityManager().persist(inputValue);
         getEntityManager().getTransaction().commit();
-        finish();    
-        return tavernaWorkflowRun;
-    }
-    
-    public TavernaWorkflowRun update(TavernaWorkflowRun tavernaWorkflowRun) {
-        getEntityManager().getTransaction().begin();
-        getEntityManager().merge(tavernaWorkflowRun);
-        getEntityManager().getTransaction().commit();
-        finish();    
-        return tavernaWorkflowRun;        
-    }
-    
-    public List<TavernaWorkflowRun> getExperimentWorkflowRuns(Long experimentId) {
-        Query query = getEntityManager().createQuery("SELECT t FROM TavernaWorkflowRun t WHERE t.tavernaWorkflow.experiment.id = :p_experiment_id");
-        query.setParameter("p_experiment_id", experimentId);
-        List<TavernaWorkflowRun> workflowRuns = query.getResultList();
         finish();
-        return workflowRuns;
+        return inputValue;
     }
+    
 }
