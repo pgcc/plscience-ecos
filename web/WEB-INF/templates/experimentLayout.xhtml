@@ -10,25 +10,27 @@
     </h:head>
     <h:body>
         <ui:include src="/WEB-INF/templates/header.xhtml" />
-        <div class="container-fluid">
+        <div class="container-fluid" id="main">
             <h2 class="page-header">Experiment</h2>
-            <p:tabMenu activeIndex="#{param.tab}">
-                <p:menuitem value="Experiment" outcome="/experiments/experiment.xhtml">
-                    <f:param name="tab" value="0" />
-                </p:menuitem>
-                <p:menuitem value="Problem Investigation" outcome="/experiments/problemInvestigation/problemInvestigation.xhtml">
-                    <f:param name="tab" value="1" />
-                </p:menuitem>
-                <p:menuitem value="Experiment Prototyping" outcome="/experiments/prototyping/experimentPrototyping.xhtml">
-                    <f:param name="tab" value="2" />
-                </p:menuitem>
-                <p:menuitem value="Experiment Execution" outcome="/experiments/execution/experimentExecution.xhtml">
-                    <f:param name="tab" value="3" />
-                </p:menuitem>
-                <p:menuitem value="Results Publication" outcome="/experiments/resultsPublication/resultsPublication.xhtml">
-                    <f:param name="tab" value="4" />
-                </p:menuitem>
-            </p:tabMenu>
+            <h:form>
+                <p:tabMenu activeIndex="#{param.tab}">
+                    <p:menuitem value="Experiment" outcome="/experiments/experiment.xhtml">
+                        <f:param name="tab" value="0" />
+                    </p:menuitem>
+                    <p:menuitem value="Problem Investigation" outcome="/experiments/problemInvestigation/problemInvestigation.xhtml">
+                        <f:param name="tab" value="1" />
+                    </p:menuitem>
+                    <p:menuitem value="Experiment Prototyping" outcome="/experiments/prototyping/experimentPrototyping.xhtml">
+                        <f:param name="tab" value="2" />
+                    </p:menuitem>
+                    <p:menuitem value="Experiment Execution" outcome="/experiments/execution/experimentExecution.xhtml">
+                        <f:param name="tab" value="3" />
+                    </p:menuitem>
+                    <p:menuitem value="Results Publication" outcome="/experiments/resultsPublication/resultsPublication.xhtml">
+                        <f:param name="tab" value="4" />
+                    </p:menuitem>
+                </p:tabMenu>
+            </h:form>
             <ui:insert name="content"></ui:insert>
         </div>
     </h:body>

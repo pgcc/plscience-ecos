@@ -33,6 +33,13 @@ import javax.persistence.Query;
  */
 public class TavernaWorkflowDAO extends GenericDAO {
 
+    public void save(TavernaWorkflow tavernaWorkflow) {
+        getEntityManager().getTransaction().begin();
+        getEntityManager().persist(tavernaWorkflow);
+        getEntityManager().getTransaction().commit();
+        finish();    
+    }
+    
     public List<TavernaWorkflow> getExperimentWorkflows(Long experimentId) {
         Query query = getEntityManager().createQuery("SELECT t FROM TavernaWorkflow t WHERE t.experiment.id = :p_experiment_id");
         query.setParameter("p_experiment_id", experimentId);

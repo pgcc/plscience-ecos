@@ -13,9 +13,7 @@
                 <h2>Taverna Workflows</h2>
                 <h:form>
                     <p:commandButton value="Execute Selected" ajax="false" />
-                    <p:commandButton value="Import t2flow" action="import.xhtml">
-                        <f:param name="tab" value="3" />
-                    </p:commandButton>
+                    <p:commandButton value="Import t2flow" onclick="PF('t2flowFileUpload').show()" type="button" />
                     <p:dataTable value="#{tavernaWorkflows.workflows}" var="workflow" style="margin-top: 20px">
                         <p:column headerText="Id">
                             <h:outputText value="#{workflow.id}" />
@@ -25,6 +23,13 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
+                
+                <p:dialog header="Import T2flow" widgetVar="t2flowFileUpload" modal="true" height="300" width="800">
+                    <h:form enctype="multipart/form-data"> 
+                        <p:fileUpload fileUploadListener="#{tavernaWorkflows.handleT2flowUpload}" mode="advanced" allowTypes="/(\.|\/)t2flow$/" multiple="true" />
+                    </h:form>
+                </p:dialog>
+                
             </div>
         </div>
     </ui:define>

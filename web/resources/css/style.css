@@ -51,13 +51,13 @@ header h1 {
     font-weight: bold;
 }
 
+#main {
+    margin-bottom: 20px;
+}
+
 /* Prime Faces bug fixes caused by global box-sizing */
 .ui-selectonemenu .ui-selectonemenu-trigger {
   -webkit-box-sizing: content-box;
      -moz-box-sizing: content-box;
           box-sizing: content-box;
-}
-
-.container, .container-fluid {
-    margin-bottom: 20px;
 }

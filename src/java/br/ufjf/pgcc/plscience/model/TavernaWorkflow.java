@@ -49,6 +49,9 @@ public class TavernaWorkflow implements Serializable {
     @Column(name="t2flow", columnDefinition="MEDIUMTEXT")
     private String t2flow;
     
+    @Column(name="name")
+    private String name;
+    
     @ManyToOne
     @JoinColumn(name="experiment_id")
     private Experiment experiment;
@@ -111,6 +114,20 @@ public class TavernaWorkflow implements Serializable {
      */
     public void setScientist(Scientist scientist) {
         this.scientist = scientist;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
     
 }

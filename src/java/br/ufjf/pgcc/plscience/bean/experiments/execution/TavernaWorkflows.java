@@ -30,11 +30,18 @@ import br.ufjf.pgcc.plscience.model.TavernaWorkflow;
 import br.ufjf.pgcc.plscience.util.BeanUtil;
 import br.ufjf.taverna.core.TavernaClient;
 import br.ufjf.taverna.model.run.TavernaRun;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -52,7 +59,6 @@ public class TavernaWorkflows implements Serializable {
     private Experiment experiment;
     private List<TavernaWorkflow> workflows;
     private TavernaWorkflow selectedWorkflow;
-    private UploadedFile t2flowFile;
     
     public TavernaWorkflows() {
         client = new TavernaClient();
@@ -67,6 +73,36 @@ public class TavernaWorkflows implements Serializable {
     
     public void uploadT2flow() {
         
+    }
+    
+    public void handleT2flowUpload(FileUploadEvent event) {
+        UploadedFile file = event.getFile();
+        TavernaWorkflow workflow = new TavernaWorkflow();
+        try {
+            InputStream responseStream = new BufferedInputStream(file.getInputstream());
+            BufferedReader responseStreamReader = new BufferedReader(new InputStreamReader(responseStream));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = responseStreamReader.readLine()) != null)
+            {
+                stringBuilder.append(line);
+            }
+            String output = stringBuilder.toString();
+            responseStreamReader.close();
+            responseStream.close();
+            
+            workflow.setT2flow(output);
+            workflow.setName(file.getFileName());
+            workflow.setExperiment(experiment);
+            new TavernaWorkflowDAO().save(workflow);
+            FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage("Error", "Ocurred an error while trying to upload your t2flow file.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+            
     }
     
     public List<TavernaRun> getRuns() {
@@ -118,20 +154,6 @@ public class TavernaWorkflows implements Serializable {
      */
     public void setExperiment(Experiment experiment) {
         this.experiment = experiment;
-    }
-
-    /**
-     * @return the t2flowFile
-     */
-    public UploadedFile getT2flowFile() {
-        return t2flowFile;
-    }
-
-    /**
-     * @param t2flowFile the t2flowFile to set
-     */
-    public void setT2flowFile(UploadedFile t2flowFile) {
-        this.t2flowFile = t2flowFile;
     }
     
 }
