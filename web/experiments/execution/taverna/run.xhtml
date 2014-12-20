@@ -13,6 +13,11 @@
                 <h2>Taverna Workflow Run</h2>
                 <h:form>
                     <p:commandButton type="button" value="Start" icon="ui-icon-play" disabled="#{workspace.tavernaRun.status ne 'Initialized'}" onclick="PF('workflowRunInputDialog').show()" />
+                    <p:commandButton value="Refresh" 
+                                     icon="ui-icon-refresh" 
+                                     disabled="#{workspace.tavernaRun.status ne 'Operating'}" 
+                                     actionListener="#{tavernaWorkflows.refreshRun}" 
+                                     update=":workflowRunForm"/>
                 </h:form>
                 <h:form id="workflowRunForm">
                     <p:tabView style="margin-top: 20px" id="workflowRun">

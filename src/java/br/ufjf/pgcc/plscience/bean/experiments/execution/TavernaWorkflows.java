@@ -134,17 +134,23 @@ public class TavernaWorkflows implements Serializable {
         }
     }
     
-    public void tavernaRunDetails() {
+    public void refreshRun() {
         String status;
         try {
             status = client.getStatus(selectedTavernaRun.getUuid());
         } catch (Exception e) {
             status = TavernaServerStatus.FINISHED.getStatus();
         }
-        selectedTavernaRun.setStatus(status);
-        selectedTavernaRun = new TavernaWorkflowRunDAO().update(selectedTavernaRun);
+        if (status != null && !"".equals(status)) {
+            selectedTavernaRun.setStatus(status);
+            selectedTavernaRun = new TavernaWorkflowRunDAO().update(selectedTavernaRun);
+        }
+        workspace.setTavernaRun(selectedTavernaRun);
+    }
+    
+    public void tavernaRunDetails() {
+        refreshRun();
         try {
-            workspace.setTavernaRun(selectedTavernaRun);
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect(context.getRequestContextPath() + "/faces/experiments/execution/taverna/run.xhtml?tab=3");            
         } catch (Exception e) {
