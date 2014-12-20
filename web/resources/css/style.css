@@ -55,6 +55,10 @@ header h1 {
     margin-bottom: 20px;
 }
 
+.btn-small {
+    font-size: .8em!important;
+}
+
 /* Prime Faces bug fixes caused by global box-sizing */
 .ui-selectonemenu .ui-selectonemenu-trigger {
   -webkit-box-sizing: content-box;

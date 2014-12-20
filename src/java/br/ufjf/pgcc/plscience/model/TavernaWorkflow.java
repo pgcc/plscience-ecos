@@ -27,6 +27,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -71,10 +72,10 @@ public class TavernaWorkflow implements Serializable {
     @Column(name="created_at")
     private Date createdAt;
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tavernaWorkflow")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tavernaWorkflow", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TavernaWorkflowRun> runs = new HashSet<TavernaWorkflowRun>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tavernaWorkflow")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tavernaWorkflow", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TavernaWorkflowInput> inputs = new HashSet<TavernaWorkflowInput>();
         
     /**

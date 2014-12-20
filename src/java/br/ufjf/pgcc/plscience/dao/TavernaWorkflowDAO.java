@@ -41,6 +41,14 @@ public class TavernaWorkflowDAO extends GenericDAO {
         return tavernaWorkflow;
     }
     
+    public void remove(TavernaWorkflow tavernaWorkflow) {
+        tavernaWorkflow = getEntityManager().contains(tavernaWorkflow) ? tavernaWorkflow : getEntityManager().merge(tavernaWorkflow);
+        getEntityManager().getTransaction().begin();
+        getEntityManager().remove(tavernaWorkflow);
+        getEntityManager().getTransaction().commit();
+        finish();        
+    }
+    
     public List<TavernaWorkflow> getExperimentWorkflows(Long experimentId) {
         Query query = getEntityManager().createQuery("SELECT t FROM TavernaWorkflow t WHERE t.experiment.id = :p_experiment_id ORDER BY t.createdAt DESC");
         query.setParameter("p_experiment_id", experimentId);

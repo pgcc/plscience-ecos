@@ -24,6 +24,7 @@
 package br.ufjf.pgcc.plscience.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +50,7 @@ public class TavernaWorkflowRunInputValue implements Serializable {
     @Column(name="input_value")
     private String inputValue;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="taverna_workflow_input_id")
     private TavernaWorkflowInput input;
 

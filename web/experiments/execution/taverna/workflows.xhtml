@@ -11,38 +11,43 @@
             </div>
             <div class="col-md-10">
                 <h2>Taverna Workflows</h2>
-                <h:form id="tavernaWorkflowsForm">
+                
+                <h:form>
                     <p:commandButton value="Import t2flow" onclick="PF('t2flowFileUpload').show()" type="button" icon="ui-icon-document" />
+                </h:form>
+                
+                <p:dialog header="Import T2flow" widgetVar="t2flowFileUpload" modal="true" height="300" width="800">
+                    <h:form enctype="multipart/form-data"> 
+                        <p:fileUpload fileUploadListener="#{tavernaWorkflows.handleT2flowUpload}" 
+                                      mode="advanced" 
+                                      allowTypes="/(\.|\/)t2flow$/" 
+                                      multiple="true" 
+                                      update=":tavernaWorkflowsForm:tavernaWorkflows" />
+                    </h:form>
+                </p:dialog>
+                
+                <h:form id="tavernaWorkflowsForm">
                     <p:dataTable value="#{tavernaWorkflows.workflows}" var="workflow" style="margin-top: 20px" id="tavernaWorkflows">
-                        <p:column headerText="Id">
+                        <p:column headerText="Id" width="100">
                             <h:outputText value="#{workflow.id}" />
                         </p:column>
                         <p:column headerText="Filename">
                             <h:outputText value="#{workflow.name}" />
                         </p:column>
-                        <p:column headerText="Created At">
+                        <p:column headerText="Created At" width="200">
                             <h:outputText value="#{workflow.createdAt}" />
                         </p:column>
                         <p:column headerText="" style="text-align: center">
-                            <h:form>
-                                <p:commandButton value="Execute" title="Execute" icon="ui-icon-gear" action="#{tavernaWorkflows.newRun}">
-                                    <f:setPropertyActionListener value="#{workflow}" target="#{tavernaWorkflows.selectedWorkflow}" />
-                                </p:commandButton>
-                                <p:commandButton type="button" value="Download" icon="ui-icon-arrowthickstop-1-s"/>
-                            </h:form>
+                            <p:commandButton value="Execute" 
+                                             title="Execute" 
+                                             icon="ui-icon-gear" 
+                                             styleClass="btn-small" 
+                                             actionListener="#{tavernaWorkflows.newRun(workflow)}" />
+                            <p:commandButton type="button" value="Download" icon="ui-icon-arrowthickstop-1-s" styleClass="btn-small"/>
+                            <p:commandButton value="Remove" title="Remove" icon="ui-icon-closethick" action="#{tavernaWorkflows.removeWorkflow(workflow)}" styleClass="btn-small" update=":tavernaWorkflowsForm:tavernaWorkflows" />
                         </p:column>
                     </p:dataTable>
-                    <p:dialog header="Import T2flow" widgetVar="t2flowFileUpload" modal="true" height="300" width="800">
-                        <h:form enctype="multipart/form-data"> 
-                            <p:fileUpload fileUploadListener="#{tavernaWorkflows.handleT2flowUpload}" 
-                                          mode="advanced" 
-                                          allowTypes="/(\.|\/)t2flow$/" 
-                                          multiple="true" 
-                                          update=":tavernaWorkflowsForm:tavernaWorkflows" />
-                        </h:form>
-                    </p:dialog>
                 </h:form>
-               
                 
             </div>
         </div>

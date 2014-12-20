@@ -65,8 +65,6 @@ public class TavernaWorkflows implements Serializable {
     private final Workspace workspace;
     private Experiment experiment;
     private List<TavernaWorkflow> workflows;
-    private TavernaWorkflow selectedWorkflow;
-    
     private List<TavernaRun> tavernaServerRuns;
     private TavernaRun selectedTavernaServerRun;
     
@@ -81,7 +79,7 @@ public class TavernaWorkflows implements Serializable {
         }
     }
     
-    public void newRun() {
+    public void newRun(TavernaWorkflow selectedWorkflow) {
         TavernaWorkflowRun run = new TavernaWorkflowRun();
         run.setTavernaWorkflow(selectedWorkflow);
         try {
@@ -117,6 +115,18 @@ public class TavernaWorkflows implements Serializable {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
+    }
+    
+    public void removeWorkflow(TavernaWorkflow selectedWorkflow) {
+        try {
+            new TavernaWorkflowDAO().remove(selectedWorkflow);
+            FacesMessage message = new FacesMessage("Succesful", "Taverna Workflow " + selectedWorkflow.getName() + " removed with success.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }        
     }
     
     public void handleT2flowUpload(FileUploadEvent event) {
@@ -170,20 +180,6 @@ public class TavernaWorkflows implements Serializable {
      */
     public void setWorkflows(List<TavernaWorkflow> workflows) {
         this.workflows = workflows;
-    }
-
-    /**
-     * @return the selectedWorkflow
-     */
-    public TavernaWorkflow getSelectedWorkflow() {
-        return selectedWorkflow;
-    }
-
-    /**
-     * @param selectedWorkflow the selectedWorkflow to set
-     */
-    public void setSelectedWorkflow(TavernaWorkflow selectedWorkflow) {
-        this.selectedWorkflow = selectedWorkflow;
     }
 
     /**
