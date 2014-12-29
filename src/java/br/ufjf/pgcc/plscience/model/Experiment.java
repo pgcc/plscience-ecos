@@ -55,6 +55,9 @@ public class Experiment implements Serializable {
     @ManyToOne
     @JoinColumn(name="scientist_id")
     private Scientist scientist;
+    
+    @Column(name="parsifal_review")
+    private Integer parsifalReview;
 
     /**
      * @return the id
@@ -110,6 +113,20 @@ public class Experiment implements Serializable {
      */
     public void setScientist(Scientist scientist) {
         this.scientist = scientist;
+    }
+
+    /**
+     * @return the parsifalReview
+     */
+    public Integer getParsifalReview() {
+        return parsifalReview;
+    }
+
+    /**
+     * @param parsifalReview the parsifalReview to set
+     */
+    public void setParsifalReview(Integer parsifalReview) {
+        this.parsifalReview = parsifalReview;
     }
     
 }

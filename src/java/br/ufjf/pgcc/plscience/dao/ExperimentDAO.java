@@ -39,6 +39,13 @@ public class ExperimentDAO extends GenericDAO {
         finish();
     }
     
+    public void update(Experiment experiment) {
+        getEntityManager().getTransaction().begin();
+        getEntityManager().merge(experiment);
+        getEntityManager().getTransaction().commit();
+        finish();    
+    }
+    
     public List<Experiment> getAll() {
         Query query = getEntityManager().createQuery("SELECT e FROM Experiment e");
         List<Experiment> experiments = query.getResultList();

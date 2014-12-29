@@ -23,7 +23,6 @@
  */
 package br.ufjf.pgcc.plscience.dao;
 
-import br.ufjf.pgcc.plscience.model.TavernaWorkflow;
 import br.ufjf.pgcc.plscience.model.TavernaWorkflowRun;
 import java.util.List;
 import javax.persistence.Query;
