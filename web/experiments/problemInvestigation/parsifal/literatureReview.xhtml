@@ -89,7 +89,7 @@
                             </p:column>
 
                             <p:column headerText="Year">
-                                <h:outputText value="#{article.journal}" />
+                                <h:outputText value="#{article.year}" />
                             </p:column>
                             
                             <p:column headerText="" style="width: 150px">
@@ -103,10 +103,10 @@
                         <p:outputPanel id="articleDetails">
                             <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty parsifal.selectedArticle}">
                                 <h:outputLabel value="Title:" styleClass="panelGridLabel" />
-                                <h:outputText value="#{parsifal.selectedArticle}" />
+                                <h:outputText value="#{parsifal.selectedArticle.title}" />
                                 
                                 <h:outputLabel value="Abstract:" styleClass="panelGridLabel" />
-                                <h:outputText value="" />
+                                <h:outputText value="#{parsifal.selectedArticle.article_abstract}" />
                                 
                                 <h:outputLabel value="BibTex Key:" styleClass="panelGridLabel" />
                                 <h:outputText value="#{parsifal.selectedArticle.bibtex_key}" />
@@ -126,7 +126,7 @@
                                 <h:outputLabel value="Volume:" styleClass="panelGridLabel" />
                                 <h:outputText value="#{parsifal.selectedArticle.volume}" />
                                 
-                                <h:outputLabel value="Researcher Comments:" styleClass="panelGridLabel" />
+                                <h:outputLabel value="Comments:" styleClass="panelGridLabel" />
                                 <h:outputText value="#{parsifal.selectedArticle.comments}" />
                             </h:panelGrid>
                         </p:outputPanel>
