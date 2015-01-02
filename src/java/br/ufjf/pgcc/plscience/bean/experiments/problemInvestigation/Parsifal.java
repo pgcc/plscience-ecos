@@ -63,7 +63,7 @@ public class Parsifal implements Serializable {
     private List<SelectionCriteria> selectionCriterias;
     private List<Keyword> keywords;
     
-    private Article seletedArticle;
+    private Article selectedArticle;
     
     
     public Parsifal() {
@@ -220,17 +220,17 @@ public class Parsifal implements Serializable {
     }
 
     /**
-     * @return the seletedArticle
+     * @return the selectedArticle
      */
-    public Article getSeletedArticle() {
-        return seletedArticle;
+    public Article getSelectedArticle() {
+        return selectedArticle;
     }
 
     /**
-     * @param seletedArticle the seletedArticle to set
+     * @param selectedArticle the selectedArticle to set
      */
-    public void setSeletedArticle(Article seletedArticle) {
-        this.seletedArticle = seletedArticle;
+    public void setSelectedArticle(Article selectedArticle) {
+        this.selectedArticle = selectedArticle;
     }
     
 }

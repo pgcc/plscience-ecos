@@ -69,10 +69,10 @@
                     </p:fieldset>
                 </h:form>
                 
-                <h:form>
+                <h:form id="reviewArticles">
                     <p:fieldset legend="Selected Articles" style="margin-top: 20px">
                         <p:dataTable value="#{parsifal.articles}" var="article">
-                            <p:column headerText="Bibtex Key">
+                            <p:column headerText="BibTex Key">
                                 <h:outputText value="#{article.bibtex_key}" />
                             </p:column>
                             
@@ -92,12 +92,47 @@
                                 <h:outputText value="#{article.journal}" />
                             </p:column>
                             
-                            <p:column headerText="More Details">
-
+                            <p:column headerText="" style="width: 150px">
+                                <p:commandButton update=":reviewArticles:articleDetails" oncomplete="PF('articleDetailsDialog').show()" title="View Details" value="View Details">
+                                    <f:setPropertyActionListener value="#{article}" target="#{parsifal.selectedArticle}" />
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>
+                    <p:dialog header="Article Details" widgetVar="articleDetailsDialog" modal="true" height="600" width="800">
+                        <p:outputPanel id="articleDetails">
+                            <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty parsifal.selectedArticle}">
+                                <h:outputLabel value="Title:" styleClass="panelGridLabel" />
+                                <h:outputText value="#{parsifal.selectedArticle}" />
+                                
+                                <h:outputLabel value="Abstract:" styleClass="panelGridLabel" />
+                                <h:outputText value="" />
+                                
+                                <h:outputLabel value="BibTex Key:" styleClass="panelGridLabel" />
+                                <h:outputText value="#{parsifal.selectedArticle.bibtex_key}" />
+                                
+                                <h:outputLabel value="Journal:" styleClass="panelGridLabel" />
+                                <h:outputText value="#{parsifal.selectedArticle.journal}" />
+                                
+                                <h:outputLabel value="Year:" styleClass="panelGridLabel" />
+                                <h:outputText value="#{parsifal.selectedArticle.year}" />
+                                
+                                <h:outputLabel value="Document Type:" styleClass="panelGridLabel" />
+                                <h:outputText value="#{parsifal.selectedArticle.document_type}" />
+                                
+                                <h:outputLabel value="Pages:" styleClass="panelGridLabel" />
+                                <h:outputText value="#{parsifal.selectedArticle.pages}" />
+                                
+                                <h:outputLabel value="Volume:" styleClass="panelGridLabel" />
+                                <h:outputText value="#{parsifal.selectedArticle.volume}" />
+                                
+                                <h:outputLabel value="Researcher Comments:" styleClass="panelGridLabel" />
+                                <h:outputText value="#{parsifal.selectedArticle.comments}" />
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
                 </h:form>
+
                 
             </div>
         </div>
