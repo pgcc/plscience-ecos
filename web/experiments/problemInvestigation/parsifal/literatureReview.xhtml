@@ -1,0 +1,105 @@
+<ui:composition template="/WEB-INF/templates/experimentLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-md-2">
+                <ui:include src="/experiments/problemInvestigation/contextMenu.xhtml" />
+            </div>
+            <div class="col-md-10">
+                <h2>Parsifal Literature Review</h2>
+                
+                <h:form>
+                    <p:fieldset legend="General">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Title:" styleClass="panelGridLabel" />
+                            <h:outputText value="#{parsifal.review.title}" />
+
+                            <h:outputLabel value="Description:" styleClass="panelGridLabel" />
+                            <h:outputText value="#{parsifal.review.description}" />
+
+                            <h:outputLabel value="Create at:" styleClass="panelGridLabel" />
+                            <h:outputText value="#{parsifal.review.create_date}" />
+
+                            <h:outputLabel value="Last update:" styleClass="panelGridLabel" />
+                            <h:outputText value="#{parsifal.review.last_update}" />
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:form>
+                
+                <h:form>
+                    <p:fieldset legend="Research Questions" style="margin-top: 20px">
+                        <p:dataList value="#{parsifal.questions}" var="question">
+                            #{question.question}
+                        </p:dataList>
+                    </p:fieldset>
+                </h:form>
+                
+                <h:form>
+                    <p:fieldset legend="PICOC" style="margin-top: 20px">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Population:" styleClass="panelGridLabel" />
+                            <h:outputText value="#{parsifal.review.population}" />
+
+                            <h:outputLabel value="Intervention:" styleClass="panelGridLabel" />
+                            <h:outputText value="#{parsifal.review.intervention}" />
+
+                            <h:outputLabel value="Comparison:" styleClass="panelGridLabel" />
+                            <h:outputText value="#{parsifal.review.comparison}" />
+
+                            <h:outputLabel value="Outcome:" styleClass="panelGridLabel" />
+                            <h:outputText value="#{parsifal.review.outcome}" />
+                            
+                            <h:outputLabel value="Context:" styleClass="panelGridLabel" />
+                            <h:outputText value="#{parsifal.review.context}" />
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:form>
+                
+                <h:form>
+                    <p:fieldset legend="Keywords and Synonyms" style="margin-top: 20px">
+                        <p:dataGrid value="#{parsifal.keywords}" var="keyword">
+                            <p:column>
+                                <h:outputText value="#{keyword.description}" />
+                            </p:column>
+                        </p:dataGrid>
+                    </p:fieldset>
+                </h:form>
+                
+                <h:form>
+                    <p:fieldset legend="Selected Articles" style="margin-top: 20px">
+                        <p:dataTable value="#{parsifal.articles}" var="article">
+                            <p:column headerText="Bibtex Key">
+                                <h:outputText value="#{article.bibtex_key}" />
+                            </p:column>
+                            
+                            <p:column headerText="Title">
+                                <h:outputText value="#{article.title}" />
+                            </p:column>
+
+                            <p:column headerText="Author">
+                                <h:outputText value="#{article.author}" />
+                            </p:column>
+
+                            <p:column headerText="Journal">
+                                <h:outputText value="#{article.journal}" />
+                            </p:column>
+
+                            <p:column headerText="Year">
+                                <h:outputText value="#{article.journal}" />
+                            </p:column>
+                            
+                            <p:column headerText="More Details">
+
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                </h:form>
+                
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
