@@ -2,29 +2,29 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="ProVersionPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>br.ufjf.pgcc.model.WasInformedByPortEntity</class>
-    <class>br.ufjf.pgcc.model.Port</class>
-    <class>br.ufjf.pgcc.model.Performer</class>
-    <class>br.ufjf.pgcc.model.WasStartedByPerformer</class>
-    <class>br.ufjf.pgcc.model.WorkflowhasExpiriment</class>
-    <class>br.ufjf.pgcc.plscience.model.Workflow</class>
-    <class>br.ufjf.pgcc.plscience.model.WasInformedBy</class>
-    <class>br.ufjf.pgcc.plscience.model.Task</class>
-    <class>br.ufjf.pgcc.plscience.model.Experiment</class>
-    <class>br.ufjf.pgcc.plscience.model.ActedOnBeHalfOfTask</class>
+    <class>br.ufjf.pgcc.plscience.model.ActedOnBeHalfOf</class>
     <class>br.ufjf.pgcc.plscience.model.Activity</class>
-    <class>br.ufjf.pgcc.plscience.model.WorkflowhasExperiment</class>
-    <class>br.ufjf.pgcc.plscience.model.Entity</class>
     <class>br.ufjf.pgcc.plscience.model.Agent</class>
-    <class>br.ufjf.pgcc.plscience.model.AgenthasResearchGroup</class>
-    <class>br.ufjf.pgcc.plscience.model.WasStartedByTaskActivity</class>
-    <class>br.ufjf.pgcc.plscience.model.WasDerivedFrom</class>
+    <class>br.ufjf.pgcc.plscience.model.Entity</class>
+    <class>br.ufjf.pgcc.plscience.model.Experiment</class>
+    <class>br.ufjf.pgcc.plscience.model.Port</class>
     <class>br.ufjf.pgcc.plscience.model.ResearchGroup</class>
-    <class>br.ufjf.pgcc.plscience.model.WasControledByAgentActivity</class>
+    <class>br.ufjf.pgcc.plscience.model.Task</class>
+    <class>br.ufjf.pgcc.plscience.model.Used</class>
+    <class>br.ufjf.pgcc.plscience.model.WasAssociatedWith</class>
+    <class>br.ufjf.pgcc.plscience.model.WasAttributedTo</class>
+    <class>br.ufjf.pgcc.plscience.model.WasControledBy</class>
+    <class>br.ufjf.pgcc.plscience.model.WasDerivedFrom</class>
+    <class>br.ufjf.pgcc.plscience.model.WasEndedBy</class>
+    <class>br.ufjf.pgcc.plscience.model.WasGeneratedBy</class>
+    <class>br.ufjf.pgcc.plscience.model.WasInformedBy</class>
+    <class>br.ufjf.pgcc.plscience.model.WasRevisionOf</class>
+    <class>br.ufjf.pgcc.plscience.model.WasStartedBy</class>
+    <class>br.ufjf.pgcc.plscience.model.Workflow</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/PL-Science_ProVersion?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.password" value="tfmsifm"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
     </properties>
