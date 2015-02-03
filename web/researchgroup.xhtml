@@ -30,10 +30,6 @@
 
                         <h:outputText value="#{lista.agentidAgentchef.name}" />
                     </p:column>
-                    <p:column headerText="Experiment" sortBy="#{lista.experimentExperiment.name}" filterBy="#{lista.experimentExperiment.name}">
-
-                        <h:outputText value="#{lista.experimentExperiment.name}" />
-                    </p:column>
                     <p:column headerText="Actions" exportable="false">
                         <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
                             <f:setPropertyActionListener target="#{researchGroupBean.researchGroup}"
@@ -93,11 +89,6 @@
                     <p:selectOneMenu id="resp" value="#{researchGroupBean.researchGroup.agentidAgentchef}" converter="agentConverter">
                         <f:selectItem itemLabel="Select One" itemValue="" />
                         <f:selectItems value="#{agentBean.agents}" var="respname" itemLabel="#{respname.name}" itemValue="#{respname}" />
-                    </p:selectOneMenu>
-                    Experiment:
-                    <p:selectOneMenu id="experiment" value="#{researchGroupBean.researchGroup.experimentExperiment}" converter="experimentConverter">
-                        <f:selectItem itemLabel="Select One" itemValue="" />
-                        <f:selectItems value="#{experimentBean.experiments}" var="expname" itemLabel="#{expname.name}" itemValue="#{expname}" />
                     </p:selectOneMenu>
                 </p:panelGrid>  
                 <br/>
