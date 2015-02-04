@@ -10,7 +10,36 @@
                 <ui:include src="contextMenu.xhtml" />
             </div>
             <div class="col-md-10">
-
+               
+                <h:panelGrid columns="2" cellpadding="10">
+                    
+                    <h:form id="numberStages">
+                    <h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
+                        <h:outputLabel value="Number of Stages: " for="experimentPrototyping" styleClass="panelGridLabel"/>
+                        <p:inputText id="numberStages" value="#{experimentPrototyping.numberStages}" required="true" label="numberStages">
+                            <f:validateLength minimum="1" />
+                        </p:inputText>    
+                        <p:commandButton value="OK" icon="ui-icon-search" actionListener="#{experimentPrototyping.drawStages}" update="drawResult"/>
+                    </h:panelGrid>
+                    
+                    <p:dataTable var="result" value="#{experimentPrototyping.draw}" id="drawResult" style="margin-top: 20px; float: left" >
+                       <p:column headerText="Stages">
+                           <h:outputText value="#{result}" />
+                            <p:mindmap value="#{mindmapView.root}" style="width: 100%;height: 600px;border: 1px solid black;">
+                        <p:ajax event="select" listener="#{mindmapView.onNodeSelect}" />
+                        <p:ajax event="dblselect" listener="#{mindmapView.onNodeDblselect}" update="output" oncomplete="PF('details').show();" />
+                    </p:mindmap>
+                    <p:dialog widgetVar="details" header="Node Details" resizable="false" modal="true" showEffect="fade" hideEffect="fade">
+                        <h:outputText id="output" value="#{minmapView.selectedNode.data}" />
+                        <p:commandButton value="OK" icon="ui-icon-search" />
+                    </p:dialog> 
+                       </p:column>
+                       
+                    </p:dataTable>
+                    
+                    </h:form>
+                    
+                </h:panelGrid>
             </div>
         </div>
     </ui:define>

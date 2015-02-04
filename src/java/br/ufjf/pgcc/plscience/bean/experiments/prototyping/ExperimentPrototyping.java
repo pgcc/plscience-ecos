@@ -36,5 +36,35 @@ import javax.faces.bean.ViewScoped;
 public class ExperimentPrototyping implements Serializable {
     
     private static final long serialVersionUID = 1L;
+    private String numberStages;
+    private String draw;
+
+    public ExperimentPrototyping() {
+        
+    }
+    
+    public void drawStages(){
+        System.out.println(numberStages);
+        setDraw(numberStages);
+            
+    }
+
+    public String getNumberStages() {
+        return numberStages;
+    }
+
+    public void setNumberStages(String numberStages) {
+        this.numberStages = numberStages;
+    }
+
+    public String getDraw() {
+        return draw;
+    }
+
+    public void setDraw(String draw) {
+        this.draw = draw;
+    }
+    
+    
     
 }
