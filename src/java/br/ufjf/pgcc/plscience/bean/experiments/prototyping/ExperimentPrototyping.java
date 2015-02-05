@@ -23,7 +23,17 @@
  */
 package br.ufjf.pgcc.plscience.bean.experiments.prototyping;
 
+
+import br.ufjf.pgcc.plscience.interoperability.ServiceRecovery;
+import br.ufjf.pgcc.plscience.vo.ContextVO;
+import br.ufjf.pgcc.plscience.vo.HardwareVO;
+import br.ufjf.pgcc.plscience.vo.PragmaticVO;
+import br.ufjf.pgcc.plscience.vo.SemanticVO;
+import br.ufjf.pgcc.plscience.vo.ServiceDescriptionVO;
+import br.ufjf.pgcc.plscience.vo.SyntacticVO;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -38,14 +48,36 @@ public class ExperimentPrototyping implements Serializable {
     private static final long serialVersionUID = 1L;
     private String numberStages;
     private String draw;
+    private ArrayList<String> stages;
+    private ServiceDescriptionVO serviceDescriptionVO;
+    private List<ServiceDescriptionVO> services;
+
+    
 
     public ExperimentPrototyping() {
-        
+        serviceDescriptionVO = new ServiceDescriptionVO();
+        SyntacticVO sync = new SyntacticVO();
+        serviceDescriptionVO.setIncludesSyntactic(sync);
+        SemanticVO sem = new SemanticVO();
+        serviceDescriptionVO.setIncludesSemantic(sem);
+        PragmaticVO prag = new PragmaticVO();
+        serviceDescriptionVO.setIncludesPragmatic(prag);
+        ArrayList<String> funcs = new ArrayList();
+        serviceDescriptionVO.getIncludesSemantic().setHasFunctionalRequirements(funcs);
+        ContextVO con = new ContextVO();
+        serviceDescriptionVO.getIncludesPragmatic().setIncludesContext(con);
+        HardwareVO hard = new HardwareVO();
+        serviceDescriptionVO.getIncludesPragmatic().setIncludesHardware(hard);
+        services = new ArrayList<ServiceDescriptionVO>();
     }
     
     public void drawStages(){
         System.out.println(numberStages);
         setDraw(numberStages);
+        stages = new ArrayList<String>();
+        for(int i=0;i<Integer.valueOf(getNumberStages());i++){
+            stages.add("Stage "+i);
+        }
             
     }
 
@@ -64,7 +96,70 @@ public class ExperimentPrototyping implements Serializable {
     public void setDraw(String draw) {
         this.draw = draw;
     }
+
+    public ArrayList<String> getStages() {
+        return stages;
+    }
+
+    public void setStages(ArrayList<String> stages) {
+        this.stages = stages;
+    }
     
+    public ServiceDescriptionVO getServiceDescriptionVO() {
+        return serviceDescriptionVO;
+    }
+
+    public void setServiceDescriptionVO(ServiceDescriptionVO serviceDescriptionVO) {
+        this.serviceDescriptionVO = serviceDescriptionVO;
+    }
+
+    public List<ServiceDescriptionVO> getServices() {
+        return services;
+    }
+
+    public void setServices(List<ServiceDescriptionVO> services) {
+        this.services = services;
+    }
+    
+    
+
+    public void searchServices(){
+        System.out.println("OLAAA");
+        ServiceRecovery sr = new ServiceRecovery();
+        setServices(sr.Recovery());
+        System.out.println("OLAAA");
+        System.out.println(serviceDescriptionVO.getIncludesSyntactic().getHasAddress());
+        System.out.println(serviceDescriptionVO.getIncludesSyntactic().getHasReturn());
+        System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasSemanticReturn());
+        System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasSemanticReception());
+        System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasSemanticRepresentation());
+        System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasFunctionalRequirement());
+        ArrayList<String> s = new ArrayList();
+        s.add(serviceDescriptionVO.getIncludesSemantic().getHasFunctionalRequirement());
+        serviceDescriptionVO.getIncludesSemantic().setHasFunctionalRequirements(s);
+        System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasFunctionalRequirements().get(0));
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getHasNonFunctionalReq());
+        ArrayList<String> s2 = new ArrayList();
+        s2.add(serviceDescriptionVO.getIncludesPragmatic().getHasNonFunctionalReq());
+        serviceDescriptionVO.getIncludesPragmatic().setHasNonFunctionalRequirement(s2);
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getHasNonFunctionalRequirement().get(0));
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasArtifact());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasComments());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasDomain());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasLicense());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasReputation());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasRestriction());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHow());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getWhen());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getWhere());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getWho());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasCPU());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasOperationalSystem());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasOperationalSystem());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasRAM());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasROM());
+        
+    }
     
     
 }

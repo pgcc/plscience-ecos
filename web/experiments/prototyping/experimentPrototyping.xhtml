@@ -3,7 +3,9 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
     <ui:define name="content">
         <div class="row">
             <div class="col-md-2">
@@ -12,32 +14,106 @@
             <div class="col-md-10">
                
                 <h:panelGrid columns="2" cellpadding="10">
-                    
                     <h:form id="numberStages">
-                    <h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
+                        <h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
                         <h:outputLabel value="Number of Stages: " for="experimentPrototyping" styleClass="panelGridLabel"/>
                         <p:inputText id="numberStages" value="#{experimentPrototyping.numberStages}" required="true" label="numberStages">
                             <f:validateLength minimum="1" />
                         </p:inputText>    
                         <p:commandButton value="OK" icon="ui-icon-search" actionListener="#{experimentPrototyping.drawStages}" update="drawResult"/>
-                    </h:panelGrid>
-                    
-                    <p:dataTable var="result" value="#{experimentPrototyping.draw}" id="drawResult" style="margin-top: 20px; float: left" >
-                       <p:column headerText="Stages">
-                           <h:outputText value="#{result}" />
-                            <p:mindmap value="#{mindmapView.root}" style="width: 100%;height: 600px;border: 1px solid black;">
-                        <p:ajax event="select" listener="#{mindmapView.onNodeSelect}" />
-                        <p:ajax event="dblselect" listener="#{mindmapView.onNodeDblselect}" update="output" oncomplete="PF('details').show();" />
-                    </p:mindmap>
-                    <p:dialog widgetVar="details" header="Node Details" resizable="false" modal="true" showEffect="fade" hideEffect="fade">
-                        <h:outputText id="output" value="#{minmapView.selectedNode.data}" />
-                        <p:commandButton value="OK" icon="ui-icon-search" />
-                    </p:dialog> 
-                       </p:column>
-                       
-                    </p:dataTable>
-                    
+                        </h:panelGrid>
+                        
+                       <p:dataTable var="result" value="#{experimentPrototyping.stages}" id="drawResult" style="margin-top: 20px; max-height: 500px; max-width: 500px" >
+                           <p:column headerText="Stages" >
+                         <h:outputText value="#{result}" styleClass="panelGridLabel"/>
+                         <h:outputLabel value="  Service related:" />
+                         <p:inputText id="serviceRelated"  label="serviceRelated"/>
+                           
+                        
+                         <p:commandButton id="movieBtn" value="search" icon="ui-icon-search" />
+                         <p:overlayPanel id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" style="width:600px">
+                             <h:form id="searchPage">
+                                 <h:outputLabel value="Service Discovery" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                  <h:outputLabel value="Syntactic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                                   
+                                    <h:outputLabel for="hasAddress" value="Address" />
+                                    <h:inputText id="hasAddress" value="#{experimentPrototyping.serviceDescriptionVO.includesSyntactic.hasAddress}" />
+                                    <h:outputLabel for="hasReturn" value="Return:" />
+                                    <h:inputText id="hasReturn" value="#{experimentPrototyping.serviceDescriptionVO.includesSyntactic.hasReturn}" />
+                                    
+                                 </h:panelGrid>
+                                  <h:outputLabel value="Semantic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                  <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                                    <h:outputLabel for="hasSemanticReturn" value="Semantic Return" />
+                                    <h:inputText id="hasSemanticReturn" value="#{experimentPrototyping.serviceDescriptionVO.includesSemantic.hasSemanticReturn}" />
+                                    <h:outputLabel for="hasSemanticReception" value="Semantic Reception" />
+                                    <h:inputText id="hasSemanticReception" value="#{experimentPrototyping.serviceDescriptionVO.includesSemantic.hasSemanticReception}" />
+                                    <h:outputLabel for="hasSemanticRepresentation" value="Semantic Representation" />
+                                    <h:inputText id="hasSemanticRepresentation" value="#{experimentPrototyping.serviceDescriptionVO.includesSemantic.hasSemanticRepresentation}" />
+                                    <h:outputLabel for="hasFunctionalRequirement" value="Functional Requirement" />
+                                    <h:inputText id="hasFunctionalRequirement" value="#{experimentPrototyping.serviceDescriptionVO.includesSemantic.hasFunctionalRequirement}" />
+                              
+                                 </h:panelGrid>
+                                  
+                                  <h:outputLabel value="Pragmatic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                  <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                                    <h:outputLabel for="hasNonFunctionalReq" value="Non Functional Requirement" />
+                                    <h:inputText id="hasNonFunctionalReq" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.hasNonFunctionalReq}" />
+                                    <h:outputLabel value="Context" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                    <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                    <h:outputLabel for="hasArtifact" value="Artifact" />
+                                    <h:inputText id="hasArtifact" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.hasArtifact}" />
+                                    <h:outputLabel for="hasDomain" value="Domain" />
+                                    <h:inputText id="hasDomain" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.hasDomain}" />
+                                    <h:outputLabel for="hasLicense" value="License" />
+                                    <h:inputText id="hasLicense" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.hasLicense}" />
+                                    <h:outputLabel for="hasComments" value="Comments" />
+                                    <h:inputText id="hasComments" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.hasComments}" />
+                                    <h:outputLabel for="hasReputation" value="Reputation" />
+                                    <h:inputText id="hasReputation" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.hasReputation}" />
+                                    <h:outputLabel for="how" value="Purpose" />
+                                    <h:inputText id="how" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.how}" />
+                                    <h:outputLabel for="where" value="Provider" />
+                                    <h:inputText id="where" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.where}" />
+                                    <h:outputLabel for="when" value="Publication Data" />
+                                    <h:inputText id="when" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.when}" />
+                                    <h:outputLabel for="who" value="Scientist Name" />
+                                    <h:inputText id="who" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.who}" />
+                                    <h:outputLabel for="hasRestriction" value="Restriction" />
+                                    <h:inputText id="hasRestriction" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.hasRestriction}" />
+                                    <h:outputLabel value="Hardware" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                    <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                    <h:outputLabel for="hasCPU" value="CPU" />
+                                    <h:inputText id="hasCPU" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasCPU}" />
+                                    <h:outputLabel for="hasOperationalSystem" value="Operational System" />
+                                    <h:inputText id="hasOperationalSystem" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasOperationalSystem}" />
+                                    <h:outputLabel for="hasRAM" value="RAM (GB)" />
+                                    <h:inputText id="hasRAM" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasRAM}" />
+                                     <h:outputLabel for="hasROM" value="ROM (GB)" />
+                                     <h:inputText id="hasROM" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasROM}" />
+                                 </h:panelGrid>
+                                  
+                                 
+                                  <h:commandButton id="btnE" value="Send" type="submit" action="#{experimentPrototyping.searchServices()}"/> 
+                                 
+                                
+                             </h:form>
+                             
+                         </p:overlayPanel>
+                        </p:column>
+                                               
+                      </p:dataTable>
+                      
+                      <p:dataTable var="service" value="#{experimentPrototyping.services}" id="servicesResult" style="margin-top: 20px">
+                                            <p:column headerText="Services Ranking">
+                                                <h:outputText value="#{service.name}" />
+                                            </p:column>
+
+
+                      </p:dataTable>
                     </h:form>
+                    
                     
                 </h:panelGrid>
             </div>

@@ -5,11 +5,17 @@
  */
 package br.ufjf.pgcc.plscience.vo;
 
+import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 /**
  *
  * @author Fran
  */
-public class ServiceDescriptionVO {
+@ManagedBean()
+@ViewScoped
+public class ServiceDescriptionVO implements Serializable {
     private PragmaticVO includesPragmatic;
     private SemanticVO includesSemantic;
     private SyntacticVO includesSyntactic;

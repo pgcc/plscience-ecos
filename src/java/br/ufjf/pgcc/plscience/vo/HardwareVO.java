@@ -5,11 +5,17 @@
  */
 package br.ufjf.pgcc.plscience.vo;
 
+import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 /**
  *
  * @author Fran
  */
-public class HardwareVO {
+@ManagedBean()
+@ViewScoped
+public class HardwareVO implements Serializable{
     private String hasCPU;
     private String hasROM;
     private String hasRAM;

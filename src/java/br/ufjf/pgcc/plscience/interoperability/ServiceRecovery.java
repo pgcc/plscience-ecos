@@ -29,8 +29,8 @@ import java.util.logging.Logger;
  */
 public class ServiceRecovery {
     
-    public List<ServiceVO> Recovery(){
-        List<ServiceVO> services = new ArrayList<ServiceVO>();
+    public List<ServiceDescriptionVO> Recovery(){
+        List<ServiceDescriptionVO> services = new ArrayList<ServiceDescriptionVO>();
         
         try {
             StringBuilder  sb = new StringBuilder();
@@ -60,6 +60,7 @@ public class ServiceRecovery {
            int pragIni = partial.indexOf(";");
            int pragFim = partial.indexOf("\"/>");
            String pragmaticName = partial.substring(pragIni+1, pragFim);
+           String serviceName = pragmaticName.substring(10);
            
            int meio = partial.indexOf("<PLScienceServiceDescription:includesSemantic rdf:resource=\"&PLScienceServiceDescription;");
            partial = partial.substring(meio);
@@ -76,10 +77,11 @@ public class ServiceRecovery {
            System.out.println(pragmaticName);
            System.out.println(semanticName);
            System.out.println(syntacticName);
-           ServiceVO serv = new ServiceVO();
+           ServiceDescriptionVO serv = new ServiceDescriptionVO();
            serv.setIncludesSyntactic(SyntacticRecovery(syntacticName, individuals));
            serv.setIncludesSemantic(SemanticRecovery(semanticName, individuals));
            serv.setIncludesPragmatic(PragmaticRecovery(pragmaticName, individuals));
+           serv.setName(serviceName);
            
            services.add(serv);
            }
@@ -97,7 +99,7 @@ public class ServiceRecovery {
     
     public SyntacticVO SyntacticRecovery(String syntacticName, String individuals){
         String partial = individuals;  
-        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ "Syntatic_testeFran" +"\">");
+        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ syntacticName +"\">");
         partial = partial.substring(ini);
         int returnIni = partial.indexOf("hasReturn>");
         int returnFim = partial.indexOf("</");
@@ -114,7 +116,7 @@ public class ServiceRecovery {
     
     public SemanticVO SemanticRecovery(String semanticName, String individuals){
         String partial = individuals;  
-        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ "Semantic_testeFran" +"\">");
+        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ semanticName +"\">");
         partial = partial.substring(ini);
         int receptionIni = partial.indexOf("hasSemanticReception>");
         int receptionFim = partial.indexOf("</");
@@ -144,7 +146,7 @@ public class ServiceRecovery {
     
     public PragmaticVO PragmaticRecovery(String pragmaticName, String individuals){
         String partial = individuals;  
-        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ "Pragmatic_testeFran" +"\">");
+        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ pragmaticName +"\">");
         partial = partial.substring(ini);
         int nonFunctionalIni = partial.indexOf("hasNonFunctionalRequirement>");
         int nonFunctionalFim = partial.indexOf("</");
@@ -170,7 +172,7 @@ public class ServiceRecovery {
     
     public HardwareVO HardwareRecovery(String hardwareName, String individuals){
         String partial = individuals;  
-        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ "Hardware_testeFran" +"\">");
+        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ hardwareName +"\">");
         partial = partial.substring(ini);
         int cpuIni = partial.indexOf("hasCPU>");
         int cpuFim = partial.indexOf("</");
@@ -196,7 +198,7 @@ public class ServiceRecovery {
     }
     public ContextVO ContextRecovery(String contextName, String individuals){
         String partial = individuals;  
-        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ "Context_testeFran" +"\">");
+        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ contextName +"\">");
         partial = partial.substring(ini);
         int licenseIni = partial.indexOf("hasLicense>");
         int licenseFim = partial.indexOf("</");
@@ -238,7 +240,7 @@ public class ServiceRecovery {
         int howFim = partial.indexOf("</");
         con.setHow(partial.substring(howIni+4, howFim));
         
-        partial = partial.substring(artifactFim+3);
+        partial = partial.substring(howFim+3);
         int whereIni = partial.indexOf("where>");
         int whereFim = partial.indexOf("</");
         con.setWhere(partial.substring(whereIni+6, whereFim));
@@ -275,7 +277,7 @@ public class ServiceRecovery {
     
     public ScientistVO ScientistRecovery(String scientistName, String individuals){
         String partial = individuals;  
-        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ "Scientist_0testeFran" +"\">");
+        int ini = partial.indexOf("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;"+ scientistName +"\">");
         partial = partial.substring(ini);
         int afiliationIni = partial.indexOf("hasInstitutionFiliation>");
         int afiliationFim = partial.indexOf("</");
@@ -296,10 +298,10 @@ public class ServiceRecovery {
     }
     
   
-     public static void main(String[] args) throws IOException {
+    /* public static void main(String[] args) throws IOException {
          ServiceRecovery sr = new ServiceRecovery();
       
          sr.Recovery();
         
-    }
+    }*/
 }

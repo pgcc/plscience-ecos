@@ -180,8 +180,8 @@ public class ServiceRegistration {
                 .append("</PLScienceServiceDescription:hasNonFunctionalRequirement>\n");
             }
             //ARRUMAR OS NOMESSSS!!!
-            sb.append("<PLScienceServiceDescription:includesContext rdf:resource=\"&PLScienceServiceDescription;Context1\"/>")
-              .append("<PLScienceServiceDescription:includesHardware rdf:resource=\"&PLScienceServiceDescription;Hardware1\"/>") 
+            sb.append("<PLScienceServiceDescription:includesContext rdf:resource=\"&PLScienceServiceDescription;"+"Context_"+serv.getName()+"\"/>")
+              .append("<PLScienceServiceDescription:includesHardware rdf:resource=\"&PLScienceServiceDescription;"+"Hardware_"+serv.getName()+"\"/>") 
               .append("</owl:NamedIndividual>\n\n");
             
             
@@ -189,9 +189,9 @@ public class ServiceRegistration {
              sb.append("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;")
                .append("Service_").append(serv.getName()).append("\">\n")
                .append("<rdf:type rdf:resource=\"&PLScienceServiceDescription;Service\"/>\n")
-               .append("<PLScienceServiceDescription:includesPragmatic rdf:resource=\"&PLScienceServiceDescription;Pragmatic2\"/>\n")
-               .append("<PLScienceServiceDescription:includesSemantic rdf:resource=\"&PLScienceServiceDescription;Semantic1\"/>\n")
-               .append("<PLScienceServiceDescription:includesSyntactic rdf:resource=\"&PLScienceServiceDescription;Syntactic1\"/>\n")
+               .append("<PLScienceServiceDescription:includesPragmatic rdf:resource=\"&PLScienceServiceDescription;"+"Pragmatic_"+serv.getName()+"\"/>\n")
+               .append("<PLScienceServiceDescription:includesSemantic rdf:resource=\"&PLScienceServiceDescription;"+"Semantic_"+serv.getName()+"\"/>\n")
+               .append("<PLScienceServiceDescription:includesSyntactic rdf:resource=\"&PLScienceServiceDescription;"+"Syntatic_"+serv.getName()+"\"/>\n")
                .append("</owl:NamedIndividual>\n\n");
             
   
@@ -437,6 +437,694 @@ public class ServiceRegistration {
          //ps olhar todos os comentarios ao longo do texto e concertar
          // nao foi possivel adicionar mais de uma propriedade de requisitos
          // mudar a ontologia ou deixar somente um.
+                 
+         */
+         // Criando serviços verdadeiros - Serviço 1
+         /*
+         //add sintática
+         SyntacticVO sync = new SyntacticVO();
+         sync.setHasAddress("http://localhost:8080/plscience-ecos/rest/phenotypeTranslation");
+         sync.setHasReturn("List<Object>");
+         
+         //add semântica
+         SemanticVO sem = new SemanticVO();
+         ArrayList<String> frs = new ArrayList();
+         frs.add("traduzir tipos sanguineos em fenotipos");
+         sem.setHasFunctionalRequirements(frs);
+         sem.setHasSemanticReception("Blood Group");
+         sem.setHasSemanticRepresentation("Blood Group");
+         sem.setHasSemanticReturn("Blood Group");
+         
+         //add cientista
+         ScientistVO st1 = new ScientistVO();
+         st1.setHasCompleteName("Jose M. David");
+         st1.setHasEmail("jose@gmail.com");
+         st1.setHasInstitutionFiliation("UFJF");
+         
+         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
+         sts.add(st1);        
+         
+         //add hardware
+         HardwareVO h = new HardwareVO();
+         h.setHasCPU("Quad Core");
+         h.setHasOperationalSystem("Linux");
+         h.setHasRAM("6");
+         h.setHasROM("500");
+         
+         
+         //add contexto
+         ContextVO c = new ContextVO();
+         c.setHasArtifact("Fenotipos");
+         c.setHasComments("Servico usado para transformar o grupo sanguineo nos fenotipos correspondentes");
+         c.setHasDomain("Bloog Group");
+         c.setHasInvolved(sts);
+         c.setHasLicense("public");
+         c.setHasReputation("5");
+         c.setHasRestriction("Humans Blood");
+         c.setHow("Composicao de servicos");
+         c.setWhat("Servico PhenotypeTranslation");
+         c.setWhen("12-01-2009");
+         c.setWhere("UFJF");
+         
+         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
+         //colocar um propriedade para poder acessar depois.
+         c.setWho("");
+         
+         // add pragmatic
+         PragmaticVO p = new PragmaticVO();
+         ArrayList<String> nfrs = new ArrayList<String>();
+         nfrs.add("Reusabilidade");
+         p.setHasNonFunctionalRequirement(nfrs);
+         p.setIncludesContext(c);
+         p.setIncludesHardware(h);
+     
+         
+         sdesc.setName("PhenotypeTranslation");
+         sdesc.setIncludesSyntactic(sync);
+         sdesc.setIncludesSemantic(sem);
+         sdesc.setIncludesPragmatic(p);
+         sr.Register(sdesc);
+         
+                 
+         */
+         
+        
+         // Criando serviços verdadeiros - Serviço 2
+         /*
+         //add sintática
+         SyntacticVO sync = new SyntacticVO();
+         sync.setHasAddress("http://localhost:8080/plscience-ecos/rest/phenotypeTranslationPrimitiveType");
+         sync.setHasReturn("String");
+         
+         //add semântica
+         SemanticVO sem = new SemanticVO();
+         ArrayList<String> frs = new ArrayList();
+         frs.add("traduzir tipos sanguineos nos fenotipos correspondentes");
+         sem.setHasFunctionalRequirements(frs);
+         sem.setHasSemanticReception("Blood Group");
+         sem.setHasSemanticRepresentation("Blood Group");
+         sem.setHasSemanticReturn("Blood Group");
+         
+         //add cientista
+         ScientistVO st1 = new ScientistVO();
+         st1.setHasCompleteName("Jose Maria David");
+         st1.setHasEmail("jose@gmail.com");
+         st1.setHasInstitutionFiliation("UFJF");
+         
+         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
+         sts.add(st1);        
+         
+         //add hardware
+         HardwareVO h = new HardwareVO();
+         h.setHasCPU("Quad Core");
+         h.setHasOperationalSystem("Linux");
+         h.setHasRAM("6");
+         h.setHasROM("500");
+         
+         
+         //add contexto
+         ContextVO c = new ContextVO();
+         c.setHasArtifact("Fenotipos");
+         c.setHasComments("Transformar grupos sanguineos nos fenotipos correspondentes");
+         c.setHasDomain("Bloog Group");
+         c.setHasInvolved(sts);
+         c.setHasLicense("public");
+         c.setHasReputation("5");
+         c.setHasRestriction("Humans Blood");
+         c.setHow("Composicao de servicos");
+         c.setWhat("Servico PhenotypeTranslation");
+         c.setWhen("13-01-2009");
+         c.setWhere("UFJF");
+         
+         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
+         //colocar um propriedade para poder acessar depois.
+         c.setWho("");
+         
+         // add pragmatic
+         PragmaticVO p = new PragmaticVO();
+         ArrayList<String> nfrs = new ArrayList<String>();
+         nfrs.add("Reusabilidade");
+         p.setHasNonFunctionalRequirement(nfrs);
+         p.setIncludesContext(c);
+         p.setIncludesHardware(h);
+     
+         
+         sdesc.setName("PhenotypeTranslationPrimitiveType");
+         sdesc.setIncludesSyntactic(sync);
+         sdesc.setIncludesSemantic(sem);
+         sdesc.setIncludesPragmatic(p);
+         sr.Register(sdesc);
+         
+                 
+         */
+         
+         // Criando serviços verdadeiros - Serviço 3
+         /*
+         //add sintática
+         SyntacticVO sync = new SyntacticVO();
+         sync.setHasAddress("http://localhost:8080/plscience-ecos/rest/matrixCombinationPhenotypes");
+         sync.setHasReturn("List<Object>");
+         
+         //add semântica
+         SemanticVO sem = new SemanticVO();
+         ArrayList<String> frs = new ArrayList();
+         frs.add("gerar matriz de combinacao de fenotipos");
+         sem.setHasFunctionalRequirements(frs);
+         sem.setHasSemanticReception("Adult i phenotype");
+         sem.setHasSemanticRepresentation("Blood Group");
+         sem.setHasSemanticReturn("Adult i phenotype");
+         
+         //add cientista
+         ScientistVO st1 = new ScientistVO();
+         st1.setHasCompleteName("Francila W. Neiva");
+         st1.setHasEmail("francila@gmail.com");
+         st1.setHasInstitutionFiliation("UFJF");
+         
+         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
+         sts.add(st1);        
+         
+         //add hardware
+         HardwareVO h = new HardwareVO();
+         h.setHasCPU("I5");
+         h.setHasOperationalSystem("Windows");
+         h.setHasRAM("6");
+         h.setHasROM("1024");
+         
+         
+         //add contexto
+         ContextVO c = new ContextVO();
+         c.setHasArtifact("Fenotipos");
+         c.setHasComments("Este serviço gera uma matriz de fenotipos baseado em dois tipos sanguineos");
+         c.setHasDomain("Bloog Group");
+         c.setHasInvolved(sts);
+         c.setHasLicense("public");
+         c.setHasReputation("5");
+         c.setHasRestriction("Humans Blood");
+         c.setHow("Composicao de servicos");
+         c.setWhat("Servico MatrixCombinationPhenotypes");
+         c.setWhen("15-05-2012");
+         c.setWhere("UFJF");
+         
+         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
+         //colocar um propriedade para poder acessar depois.
+         c.setWho("");
+         
+         // add pragmatic
+         PragmaticVO p = new PragmaticVO();
+         ArrayList<String> nfrs = new ArrayList<String>();
+         nfrs.add("Composabilidade");
+         p.setHasNonFunctionalRequirement(nfrs);
+         p.setIncludesContext(c);
+         p.setIncludesHardware(h);
+     
+         
+         sdesc.setName("MatrixCombinationPhenotypes");
+         sdesc.setIncludesSyntactic(sync);
+         sdesc.setIncludesSemantic(sem);
+         sdesc.setIncludesPragmatic(p);
+         sr.Register(sdesc);
+         
+                 
+         */
+         
+         // Criando serviços verdadeiros - Serviço 4
+         /*
+         //add sintática
+         SyntacticVO sync = new SyntacticVO();
+         sync.setHasAddress("http://localhost:8080/plscience-ecos/rest/matrixCombinationPhenotypesPrimitiveTypes");
+         sync.setHasReturn("String");
+         
+         //add semântica
+         SemanticVO sem = new SemanticVO();
+         ArrayList<String> frs = new ArrayList();
+         frs.add("gerar combinacao dos fenotipos fornecidos");
+         sem.setHasFunctionalRequirements(frs);
+         sem.setHasSemanticReception("Adult i phenotype");
+         sem.setHasSemanticRepresentation("Blood Group");
+         sem.setHasSemanticReturn("Adult i phenotype");
+         
+         //add cientista
+         ScientistVO st1 = new ScientistVO();
+         st1.setHasCompleteName("Francine Weidt Neiva");
+         st1.setHasEmail("francine@gmail.com");
+         st1.setHasInstitutionFiliation("UFJF");
+         
+         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
+         sts.add(st1);        
+         
+         //add hardware
+         HardwareVO h = new HardwareVO();
+         h.setHasCPU("I5");
+         h.setHasOperationalSystem("Windows");
+         h.setHasRAM("6");
+         h.setHasROM("1024");
+         
+         
+         //add contexto
+         ContextVO c = new ContextVO();
+         c.setHasArtifact("Fenotipos");
+         c.setHasComments("Gera uma matriz de fenotipos baseado nos tipos sanguineos fornecidos");
+         c.setHasDomain("Bloog Group");
+         c.setHasInvolved(sts);
+         c.setHasLicense("public");
+         c.setHasReputation("4");
+         c.setHasRestriction("Humans Blood");
+         c.setHow("Composicao de servicos");
+         c.setWhat("Servico MatrixCombinationPhenotypes");
+         c.setWhen("16-05-2012");
+         c.setWhere("UFJF");
+         
+         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
+         //colocar um propriedade para poder acessar depois.
+         c.setWho("");
+         
+         // add pragmatic
+         PragmaticVO p = new PragmaticVO();
+         ArrayList<String> nfrs = new ArrayList<String>();
+         nfrs.add("Composabilidade");
+         p.setHasNonFunctionalRequirement(nfrs);
+         p.setIncludesContext(c);
+         p.setIncludesHardware(h);
+     
+         
+         sdesc.setName("MatrixCombinationPhenotypesPrimitiveTypes");
+         sdesc.setIncludesSyntactic(sync);
+         sdesc.setIncludesSemantic(sem);
+         sdesc.setIncludesPragmatic(p);
+         sr.Register(sdesc);
+         
+                 
+         */
+         
+         // Criando serviços verdadeiros - Serviço 6
+         /*
+         //add sintática
+         SyntacticVO sync = new SyntacticVO();
+         sync.setHasAddress("http://localhost:8080/plscience-ecos/rest/bloodTypeProbabilityPrimitiveType");
+         sync.setHasReturn("String");
+         
+         //add semântica
+         SemanticVO sem = new SemanticVO();
+         ArrayList<String> frs = new ArrayList();
+         frs.add("Deve gerar as probabilidades de herenca para cada grupo sanguineo");
+         sem.setHasFunctionalRequirements(frs);
+         sem.setHasSemanticReception("Adult i phenotype");
+         sem.setHasSemanticRepresentation("Blood Group");
+         sem.setHasSemanticReturn("Blood Group");
+         
+         //add cientista
+         ScientistVO st1 = new ScientistVO();
+         st1.setHasCompleteName("Lucas M. Silva");
+         st1.setHasEmail("lucasilva@gmail.com");
+         st1.setHasInstitutionFiliation("UFRJ");
+         
+         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
+         sts.add(st1);        
+         
+         //add hardware
+         HardwareVO h = new HardwareVO();
+         h.setHasCPU("I3");
+         h.setHasOperationalSystem("Windows");
+         h.setHasRAM("8");
+         h.setHasROM("1024");
+         
+         
+         //add contexto
+         ContextVO c = new ContextVO();
+         c.setHasArtifact("Fenotipos");
+         c.setHasComments("Gera as probabilidades de se herdar cada tipo sanguineo");
+         c.setHasDomain("Bloog Group");
+         c.setHasInvolved(sts);
+         c.setHasLicense("public");
+         c.setHasReputation("4");
+         c.setHasRestriction("Humans Blood");
+         c.setHow("Composicao de servicos");
+         c.setWhat("Servico BloodTypeProbabilityPrimitiveType");
+         c.setWhen("01-06-2013");
+         c.setWhere("UFRJ");
+         
+         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
+         //colocar um propriedade para poder acessar depois.
+         c.setWho("");
+         
+         // add pragmatic
+         PragmaticVO p = new PragmaticVO();
+         ArrayList<String> nfrs = new ArrayList<String>();
+         nfrs.add("Agilidade");
+         p.setHasNonFunctionalRequirement(nfrs);
+         p.setIncludesContext(c);
+         p.setIncludesHardware(h);
+     
+         
+         sdesc.setName("BloodTypeProbabilityPrimitiveTtpe");
+         sdesc.setIncludesSyntactic(sync);
+         sdesc.setIncludesSemantic(sem);
+         sdesc.setIncludesPragmatic(p);
+         sr.Register(sdesc);
+         
+                 
+         */
+         
+         // Criando serviços verdadeiros - Serviço 5
+         /*
+         //add sintática
+         SyntacticVO sync = new SyntacticVO();
+         sync.setHasAddress("http://localhost:8080/plscience-ecos/rest/bloodTypeProbability");
+         sync.setHasReturn("Object");
+         
+         //add semântica
+         SemanticVO sem = new SemanticVO();
+         ArrayList<String> frs = new ArrayList();
+         frs.add("gerar probabilidade de herenca de um grupo sanguineo");
+         sem.setHasFunctionalRequirements(frs);
+         sem.setHasSemanticReception("Adult i phenotype");
+         sem.setHasSemanticRepresentation("Blood Group");
+         sem.setHasSemanticReturn("Blood Group");
+         
+         //add cientista
+         ScientistVO st1 = new ScientistVO();
+         st1.setHasCompleteName("Lucas Maciel da Silva");
+         st1.setHasEmail("lucassilva@gmail.com");
+         st1.setHasInstitutionFiliation("UFRJ");
+         
+         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
+         sts.add(st1);        
+         
+         //add hardware
+         HardwareVO h = new HardwareVO();
+         h.setHasCPU("I3");
+         h.setHasOperationalSystem("Windows");
+         h.setHasRAM("8");
+         h.setHasROM("1024");
+         
+         
+         //add contexto
+         ContextVO c = new ContextVO();
+         c.setHasArtifact("Fenotipos");
+         c.setHasComments("Gera as probabilidades de heranca de cata tipo sanguineo");
+         c.setHasDomain("Bloog Group");
+         c.setHasInvolved(sts);
+         c.setHasLicense("public");
+         c.setHasReputation("4");
+         c.setHasRestriction("Humans Blood");
+         c.setHow("Composicao de servicos");
+         c.setWhat("Servico BloodTypeProbability");
+         c.setWhen("01-05-2013");
+         c.setWhere("UFRJ");
+         
+         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
+         //colocar um propriedade para poder acessar depois.
+         c.setWho("");
+         
+         // add pragmatic
+         PragmaticVO p = new PragmaticVO();
+         ArrayList<String> nfrs = new ArrayList<String>();
+         nfrs.add("Agilidade");
+         p.setHasNonFunctionalRequirement(nfrs);
+         p.setIncludesContext(c);
+         p.setIncludesHardware(h);
+     
+         
+         sdesc.setName("BloodTypeProbability");
+         sdesc.setIncludesSyntactic(sync);
+         sdesc.setIncludesSemantic(sem);
+         sdesc.setIncludesPragmatic(p);
+         sr.Register(sdesc);
+         
+                 
+         */
+         
+         // Criando serviços verdadeiros - Serviço 7
+         /*
+         //add sintática
+         SyntacticVO sync = new SyntacticVO();
+         sync.setHasAddress("http://localhost:8080/plscience-ecos/rest/malariaExam");
+         sync.setHasReturn("Boolean");
+         
+         //add semântica
+         SemanticVO sem = new SemanticVO();
+         ArrayList<String> frs = new ArrayList();
+         frs.add("identificar presenca de malaria em amostra sanguinea");
+         sem.setHasFunctionalRequirements(frs);
+         sem.setHasSemanticReception("Blood Group");
+         sem.setHasSemanticRepresentation("Malaria");
+         sem.setHasSemanticReturn("Malaria");
+         
+         //add cientista
+         ScientistVO st1 = new ScientistVO();
+         st1.setHasCompleteName("Eva Maia");
+         st1.setHasEmail("evam@gmail.com");
+         st1.setHasInstitutionFiliation("UFSJ");
+         
+         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
+         sts.add(st1);        
+         
+         //add hardware
+         HardwareVO h = new HardwareVO();
+         h.setHasCPU("I7");
+         h.setHasOperationalSystem("Windows");
+         h.setHasRAM("4");
+         h.setHasROM("500");
+         
+         
+         //add contexto
+         ContextVO c = new ContextVO();
+         c.setHasArtifact("Amostra Sanguinea");
+         c.setHasComments("Identifica malaria em uma amostra sanguinea");
+         c.setHasDomain("Malaria");
+         c.setHasInvolved(sts);
+         c.setHasLicense("public");
+         c.setHasReputation("3");
+         c.setHasRestriction("Humans Blood");
+         c.setHow("Composicao de servicos");
+         c.setWhat("Servico MalariaExam");
+         c.setWhen("01-02-2015");
+         c.setWhere("UFSJ");
+         
+         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
+         //colocar um propriedade para poder acessar depois.
+         c.setWho("");
+         
+         // add pragmatic
+         PragmaticVO p = new PragmaticVO();
+         ArrayList<String> nfrs = new ArrayList<String>();
+         nfrs.add("Reusabilidade");
+         p.setHasNonFunctionalRequirement(nfrs);
+         p.setIncludesContext(c);
+         p.setIncludesHardware(h);
+     
+         
+         sdesc.setName("MalariaExam");
+         sdesc.setIncludesSyntactic(sync);
+         sdesc.setIncludesSemantic(sem);
+         sdesc.setIncludesPragmatic(p);
+         sr.Register(sdesc);
+         
+                 
+         */
+         
+          // Criando serviços verdadeiros - Serviço 8
+         /*
+         //add sintática
+         SyntacticVO sync = new SyntacticVO();
+         sync.setHasAddress("http://localhost:8080/plscience-ecos/rest/malariaIdentification");
+         sync.setHasReturn("Object");
+         
+         //add semântica
+         SemanticVO sem = new SemanticVO();
+         ArrayList<String> frs = new ArrayList();
+         frs.add("Analisar presenca de malaria em amostra sanguinea");
+         sem.setHasFunctionalRequirements(frs);
+         sem.setHasSemanticReception("Blood Group");
+         sem.setHasSemanticRepresentation("Malaria");
+         sem.setHasSemanticReturn("Malaria");
+         
+         //add cientista
+         ScientistVO st1 = new ScientistVO();
+         st1.setHasCompleteName("Carolina Santos");
+         st1.setHasEmail("carol@gmail.com");
+         st1.setHasInstitutionFiliation("UFRJ");
+         
+         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
+         sts.add(st1);        
+         
+         //add hardware
+         HardwareVO h = new HardwareVO();
+         h.setHasCPU("I7");
+         h.setHasOperationalSystem("Windows");
+         h.setHasRAM("8");
+         h.setHasROM("500");
+         
+         
+         //add contexto
+         ContextVO c = new ContextVO();
+         c.setHasArtifact("Amostra Sanguinea");
+         c.setHasComments("Esse servico analisa a presenca de malaria em uma amostra de sangue");
+         c.setHasDomain("Malaria");
+         c.setHasInvolved(sts);
+         c.setHasLicense("private");
+         c.setHasReputation("5");
+         c.setHasRestriction("Humans Blood");
+         c.setHow("Composicao de servicos");
+         c.setWhat("Servico MalariaIdentification");
+         c.setWhen("2-01-2015");
+         c.setWhere("UFRJ");
+         
+         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
+         //colocar um propriedade para poder acessar depois.
+         c.setWho("");
+         
+         // add pragmatic
+         PragmaticVO p = new PragmaticVO();
+         ArrayList<String> nfrs = new ArrayList<String>();
+         nfrs.add("Reusabilidade");
+         p.setHasNonFunctionalRequirement(nfrs);
+         p.setIncludesContext(c);
+         p.setIncludesHardware(h);
+     
+         
+         sdesc.setName("MalariaIdentification");
+         sdesc.setIncludesSyntactic(sync);
+         sdesc.setIncludesSemantic(sem);
+         sdesc.setIncludesPragmatic(p);
+         sr.Register(sdesc);
+         
+                 
+         */
+         
+         // Criando serviços verdadeiros - Serviço 9
+         /*
+         //add sintática
+         SyntacticVO sync = new SyntacticVO();
+         sync.setHasAddress("http://localhost:8080/plscience-ecos/rest/hemolyticAnemiaExam");
+         sync.setHasReturn("Object");
+         
+         //add semântica
+         SemanticVO sem = new SemanticVO();
+         ArrayList<String> frs = new ArrayList();
+         frs.add("Analisar presenca de anemia hemolitica em amostra sanguinea");
+         sem.setHasFunctionalRequirements(frs);
+         sem.setHasSemanticReception("Blood Group");
+         sem.setHasSemanticRepresentation("Hemolytic anemia");
+         sem.setHasSemanticReturn("Hemolytic anemia");
+         
+         //add cientista
+         ScientistVO st1 = new ScientistVO();
+         st1.setHasCompleteName("Francila Neiva");
+         st1.setHasEmail("francila@gmail.com");
+         st1.setHasInstitutionFiliation("UFJF");
+         
+         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
+         sts.add(st1);        
+         
+         //add hardware
+         HardwareVO h = new HardwareVO();
+         h.setHasCPU("I7");
+         h.setHasOperationalSystem("Linux");
+         h.setHasRAM("4");
+         h.setHasROM("500");
+         
+         
+         //add contexto
+         ContextVO c = new ContextVO();
+         c.setHasArtifact("Amostra Sanguinea");
+         c.setHasComments("Esse servico analisa a presenca de anemia hemolitica em uma amostra de sangue");
+         c.setHasDomain("Hemolytic anemia");
+         c.setHasInvolved(sts);
+         c.setHasLicense("public");
+         c.setHasReputation("5");
+         c.setHasRestriction("Humans Blood");
+         c.setHow("Composicao de servicos");
+         c.setWhat("Servico HemolyticAnemiaExam");
+         c.setWhen("02-01-2015");
+         c.setWhere("UFJF");
+         
+         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
+         //colocar um propriedade para poder acessar depois.
+         c.setWho("");
+         
+         // add pragmatic
+         PragmaticVO p = new PragmaticVO();
+         ArrayList<String> nfrs = new ArrayList<String>();
+         nfrs.add("Agilidade");
+         p.setHasNonFunctionalRequirement(nfrs);
+         p.setIncludesContext(c);
+         p.setIncludesHardware(h);
+     
+         
+         sdesc.setName("HemolyticAnemiaExam");
+         sdesc.setIncludesSyntactic(sync);
+         sdesc.setIncludesSemantic(sem);
+         sdesc.setIncludesPragmatic(p);
+         sr.Register(sdesc);
+                 
+         */
+         
+         // Criando serviços verdadeiros - Serviço 10
+         /*
+         //add sintática
+         SyntacticVO sync = new SyntacticVO();
+         sync.setHasAddress("http://localhost:8080/plscience-ecos/rest/hemolyticAnemiaIdentification");
+         sync.setHasReturn("String");
+         
+         //add semântica
+         SemanticVO sem = new SemanticVO();
+         ArrayList<String> frs = new ArrayList();
+         frs.add("Identificar anemia hemolitica em amostra de sangue");
+         sem.setHasFunctionalRequirements(frs);
+         sem.setHasSemanticReception("Blood Group");
+         sem.setHasSemanticRepresentation("Hemolytic anemia");
+         sem.setHasSemanticReturn("Blood Group");
+         
+         //add cientista
+         ScientistVO st1 = new ScientistVO();
+         st1.setHasCompleteName("Francila Weidt Neiva");
+         st1.setHasEmail("francila@gmail.com");
+         st1.setHasInstitutionFiliation("UFJF");
+         
+         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
+         sts.add(st1);        
+         
+         //add hardware
+         HardwareVO h = new HardwareVO();
+         h.setHasCPU("I7");
+         h.setHasOperationalSystem("Windows");
+         h.setHasRAM("4");
+         h.setHasROM("500");
+         
+         
+         //add contexto
+         ContextVO c = new ContextVO();
+         c.setHasArtifact("Amostra Sanguinea");
+         c.setHasComments("Serve para executar a analise de positivo para a anemia hemolitica em uma amostra de sangue");
+         c.setHasDomain("Hemolytic anemia");
+         c.setHasInvolved(sts);
+         c.setHasLicense("public");
+         c.setHasReputation("5");
+         c.setHasRestriction("Humans Blood");
+         c.setHow("Composicao de servicos");
+         c.setWhat("Servico HemolyticAnemiaIdentification");
+         c.setWhen("06-01-2015");
+         c.setWhere("UFJF");
+         
+         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
+         //colocar um propriedade para poder acessar depois.
+         c.setWho("");
+         
+         // add pragmatic
+         PragmaticVO p = new PragmaticVO();
+         ArrayList<String> nfrs = new ArrayList<String>();
+         nfrs.add("Agilidade");
+         p.setHasNonFunctionalRequirement(nfrs);
+         p.setIncludesContext(c);
+         p.setIncludesHardware(h);
+     
+         
+         sdesc.setName("HemolyticAnemiaExam");
+         sdesc.setIncludesSyntactic(sync);
+         sdesc.setIncludesSemantic(sem);
+         sdesc.setIncludesPragmatic(p);
+         sr.Register(sdesc);
                  
          */
          
