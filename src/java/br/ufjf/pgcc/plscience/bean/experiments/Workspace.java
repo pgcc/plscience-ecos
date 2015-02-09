@@ -23,11 +23,15 @@
  */
 package br.ufjf.pgcc.plscience.bean.experiments;
 
+import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.model.TavernaWorkflowRun;
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -70,4 +74,12 @@ public class Workspace implements Serializable {
         this.tavernaRun = tavernaRun;
     }
     
+     public void update(){
+        try {
+            new ExperimentDAO().update(experiment);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment updated with success!"));   
+        } catch (HibernateException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
+        }
+    }
 }

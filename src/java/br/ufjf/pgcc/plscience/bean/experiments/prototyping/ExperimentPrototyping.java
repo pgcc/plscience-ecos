@@ -24,7 +24,9 @@
 package br.ufjf.pgcc.plscience.bean.experiments.prototyping;
 
 
+import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.interoperability.ServiceRecovery;
+import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.vo.ContextVO;
 import br.ufjf.pgcc.plscience.vo.HardwareVO;
 import br.ufjf.pgcc.plscience.vo.PragmaticVO;
@@ -34,8 +36,11 @@ import br.ufjf.pgcc.plscience.vo.SyntacticVO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -51,10 +56,13 @@ public class ExperimentPrototyping implements Serializable {
     private ArrayList<String> stages;
     private ServiceDescriptionVO serviceDescriptionVO;
     private List<ServiceDescriptionVO> services;
+    private Experiment experiment;
+    private String service_name;
 
     
 
     public ExperimentPrototyping() {
+        experiment =new Experiment();
         serviceDescriptionVO = new ServiceDescriptionVO();
         SyntacticVO sync = new SyntacticVO();
         serviceDescriptionVO.setIncludesSyntactic(sync);
@@ -120,6 +128,24 @@ public class ExperimentPrototyping implements Serializable {
     public void setServices(List<ServiceDescriptionVO> services) {
         this.services = services;
     }
+
+    public Experiment getExperiment() {
+        return experiment;
+    }
+
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
+    }
+
+    public String getService_name() {
+        return service_name;
+    }
+
+    public void setService_name(String service_name) {
+        this.service_name = service_name;
+    }
+    
+    
     
     
 
@@ -158,6 +184,21 @@ public class ExperimentPrototyping implements Serializable {
         System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasOperationalSystem());
         System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasRAM());
         System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasROM());
+        
+    }
+    
+    public void update(){
+        try {
+            getExperiment().setService_name(service_name);
+            new ExperimentDAO().update(getExperiment());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment updated with success!"));   
+        } catch (HibernateException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
+        }
+    }
+    
+    public void registerServices(){
+        System.out.println("Registreiii");
         
     }
     

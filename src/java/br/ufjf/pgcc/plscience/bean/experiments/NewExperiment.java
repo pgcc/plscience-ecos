@@ -56,6 +56,8 @@ public class NewExperiment implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
         }
     }
+    
+   
 
     /**
      * @return the experiment
