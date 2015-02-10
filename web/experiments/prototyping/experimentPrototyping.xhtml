@@ -25,10 +25,12 @@
                         
                        <p:dataTable var="result" value="#{experimentPrototyping.stages}" id="drawResult" style="margin-top: 20px; max-height: 500px; max-width: 500px" >
                         <p:column headerText="Stages" >
-                         <h:outputText value="#{result}" styleClass="panelGridLabel"/>
+                         <h:outputText value="#{result}" binding="#{input2}" styleClass="panelGridLabel"/>
                          <h:outputLabel value="  Service related:" />
-                         <p:inputText id="serviceRelated" value="#{experimentPrototyping.service_name}"  label="serviceRelated"/>
-                         <p:commandButton value="Save" actionListener="#{experimentPrototyping.update}"/>
+                         <p:inputText  id="serviceRelated#{result}" binding="#{input1}"  label="serviceRelated"/>
+                         
+                         <h:commandButton value="Save" action="#{experimentPrototyping.updates(input1.value, workspace.experiment.id, input2.value)}" />
+                                
                         </p:column>
                         
                                                

@@ -57,7 +57,7 @@ public class ExperimentPrototyping implements Serializable {
     private ServiceDescriptionVO serviceDescriptionVO;
     private List<ServiceDescriptionVO> services;
     private Experiment experiment;
-    private String service_name;
+    private String serviceName;
 
     
 
@@ -137,12 +137,12 @@ public class ExperimentPrototyping implements Serializable {
         this.experiment = experiment;
     }
 
-    public String getService_name() {
-        return service_name;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setService_name(String service_name) {
-        this.service_name = service_name;
+    public void setServiceName(String service_name) {
+        this.serviceName = service_name;
     }
     
     
@@ -189,8 +189,24 @@ public class ExperimentPrototyping implements Serializable {
     
     public void update(){
         try {
-            getExperiment().setService_name(service_name);
+            getExperiment().setService_name(serviceName);
             new ExperimentDAO().update(getExperiment());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment updated with success!"));   
+        } catch (HibernateException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
+        }
+    }
+    
+    public void updates(String input, String id, String stage){
+       String[] s= stage.split(" ");
+       System.out.println("Estou passando "+ input +" iD "+ id + " Stage " +s[1]);
+       System.out.println(numberStages);
+       try {
+           ExperimentDAO exDao = new ExperimentDAO();
+           Experiment ex = exDao.getId(Long.getLong(id));
+           ex.setService_name(serviceName);
+           ex.setStage(Integer.getInteger(s[1]));
+            exDao.update(ex);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment updated with success!"));   
         } catch (HibernateException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   

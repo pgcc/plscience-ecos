@@ -52,4 +52,17 @@ public class ExperimentDAO extends GenericDAO {
         finish();
         return experiments;
     }
+    
+    public Experiment getId(Long id) {
+        Query query = getEntityManager().createQuery("SELECT e FROM Experiment e");
+        List<Experiment> experiments = query.getResultList();
+        Experiment experiment = new Experiment();
+        for(Experiment e: experiments){
+            if(e.getId().equals(id)){
+                experiment = e;
+            }
+        }
+        finish();
+        return experiment;
+    }
 }
