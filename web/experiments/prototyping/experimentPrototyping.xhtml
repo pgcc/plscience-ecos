@@ -20,16 +20,16 @@
                         <p:inputText id="numberStages" value="#{workspace.numberStages}" binding="#{inputStage}" required="true" label="numberStages">
                             <f:validateLength minimum="1" />
                         </p:inputText>    
-                        <p:commandButton value="OK" action="#{experimentPrototyping.drawStages(inputStage.value)}" update="drawResult"/>
+                        <p:commandButton value="OK" action="#{workspace.drawStages(inputStage.value)}" update="drawResult"/>
                         </h:panelGrid>
                         
-                       <p:dataTable var="result" value="#{experimentPrototyping.stages}" id="drawResult" style="margin-top: 20px; max-height: 500px; max-width: 500px" >
+                       <p:dataTable var="result" value="#{workspace.exServ}" id="drawResult" style="margin-top: 20px; max-height: 500px; max-width: 500px" >
                         <p:column headerText="Stages" >
-                         <h:outputText value="#{result}" binding="#{input2}" styleClass="panelGridLabel"/>
+                            <h:outputText value="Stage #{result.stage}" binding="#{input2}" styleClass="panelGridLabel"/>
                          <h:outputLabel value="  Service related:" />
-                         <p:inputText  id="serviceRelated#{result}" binding="#{input1}"  label="serviceRelated"/>
+                         <p:inputText  id="serviceRelated#{result.service_name}" value="#{result.service_name}" binding="#{input1}"  label="serviceRelated"/>
                          
-                         <h:commandButton value="Save" action="#{experimentPrototyping.updates(input1.value, workspace.experiment.id, input2.value)}" />
+                         <h:commandButton value="Save" action="#{experimentPrototyping.updates(input1.value, workspace.experiment.id, input2.value, result.id, inputStage.value)}" />
                                 
                         </p:column>
                         

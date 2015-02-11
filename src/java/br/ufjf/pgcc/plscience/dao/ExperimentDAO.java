@@ -48,11 +48,26 @@ public class ExperimentDAO extends GenericDAO {
         Experiment ex = getId(experimentServ.getExperiment().getId());
         experimentServ.setExperiment(ex);
         
-        //Salvando experiment services
-        getEntityManager().getTransaction().begin();
-        getEntityManager().persist(experimentServ);
-        getEntityManager().getTransaction().commit();
-        finish();
+        //Verificar se experimentServ é novo ou não
+        if(experimentServ.getId().equals((long) 0)){
+            //Salvando experiment services
+            experimentServ.setId(null);
+            getEntityManager().getTransaction().begin();
+            getEntityManager().persist(experimentServ);
+            getEntityManager().getTransaction().commit();
+            finish();
+        }else{
+            //Recuperando id
+            ExperimentServices exServ = getEntityManager().find(ExperimentServices.class,experimentServ.getId());
+            
+            getEntityManager().getTransaction().begin();
+            exServ.setService_name(experimentServ.getService_name());
+            exServ.setStage(experimentServ.getStage());
+           
+            getEntityManager().getTransaction().commit();
+            finish(); 
+        }
+        
         
         //Recuperando id
        /* ExperimentServices exServ = ExperimentServicesGetbyNameandStage(experiment.getExperimentServices().getService_name(),experiment.getExperimentServices().getStage());

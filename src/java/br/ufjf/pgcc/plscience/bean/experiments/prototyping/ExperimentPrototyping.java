@@ -189,10 +189,10 @@ public class ExperimentPrototyping implements Serializable {
     
 
     
-    public void updates(String input, String id, String stage){
+    public void updates(String input, String id, String stage, String idExServ, String numberSt){
        String[] s= stage.split(" ");
        System.out.println("Estou passando "+ input +" iD "+ id + " Stage " +s[1]);
-       System.out.println(numberStages);
+      
        
        try {
            ExperimentDAO exDao = new ExperimentDAO();
@@ -200,11 +200,12 @@ public class ExperimentPrototyping implements Serializable {
            ExperimentServices exServ = new ExperimentServices();
            exServ.setService_name(input);
            exServ.setStage(Integer.parseInt(s[1]));
+           exServ.setId(Long.parseLong(idExServ));
            ex.setId(Long.parseLong(id));
            exServ.setExperiment(ex);
-           System.out.println("O ID e esse aqui galera: "+ex.getId());
+           System.out.println("O ID do ExServi e esse aqui galera: "+idExServ);
            exDao.updateExperimentServices(exServ);
-           exDao.updateNumberStages(Long.parseLong(id), Integer.parseInt(numberStages));
+           
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment updated with success!"));   
         } catch (HibernateException e) {

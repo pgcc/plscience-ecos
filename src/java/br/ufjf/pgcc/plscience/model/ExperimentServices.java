@@ -21,7 +21,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="experiment_services")
-public class ExperimentServices implements Serializable {
+public class ExperimentServices implements Serializable, Comparable<ExperimentServices> {
+ 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
@@ -70,7 +71,13 @@ public class ExperimentServices implements Serializable {
         this.experiment = experiment;
     }
     
-    
+    public int compareTo(ExperimentServices experimentService) {
+        if(this.stage > experimentService.getStage()){
+            return 1;
+        }     
+            return -1;
+               
+    }
   
 }
 

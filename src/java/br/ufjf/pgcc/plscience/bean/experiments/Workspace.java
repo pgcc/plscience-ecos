@@ -30,6 +30,7 @@ import br.ufjf.pgcc.plscience.model.ExperimentServices;
 import br.ufjf.pgcc.plscience.model.TavernaWorkflowRun;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -63,6 +64,7 @@ public class Workspace implements Serializable {
                 exServ.add(es);
             }
         }
+        Collections.sort(exServ);
         numberStages = String.valueOf(experiment.getNumberStages());
         return experiment;
     }
@@ -104,7 +106,18 @@ public class Workspace implements Serializable {
         this.numberStages = numberStages;
     }
     
-    
+    public void drawStages(String nStages){
+        numberStages = nStages;
+        for(int i=0;i<Integer.valueOf(nStages);i++){
+            ExperimentServices exS = new ExperimentServices();
+            exS.setId((long) 0);
+            exS.setStage(i);
+            exServ.add(exS);
+        }
+        ExperimentDAO exDao = new ExperimentDAO();
+        exDao.updateNumberStages(experiment.getId(), Integer.parseInt(nStages));
+            
+    }
     
      public void update(){
         try {
