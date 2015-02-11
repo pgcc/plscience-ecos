@@ -24,8 +24,11 @@
 package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.Experiment;
+import br.ufjf.pgcc.plscience.model.ExperimentServices;
 import java.util.List;
 import javax.persistence.Query;
+
+
 /**
  *
  * @author vitorfs
@@ -39,11 +42,47 @@ public class ExperimentDAO extends GenericDAO {
         finish();
     }
     
-    public void update(Experiment experiment) {
+    public void updateExperimentServices(ExperimentServices experimentServ) {
+        
+        //Recuperando Experiment pelo id
+        Experiment ex = getId(experimentServ.getExperiment().getId());
+        experimentServ.setExperiment(ex);
+        
+        //Salvando experiment services
+        getEntityManager().getTransaction().begin();
+        getEntityManager().persist(experimentServ);
+        getEntityManager().getTransaction().commit();
+        finish();
+        
+        //Recuperando id
+       /* ExperimentServices exServ = ExperimentServicesGetbyNameandStage(experiment.getExperimentServices().getService_name(),experiment.getExperimentServices().getStage());
+        
+        getEntityManager().getTransaction().begin();
+        Experiment ex = getEntityManager().find(Experiment.class, experiment.getId());
+        ex.setExperimentServices(exServ);
+        //getEntityManager().merge(experiment);
+        getEntityManager().getTransaction().commit();
+        finish();    */
+    }
+    
+    public void updateNumberStages(Long id, Integer n){
+        //Recuperando id
+        Experiment ex = getEntityManager().find(Experiment.class,id);
+        
+        getEntityManager().getTransaction().begin();
+        ex.setNumberStages(n);
+        //getEntityManager().merge(experiment);
+        getEntityManager().getTransaction().commit();
+        finish();    
+        
+    }
+    
+    public void update(Experiment experiment){
         getEntityManager().getTransaction().begin();
         getEntityManager().merge(experiment);
         getEntityManager().getTransaction().commit();
-        finish();    
+        finish();
+        
     }
     
     public List<Experiment> getAll() {
@@ -51,6 +90,13 @@ public class ExperimentDAO extends GenericDAO {
         List<Experiment> experiments = query.getResultList();
         finish();
         return experiments;
+    }
+    
+     public List<ExperimentServices> getAllExperimentServices() {
+        Query query = getEntityManager().createQuery("SELECT e FROM ExperimentServices e");
+        List<ExperimentServices> experimentServices = query.getResultList();
+        finish();
+        return experimentServices;
     }
     
     public Experiment getId(Long id) {
@@ -64,5 +110,18 @@ public class ExperimentDAO extends GenericDAO {
         }
         finish();
         return experiment;
+    }
+    
+    public ExperimentServices ExperimentServicesGetbyNameandStage(String name, Integer stage){
+        Query query = getEntityManager().createQuery("SELECT e FROM ExperimentServices e");
+        List<ExperimentServices> experiments = query.getResultList();
+        ExperimentServices experimentService = new ExperimentServices();
+        for(ExperimentServices e: experiments){
+            if(e.getService_name().equals(name) && e.getStage().equals(stage)){
+                experimentService = e;
+            }
+        }
+        finish();
+        return experimentService;
     }
 }

@@ -23,10 +23,14 @@
  */
 package br.ufjf.pgcc.plscience.bean.experiments;
 
+import br.ufjf.pgcc.plscience.bean.experiments.prototyping.ExperimentPrototyping;
 import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.model.Experiment;
+import br.ufjf.pgcc.plscience.model.ExperimentServices;
 import br.ufjf.pgcc.plscience.model.TavernaWorkflowRun;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -45,11 +49,21 @@ public class Workspace implements Serializable {
     
     private Experiment experiment;
     private TavernaWorkflowRun tavernaRun;
+    private List<ExperimentServices> exServ;
+    private String numberStages;
 
     /**
      * @return the experiment
      */
     public Experiment getExperiment() {
+        exServ = new ArrayList<ExperimentServices>();
+        List<ExperimentServices> allExServ = new ExperimentDAO().getAllExperimentServices();
+        for(ExperimentServices es: allExServ){
+            if(null!=es.getExperiment() && null!=es.getExperiment().getId() && es.getExperiment().getId().equals(experiment.getId())){
+                exServ.add(es);
+            }
+        }
+        numberStages = String.valueOf(experiment.getNumberStages());
         return experiment;
     }
 
@@ -73,6 +87,24 @@ public class Workspace implements Serializable {
     public void setTavernaRun(TavernaWorkflowRun tavernaRun) {
         this.tavernaRun = tavernaRun;
     }
+
+    public List<ExperimentServices> getExServ() {
+        return exServ;
+    }
+
+    public void setExServ(List<ExperimentServices> exServ) {
+        this.exServ = exServ;
+    }
+
+    public String getNumberStages() {
+        return numberStages;
+    }
+
+    public void setNumberStages(String numberStages) {
+        this.numberStages = numberStages;
+    }
+    
+    
     
      public void update(){
         try {

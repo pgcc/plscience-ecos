@@ -17,10 +17,10 @@
                     <h:form id="numberStages">
                         <h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
                         <h:outputLabel value="Number of Stages: " for="experimentPrototyping" styleClass="panelGridLabel"/>
-                        <p:inputText id="numberStages" value="#{experimentPrototyping.numberStages}" required="true" label="numberStages">
+                        <p:inputText id="numberStages" value="#{workspace.numberStages}" binding="#{inputStage}" required="true" label="numberStages">
                             <f:validateLength minimum="1" />
                         </p:inputText>    
-                        <p:commandButton value="OK" actionListener="#{experimentPrototyping.drawStages}" update="drawResult"/>
+                        <p:commandButton value="OK" action="#{experimentPrototyping.drawStages(inputStage.value)}" update="drawResult"/>
                         </h:panelGrid>
                         
                        <p:dataTable var="result" value="#{experimentPrototyping.stages}" id="drawResult" style="margin-top: 20px; max-height: 500px; max-width: 500px" >

@@ -59,11 +59,9 @@ public class Experiment implements Serializable {
     @Column(name="parsifal_review")
     private Integer parsifalReview;
     
-    @Column(name="stage")
-    private Integer stage;
-    
-    @Column(name="service_name")
-    private String service_name;
+    @Column(name="number_stages")
+    private Integer numberStages;
+
 
     /**
      * @return the id
@@ -135,22 +133,13 @@ public class Experiment implements Serializable {
         this.parsifalReview = parsifalReview;
     }
 
-    public Integer getStage() {
-        return stage;
+    public Integer getNumberStages() {
+        return numberStages;
     }
 
-    public void setStage(Integer stage) {
-        this.stage = stage;
+    public void setNumberStages(Integer numberStages) {
+        this.numberStages = numberStages;
     }
 
-    public String getService_name() {
-        return service_name;
-    }
-
-    public void setService_name(String service_name) {
-        this.service_name = service_name;
-    }
-    
-    
     
 }

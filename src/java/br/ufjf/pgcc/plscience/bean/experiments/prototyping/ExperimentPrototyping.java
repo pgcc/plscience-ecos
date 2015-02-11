@@ -27,6 +27,7 @@ package br.ufjf.pgcc.plscience.bean.experiments.prototyping;
 import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.interoperability.ServiceRecovery;
 import br.ufjf.pgcc.plscience.model.Experiment;
+import br.ufjf.pgcc.plscience.model.ExperimentServices;
 import br.ufjf.pgcc.plscience.vo.ContextVO;
 import br.ufjf.pgcc.plscience.vo.HardwareVO;
 import br.ufjf.pgcc.plscience.vo.PragmaticVO;
@@ -79,11 +80,10 @@ public class ExperimentPrototyping implements Serializable {
         services = new ArrayList<ServiceDescriptionVO>();
     }
     
-    public void drawStages(){
-        System.out.println(numberStages);
-        setDraw(numberStages);
+    public void drawStages(String nStages){
+        numberStages = nStages;
         stages = new ArrayList<String>();
-        for(int i=0;i<Integer.valueOf(getNumberStages());i++){
+        for(int i=0;i<Integer.valueOf(nStages);i++){
             stages.add("Stage "+i);
         }
             
@@ -187,26 +187,25 @@ public class ExperimentPrototyping implements Serializable {
         
     }
     
-    public void update(){
-        try {
-            getExperiment().setService_name(serviceName);
-            new ExperimentDAO().update(getExperiment());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment updated with success!"));   
-        } catch (HibernateException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
-        }
-    }
+
     
     public void updates(String input, String id, String stage){
        String[] s= stage.split(" ");
        System.out.println("Estou passando "+ input +" iD "+ id + " Stage " +s[1]);
        System.out.println(numberStages);
+       
        try {
            ExperimentDAO exDao = new ExperimentDAO();
-           Experiment ex = exDao.getId(Long.getLong(id));
-           ex.setService_name(serviceName);
-           ex.setStage(Integer.getInteger(s[1]));
-            exDao.update(ex);
+           Experiment ex = new Experiment();
+           ExperimentServices exServ = new ExperimentServices();
+           exServ.setService_name(input);
+           exServ.setStage(Integer.parseInt(s[1]));
+           ex.setId(Long.parseLong(id));
+           exServ.setExperiment(ex);
+           System.out.println("O ID e esse aqui galera: "+ex.getId());
+           exDao.updateExperimentServices(exServ);
+           exDao.updateNumberStages(Long.parseLong(id), Integer.parseInt(numberStages));
+            
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment updated with success!"));   
         } catch (HibernateException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
