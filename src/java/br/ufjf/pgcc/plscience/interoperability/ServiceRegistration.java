@@ -86,21 +86,23 @@ public class ServiceRegistration {
              sb.append("</owl:NamedIndividual>\n\n");
              int i =0;
             //Adiciona cientista
-             for (ScientistVO s : serv.getIncludesPragmatic().getIncludesContext().getHasInvolved()) {
-                sb.append("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;")
-                  .append("Scientist_").append(i).append(serv.getName()).append("\">\n")
-                  .append("<rdf:type rdf:resource=\"&PLScienceServiceDescription;Scientist\"/>\n")
-                  .append("<PLScienceServiceDescription:hasInstitutionFiliation>")
-                  .append(s.getHasInstitutionFiliation())
-                  .append("</PLScienceServiceDescription:hasInstitutionFiliation>\n")
-                  .append("<PLScienceServiceDescription:hasCompleteName>")
-                  .append(s.getHasCompleteName())
-                  .append("</PLScienceServiceDescription:hasCompleteName>\n")
-                  .append("<PLScienceServiceDescription:hasEmail>")
-                  .append(s.getHasEmail())
-                  .append("</PLScienceServiceDescription:hasEmail>\n")
-                  .append("</owl:NamedIndividual>\n\n");     
-                i++;
+             if(null!=serv.getIncludesPragmatic().getIncludesContext().getHasInvolved()){
+                for (ScientistVO s : serv.getIncludesPragmatic().getIncludesContext().getHasInvolved()) {
+                   sb.append("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;")
+                     .append("Scientist_").append(i).append(serv.getName()).append("\">\n")
+                     .append("<rdf:type rdf:resource=\"&PLScienceServiceDescription;Scientist\"/>\n")
+                     .append("<PLScienceServiceDescription:hasInstitutionFiliation>")
+                     .append(s.getHasInstitutionFiliation())
+                     .append("</PLScienceServiceDescription:hasInstitutionFiliation>\n")
+                     .append("<PLScienceServiceDescription:hasCompleteName>")
+                     .append(s.getHasCompleteName())
+                     .append("</PLScienceServiceDescription:hasCompleteName>\n")
+                     .append("<PLScienceServiceDescription:hasEmail>")
+                     .append(s.getHasEmail())
+                     .append("</PLScienceServiceDescription:hasEmail>\n")
+                     .append("</owl:NamedIndividual>\n\n");     
+                   i++;
+               }
             }
              
             // adiciona hardware
@@ -160,15 +162,16 @@ public class ServiceRegistration {
               
              i =0;
             //Adiciona cientista no contexto
-             for (ScientistVO s : serv.getIncludesPragmatic().getIncludesContext().getHasInvolved()) {
-                 sb.append("<PLScienceServiceDescription:hasInvolved rdf:resource=\"&PLScienceServiceDescription;")
-                 .append("Scientist_").append(i).append(serv.getName()).append("\"/>\n"); 
-                  i++;
-             }
-              sb.append("<PLScienceServiceDescription:who rdf:resource=\"&PLScienceServiceDescription;")
-                .append("Scientist_").append(i--).append(serv.getName()).append("\"/>\n")
-                .append("</owl:NamedIndividual>\n\n");
-              
+             if(null!=serv.getIncludesPragmatic().getIncludesContext().getHasInvolved()){
+                for (ScientistVO s : serv.getIncludesPragmatic().getIncludesContext().getHasInvolved()) {
+                    sb.append("<PLScienceServiceDescription:hasInvolved rdf:resource=\"&PLScienceServiceDescription;")
+                    .append("Scientist_").append(i).append(serv.getName()).append("\"/>\n"); 
+                     i++;
+                }
+                 sb.append("<PLScienceServiceDescription:who rdf:resource=\"&PLScienceServiceDescription;")
+                   .append("Scientist_").append(i--).append(serv.getName()).append("\"/>\n")
+                   .append("</owl:NamedIndividual>\n\n");
+             } 
             //adiciona pragmática
             sb.append("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;")
               .append("Pragmatic_").append(serv.getName()).append("\">\n")
@@ -357,7 +360,7 @@ public class ServiceRegistration {
     }
     
   
-     public static void main(String[] args) throws IOException {
+     /*public static void main(String[] args) throws IOException {
          ServiceRegistration sr = new ServiceRegistration();
          ServiceDescriptionVO sdesc = new ServiceDescriptionVO();
          
@@ -1127,10 +1130,10 @@ public class ServiceRegistration {
          sr.Register(sdesc);
                  
          */
-         
+         /*
          //Testa gerador automático
          sr.automaticGeneration(5);
 
-    }
+    } */
 }
 

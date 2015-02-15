@@ -26,6 +26,7 @@ package br.ufjf.pgcc.plscience.bean.experiments.prototyping;
 
 import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.interoperability.ServiceRecovery;
+import br.ufjf.pgcc.plscience.interoperability.ServiceRegistration;
 import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.model.ExperimentServices;
 import br.ufjf.pgcc.plscience.vo.ContextVO;
@@ -215,6 +216,80 @@ public class ExperimentPrototyping implements Serializable {
     
     public void registerServices(){
         System.out.println("Registreiii");
+        if(null==serviceDescriptionVO.getIncludesSyntactic().getHasAddress()){
+            serviceDescriptionVO.getIncludesSyntactic().setHasAddress("");
+        }
+        if(null==serviceDescriptionVO.getIncludesSyntactic().getHasReturn()){
+            serviceDescriptionVO.getIncludesSyntactic().setHasReturn("");
+        }
+        if(null==serviceDescriptionVO.getIncludesSemantic().getHasSemanticReturn()){
+            serviceDescriptionVO.getIncludesSemantic().setHasSemanticReturn("");
+        }
+        if(null==serviceDescriptionVO.getIncludesSemantic().getHasSemanticReception()){
+           serviceDescriptionVO.getIncludesSemantic().setHasSemanticReception("");
+        }
+        if(null==serviceDescriptionVO.getIncludesSemantic().getHasSemanticRepresentation()){
+           serviceDescriptionVO.getIncludesSemantic().setHasSemanticRepresentation("");
+        }
+        if(null==serviceDescriptionVO.getIncludesSemantic().getHasFunctionalRequirement()){
+           serviceDescriptionVO.getIncludesSemantic().setHasFunctionalRequirement("");
+        }        
+        ArrayList<String> s = new ArrayList();
+        s.add(serviceDescriptionVO.getIncludesSemantic().getHasFunctionalRequirement());
+        serviceDescriptionVO.getIncludesSemantic().setHasFunctionalRequirements(s);
+        
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getHasNonFunctionalReq()){
+           serviceDescriptionVO.getIncludesPragmatic().setHasNonFunctionalReq("");
+        }
+        ArrayList<String> s2 = new ArrayList();
+        s2.add(serviceDescriptionVO.getIncludesPragmatic().getHasNonFunctionalReq());
+        serviceDescriptionVO.getIncludesPragmatic().setHasNonFunctionalRequirement(s2);
+        
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasArtifact()){
+           serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().setHasArtifact("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasComments()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().setHasComments("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasDomain()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().setHasDomain("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasLicense()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().setHasLicense("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasReputation()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().setHasReputation("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasRestriction()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().setHasRestriction("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHow()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().setHow("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getWhen()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().setWhen("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getWhere()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().setWhere("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getWho()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().setWho("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasCPU()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().setHasCPU("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasOperationalSystem()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().setHasOperationalSystem("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasRAM()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().setHasRAM("");
+        }
+        if(null==serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasRAM()){
+          serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().setHasROM("");
+        }
+        
+        ServiceRegistration sr = new ServiceRegistration();
+        sr.Register(serviceDescriptionVO);
         
     }
     

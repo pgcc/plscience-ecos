@@ -41,6 +41,7 @@
                          <p:overlayPanel id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" style="width:600px">
                              <h:form id="searchPage">
                                  <h:outputLabel value="Service Discovery" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                  
                                   <h:outputLabel value="Syntactic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                                  <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                                    
@@ -114,6 +115,8 @@
                          <p:overlayPanel id="moviePanel2" for="movieBtn2" hideEffect="fade" dynamic="true" style="width:600px">
                              <h:form id="registerPage">
                                  <h:outputLabel value="Service Registration" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                 <h:outputLabel for="name" value="Name" />
+                                  <h:inputText id="name" value="#{experimentPrototyping.serviceDescriptionVO.name}" />
                                   <h:outputLabel value="Syntactic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                                  <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                                    
