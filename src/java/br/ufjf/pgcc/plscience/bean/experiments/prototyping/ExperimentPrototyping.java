@@ -27,16 +27,20 @@ package br.ufjf.pgcc.plscience.bean.experiments.prototyping;
 import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.interoperability.ServiceRecovery;
 import br.ufjf.pgcc.plscience.interoperability.ServiceRegistration;
+import br.ufjf.pgcc.plscience.interoperability.SimilarityCalculation1;
 import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.model.ExperimentServices;
+import br.ufjf.pgcc.plscience.services.EquivalentServicesResource;
 import br.ufjf.pgcc.plscience.vo.ContextVO;
 import br.ufjf.pgcc.plscience.vo.HardwareVO;
 import br.ufjf.pgcc.plscience.vo.PragmaticVO;
+import br.ufjf.pgcc.plscience.vo.RankingVO;
 import br.ufjf.pgcc.plscience.vo.SemanticVO;
 import br.ufjf.pgcc.plscience.vo.ServiceDescriptionVO;
 import br.ufjf.pgcc.plscience.vo.SyntacticVO;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -60,6 +64,7 @@ public class ExperimentPrototyping implements Serializable {
     private List<ServiceDescriptionVO> services;
     private Experiment experiment;
     private String serviceName;
+    private String equivalencesResult;
 
     
 
@@ -145,16 +150,19 @@ public class ExperimentPrototyping implements Serializable {
     public void setServiceName(String service_name) {
         this.serviceName = service_name;
     }
-    
-    
+
+    public String getEquivalencesResult() {
+        return equivalencesResult;
+    }
+
+    public void setEquivalencesResult(String equivalencesResult) {
+        this.equivalencesResult = equivalencesResult;
+    }
     
     
 
     public void searchServices(){
-        System.out.println("OLAAA");
-        ServiceRecovery sr = new ServiceRecovery();
-        setServices(sr.Recovery());
-        System.out.println("OLAAA");
+        
         System.out.println(serviceDescriptionVO.getIncludesSyntactic().getHasAddress());
         System.out.println(serviceDescriptionVO.getIncludesSyntactic().getHasReturn());
         System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasSemanticReturn());
@@ -186,6 +194,29 @@ public class ExperimentPrototyping implements Serializable {
         System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasRAM());
         System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasROM());
         
+        ServiceRecovery sr = new ServiceRecovery();
+        List<ServiceDescriptionVO> servicesRecovery;
+        List<ServiceDescriptionVO> servicesRankingSorted = new ArrayList<ServiceDescriptionVO>();
+        servicesRecovery = sr.Recovery();
+        SimilarityCalculation1 sc1 = new SimilarityCalculation1();
+        ArrayList<RankingVO> rankingServices = new ArrayList<RankingVO>();
+        
+        for(ServiceDescriptionVO sVo: servicesRecovery){
+            RankingVO rVo = new RankingVO();
+            rVo.setServiceRecovery(sVo);
+            rVo.setServiceComparison(serviceDescriptionVO);
+            
+            rVo.setSimilarity(sc1.calculate(serviceDescriptionVO, sVo, 1, 1, 1));
+            rankingServices.add(rVo);
+        }
+        Collections.sort(rankingServices);
+        
+        for(RankingVO rank: rankingServices){
+            servicesRankingSorted.add(rank.getServiceRecovery());
+        }
+        //setServices(sr.Recovery());
+        setServices(servicesRankingSorted);
+                       
     }
     
 
@@ -291,6 +322,16 @@ public class ExperimentPrototyping implements Serializable {
         ServiceRegistration sr = new ServiceRegistration();
         sr.Register(serviceDescriptionVO);
         
+    }
+    
+    public void searchEquivalentServices(String serviceName){
+       EquivalentServicesResource er = new EquivalentServicesResource();
+       StringBuilder sb = new StringBuilder();
+       sb.append(er.getSyntacticallyEquivalentServices(serviceName))
+               .append(er.getSemanticallyEquivalentServices(serviceName))
+               .append(er.getPragmaticallyEquivalentServices(serviceName));
+       setEquivalencesResult(sb.toString());
+       
     }
     
     

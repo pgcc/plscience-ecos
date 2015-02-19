@@ -171,6 +171,8 @@ public class ServiceRegistration {
                  sb.append("<PLScienceServiceDescription:who rdf:resource=\"&PLScienceServiceDescription;")
                    .append("Scientist_").append(i--).append(serv.getName()).append("\"/>\n")
                    .append("</owl:NamedIndividual>\n\n");
+             }else{
+                 sb.append("</owl:NamedIndividual>\n\n");
              } 
             //adiciona pragmática
             sb.append("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;")

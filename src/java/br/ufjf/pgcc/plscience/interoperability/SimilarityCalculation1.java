@@ -227,7 +227,7 @@ public class SimilarityCalculation1 {
         double localSimilarityPrevious=0;
         double localSimilarity=0;
         if(!serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasInvolved().isEmpty()){
-           if(!serviceSearched.getIncludesPragmatic().getIncludesContext().getHasInvolved().isEmpty()){
+           if(null!= serviceSearched.getIncludesPragmatic().getIncludesContext().getHasInvolved() && !serviceSearched.getIncludesPragmatic().getIncludesContext().getHasInvolved().isEmpty()){
             
                for (ScientistVO scien : serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasInvolved()) {
                    //st1.setHasCompleteName("joao"); // string simples ou setença
@@ -291,7 +291,7 @@ public class SimilarityCalculation1 {
         
     }
     
-     public static void main(String[] args) throws IOException {
+     /*public static void main(String[] args) throws IOException {
         
          ServiceDescriptionVO sdesc = new ServiceDescriptionVO();
          ServiceRecovery sr = new ServiceRecovery();
@@ -378,6 +378,6 @@ public class SimilarityCalculation1 {
      
          
 
-    }
+    } */
     
 }
