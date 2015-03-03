@@ -102,9 +102,9 @@ public class WordNetHandler {
 																			// analisada
 		String tagTipoPalavra = null;// armazena tipo (substantivo, verbo, etc)
 										// palavra
-		String auxLinhaAnalisada = null;// auxiliar para análise da linha
-		int countSemantica = 0;// contador de semânticas (Sense) da palavra
-		// enquanto arquivo não acabar
+		String auxLinhaAnalisada = null;// auxiliar para anÃ¡lise da linha
+		int countSemantica = 0;// contador de semÃ¢nticas (Sense) da palavra
+		// enquanto arquivo nÃ£o acabar
 		while (!linhaAnalisada.equalsIgnoreCase("EOF")) {
 			String sinonimo;
 			String hipernonimo;
@@ -113,19 +113,19 @@ public class WordNetHandler {
 						.indexOf(">") + 2);// exclui a tag de sinonimos
 				tagTipoPalavra = linhaAnalisada.substring(0, linhaAnalisada
 						.indexOf(">"));
-				countSemantica++;// incrementa o número de Sense para a palavra
+				countSemantica++;// incrementa o nÃºmero de Sense para a palavra
 			} else if (linhaAnalisada.startsWith("=")) {
 				auxLinhaAnalisada = linhaAnalisada.substring(tagTipoPalavra
 						.length() + 5);// exclui a tag de hiperonimos
 			}
 			// analisa sinonimos e listas de sinonimos para um mesmo contexto
 			// (<)
-			// -1 indica que não há lista de sinonimos
+			// -1 indica que nÃ£o hÃ¡ lista de sinonimos
 			if (linhaAnalisada.startsWith("<")
 					&& linhaAnalisada.indexOf(",") != -1) {
 				System.out.println("Linha analisada Todos Sinonimos: "
 						+ auxLinhaAnalisada);
-				int index = auxLinhaAnalisada.indexOf(",");// verifica se há uma
+				int index = auxLinhaAnalisada.indexOf(",");// verifica se hÃ¡ uma
 															// lista de
 															// sinonimos
 				while (index != -1) {// enquanto houver elementos na lista
@@ -147,7 +147,7 @@ public class WordNetHandler {
 					index = auxLinhaAnalisada.indexOf(",");// volta a verificar
 															// a lista
 				}
-				sinonimo = auxLinhaAnalisada;// último sinonimo da lista
+				sinonimo = auxLinhaAnalisada;// Ãºltimo sinonimo da lista
 				listaSinonimos.addElement(sinonimo.replaceAll("\\s+", ""));// armazena-o
 																			// eliminando
 																			// possiveis
@@ -179,8 +179,8 @@ public class WordNetHandler {
 			}
 			// analisa hiperonimos e listas de hiperonimos para um mesmo
 			// contexto (=)
-			// -1 indica que não há lista de hiperonimos
-			// segue a mesma lógica de sinônimos, porém atenta para a diferença
+			// -1 indica que nï¿½o hï¿½ lista de hiperonimos
+			// segue a mesma lï¿½gica de sinï¿½nimos, porï¿½m atenta para a diferenï¿½a
 			// da tag de hiperonimos
 			if (linhaAnalisada.startsWith("=")
 					&& linhaAnalisada.indexOf(",") != -1) {

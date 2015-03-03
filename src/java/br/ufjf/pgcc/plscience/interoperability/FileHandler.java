@@ -15,7 +15,7 @@ import java.io.IOException;
 public class FileHandler {
 	
 	/**
-	 * Entidade auxiliar para manipulação de arquivo
+	 * Entidade auxiliar para manipulaÃ§Ã£o de arquivo
 	 * @param diretorioArquivo
 	 * @param conteudo
 	 * @param adicionar - true: adiciona ao final do arquivo;

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class SyntacticVO {
     private String hasReturn;
     private String hasAddress;
-    //Lista dos tipos de par‚metros separados por ,
+    //Lista dos tipos de par√¢metros separados por ,
     private ArrayList<String> hasParameters;
 
     public SyntacticVO() {

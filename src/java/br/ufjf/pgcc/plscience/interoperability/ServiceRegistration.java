@@ -50,7 +50,7 @@ public class ServiceRegistration {
                 
             }
             
-            //Adiciona Sintátic PS: Arrumar os parâmetros na ontologia e incluir aqui!!!!!
+            //Adiciona SintÃ¡tic PS: Arrumar os parÃ¢metros na ontologia e incluir aqui!!!!!
             sb.append("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;")
                     .append("Syntatic_").append(serv.getName()).append("\">\n")
                     .append("<rdf:type rdf:resource=\"&PLScienceServiceDescription;Syntactic\"/>\n")
@@ -62,7 +62,7 @@ public class ServiceRegistration {
                     .append("</PLScienceServiceDescription:hasName>\n")
                     .append("</owl:NamedIndividual>\n\n");
             
-            //Adiciona semântica
+            //Adiciona semÃ¢ntica
             sb.append("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;")
               .append("Semantic_").append(serv.getName()).append("\">\n")
               .append("<rdf:type rdf:resource=\"&PLScienceServiceDescription;Semantic\"/>\n")
@@ -169,7 +169,7 @@ public class ServiceRegistration {
                 .append("Scientist_").append(i--).append(serv.getName()).append("\"/>\n")
                 .append("</owl:NamedIndividual>\n\n");
               
-            //adiciona pragmática
+            //adiciona pragmÃ¡tica
             sb.append("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;")
               .append("Pragmatic_").append(serv.getName()).append("\">\n")
               .append("<rdf:type rdf:resource=\"&PLScienceServiceDescription;Pragmatic\"/>\n");
@@ -185,7 +185,7 @@ public class ServiceRegistration {
               .append("</owl:NamedIndividual>\n\n");
             
             
-            //adicionar serviço
+            //adicionar serviï¿½o
              sb.append("<owl:NamedIndividual rdf:about=\"&PLScienceServiceDescription;")
                .append("Service_").append(serv.getName()).append("\">\n")
                .append("<rdf:type rdf:resource=\"&PLScienceServiceDescription;Service\"/>\n")
@@ -206,8 +206,8 @@ public class ServiceRegistration {
         }
     
     }
-    // Fazer serviço geração automática de serviços baseado no main, puxando as opções de escrita de arrays com 
-    //os conceitos possíveis, por exemplo. Aí escolhe o conceito aleatóriamente usando o random do java com o
+    // Fazer serviï¿½o geraï¿½ï¿½o automï¿½tica de serviï¿½os baseado no main, puxando as opï¿½ï¿½es de escrita de arrays com 
+    //os conceitos possï¿½veis, por exemplo. Aï¿½ escolhe o conceito aleatï¿½riamente usando o random do java com o
     // size do array.
     public void automaticGeneration(int numberOfServices){
        //syn
@@ -280,7 +280,7 @@ public class ServiceRegistration {
          ServiceDescriptionVO sdesc = new ServiceDescriptionVO();
 
          
-         //add sintática
+         //add sintï¿½tica
          SyntacticVO sync = new SyntacticVO();
          
          Random rand = new Random();
@@ -288,7 +288,7 @@ public class ServiceRegistration {
          sync.setHasAddress(syncAddress.get(rand.nextInt((syncAddress.size()))));
          sync.setHasReturn(syncReturn.get(rand.nextInt((syncReturn.size()))));
          
-         //add semântica
+         //add semï¿½ntica
          SemanticVO sem = new SemanticVO();
          ArrayList<String> frs = new ArrayList();
          frs.add(semFuncReq.get(rand.nextInt((semFuncReq.size()))));
@@ -361,15 +361,15 @@ public class ServiceRegistration {
          ServiceRegistration sr = new ServiceRegistration();
          ServiceDescriptionVO sdesc = new ServiceDescriptionVO();
          
-         // Testando registro de serviço
+         // Testando registro de serviï¿½o
          
          /*
-         //add sintática
+         //add sintï¿½tica
          SyntacticVO sync = new SyntacticVO();
          sync.setHasAddress("endereco");
          sync.setHasReturn("bollean");
          
-         //add semântica
+         //add semï¿½ntica
          SemanticVO sem = new SemanticVO();
          ArrayList<String> frs = new ArrayList();
          frs.add("cadastrar usuario");
@@ -440,7 +440,7 @@ public class ServiceRegistration {
                  
          */
          
-         //Testa gerador automático
+         //Testa gerador automï¿½tico
          sr.automaticGeneration(5);
 
     }

@@ -1,12 +1,12 @@
 
  
 /**
- * Classe que lê e escreve em um arquivo. Utiliza a java.io.RandomAccessFile
- * porem com essa classe os caracteres escritos não sobrescrevem os caracteres
+ * Classe que lÃª e escreve em um arquivo. Utiliza a java.io.RandomAccessFile
+ * porem com essa classe os caracteres escritos nÃ£o sobrescrevem os caracteres
  * posteriores (efeito insert).
  * 
  * 
- * @author Vânio Meurer
+ * @author VÃ¢nio Meurer
  * @since 09/11/2009 16:01:13
  * @version 1.0.0
  */
@@ -26,7 +26,7 @@ public class RandomAccessFilePlus implements DataOutput, DataInput {
 	private String lineSeparator;
  
 	/**
-	 * Construtor padrão.
+	 * Construtor padrÃ£o.
 	 * 
 	 * @param raf
 	 *            Utilize uma RandomAccessFile com acesso a escrita ("rw") caso

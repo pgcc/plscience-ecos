@@ -12,7 +12,7 @@ package br.ufjf.pgcc.plscience.vo;
 public class Syntactic {
     private String hasReturn;
     private String hasAddress;
-    //Lista dos tipos de par‚metros separados por ,
+    //Lista dos tipos de par√¢metros separados por ,
     private String hasParameters;
 
     public Syntactic() {

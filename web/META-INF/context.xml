@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/plscience-ecos_master"/>
+<Context antiJARLocking="true" path="/plscience-ecos_master">
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="PLScience" password="tfmsifm" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/plscience?zeroDateTimeBehavior=convertToNull" username="root"/>
+</Context>
