@@ -58,6 +58,10 @@ public class Experiment implements Serializable {
     
     @Column(name="parsifal_review")
     private Integer parsifalReview;
+    
+    @Column(name="number_stages")
+    private Integer numberStages;
+
 
     /**
      * @return the id
@@ -128,5 +132,14 @@ public class Experiment implements Serializable {
     public void setParsifalReview(Integer parsifalReview) {
         this.parsifalReview = parsifalReview;
     }
+
+    public Integer getNumberStages() {
+        return numberStages;
+    }
+
+    public void setNumberStages(Integer numberStages) {
+        this.numberStages = numberStages;
+    }
+
     
 }

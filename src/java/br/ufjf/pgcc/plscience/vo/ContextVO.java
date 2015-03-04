@@ -5,13 +5,18 @@
  */
 package br.ufjf.pgcc.plscience.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Fran
  */
-public class ContextVO {
+@ManagedBean()
+@ViewScoped
+public class ContextVO implements Serializable{
     private String what;
     private String hasLicense;
     private String hasComments;

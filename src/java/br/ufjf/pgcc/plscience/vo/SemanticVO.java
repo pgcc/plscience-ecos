@@ -5,17 +5,23 @@
  */
 package br.ufjf.pgcc.plscience.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Fran
  */
-public class SemanticVO {
+@ManagedBean()
+@ViewScoped
+public class SemanticVO implements Serializable {
     private String hasSemanticReturn;
     private ArrayList<String> hasFunctionalRequirements;
     private String hasSemanticReception;
     private String hasSemanticRepresentation;
+    private String hasFunctionalRequirement;
 
     public SemanticVO() {
     }
@@ -50,6 +56,19 @@ public class SemanticVO {
 
     public void setHasSemanticRepresentation(String hasSemanticRepresentation) {
         this.hasSemanticRepresentation = hasSemanticRepresentation;
+       
     }
+
+    public String getHasFunctionalRequirement() {
+        return hasFunctionalRequirement;
+    }
+
+    public void setHasFunctionalRequirement(String hasFunctionalRequirement) {
+        this.hasFunctionalRequirement = hasFunctionalRequirement;
+        this.hasFunctionalRequirements = new ArrayList();
+        this.hasFunctionalRequirements.add(hasFunctionalRequirement);
+    }
+    
+    
     
 }

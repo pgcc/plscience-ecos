@@ -5,13 +5,18 @@
  */
 package br.ufjf.pgcc.plscience.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Fran
  */
-public class SyntacticVO {
+@ManagedBean()
+@ViewScoped
+public class SyntacticVO implements Serializable{
     private String hasReturn;
     private String hasAddress;
     //Lista dos tipos de parâmetros separados por ,

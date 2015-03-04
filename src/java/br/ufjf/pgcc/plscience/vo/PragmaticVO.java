@@ -5,17 +5,23 @@
  */
 package br.ufjf.pgcc.plscience.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 
 /**
  *
  * @author Fran
  */
-public class PragmaticVO {
+@ManagedBean()
+@ViewScoped
+public class PragmaticVO implements Serializable{
     private ArrayList<String> hasNonFunctionalRequirement;
     private ContextVO includesContext;
     private HardwareVO includesHardware;
+    private String hasNonFunctionalReq;
 
     public PragmaticVO() {
     }
@@ -42,6 +48,14 @@ public class PragmaticVO {
 
     public void setIncludesHardware(HardwareVO includesHardware) {
         this.includesHardware = includesHardware;
+    }
+
+    public String getHasNonFunctionalReq() {
+        return hasNonFunctionalReq;
+    }
+
+    public void setHasNonFunctionalReq(String hasNonFunctionalReq) {
+        this.hasNonFunctionalReq = hasNonFunctionalReq;
     }
     
     

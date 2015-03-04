@@ -179,8 +179,8 @@ public class WordNetHandler {
 			}
 			// analisa hiperonimos e listas de hiperonimos para um mesmo
 			// contexto (=)
-			// -1 indica que n�o h� lista de hiperonimos
-			// segue a mesma l�gica de sin�nimos, por�m atenta para a diferen�a
+			// -1 indica que não há lista de hiperonimos
+			// segue a mesma lógica de sinônimos, porém atenta para a diferença
 			// da tag de hiperonimos
 			if (linhaAnalisada.startsWith("=")
 					&& linhaAnalisada.indexOf(",") != -1) {
