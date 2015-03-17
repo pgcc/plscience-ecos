@@ -1,0 +1,104 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Workflows x Experiment</h2>
+        <br/>
+        <h:form id="formPrincipal">
+            <div align="center">
+                <p:dataTable var="lista" value="#{workflowhasExperimentBean.workflowhasExperiments}"
+                             id="tabelaWorkflowhasExperiment" emptyMessage="No records found"
+                             paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
+
+                    <p:column headerText="ID" sortBy="#{lista.idWorkflowhasExperiment}" filterBy="#{lista.idWorkflowhasExperiment}">
+
+                        <h:outputText value="#{lista.idWorkflowhasExperiment}" />
+                    </p:column>
+                    <p:column headerText="Experiment" sortBy="#{lista.experimentExperiment.name}" filterBy="#{lista.experimentExperiment.name}">
+
+                        <h:outputText value="#{lista.experimentExperiment.name}" />
+                    </p:column>
+                    <p:column headerText="Workflow" sortBy="#{lista.workflowidWorkflow.name}" filterBy="#{lista.workflowidWorkflow.name}">
+
+                        <h:outputText value="#{lista.workflowidWorkflow.name}" />
+                    </p:column>
+                    <p:column headerText="Actions" exportable="false">
+                        <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
+                            <f:setPropertyActionListener target="#{workflowhasExperimentBean.workflowhasExperiment}"
+                                                         value="#{lista}" />
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-trash" value="Delete" onclick="PF('remove').show();"> 
+                            <f:setPropertyActionListener target="#{workflowhasExperimentBean.workflowhasExperiment}"
+                                                         value="#{lista}" />
+                        </p:commandButton> 
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+            <br/>
+            <p:column>
+                <p:commandButton icon="ui-icon-plus" value="New" onclick="PF('record').show();">  
+                </p:commandButton> 
+            </p:column>
+            <div align="center">
+                <h3>Export Page Data Only</h3>
+
+                <h:commandLink id="excel">
+                    <p:graphicImage name="./images/exports/excel.png" />
+                    <p:dataExporter type="xls" target="tabelaWorkflowhasExperiment" fileName="workflowhasExperiments" postProcessor="#{workflowhasExperimentBean.postProcessXLS}" />
+                </h:commandLink>
+
+                <h:commandLink id="pdf">
+                    <p:graphicImage name="./images/exports/pdf.png" />
+                    <p:dataExporter type="pdf" target="tabelaWorkflowhasExperiment" fileName="workflowhasExperiments" preProcessor="#{workflowhasExperimentBean.preProcessPDF}" />
+                </h:commandLink>
+
+
+                <h:commandLink>
+                    <p:graphicImage name="./images/exports/csv.png" width="24"/>
+                    <p:dataExporter type="csv" target="tabelaWorkflowhasExperiment" fileName="workflowhasExperiments" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="./images/exports/xml.png" width="24"/>
+                    <p:dataExporter type="xml" target="tabelaWorkflowhasExperiment" fileName="workflowhasExperiments" />
+                </h:commandLink>
+            </div>
+
+            <p:confirmDialog global="true">  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />  
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />  
+            </p:confirmDialog>  
+
+
+            <p:dialog header="Record" widgetVar="record" modal="false" focus="name">
+                <p:panelGrid id="panelRecord" columns="2"> 
+                    ID:
+                    <p:inputText id="name" value="#{workflowhasExperimentBean.workflowhasExperiment.idWorkflowhasExperiment}" disabled="true" />
+                    Experiment:
+                    <p:selectOneMenu id="experiment" value="#{workflowhasExperimentBean.workflowhasExperiment.experimentExperiment}" converter="experimentConverter">
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+                        <f:selectItems value="#{experimentBean.experiments}" var="experimentname" itemLabel="#{experimentname.name}" itemValue="#{experimentname}" />
+                    </p:selectOneMenu>
+                    Workflow:
+                    <p:selectOneMenu id="workflow" value="#{workflowhasExperimentBean.workflowhasExperiment.workflowidWorkflow}" converter="workflowConverter">
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+                        <f:selectItems value="#{workflowBean.workflows}" var="workflowname" itemLabel="#{workflowname.name}" itemValue="#{workflowname}" />
+                    </p:selectOneMenu>
+                </p:panelGrid>  
+                <br/>
+                <p:commandButton value="Record"  
+                                 actionListener="#{workflowhasExperimentBean.record}" onclick="record.hide()" alt="Record"/> 
+            </p:dialog>
+            <p:dialog header="Delete" widgetVar="remove" modal="false"> 
+                Are you sure?
+                <p:commandButton value="Delete"  
+                                 actionListener="#{workflowhasExperimentBean.exclude}" onclick="remove.hide()" alt="Delete" /> 
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

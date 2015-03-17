@@ -1,0 +1,117 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Manager Tasks</h2>
+        <br/>
+        <h:form id="formPrincipal">
+            <div align="center">
+                <p:dataTable var="lista" value="#{taskBean.tasks}"
+                             id="tabelaTask" emptyMessage="No records found"
+                             paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
+                    <p:column headerText="ID" sortBy="#{lista.idTask}" filterBy="#{lista.idTask}">
+                        <h:outputText value="#{lista.idTask}" />
+                    </p:column>
+                    <p:column headerText="Name" sortBy="#{lista.name}" filterBy="#{lista.name}">
+                        <h:outputText value="#{lista.name}" />
+                    </p:column>
+                    <p:column headerText="Type" sortBy="#{lista.type}" filterBy="#{lista.type}">
+                        <h:outputText value="#{lista.type}" />
+                    </p:column>
+                    <p:column headerText="Description" sortBy="#{lista.description}" filterBy="#{lista.description}">
+                        <h:outputText value="#{lista.description}" />
+                    </p:column>
+                    <p:column headerText="Started" sortBy="#{lista.started}" filterBy="#{lista.started}">
+                        <h:outputText value="#{lista.started}"><f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" timeZone="GMT-3"/></h:outputText>
+                    </p:column>
+                    <p:column headerText="Ended" sortBy="#{lista.ended}" filterBy="#{lista.ended}">
+                        <h:outputText value="#{lista.ended}" ><f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" timeZone="GMT-3"/></h:outputText>
+                    </p:column>
+                    <p:column headerText="Workflow" sortBy="#{lista.workflowidWorkflow.name}" filterBy="#{lista.workflowidWorkflow.name}">
+                        <h:outputText value="#{lista.workflowidWorkflow.name}" />
+                    </p:column>
+                    <p:column headerText="Actions" exportable="false">
+                        <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
+                            <f:setPropertyActionListener target="#{taskBean.task}"
+                                                         value="#{lista}" />
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-trash" value="Delete" onclick="PF('remove').show();"> 
+                            <f:setPropertyActionListener target="#{taskBean.task}"
+                                                         value="#{lista}" />
+                        </p:commandButton> 
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+            <br/>
+            <ui:remove>
+                <p:column>
+                    <p:commandButton icon="ui-icon-plus" value="New" onclick="PF('record').show();">  
+                    </p:commandButton> 
+                </p:column>
+            </ui:remove>
+            <div align="center">
+                <h3>Export Page Data Only</h3>
+
+                <h:commandLink id="excel">
+                    <p:graphicImage name="./images/exports/excel.png" />
+                    <p:dataExporter type="xls" target="tabelaTask" fileName="tasks" postProcessor="#{taskBean.postProcessXLS}" />
+                </h:commandLink>
+
+                <h:commandLink id="pdf">
+                    <p:graphicImage name="./images/exports/pdf.png" />
+                    <p:dataExporter type="pdf" target="tabelaTask" fileName="tasks" preProcessor="#{taskBean.preProcessPDF}" />
+                </h:commandLink>
+
+
+                <h:commandLink>
+                    <p:graphicImage name="./images/exports/csv.png" width="24"/>
+                    <p:dataExporter type="csv" target="tabelaTask" fileName="tasks" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="./images/exports/xml.png" width="24"/>
+                    <p:dataExporter type="xml" target="tabelaTask" fileName="tasks" />
+                </h:commandLink>
+            </div>
+
+            <p:confirmDialog global="true">  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />  
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />  
+            </p:confirmDialog>  
+
+
+            <p:dialog header="Record" widgetVar="record" modal="false" focus="name">
+                <p:panelGrid id="panelRecord" columns="2"> 
+                    Name:
+                    <p:inputText id="name" value="#{taskBean.task.name}" />  
+                    Type:
+                    <p:inputText value="#{taskBean.task.type}" />  
+                    Deswcription:
+                    <p:inputText value="#{taskBean.task.description}" />
+                    Started:
+                    <p:calendar id="started" value="#{taskBean.task.started}" pattern="MM/dd/yyyy HH:mm:ss" />  
+                    Ended:
+                    <p:calendar id="ended" value="#{taskBean.task.ended}" pattern="MM/dd/yyyy HH:mm:ss"/>
+                    Workflow:
+                    <p:selectOneMenu id="workflow" value="#{workflowhasExperimentBean.workflowhasExperiment.workflowidWorkflow}" converter="workflowConverter">
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+                        <f:selectItems value="#{workflowBean.workflows}" var="workflowname" itemLabel="#{workflowname.name}" itemValue="#{workflowname}" />
+                    </p:selectOneMenu>
+                </p:panelGrid>    
+                <br/>
+                <p:commandButton value="Record"  
+                                 actionListener="#{taskBean.record}" onclick="record.hide()" alt="Record"/> 
+            </p:dialog>
+            <p:dialog header="Delete" widgetVar="remove" modal="false"> 
+                Are you sure?
+                <p:commandButton value="Delete"  
+                                 actionListener="#{taskBean.exclude}" onclick="remove.hide()" alt="Delete" /> 
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

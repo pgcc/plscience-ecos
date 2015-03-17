@@ -1,0 +1,96 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Manager Institute</h2>
+        <br/>
+        <h:form id="formPrincipal">
+            <div align="center">
+                <p:dataTable var="lista" value="#{entityBean.entitys}"
+                             id="tabelaEntity" emptyMessage="No records found"
+                             paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
+
+                    <p:column headerText="ID" sortBy="#{lista.idEntity}" filterBy="#{lista.idEntity}">
+
+                        <h:outputText value="#{lista.idEntity}" />
+                    </p:column>
+                    <p:column headerText="Name" sortBy="#{lista.name}" filterBy="#{lista.name}">
+
+                        <h:outputText value="#{lista.name}" />
+                    </p:column>
+                    <p:column headerText="Acronym" sortBy="#{lista.acronym}" filterBy="#{lista.acronym}">
+
+                        <h:outputText value="#{lista.acronym}" />
+                    </p:column>
+                    <p:column headerText="Actions" exportable="false">
+                        <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
+                            <f:setPropertyActionListener target="#{entityBean.entity}"
+                                                         value="#{lista}" />
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-trash" value="Delete" onclick="PF('remove').show();"> 
+                            <f:setPropertyActionListener target="#{entityBean.entity}"
+                                                         value="#{lista}" />
+                        </p:commandButton> 
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+            <br/>
+            <p:column>
+                <p:commandButton icon="ui-icon-plus" value="New" onclick="PF('record').show();">  
+                </p:commandButton> 
+            </p:column>
+            <div align="center">
+                <h3>Export Page Data Only</h3>
+
+                <h:commandLink id="excel">
+                    <p:graphicImage name="./images/exports/excel.png" />
+                    <p:dataExporter type="xls" target="tabelaEntity" fileName="entitys" postProcessor="#{entityBean.postProcessXLS}" />
+                </h:commandLink>
+
+                <h:commandLink id="pdf">
+                    <p:graphicImage name="./images/exports/pdf.png" />
+                    <p:dataExporter type="pdf" target="tabelaEntity" fileName="entitys" preProcessor="#{entityBean.preProcessPDF}" />
+                </h:commandLink>
+
+
+                <h:commandLink>
+                    <p:graphicImage name="./images/exports/csv.png" width="24"/>
+                    <p:dataExporter type="csv" target="tabelaEntity" fileName="entitys" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="./images/exports/xml.png" width="24"/>
+                    <p:dataExporter type="xml" target="tabelaEntity" fileName="entitys" />
+                </h:commandLink>
+            </div>
+
+            <p:confirmDialog global="true">  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />  
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />  
+            </p:confirmDialog>  
+
+
+            <p:dialog header="Record" widgetVar="record" modal="false" focus="name">
+                <p:panelGrid id="panelRecord" columns="2"> 
+                    Name:
+                    <p:inputText id="name" value="#{entityBean.entity.name}" />  
+                    Acronym:
+                    <p:inputText value="#{entityBean.entity.acronym}" />  
+                </p:panelGrid>  
+                <br/>
+                <p:commandButton value="Record"  
+                                 actionListener="#{entityBean.record}" onclick="record.hide()" alt="Record"/> 
+            </p:dialog>
+            <p:dialog header="Delete" widgetVar="remove" modal="false"> 
+                Are you sure?
+                <p:commandButton value="Delete"  
+                                 actionListener="#{entityBean.exclude}" onclick="remove.hide()" alt="Delete" /> 
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

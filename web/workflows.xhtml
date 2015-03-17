@@ -1,0 +1,122 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Manager Workflows</h2>
+        <br/>
+        <h:form id="formPrincipal" enctype="multipart/form-data">
+            <div align="center">
+                <p:dataTable var="lista" value="#{workflowBean.workflows}"
+                             id="tabelaWorkflow" emptyMessage="No records found"
+                             paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
+
+                    <p:column headerText="ID" sortBy="#{lista.idWorkflow}" filterBy="#{lista.idWorkflow}">
+                        <h:outputText value="#{lista.idWorkflow}" />
+                    </p:column>
+                    <p:column headerText="Name" sortBy="#{lista.name}" filterBy="#{lista.name}">
+                        <h:outputText value="#{lista.name}" />
+                    </p:column>
+                    <p:column headerText="Description" sortBy="#{lista.description}" filterBy="#{lista.description}">
+                        <h:outputText value="#{lista.description}" />
+                    </p:column>
+                    <p:column headerText="Version" sortBy="#{lista.version}" filterBy="#{lista.version}">
+                        <h:outputText value="#{lista.version}" />
+                    </p:column>
+                    <p:column headerText="Date Version" sortBy="#{lista.dateVersion}" filterBy="#{lista.dateVersion}">
+                        <h:outputText value="#{lista.dateVersion}"><f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT-3"/></h:outputText>
+                    </p:column>
+                    <p:column headerText="SGWfC" sortBy="#{lista.SGWfC}" filterBy="#{lista.SGWfC}">
+                        <h:outputText value="#{lista.SGWfC}" />
+                    </p:column>
+                    <p:column headerText="Actions" exportable="false">
+                        <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
+                            <f:setPropertyActionListener target="#{workflowBean.workflow}"
+                                                         value="#{lista}" />
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-trash" value="Delete" onclick="PF('remove').show();"> 
+                            <f:setPropertyActionListener target="#{workflowBean.workflow}"
+                                                         value="#{lista}" />
+                        </p:commandButton> 
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+            <br/>
+            <p:column>
+                <p:commandButton icon="ui-icon-plus" value="New" onclick="PF('record').show();">  
+                </p:commandButton> 
+            </p:column>
+            <div align="center">
+                <h3>Export Page Data Only</h3>
+
+                <h:commandLink id="excel">
+                    <p:graphicImage name="./images/exports/excel.png" />
+                    <p:dataExporter type="xls" target="tabelaWorkflow" fileName="workflows" postProcessor="#{workflowBean.postProcessXLS}" />
+                </h:commandLink>
+
+                <h:commandLink id="pdf">
+                    <p:graphicImage name="./images/exports/pdf.png" />
+                    <p:dataExporter type="pdf" target="tabelaWorkflow" fileName="workflows" preProcessor="#{workflowBean.preProcessPDF}" />
+                </h:commandLink>
+
+
+                <h:commandLink>
+                    <p:graphicImage name="./images/exports/csv.png" width="24"/>
+                    <p:dataExporter type="csv" target="tabelaWorkflow" fileName="workflows" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="./images/exports/xml.png" width="24"/>
+                    <p:dataExporter type="xml" target="tabelaWorkflow" fileName="workflows" />
+                </h:commandLink>
+            </div>
+
+            <p:confirmDialog global="true">  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />  
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />  
+            </p:confirmDialog>  
+
+
+            <p:dialog header="Record" widgetVar="record" modal="false" focus="name">
+                <p:panelGrid id="panelRecord" columns="2"> 
+                    Name:
+                    <p:inputText id="name" value="#{workflowBean.workflow.name}" />  
+                    Description:
+                    <p:inputText value="#{workflowBean.workflow.description}" />  
+                    Version:
+                    <p:inputMask value="#{workflowBean.workflow.version}" mask="99.99.99"/>  
+                    Date Version:
+                    <p:calendar id="popup" value="#{workflowBean.workflow.dateVersion}" />  
+                    SGWfC:
+                    <p:selectOneMenu id="sgwfc" value="#{workflowBean.workflow.SGWfC}" style="width:125px">
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+                        <f:selectItem itemLabel="Kepler" itemValue="Kepler" />
+                        <f:selectItem itemLabel="Taverna" itemValue="Taverna" />
+                        <f:selectItem itemLabel="VisTrails" itemValue="VisTrails" />
+                        <f:selectItem itemLabel="Galaxy" itemValue="Galaxy" />
+                        <f:selectItem itemLabel="Outher" itemValue="Outher" />
+                    </p:selectOneMenu>
+                    
+                    Archive of Workflow:
+                    <p:fileUpload fileUploadListener="#{workflowBean.doUpload}" 
+                                  label="Search..." auto="false"/>
+                      
+                    <p:messages  severity="info" escape="false" showDetail="true" 
+                                 autoUpdate="true" closable="true"/>
+                   
+                </p:panelGrid>  
+                <br/>
+                <p:commandButton value="Record" actionListener="#{workflowBean.record}" onclick="record.hide()" alt="Record"/> 
+            </p:dialog>
+            <p:dialog header="Delete" widgetVar="remove" modal="false"> 
+                Are you sure?
+                <p:commandButton value="Delete"  
+                                 actionListener="#{workflowBean.exclude}" onclick="remove.hide()" alt="Delete" /> 
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>
