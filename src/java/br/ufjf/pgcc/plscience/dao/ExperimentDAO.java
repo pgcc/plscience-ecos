@@ -80,6 +80,44 @@ public class ExperimentDAO extends GenericDAO {
         finish();    */
     }
     
+    public void recreateExperimentServices(ExperimentServices experimentServ) {
+        
+        //Recuperando Experiment pelo id
+        Experiment ex = getId(experimentServ.getExperiment().getId());
+        experimentServ.setExperiment(ex);
+        
+        //Verificar se experimentServ é novo ou não
+        if(experimentServ.getId().equals((long) 0)){
+            //Salvando experiment services
+            experimentServ.setId(null);
+            getEntityManager().getTransaction().begin();
+            getEntityManager().persist(experimentServ);
+            getEntityManager().getTransaction().commit();
+            finish();
+        }else{
+            //Recuperando id
+            ExperimentServices exServ = getEntityManager().find(ExperimentServices.class,experimentServ.getId());
+            
+            getEntityManager().getTransaction().begin();
+            exServ.setService_name(experimentServ.getService_name());
+            exServ.setStage(experimentServ.getStage());
+            getEntityManager().remove(exServ);
+            getEntityManager().getTransaction().commit();
+            finish(); 
+        }
+        
+        
+        //Recuperando id
+       /* ExperimentServices exServ = ExperimentServicesGetbyNameandStage(experiment.getExperimentServices().getService_name(),experiment.getExperimentServices().getStage());
+        
+        getEntityManager().getTransaction().begin();
+        Experiment ex = getEntityManager().find(Experiment.class, experiment.getId());
+        ex.setExperimentServices(exServ);
+        //getEntityManager().merge(experiment);
+        getEntityManager().getTransaction().commit();
+        finish();    */
+    }
+    
     public void updateNumberStages(Long id, Integer n){
         //Recuperando id
         Experiment ex = getEntityManager().find(Experiment.class,id);

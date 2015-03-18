@@ -108,13 +108,34 @@ public class Workspace implements Serializable {
     
     public void drawStages(String nStages){
         numberStages = nStages;
+        Experiment ex = new Experiment();
+        ExperimentDAO exDao = new ExperimentDAO();
+        
+        //apagando os existentes
+        for(ExperimentServices e: exServ){
+             ex = new Experiment();
+             ex.setId(experiment.getId());
+             e.setExperiment(ex);
+             exDao.recreateExperimentServices(e);
+        }
+        exServ = new ArrayList<ExperimentServices>();
+        //criando os novos
         for(int i=0;i<Integer.valueOf(nStages);i++){
             ExperimentServices exS = new ExperimentServices();
             exS.setId((long) 0);
             exS.setStage(i);
+            //
+             ExperimentServices exService = new ExperimentServices();
+             exService.setService_name("");
+             exService.setStage(i);
+             exService.setId((long) 0);
+             ex.setId(experiment.getId());
+             exService.setExperiment(ex);
+             exDao.recreateExperimentServices(exService);
+            //
             exServ.add(exS);
         }
-        ExperimentDAO exDao = new ExperimentDAO();
+    
         exDao.updateNumberStages(experiment.getId(), Integer.parseInt(nStages));
             
     }
