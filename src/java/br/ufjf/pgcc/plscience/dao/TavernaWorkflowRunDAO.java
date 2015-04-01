@@ -49,7 +49,7 @@ public class TavernaWorkflowRunDAO extends GenericDAO {
         return tavernaWorkflowRun;        
     }
     
-    public List<TavernaWorkflowRun> getExperimentWorkflowRuns(Long experimentId) {
+    public List<TavernaWorkflowRun> getExperimentWorkflowRuns(Integer experimentId) {
         Query query = getEntityManager().createQuery("SELECT t FROM TavernaWorkflowRun t WHERE t.tavernaWorkflow.experiment.id = :p_experiment_id");
         query.setParameter("p_experiment_id", experimentId);
         List<TavernaWorkflowRun> workflowRuns = query.getResultList();

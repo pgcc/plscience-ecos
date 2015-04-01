@@ -225,7 +225,7 @@ public class TavernaWorkflows implements Serializable {
      * @return the workflows
      */
     public List<TavernaWorkflow> getWorkflows() {
-        workflows = new TavernaWorkflowDAO().getExperimentWorkflows(experiment.getId());
+        workflows = new TavernaWorkflowDAO().getExperimentWorkflows(experiment.getIdExperiment());
         return workflows;
     }
 
@@ -286,7 +286,7 @@ public class TavernaWorkflows implements Serializable {
      * @return the tavernaRuns
      */
     public List<TavernaWorkflowRun> getTavernaRuns() {
-        tavernaRuns = new TavernaWorkflowRunDAO().getExperimentWorkflowRuns(experiment.getId());
+        tavernaRuns = new TavernaWorkflowRunDAO().getExperimentWorkflowRuns(experiment.getIdExperiment());
         return tavernaRuns;
     }
 

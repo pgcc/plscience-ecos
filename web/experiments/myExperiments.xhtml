@@ -11,10 +11,10 @@
             <p:dataTable var="experiment" value="#{myExperiments.experiments}" style="margin: 20px 0">
                 
                 <p:column headerText="Id">
-                    <h:outputText value="#{experiment.id}" />
+                    <h:outputText value="#{experiment.idExperiment}" />
                 </p:column>
-                <p:column headerText="Title">
-                    <h:outputText value="#{experiment.title}" />
+                <p:column headerText="Name">
+                    <h:outputText value="#{experiment.name}" />
                 </p:column>
                 <p:column headerText="Description">
                     <h:outputText value="#{experiment.description}" />

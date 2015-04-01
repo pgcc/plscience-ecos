@@ -36,7 +36,7 @@ public class WasGeneratedBy implements Serializable {
     private Integer idWasGeneratedBy;
     @Column(name = "Description")
     private String description;
-    @JoinColumn(name = "Experiment_Experiment", referencedColumnName = "Experiment")
+    @JoinColumn(name = "Experiment_Experiment", referencedColumnName = "idExperiment")
     @ManyToOne(optional = false)
     private Experiment experimentExperiment;
     @JoinColumn(name = "ResearchGroup_idResearchGroup", referencedColumnName = "idResearchGroup")

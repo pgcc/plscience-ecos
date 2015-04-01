@@ -114,7 +114,7 @@ public class Parsifal implements Serializable {
     }
     
     public void saveSettings() {
-        new ExperimentDAO().update(experiment);
+        new ExperimentDAO().save(experiment);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment saved with success!"));
     }
 

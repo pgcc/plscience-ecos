@@ -233,7 +233,7 @@ public class ExperimentPrototyping implements Serializable {
            exServ.setService_name(input);
            exServ.setStage(Integer.parseInt(s[1]));
            exServ.setId(Long.parseLong(idExServ));
-           ex.setId(Long.parseLong(id));
+           ex.setIdExperiment(Integer.parseInt(id));
            exServ.setExperiment(ex);
            System.out.println("O ID do ExServi e esse aqui galera: "+idExServ);
            exDao.updateExperimentServices(exServ);

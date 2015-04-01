@@ -43,20 +43,20 @@ public class ExperimentBean {
     
     //construtor
     public ExperimentBean() {
-        experiments = new ExperimentDAO().buscarTodas();
+        experiments = new ExperimentDAO().getAll();
         experiment = new Experiment();
     }
     
     //Métodos dos botões 
     public void record(ActionEvent actionEvent) {
-        new ExperimentDAO().persistir(experiment);
-        experiments = new ExperimentDAO().buscarTodas();
+        new ExperimentDAO().save(experiment);
+        experiments = new ExperimentDAO().getAll();
         experiment = new Experiment();
     }
 
     public void exclude(ActionEvent actionEvent) {
-        new ExperimentDAO().remover(experiment);
-        experiments = new ExperimentDAO().buscarTodas();
+        new ExperimentDAO().remove(experiment);
+        experiments = new ExperimentDAO().getAll();
         experiment = new Experiment();
     }
     

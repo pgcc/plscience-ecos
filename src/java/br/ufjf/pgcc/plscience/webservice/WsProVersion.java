@@ -109,28 +109,29 @@ public class WsProVersion {
         return "Registro inserido com sucesso...";
     }
 
-    @WebMethod(operationName = "expirimentPersist")
-    public String expirimentPersist(@WebParam(name = "name") String name,
-            @WebParam(name = "description") String description,
-            @WebParam(name = "started") Date started,
-            @WebParam(name = "ended") Date ended,
-            @WebParam(name = "version") String version,
-            @WebParam(name = "identity") Entity identity,
-            @WebParam(name = "idagent") Agent idagent,
-            @WebParam(name = "idactivity") Activity activity
-    ) {
-
-        Experiment ex = new Experiment();
-        ex.setName(name);
-        ex.setDescription(description);
-        ex.setDateStarted(started);
-        ex.setDateEnded(ended);
-        ex.setVersion(version);
-        ex.setEntityidEntity(identity);
-        ex.setActivityidActivity(activity);
-        ex = ExperimentDAO.getInstance().persistir(ex);
-
-        return "Registro inserido com sucesso...";
-    }
+//    @WebMethod(operationName = "expirimentPersist")
+//    public String expirimentPersist(@WebParam(name = "name") String name,
+//            @WebParam(name = "description") String description,
+//            @WebParam(name = "started") Date started,
+//            @WebParam(name = "ended") Date ended,
+//            @WebParam(name = "version") String version,
+//            @WebParam(name = "identity") Entity identity,
+//            @WebParam(name = "idagent") Agent idagent,
+//            @WebParam(name = "idactivity") Activity activity
+//    ) 
+//    {
+//
+//        Experiment ex = new Experiment();
+//        ex.setName(name);
+//        ex.setDescription(description);
+//        ex.setDateStarted(started);
+//        ex.setDateEnded(ended);
+//        ex.setVersion(version);
+//        ex.setEntityidEntity(identity);
+//        ex.setActivityidActivity(activity);
+//        ex = ExperimentDAO.getInstance().persistir(ex);
+//
+//        return "Registro inserido com sucesso...";
+//    }
 
 }

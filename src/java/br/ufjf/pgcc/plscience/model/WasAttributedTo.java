@@ -39,7 +39,7 @@ public class WasAttributedTo implements Serializable {
     private Integer idWasAttributedTo;
     @Column(name = "Description")
     private String description;
-    @JoinColumn(name = "Experiment_Experiment", referencedColumnName = "Experiment")
+    @JoinColumn(name = "Experiment_Experiment", referencedColumnName = "idExperiment")
     @ManyToOne
     private Experiment experimentExperiment;
     @JoinColumn(name = "Workflow_idWorkflow", referencedColumnName = "idWorkflow")

@@ -28,7 +28,7 @@ public class ExperimentServices implements Serializable, Comparable<ExperimentSe
     @Column(name="id")
     private Long id;
     
-     @Column(name="stage")
+    @Column(name="stage")
     private Integer stage;
     
     @Column(name="service_name")
@@ -36,7 +36,7 @@ public class ExperimentServices implements Serializable, Comparable<ExperimentSe
     
       
     @ManyToOne
-    @JoinColumn(name="experiment_id")
+    @JoinColumn(name="idExperiment")
     private Experiment experiment;
 
     public Long getId() {

@@ -24,6 +24,9 @@
 package br.ufjf.pgcc.plscience.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,26 +34,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author vitorfs
  */
 @Entity
-@Table(name="experiments")
+@Table(name="Experiment")
 public class Experiment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
-    private Long id;
+    @Column(name="idExperiment")
+    private Integer idExperiment;
     
-    @Column(name="title")
-    private String title;
+    @Column(name="Name")
+    private String name;
     
-    @Column(name="description")
+    @Column(name="Description")
     private String description;
+    
+    @Column(name = "Version")
+    private String version;
+    
+    @Column(name = "DateStarted")
+    @Temporal(TemporalType.DATE)
+    private Date dateStarted;
+    
+    @Column(name = "DateEnded")
+    @Temporal(TemporalType.DATE)
+    private Date dateEnded;
     
     @ManyToOne
     @JoinColumn(name="scientist_id")
@@ -62,33 +80,58 @@ public class Experiment implements Serializable {
     @Column(name="number_stages")
     private Integer numberStages;
 
+    @JoinColumn(name = "Activity_idActivity", referencedColumnName = "idActivity")
+    @ManyToOne
+    private Activity activityidActivity;
+    
+    @JoinColumn(name = "Entity_idEntity", referencedColumnName = "idEntity")
+    @ManyToOne
+    private br.ufjf.pgcc.plscience.model.Entity entityidEntity;
+    
+    @OneToMany(mappedBy = "experimentExperiment")
+    private List<WasAttributedTo> wasAttributedToList;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "experimentExperiment")
+    private List<WasGeneratedBy> wasGeneratedByList;
+    
+    public Experiment() {
+    }
 
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
+    public Experiment(Integer idExperiment) {
+        this.idExperiment = idExperiment;
+    }
+
+    public Experiment(Integer idExperiment, String name) {
+        this.idExperiment = idExperiment;
+        this.name = name;
     }
 
     /**
-     * @param id the id to set
+     * @return the idExperiment
      */
-    public void setId(Long id) {
-        this.id = id;
+    public Integer getIdExperiment() {
+        return idExperiment;
     }
 
     /**
-     * @return the title
+     * @param idExperiment
      */
-    public String getTitle() {
-        return title;
+    public void setIdExperiment(Integer idExperiment) {
+        this.idExperiment = idExperiment;
     }
 
     /**
-     * @param title the title to set
+     * @return the name
      */
-    public void setTitle(String title) {
-        this.title = title;
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the title to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -104,7 +147,49 @@ public class Experiment implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    /**
+     * @return the dateStarted
+     */
+    public Date getDateStarted() {
+        return dateStarted;
+    }
 
+    /**
+     * @param dateStarted the dateStarted to set
+     */
+    public void setDateStarted(Date dateStarted) {
+        this.dateStarted = dateStarted;
+    }
+
+    /**
+     * @return the dateEnded
+     */
+    public Date getDateEnded() {
+        return dateEnded;
+    }
+
+    /**
+     * @param dateEnded the dateEnded to set
+     */
+    public void setDateEnded(Date dateEnded) {
+        this.dateEnded = dateEnded;
+    }
+
+    /**
+     * @return the version
+     */
+    public String getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(String version) {
+        this.version = version;
+    }
+    
     /**
      * @return the scientist
      */
@@ -139,6 +224,65 @@ public class Experiment implements Serializable {
 
     public void setNumberStages(Integer numberStages) {
         this.numberStages = numberStages;
+    }
+
+    public Activity getActivityidActivity() {
+        return activityidActivity;
+    }
+
+    public void setActivityidActivity(Activity activityidActivity) {
+        this.activityidActivity = activityidActivity;
+    }
+
+    public br.ufjf.pgcc.plscience.model.Entity getEntityidEntity() {
+        return entityidEntity;
+    }
+
+    public void setEntityidEntity(br.ufjf.pgcc.plscience.model.Entity entityidEntity) {
+        this.entityidEntity = entityidEntity;
+    }
+
+    @XmlTransient
+    public List<WasAttributedTo> getWasAttributedToList() {
+        return wasAttributedToList;
+    }
+
+    public void setWasAttributedToList(List<WasAttributedTo> wasAttributedToList) {
+        this.wasAttributedToList = wasAttributedToList;
+    }
+
+    @XmlTransient
+    public List<WasGeneratedBy> getWasGeneratedByList() {
+        return wasGeneratedByList;
+    }
+
+    public void setWasGeneratedByList(List<WasGeneratedBy> wasGeneratedByList) {
+        this.wasGeneratedByList = wasGeneratedByList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idExperiment != null ? idExperiment.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Experiment)) {
+            return false;
+        }
+        Experiment other = (Experiment) object;
+        if ((this.idExperiment == null && other.idExperiment != null) || (this.idExperiment != null && !this.idExperiment.equals(other.idExperiment))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.ufjf.pgcc.plscience.model.Experiment[ experiment=" + idExperiment + " ]";
     }
 
     

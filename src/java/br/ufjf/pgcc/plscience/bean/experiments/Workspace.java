@@ -60,7 +60,7 @@ public class Workspace implements Serializable {
         exServ = new ArrayList<ExperimentServices>();
         List<ExperimentServices> allExServ = new ExperimentDAO().getAllExperimentServices();
         for(ExperimentServices es: allExServ){
-            if(null!=es.getExperiment() && null!=es.getExperiment().getId() && es.getExperiment().getId().equals(experiment.getId())){
+            if(null!=es.getExperiment() && null!=es.getExperiment().getIdExperiment() && es.getExperiment().getIdExperiment().equals(experiment.getIdExperiment())){
                 exServ.add(es);
             }
         }
@@ -115,13 +115,13 @@ public class Workspace implements Serializable {
             exServ.add(exS);
         }
         ExperimentDAO exDao = new ExperimentDAO();
-        exDao.updateNumberStages(experiment.getId(), Integer.parseInt(nStages));
+        exDao.updateNumberStages(experiment.getIdExperiment(), Integer.parseInt(nStages));
             
     }
     
      public void update(){
         try {
-            new ExperimentDAO().update(experiment);
+            new ExperimentDAO().save(experiment);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment updated with success!"));   
         } catch (HibernateException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
