@@ -65,8 +65,8 @@ public class TavernaWorkflow implements Serializable {
     private Experiment experiment;
     
     @ManyToOne
-    @JoinColumn(name="scientist_id")
-    private Scientist scientist;
+    @JoinColumn(name="idAgent")
+    private Agent agent;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="created_at")
@@ -123,15 +123,15 @@ public class TavernaWorkflow implements Serializable {
     /**
      * @return the scientist
      */
-    public Scientist getScientist() {
-        return scientist;
+    public Agent getAgent() {
+        return agent;
     }
 
     /**
-     * @param scientist the scientist to set
+     * @param agent the scientist to set
      */
-    public void setScientist(Scientist scientist) {
-        this.scientist = scientist;
+    public void setAgent(Agent agent) {
+        this.agent = agent;
     }
 
     /**

@@ -71,8 +71,8 @@ public class Experiment implements Serializable {
     private Date dateEnded;
     
     @ManyToOne
-    @JoinColumn(name="scientist_id")
-    private Scientist scientist;
+    @JoinColumn(name="idAgent")
+    private Agent agent;
     
     @Column(name="parsifal_review")
     private Integer parsifalReview;
@@ -191,17 +191,17 @@ public class Experiment implements Serializable {
     }
     
     /**
-     * @return the scientist
+     * @return the agent
      */
-    public Scientist getScientist() {
-        return scientist;
+    public Agent getAgent() {
+        return agent;
     }
 
     /**
-     * @param scientist the scientist to set
+     * @param agent the scientist to set
      */
-    public void setScientist(Scientist scientist) {
-        this.scientist = scientist;
+    public void setAgent(Agent agent) {
+        this.agent = agent;
     }
 
     /**
