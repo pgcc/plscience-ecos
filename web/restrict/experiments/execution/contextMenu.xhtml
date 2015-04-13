@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">                
+    <h:form>
+        <p:menu style="width: 100%">
+            <p:submenu label="Workspace">
+                <p:menuitem value="Workflow" outcome="/experiments/execution/experimentExecution.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Resources">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Transformation Engine">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+            </p:submenu>
+            <p:submenu label="Taverna">
+                <p:menuitem value="Workflows" outcome="/experiments/execution/taverna/workflows.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>                
+                <p:menuitem value="Runs" outcome="/experiments/execution/taverna/runs.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="TavernaServer" outcome="/experiments/execution/taverna/tavernaServer.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+            </p:submenu>
+            <p:submenu label="Kepler">
+                <p:menuitem value="New Run">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+            </p:submenu>
+            <p:submenu label="VisTrails">
+                <p:menuitem value="New Run">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+            </p:submenu>
+        </p:menu>
+    </h:form>
+</ui:composition>

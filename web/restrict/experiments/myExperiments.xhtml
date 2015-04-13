@@ -1,0 +1,35 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">My Experiments</h2>
+
+        <h:form>
+            <p:dataTable var="experiment" value="#{myExperiments.experiments}" style="margin: 20px 0">
+                
+                <p:column headerText="Id">
+                    <h:outputText value="#{experiment.idExperiment}" />
+                </p:column>
+                <p:column headerText="Name">
+                    <h:outputText value="#{experiment.name}" />
+                </p:column>
+                <p:column headerText="Description">
+                    <h:outputText value="#{experiment.description}" />
+                </p:column>
+                <p:column>
+                    <p:commandButton title="Edit" 
+                                     value="Edit" 
+                                     icon="ui-icon-pencil" 
+                                     action="/faces/experiments/experiment.xhtml?faces-redirect=true"
+                                     ajax="false">
+                        <f:setPropertyActionListener value="#{experiment}" target="#{workspace.experiment}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,44 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">New Research</h2>
+        <br/>
+        <h:form id="formPrincipal">
+            <div align="center">
+
+                <p:commandButton icon="ui-icon-plus" value="New" onclick="PF('record').show();">  
+                </p:commandButton> 
+
+                <p:dialog header="Record" widgetVar="record" modal="false" focus="name">
+                    <p:panelGrid columns="2">
+                        Login:
+                        <p:inputText id="name" required="true" value="#{agentBean.agent.login}" />  
+                        E-mail:
+                        <p:inputText id="email" required="true" />
+                        Password:
+                        <p:password required="true" value="#{agentBean.agent.password}" />
+                        Name:
+                        <p:inputText required="true" value="#{agentBean.agent.name}" />
+                        Institution
+                        <p:selectOneMenu id="car" value="#{agentBean.agent.institution}">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{entityBean.entitys}" var="entityname" itemLabel="#{entityname.acronym}" itemValue="#{entityname}" />
+                        </p:selectOneMenu>
+
+                        Function:
+                        <p:inputText value="#{agentBean.agent.function}" />
+                        Description:
+                        <p:inputText value="#{agentBean.agent.description}" />
+                        <p:commandButton value="Clear" type="reset" />  
+                        <p:commandButton value="Record"  
+                                         actionListener="#{agentBean.record}" onclick="record.hide()" alt="Record"/>
+                    </p:panelGrid>
+                </p:dialog>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

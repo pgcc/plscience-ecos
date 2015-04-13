@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">                
+    <h:form>
+        <p:menu style="width: 100%">
+            <p:submenu label="Explore">
+                <p:menuitem value="Related Experiments" outcome="/experiments/problemInvestigation/problemInvestigation.xhtml">
+                    <f:param name="tab" value="1" />
+                </p:menuitem>
+            </p:submenu>
+            <p:submenu label="Parsifal">
+                <p:menuitem value="Settings" outcome="/experiments/problemInvestigation/parsifal/settings.xhtml">
+                    <f:param name="tab" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Search" outcome="/experiments/problemInvestigation/problemInvestigation.xhtml">
+                    <f:param name="tab" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Literature Review" outcome="/experiments/problemInvestigation/parsifal/literatureReview.xhtml">
+                    <f:param name="tab" value="1" />
+                </p:menuitem>
+            </p:submenu>
+            <p:submenu label="Mendeley">
+                <p:menuitem value="Settings" outcome="/experiments/problemInvestigation/problemInvestigation.xhtml">
+                    <f:param name="tab" value="1" />
+                </p:menuitem>
+                <p:menuitem value="My Papers" outcome="/experiments/problemInvestigation/problemInvestigation.xhtml">
+                    <f:param name="tab" value="1" />
+                </p:menuitem>
+            </p:submenu>
+        </p:menu>
+    </h:form>
+</ui:composition>

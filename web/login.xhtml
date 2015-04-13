@@ -1,0 +1,27 @@
+<ui:composition template="/WEB-INF/templates/layoutLogin.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Login</h2>
+        
+        <h:form id="loginForm">        
+            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="username" value="Username:" />
+                <p:inputText id="username" value="#{userLogin.username}" required="true" label="username" />
+
+                <h:outputLabel for="password" value="Password:" />
+                <p:password id="password" value="#{userLogin.password}" required="true" label="password" />
+
+                <f:facet name="footer">
+                    <p:commandButton icon="ui-icon-unlocked" value="Entrar" action="#{userLogin.login}" />
+                </f:facet>  
+            </h:panelGrid>
+            
+        </h:form>   
+    </ui:define>
+</ui:composition>
