@@ -1,0 +1,89 @@
+<ui:composition template="/WEB-INF/templates/layoutLogin.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Register Scientist</h2>
+        
+        <h:form id="newAgentForm">
+            <p:growl id="growl" />
+            <p:panel header="Scientist Data" style="margin: 10px 0;">
+                <p:messages id="messages" />
+                <h:panelGrid columns="3" cellpadding="5">
+                    <h:outputLabel for="login" value="Login: *" />
+                    <p:inputText id="login" 
+                                 value="#{agentBean.agent.login}" 
+                                 required="true" 
+                                 label="Login"
+                                 size="50">
+                        <f:validateLength minimum="5" />
+                    </p:inputText>
+                    <p:message for="login" />
+
+                    <h:outputLabel for="password" value="Password: *" />
+                    <p:password id="password" 
+                                value="#{agentBean.agent.password}" 
+                                 required="true" 
+                                 label="Password"
+                                 size="50">
+                        <f:validateLength minimum="5" />
+                    </p:password>
+                    <p:message for="password" />
+                    
+                    <h:outputLabel for="name" value="Name: *" />
+                    <p:inputText id="name" 
+                                 value="#{agentBean.agent.name}" 
+                                 required="true" 
+                                 label="Name"
+                                 size="50">
+                    </p:inputText>
+                    <p:message for="name" />
+                    
+                    <h:outputLabel for="email" value="E-mail: *" />
+                    <p:inputText id="email" 
+                                 value="#{agentBean.agent.email}" 
+                                 required="true" 
+                                 label="E-mail"
+                                 size="50">
+                    </p:inputText>
+                    <p:message for="email" />
+                    
+                    <h:outputLabel for="institution" value="Institution: *" />
+                    <p:inputText id="function" 
+                                 value="#{agentBean.agent.institution}" 
+                                 required="true" 
+                                 label="Institution"
+                                 size="50">
+                    </p:inputText>
+                    <p:message for="institution" />
+                    
+                    <h:outputLabel for="function" value="Function: " />
+                    <p:inputText id="function" 
+                                 value="#{agentBean.agent.function}" 
+                                 required="false" 
+                                 label="Function"
+                                 size="50">
+                    </p:inputText>
+                    <p:message for="function" />
+                    
+                    <h:outputLabel for="description" value="Description: " />
+                    <p:inputTextarea id="description" 
+                                     value="#{agentBean.agent.description}"
+                                     rows="5" 
+                                     cols="30" 
+                                     counter="display" 
+                                     maxlength="10" 
+                                     counterTemplate="{0} characters remaining." 
+                                     autoResize="false" >
+                    </p:inputTextarea>
+                    <p:message for="description" />
+                    
+                </h:panelGrid>
+                <p:commandButton id="saveBtn" value="Save" icon="ui-icon-check" style="margin:0" actionListener="#{agentBean.save()}" update="growl"/>
+            </p:panel>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>

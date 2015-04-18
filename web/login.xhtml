@@ -11,14 +11,14 @@
             <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 
             <h:panelGrid columns="2" cellpadding="5">
-                <h:outputLabel for="username" value="Username:" />
-                <p:inputText id="username" value="#{userLogin.username}" required="true" label="username" />
+                <h:outputLabel for="login" value="Login:" />
+                <p:inputText id="login" value="#{userLoginBean.login}" required="true" label="login" />
 
                 <h:outputLabel for="password" value="Password:" />
-                <p:password id="password" value="#{userLogin.password}" required="true" label="password" />
+                <p:password id="password" value="#{userLoginBean.password}" required="true" label="password" />
 
                 <f:facet name="footer">
-                    <p:commandButton icon="ui-icon-unlocked" value="Entrar" action="#{userLogin.login}" />
+                    <p:commandButton icon="ui-icon-unlocked" value="Log In" action="#{userLoginBean.login}" />
                 </f:facet>  
             </h:panelGrid>
             

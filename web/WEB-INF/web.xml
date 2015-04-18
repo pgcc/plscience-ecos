@@ -46,6 +46,16 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>faces/restrict/index.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>br.ufjf.pgcc.plscience.controller.LoginFilterBean</filter-class>    
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/faces/restrict/*</url-pattern>
+    </filter-mapping>
+    
 </web-app>
