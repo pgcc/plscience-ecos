@@ -31,7 +31,7 @@ public class LoginFilterBean implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         
         //Captura o ManagedBean chamado “usuarioMB” 
-        UserLoginBean userLogin = (UserLoginBean) ((HttpServletRequest) request).getSession().getAttribute("userLogin");
+        UserLoginBean userLogin = (UserLoginBean) ((HttpServletRequest) request).getSession().getAttribute("userLoginBean");
         //Verifica se nosso ManagedBean ainda não 
         //foi instanciado ou caso a 
         //variável loggedIn seja false, assim saberemos que 

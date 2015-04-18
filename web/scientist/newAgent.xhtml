@@ -50,13 +50,21 @@
                     </p:inputText>
                     <p:message for="email" />
                     
-                    <h:outputLabel for="institution" value="Institution: *" />
-                    <p:inputText id="function" 
-                                 value="#{agentBean.agent.institution}" 
-                                 required="true" 
-                                 label="Institution"
-                                 size="50">
-                    </p:inputText>
+                    
+                    
+                    <p:outputLabel for="institution" value="Institution: *"  />
+                    <p:selectOneMenu id="institution" value="#{agentBean.agent.institution}" converter="entityConverter" panelStyle="width:400px"
+                                                     effect="fade" var="e" style="width:442px" filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{entityBean.entitys}" var="entity" itemLabel="#{entity.acronym}" itemValue="#{entity}" />
+
+                            <p:column>
+                                    <h:outputText value="#{e.acronym}" />
+                            </p:column>
+
+                            <p:column>
+                                    <h:outputText value="#{e.name}" />
+                            </p:column>
+                    </p:selectOneMenu>
                     <p:message for="institution" />
                     
                     <h:outputLabel for="function" value="Function: " />
@@ -71,10 +79,9 @@
                     <h:outputLabel for="description" value="Description: " />
                     <p:inputTextarea id="description" 
                                      value="#{agentBean.agent.description}"
-                                     rows="5" 
-                                     cols="30" 
-                                     counter="display" 
-                                     maxlength="10" 
+                                     rows="2" 
+                                     cols="52"  
+                                     maxlength="250" 
                                      counterTemplate="{0} characters remaining." 
                                      autoResize="false" >
                     </p:inputTextarea>

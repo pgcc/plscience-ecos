@@ -45,6 +45,19 @@ public class EntityDAO {
         return null;
     }
 
+    public Entity buscarPorID(Integer idEntity) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("select e from Entity As e where e.idEntity =:idEntity ");
+        query.setParameter("nome", idEntity);
+
+        List<Entity> entitys = query.getResultList();
+        if (entitys != null && entitys.size() > 0) {
+            return entitys.get(0);
+        }
+
+        return null;
+    }
+    
     /**
      * Busca todas
      *

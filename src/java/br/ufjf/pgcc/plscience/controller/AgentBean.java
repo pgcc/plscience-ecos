@@ -19,6 +19,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -38,7 +39,7 @@ import org.hibernate.HibernateException;
  */
 @ManagedBean(name = "agentBean")
 @ViewScoped
-public class AgentBean {
+public class AgentBean implements Serializable {
 
     Agent agent = new Agent();
 
@@ -64,7 +65,7 @@ public class AgentBean {
             new AgentDAO().persistir(getAgent());
             agents = new AgentDAO().buscarTodas();
             //agent = new Agent();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/plscience-ecos/faces/login.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/plscience-ecos-collab/faces/login.xhtml");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Scientist registered with success!"));
         } catch (HibernateException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   

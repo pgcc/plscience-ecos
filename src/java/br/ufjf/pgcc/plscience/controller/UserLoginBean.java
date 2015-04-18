@@ -25,23 +25,18 @@ package br.ufjf.pgcc.plscience.controller;
 
 import br.ufjf.pgcc.plscience.dao.AgentDAO;
 import br.ufjf.pgcc.plscience.model.Agent;
-import br.ufjf.pgcc.plscience.util.BeanUtil;
 import java.io.IOException;
 import java.io.Serializable;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
- 
-import org.primefaces.context.RequestContext;
 
 /**
  *
  * @author Guilherme Martins
  */
 
-@ManagedBean()
+@ManagedBean(name = "userLoginBean")
 @SessionScoped
 public class UserLoginBean implements Serializable {
     
@@ -51,18 +46,18 @@ public class UserLoginBean implements Serializable {
     private boolean isLogin;
     
     // Usuário e senha do cientista.
-    private String login;  
+    private String loginUser;  
     private String password;
     
     // Armazena cientista logado.
     private Agent agentLog;
     
     //Realiza o login caso de tudo certo 
-    public String login(){
+    public String login() throws IOException{
 
         //Verifica se o e-mail e senha existem e se o usuario pode logar 
         AgentDAO agentDAO = new AgentDAO(); 
-        Agent a = agentDAO.validityLogin(login, password);
+        Agent a = agentDAO.validityLogin(loginUser, password);
         
         //Caso não tenha retornado nenhum usuario, então mostramos um erro 
         //e redirecionamos ele para a página login.xhtml 
@@ -78,12 +73,12 @@ public class UserLoginBean implements Serializable {
             //para a página index.xhtml 
             setIsLogin(true); 
             setAgentLog(a); 
-            return "/faces/restrict/index.xhtml?faces-redirect=true"; 
+            return "restrict/index.xhtml?faces-redirect=true"; 
         } 
     } 
 
     //Realiza o logout do usuário logado 
-    public String logout(){ 
+    public String logout() throws IOException{ 
     
         //Setamos a variável usuarioLogado como nulo, ou seja, limpamos 
         //os dados do usuário que estava logado e depois setamos a variável 
@@ -97,17 +92,17 @@ public class UserLoginBean implements Serializable {
     }
 
     /**
-     * @return the username
+     * @return the loginUser
      */
-    public String getLogin() {
-        return login;
+    public String getLoginUser() {
+        return loginUser;
     }
 
     /**
-     * @param login the login to set
+     * @param loginUser the login to set
      */
-    public void setLogin(String login) {
-        this.login = login;
+    public void setLoginUser(String loginUser) {
+        this.loginUser = loginUser;
     }
 
     /**

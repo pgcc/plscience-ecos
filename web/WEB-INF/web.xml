@@ -50,11 +50,11 @@
     </welcome-file-list>
     
     <filter>
-        <filter-name>LoginFilter</filter-name>
+        <filter-name>LoginFilterBean</filter-name>
         <filter-class>br.ufjf.pgcc.plscience.controller.LoginFilterBean</filter-class>    
     </filter>
     <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
+        <filter-name>LoginFilterBean</filter-name>
         <url-pattern>/faces/restrict/*</url-pattern>
     </filter-mapping>
     
