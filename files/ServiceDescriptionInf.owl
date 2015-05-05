@@ -1,0 +1,1237 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY PLScienceServiceDescription "http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/fran/ontologies/2014/11/untitled-ontology-27#"
+     xml:base="http://www.semanticweb.org/fran/ontologies/2014/11/untitled-ontology-27"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:PLScienceServiceDescription="http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/fran/ontologies/2014/11/untitled-ontology-27">
+        <rdfs:comment>PL-Science service description, considering syntactic, semantic and pragmatic aspects!</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasInvolved -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;hasInvolved">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Scientist"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasParameter -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;hasParameter">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Parameter"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#includesContext -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;includesContext">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Context"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#includesHardware -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;includesHardware">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Hardware"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#includesPragmatic -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;includesPragmatic">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <owl:inverseOf rdf:resource="&PLScienceServiceDescription;pragmaticIsIncludedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#includesSemantic -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;includesSemantic">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <owl:inverseOf rdf:resource="&PLScienceServiceDescription;semanticIsIncludedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#includesSyntactic -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;includesSyntactic">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#pragmaticIsIncludedBy -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;pragmaticIsIncludedBy">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#pragmaticallyEquivalent -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;pragmaticallyEquivalent">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesPragmatic"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;pragmaticIsIncludedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#semanticIsIncludedBy -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;semanticIsIncludedBy">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#semanticallyEquivalent -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;semanticallyEquivalent">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesSemantic"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;semanticIsIncludedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#syntacticIsIncludedBy -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;syntacticIsIncludedBy">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+        <owl:inverseOf rdf:resource="&PLScienceServiceDescription;includesSyntactic"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#syntacticallyEquivalent -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;syntacticallyEquivalent">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesSyntactic"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;syntacticIsIncludedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#who -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;who">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Scientist"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasArtifact -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasArtifact">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasCPU -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasCPU">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasHardwareConfiguration"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasComments -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasComments">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasCompleteName -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasCompleteName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Scientist"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasIdentification"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasContextComposition -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasContextComposition">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasDomain -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasDomain">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasEmail -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasEmail">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Scientist"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasIdentification"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasFunctionalRequirements -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasFunctionalRequirements">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <owl:propertyDisjointWith rdf:resource="&PLScienceServiceDescription;hasNonFunctionalRequirement"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSemanticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasHardwareConfiguration -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasHardwareConfiguration">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Hardware"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasIdentification -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasIdentification">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Scientist"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasInstitutionFiliation -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasInstitutionFiliation">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Scientist"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasIdentification"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasLicense -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasLicense">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasName -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSyntacticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasNonFunctionalRequirement -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasNonFunctionalRequirement">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasOperationalSystem -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasOperationalSystem">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasHardwareConfiguration"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasRAM -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasRAM">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasHardwareConfiguration"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasROM -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasROM">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasHardwareConfiguration"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasReputation -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasReputation">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasRestriction -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasRestriction">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasReturn -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasReturn">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSyntacticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasSemanticComposition -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasSemanticComposition">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasSemanticReception -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasSemanticReception">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSemanticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasSemanticRepresentation -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasSemanticRepresentation">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSemanticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasSemanticReturn -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasSemanticReturn">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSemanticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasSyntacticComposition -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasSyntacticComposition">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasType -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasType">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Parameter"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasValue -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasValue">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Parameter"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#how -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;how">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#what -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;what">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#when -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;when">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#where -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;where">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Context -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Context">
+        <rdfs:subClassOf rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <owl:disjointWith rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <owl:disjointWith rdf:resource="&PLScienceServiceDescription;Semantic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Hardware -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Hardware">
+        <rdfs:subClassOf rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <owl:disjointWith rdf:resource="&PLScienceServiceDescription;Semantic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Parameter -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Parameter"/>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Pragmatic -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Pragmatic"/>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Scientist -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Scientist"/>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Semantic -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Semantic"/>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Service -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Service"/>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Syntactic -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Syntactic"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Context1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:what> artifact 2.05 composition with artifact 3.90</PLScienceServiceDescription:what>
+        <PLScienceServiceDescription:hasLicense>public</PLScienceServiceDescription:hasLicense>
+        <PLScienceServiceDescription:hasComments>very good</PLScienceServiceDescription:hasComments>
+        <PLScienceServiceDescription:hasRestriction>not valid for anemic subjects</PLScienceServiceDescription:hasRestriction>
+        <PLScienceServiceDescription:where>RJ, Brazil</PLScienceServiceDescription:where>
+        <PLScienceServiceDescription:hasReputation>5</PLScienceServiceDescription:hasReputation>
+        <PLScienceServiceDescription:when>20140424000000</PLScienceServiceDescription:when>
+        <PLScienceServiceDescription:hasArtifact>Prot45</PLScienceServiceDescription:hasArtifact>
+        <PLScienceServiceDescription:hasDomain>HIV</PLScienceServiceDescription:hasDomain>
+        <PLScienceServiceDescription:how>Composition</PLScienceServiceDescription:how>
+        <PLScienceServiceDescription:who rdf:resource="&PLScienceServiceDescription;Scientist1"/>
+        <PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist1"/>
+        <PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Context2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:hasLicense>4.2.5</PLScienceServiceDescription:hasLicense>
+        <PLScienceServiceDescription:hasReputation>7</PLScienceServiceDescription:hasReputation>
+        <PLScienceServiceDescription:when>20140510000000</PLScienceServiceDescription:when>
+        <PLScienceServiceDescription:hasRestriction>can not be applied to children younger than 6 years</PLScienceServiceDescription:hasRestriction>
+        <PLScienceServiceDescription:hasComments>It works fine!</PLScienceServiceDescription:hasComments>
+        <PLScienceServiceDescription:what>artifact 2.05 utilization</PLScienceServiceDescription:what>
+        <PLScienceServiceDescription:hasArtifact>Prot46</PLScienceServiceDescription:hasArtifact>
+        <PLScienceServiceDescription:how>Experiment</PLScienceServiceDescription:how>
+        <PLScienceServiceDescription:where>Miami, Florida</PLScienceServiceDescription:where>
+        <PLScienceServiceDescription:hasDomain>muscle regenaration</PLScienceServiceDescription:hasDomain>
+        <PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist1"/>
+        <PLScienceServiceDescription:who rdf:resource="&PLScienceServiceDescription;Scientist2"/>
+        <PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Hardware1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:hasCPU>I5</PLScienceServiceDescription:hasCPU>
+        <PLScienceServiceDescription:hasROM>1</PLScienceServiceDescription:hasROM>
+        <PLScienceServiceDescription:hasRAM>4</PLScienceServiceDescription:hasRAM>
+        <PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Hardware2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:hasRAM>8</PLScienceServiceDescription:hasRAM>
+        <PLScienceServiceDescription:hasROM>2</PLScienceServiceDescription:hasROM>
+        <PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+        <PLScienceServiceDescription:hasOperationalSystem>Windows</PLScienceServiceDescription:hasOperationalSystem>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Parameter1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Parameter1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Parameter"/>
+        <PLScienceServiceDescription:hasType>cell</PLScienceServiceDescription:hasType>
+        <PLScienceServiceDescription:hasValue>object31</PLScienceServiceDescription:hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Parameter2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Parameter2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Parameter"/>
+        <PLScienceServiceDescription:hasValue>object32</PLScienceServiceDescription:hasValue>
+        <PLScienceServiceDescription:hasType>cell</PLScienceServiceDescription:hasType>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Pragmatic1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:hasNonFunctionalRequirement>performance below 15 minutes</PLScienceServiceDescription:hasNonFunctionalRequirement>
+        <PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context1"/>
+        <PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware1"/>
+        <PLScienceServiceDescription:pragmaticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Pragmatic2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:hasNonFunctionalRequirement>memory space demanded below 1GB</PLScienceServiceDescription:hasNonFunctionalRequirement>
+        <PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context2"/>
+        <PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware2"/>
+        <PLScienceServiceDescription:pragmaticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service2"/>
+        <PLScienceServiceDescription:pragmaticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Scientist1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+        <PLScienceServiceDescription:hasInstitutionFiliation>Center of HIV Research (CHR-RJ)</PLScienceServiceDescription:hasInstitutionFiliation>
+        <PLScienceServiceDescription:hasCompleteName>Marcio Werner</PLScienceServiceDescription:hasCompleteName>
+        <PLScienceServiceDescription:hasEmail>werner.marcio@chr.org</PLScienceServiceDescription:hasEmail>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Scientist2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+        <PLScienceServiceDescription:hasEmail>winter.maria@health.us</PLScienceServiceDescription:hasEmail>
+        <PLScienceServiceDescription:hasInstitutionFiliation>Health Department of Miami</PLScienceServiceDescription:hasInstitutionFiliation>
+        <PLScienceServiceDescription:hasCompleteName>Maria Winter</PLScienceServiceDescription:hasCompleteName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Semantic1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <PLScienceServiceDescription:hasSemanticReturn>if the protein prot45 was isolated</PLScienceServiceDescription:hasSemanticReturn>
+        <PLScienceServiceDescription:hasFunctionalRequirements>to isolate protein Prot45</PLScienceServiceDescription:hasFunctionalRequirements>
+        <PLScienceServiceDescription:hasSemanticReception>type B cell</PLScienceServiceDescription:hasSemanticReception>
+        <PLScienceServiceDescription:hasSemanticRepresentation>Protein Pro45 isolation</PLScienceServiceDescription:hasSemanticRepresentation>
+        <PLScienceServiceDescription:semanticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:semanticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Semantic2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <PLScienceServiceDescription:hasSemanticReception>type A cell</PLScienceServiceDescription:hasSemanticReception>
+        <PLScienceServiceDescription:hasSemanticReturn>if protein Prot46 was synthesized inside the received cell</PLScienceServiceDescription:hasSemanticReturn>
+        <PLScienceServiceDescription:hasSemanticRepresentation>protein Prot46  synthesis </PLScienceServiceDescription:hasSemanticRepresentation>
+        <PLScienceServiceDescription:hasFunctionalRequirements>to synthesize protein Prot46</PLScienceServiceDescription:hasFunctionalRequirements>
+        <PLScienceServiceDescription:semanticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Service1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+        <PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic1"/>
+        <PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic1"/>
+        <PLScienceServiceDescription:pragmaticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:semanticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:syntacticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:syntacticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:semanticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntactic1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Service2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+        <PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic2"/>
+        <PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic2"/>
+        <PLScienceServiceDescription:syntacticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service2"/>
+        <PLScienceServiceDescription:semanticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service2"/>
+        <PLScienceServiceDescription:pragmaticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service2"/>
+        <PLScienceServiceDescription:pragmaticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntactic2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Service3 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service3">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+        <PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic2"/>
+        <PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic1"/>
+        <PLScienceServiceDescription:semanticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:syntacticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:pragmaticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service2"/>
+        <PLScienceServiceDescription:semanticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:pragmaticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:syntacticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntactic1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Syntactic1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntactic1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+        <PLScienceServiceDescription:hasReturn>true</PLScienceServiceDescription:hasReturn>
+        <PLScienceServiceDescription:hasName>service45/1.2</PLScienceServiceDescription:hasName>
+        <PLScienceServiceDescription:hasParameter rdf:resource="&PLScienceServiceDescription;Parameter1"/>
+        <PLScienceServiceDescription:syntacticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:syntacticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Syntactic2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntactic2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+        <PLScienceServiceDescription:hasReturn>true</PLScienceServiceDescription:hasReturn>
+        <PLScienceServiceDescription:hasName>service46/1.3</PLScienceServiceDescription:hasName>
+        <PLScienceServiceDescription:hasParameter rdf:resource="&PLScienceServiceDescription;Parameter2"/>
+        <PLScienceServiceDescription:syntacticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;Context"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;Hardware"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;Semantic"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointProperties"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;pragmaticIsIncludedBy"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;semanticIsIncludedBy"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;syntacticIsIncludedBy"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointProperties"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesPragmatic"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesSemantic"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesSyntactic"/>
+        </owl:members>
+    </rdf:Description>
+	
+	
+<!-- new individuals -->
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_phenotypeTranslation">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>boolean</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://localhost:8080/plscience-ecos/rest/phenotypeTranslation</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_phenotypeTranslation">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>traduzir tipos sanguineos em fenotipos</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_phenotypeTranslation">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>Quad Core</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>6</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_phenotypeTranslation">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>5</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>12-01-2009</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Servico usado para transformar o grupo sanguineo nos fenotipos correspondentes</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Fenotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Composicao de servicos</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Bloog Group</PLScienceServiceDescription:hasDomain>
+ <PLScienceServiceDescription:who rdf:resource="&PLScienceServiceDescription;Scientist_2testeFran3"/>
+ </owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_phenotypeTranslation">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Reusabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_phenotypeTranslation"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_phenotypeTranslation"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_phenotypeTranslation">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_phenotypeTranslation"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_phenotypeTranslation"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_phenotypeTranslation"/>
+</owl:NamedIndividual>
+
+
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_testeFran4">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>proteina A</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>rua a</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_testeFran4">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>DNA</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>proteina</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>analise proteica</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>duplicar</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist_0testeFran4">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+<PLScienceServiceDescription:hasInstitutionFiliation>UFF</PLScienceServiceDescription:hasInstitutionFiliation>
+<PLScienceServiceDescription:hasCompleteName>jose</PLScienceServiceDescription:hasCompleteName>
+<PLScienceServiceDescription:hasEmail>joao@gmail.com</PLScienceServiceDescription:hasEmail>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist_1testeFran4">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+<PLScienceServiceDescription:hasInstitutionFiliation>UFJF</PLScienceServiceDescription:hasInstitutionFiliation>
+<PLScienceServiceDescription:hasCompleteName>jose</PLScienceServiceDescription:hasCompleteName>
+<PLScienceServiceDescription:hasEmail>maria@gmail.com</PLScienceServiceDescription:hasEmail>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_testeFran4">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>Quad Core</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>700</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>4</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_testeFran4">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Free</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>4</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>06-06-2014</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Homens</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Muito rapido</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>composicao</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Artefato 3</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Composicao com Artefato 2</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>RNA</PLScienceServiceDescription:hasDomain>
+<PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist_0testeFran4"/>
+<PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist_1testeFran4"/>
+<PLScienceServiceDescription:who rdf:resource="&PLScienceServiceDescription;Scientist_2testeFran4"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_testeFran4">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>reusabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_testeFran4"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_testeFran4"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_testeFran4">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_testeFran4"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_testeFran4"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_testeFran4"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_testeFran3">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>proteina B</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>rua a</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_testeFran3">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>proteina</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>proteina</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>analise DNA</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>adicionar</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist_0testeFran3">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+<PLScienceServiceDescription:hasInstitutionFiliation>UFRJ</PLScienceServiceDescription:hasInstitutionFiliation>
+<PLScienceServiceDescription:hasCompleteName>jose</PLScienceServiceDescription:hasCompleteName>
+<PLScienceServiceDescription:hasEmail>joao@gmail.com</PLScienceServiceDescription:hasEmail>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist_1testeFran3">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+<PLScienceServiceDescription:hasInstitutionFiliation>UFF</PLScienceServiceDescription:hasInstitutionFiliation>
+<PLScienceServiceDescription:hasCompleteName>jose</PLScienceServiceDescription:hasCompleteName>
+<PLScienceServiceDescription:hasEmail>jose@gmail.com</PLScienceServiceDescription:hasEmail>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_testeFran3">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I5</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>700</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>5</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Windows</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_testeFran3">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>4</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>13-04-2013</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Linux</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Muito lento</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>reuso</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Artefato 1</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Composicao com Artefato 3</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFRJ</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>DNA</PLScienceServiceDescription:hasDomain>
+<PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist_0testeFran3"/>
+<PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist_1testeFran3"/>
+<PLScienceServiceDescription:who rdf:resource="&PLScienceServiceDescription;Scientist_2testeFran3"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_testeFran3">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>agilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_testeFran3"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_testeFran3"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_testeFran3">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_testeFran3"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_testeFran3"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_testeFran3"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_testeFran2">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>proteina A</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>rua c</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_testeFran2">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>RNA</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>confirmacao</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>analise proteica</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>extrair</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist_0testeFran2">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+<PLScienceServiceDescription:hasInstitutionFiliation>UFRJ</PLScienceServiceDescription:hasInstitutionFiliation>
+<PLScienceServiceDescription:hasCompleteName>jose</PLScienceServiceDescription:hasCompleteName>
+<PLScienceServiceDescription:hasEmail>maria@gmail.com</PLScienceServiceDescription:hasEmail>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist_1testeFran2">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+<PLScienceServiceDescription:hasInstitutionFiliation>UFJF</PLScienceServiceDescription:hasInstitutionFiliation>
+<PLScienceServiceDescription:hasCompleteName>joao</PLScienceServiceDescription:hasCompleteName>
+<PLScienceServiceDescription:hasEmail>maria@gmail.com</PLScienceServiceDescription:hasEmail>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_testeFran2">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I5</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>700</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>2</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Windows</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_testeFran2">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Private</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>1</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>06-06-2014</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Linux</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Muito lento</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>reuso</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Artefato 3</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Composicao com Artefato 1</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFF</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>DNA</PLScienceServiceDescription:hasDomain>
+<PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist_0testeFran2"/>
+<PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist_1testeFran2"/>
+<PLScienceServiceDescription:who rdf:resource="&PLScienceServiceDescription;Scientist_2testeFran2"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_testeFran2">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>escalabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_testeFran2"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_testeFran2"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_testeFran2">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_testeFran2"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_testeFran2"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_testeFran2"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_testeFran1">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>proteina A</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>rua a</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_testeFran1">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>RNA</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>cadeia proteica</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>duplicacao RNA</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>adicionar</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist_0testeFran1">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+<PLScienceServiceDescription:hasInstitutionFiliation>UFJF</PLScienceServiceDescription:hasInstitutionFiliation>
+<PLScienceServiceDescription:hasCompleteName>joao</PLScienceServiceDescription:hasCompleteName>
+<PLScienceServiceDescription:hasEmail>joao@gmail.com</PLScienceServiceDescription:hasEmail>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist_1testeFran1">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+<PLScienceServiceDescription:hasInstitutionFiliation>UFRJ</PLScienceServiceDescription:hasInstitutionFiliation>
+<PLScienceServiceDescription:hasCompleteName>joao</PLScienceServiceDescription:hasCompleteName>
+<PLScienceServiceDescription:hasEmail>joao@gmail.com</PLScienceServiceDescription:hasEmail>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_testeFran1">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I3</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>4</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_testeFran1">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Private</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>5</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>12-01-2014</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Linux</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Muito lento</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>execucao</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Artefato 2</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Composicao com Artefato 3</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFRJ</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>RNA</PLScienceServiceDescription:hasDomain>
+<PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist_0testeFran1"/>
+<PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist_1testeFran1"/>
+<PLScienceServiceDescription:who rdf:resource="&PLScienceServiceDescription;Scientist_2testeFran1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_testeFran1">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>agilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_testeFran1"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_testeFran1"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_testeFran1">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_testeFran1"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_testeFran1"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_testeFran1"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_testeFran0">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>proteina B</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>rua c</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_testeFran0">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>DNA</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>confirmacao</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>analise proteica</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>duplicar</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist_0testeFran0">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+<PLScienceServiceDescription:hasInstitutionFiliation>UFF</PLScienceServiceDescription:hasInstitutionFiliation>
+<PLScienceServiceDescription:hasCompleteName>maria</PLScienceServiceDescription:hasCompleteName>
+<PLScienceServiceDescription:hasEmail>jose@gmail.com</PLScienceServiceDescription:hasEmail>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist_1testeFran0">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+<PLScienceServiceDescription:hasInstitutionFiliation>UFF</PLScienceServiceDescription:hasInstitutionFiliation>
+<PLScienceServiceDescription:hasCompleteName>jose</PLScienceServiceDescription:hasCompleteName>
+<PLScienceServiceDescription:hasEmail>maria@gmail.com</PLScienceServiceDescription:hasEmail>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_testeFran0">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>Quad Core</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>5</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_testeFran0">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Free</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>4</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>13-04-2013</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Homens</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Muito rapido</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>composicao</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Artefato 1</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Composicao com Artefato 1</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFRJ</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Proteinas</PLScienceServiceDescription:hasDomain>
+<PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist_0testeFran0"/>
+<PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist_1testeFran0"/>
+<PLScienceServiceDescription:who rdf:resource="&PLScienceServiceDescription;Scientist_2testeFran0"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_testeFran0">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>reusabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_testeFran0"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_testeFran0"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_testeFran0">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_testeFran0"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_testeFran0"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_testeFran0"/>
+</owl:NamedIndividual>
+
+
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

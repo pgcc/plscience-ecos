@@ -51,7 +51,7 @@ public class DiseasesComplexNetwork {
          StringBuilder  sb = new StringBuilder();
         try {
            
-            File file = new File("C:\\diseasome.gexf.xml");
+            File file = new File("D:\\diseasome.gexf.xml");
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
             String line;

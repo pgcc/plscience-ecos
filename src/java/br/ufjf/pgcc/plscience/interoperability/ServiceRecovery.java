@@ -34,7 +34,7 @@ public class ServiceRecovery {
         
         try {
             StringBuilder  sb = new StringBuilder();
-            File file = new File("C:\\ServiceDescriptionInf.owl");
+            File file = new File("D:\\ServiceDescriptionInf.owl");
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
             String line;

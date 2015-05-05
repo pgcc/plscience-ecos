@@ -5,11 +5,13 @@
  */
 package br.ufjf.pgcc.plscience.vo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Fran
  */
-public class ScientistVO {
+public class ScientistVO implements Serializable{
     private String hasInstitutionFiliation;
     private String hasCompleteName;
     private String hasEmail;

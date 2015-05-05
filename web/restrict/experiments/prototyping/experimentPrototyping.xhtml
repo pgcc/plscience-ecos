@@ -29,7 +29,7 @@
                          <h:outputLabel value="  Service related:" />
                          <p:inputText  id="serviceRelated#{result.service_name}" value="#{result.service_name}" binding="#{input1}"  label="serviceRelated"/>
                          
-                         <h:commandButton value="Save" action="#{experimentPrototyping.updates(input1.value, workspace.experiment.id, input2.value, result.id, inputStage.value)}" />
+                         <p:commandButton value="Save" action="#{experimentPrototyping.updates(input1.value, workspace.experiment.idExperiment, input2.value, result.id, inputStage.value)}" />
                                 
                         </p:column>
                         
@@ -184,11 +184,32 @@
                              </h:form>
                              
                          </p:overlayPanel>
-                      
+                      <p:commandButton id="movieBtnSearchAll" value="Search All" icon="ui-icon-search" action="#{experimentPrototyping.searchServices()}" update="servicesResult"/>
                       <p:dataTable var="service" value="#{experimentPrototyping.services}" id="servicesResult" style="margin-top: 20px">
-                                            <p:column headerText="Services Ranking">
-                                                <h:outputText value="#{service.name}" />
-                                            </p:column>
+                            <p:column headerText="Services Ranking">
+                                <h:outputText value="#{service.name}" />
+                            </p:column>
+                            <p:column>
+                            <p:commandButton value="View Details" id="viewDetails"/>
+                             <p:overlayPanel id="viewDetailsPanel" for="viewDetails" hideEffect="fade" dynamic="true" style="width:600px">
+                             <h:form id="viewDetailsForm">
+                                 <h:outputLabel value="Service Details" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                  
+                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                                   
+                                    <h:outputLabel for="hasAddress" value="Address" />
+                                    <h:outputText id="hasAddress" value="#{service.includesSyntactic.hasAddress}" />
+                                    <h:outputLabel for="hasReturn" value="Return" />
+                                    <h:outputText id="hasReturn" value="#{service.includesSyntactic.hasReturn}" />
+                                    <h:outputLabel for="hasComments" value="Description" />
+                                    <h:outputText id="hasComments" value="#{service.includesPragmatic.includesContext.hasComments}" />
+                                    
+                                 </h:panelGrid>
+ 
+                             </h:form>
+                             
+                         </p:overlayPanel>
+                        </p:column>
 
 
                       </p:dataTable>

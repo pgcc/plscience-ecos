@@ -82,7 +82,7 @@ public class AgentDAO {
     
     public Agent validityLogin(String login, String password){
         EntityManager em = PersistenceUtil.getEntityManager();
-        Query query = em.createQuery("select a from Agent As a where a.login =:login ");
+        Query query = em.createQuery("select a from Agent As a where a.login = :login");
         query.setParameter("login", login.toUpperCase());
 
         List<Agent> agents = query.getResultList();
