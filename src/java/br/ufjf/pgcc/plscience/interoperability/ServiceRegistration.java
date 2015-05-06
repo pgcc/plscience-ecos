@@ -40,7 +40,13 @@ public class ServiceRegistration {
         
         try {
             StringBuilder  sb = new StringBuilder();
+            
+            //CAMINHO LOCAL
             File file = new File("D:\\ServiceDescriptionInf.owl");
+            
+            //CAMINHO SERVIDOR
+            //File file = new File("/opt/tomcat/webapps/plscience-ecos-collab/files/ServiceDescriptionInf.owl");
+            
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
             String line;
