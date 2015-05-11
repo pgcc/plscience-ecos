@@ -18,6 +18,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -35,7 +36,7 @@ import org.apache.poi.hssf.util.HSSFColor;
  */
 @ManagedBean(name = "experimentBean")
 @ViewScoped
-public class ExperimentBean {
+public class ExperimentBean implements Serializable {
 
     Experiment experiment = new Experiment();
 

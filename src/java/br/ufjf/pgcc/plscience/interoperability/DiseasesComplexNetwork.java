@@ -24,8 +24,13 @@ public class DiseasesComplexNetwork {
     public List<String> loadConcepts(){
         List<String> diseases = new ArrayList();
          try {
-           
-            File file = new File("C:\\diseasome.gexf.xml");
+             
+            //CAMINHO LOCAL
+            File file = new File("D:\\diseasome.gexf.xml");
+            
+            //CAMINHO SERVIDOR
+            //File file = new File("/opt/tomcat/webapps/plscience-ecos-collab/files/diseasome.gexf.xml");
+            
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
             String line;

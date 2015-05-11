@@ -381,6 +381,15 @@ public class SimilarityCalculation1 {
             pragmaticSimilarity = pragmaticSimilarity + 2;  
         }
         similarity = (SyntacticWeight * (syntacticSimilarity/2)) + (SemanticWeight * (semanticSimilarity/ 4)) + (PragmaticWeight * (pragmaticSimilarity/14));      
+         
+            if(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasReputation()!= null && !"".equals(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasReputation())){
+                double rep = Integer.parseInt(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasReputation());
+                if(rep > 2){
+                    similarity= similarity*(10/(rep*10));
+                }
+            }
+            
+        
         return similarity;
         
     }

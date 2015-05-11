@@ -213,6 +213,7 @@ public class ExperimentPrototyping implements Serializable {
         
         for(RankingVO rank: rankingServices){
             servicesRankingSorted.add(rank.getServiceRecovery());
+            System.out.println("Nome Serv: " + rank.getServiceRecovery().getName() +" Simil: " + rank.getSimilarity());
         }
         //setServices(sr.Recovery());
         setServices(servicesRankingSorted);

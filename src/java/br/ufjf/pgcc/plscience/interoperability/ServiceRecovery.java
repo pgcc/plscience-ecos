@@ -277,7 +277,9 @@ public class ServiceRecovery {
         
         int whoIni = partial.indexOf("<PLScienceServiceDescription:who rdf:resource=\"&PLScienceServiceDescription;");
         int whoFim = partial.indexOf("/>");
-        con.setWho(partial.substring(whoIni+76, whoFim));
+        if(whoIni!= -1 && whoFim!=-1){
+            con.setWho(partial.substring(whoIni+76, whoFim));
+        }
         return con;
     }
     

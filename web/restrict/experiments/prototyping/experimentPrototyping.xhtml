@@ -36,7 +36,7 @@
                                                
                       </p:dataTable>
                         
-                         <p:commandButton id="movieBtn" value="search" icon="ui-icon-search" />
+                         <p:commandButton id="movieBtn" value="Search" icon="ui-icon-search" />
                          
                          <p:overlayPanel id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" style="width:600px">
                              <h:form id="searchPage">
@@ -78,8 +78,7 @@
                                     <h:inputText id="hasLicense" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.hasLicense}" />
                                     <h:outputLabel for="hasComments" value="Comments" />
                                     <h:inputText id="hasComments" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.hasComments}" />
-                                    <h:outputLabel for="hasReputation" value="Reputation" />
-                                    <h:inputText id="hasReputation" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.hasReputation}" />
+                                    
                                     <h:outputLabel for="how" value="Purpose" />
                                     <h:inputText id="how" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesContext.how}" />
                                     <h:outputLabel for="where" value="Provider" />
@@ -97,9 +96,13 @@
                                     <h:outputLabel for="hasOperationalSystem" value="Operational System" />
                                     <h:inputText id="hasOperationalSystem" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasOperationalSystem}" />
                                     <h:outputLabel for="hasRAM" value="RAM (GB)" />
-                                    <h:inputText id="hasRAM" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasRAM}" />
-                                     <h:outputLabel for="hasROM" value="ROM (GB)" />
-                                     <h:inputText id="hasROM" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasROM}" />
+                                    <h:inputText id="hasRAM" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasRAM}">
+                                        <f:validateRegex pattern="[0-9]+"/>
+                                    </h:inputText>
+                                    <h:outputLabel for="hasROM" value="ROM (GB)" />
+                                    <h:inputText id="hasROM" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasROM}">
+                                        <f:validateRegex pattern="[0-9]+"/>
+                                    </h:inputText>
                                  </h:panelGrid>
                                   
                                  
