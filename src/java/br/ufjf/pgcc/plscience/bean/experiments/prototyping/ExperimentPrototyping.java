@@ -220,7 +220,10 @@ public class ExperimentPrototyping implements Serializable {
                        
     }
     
-
+     public void searchServicesAll(){
+        ServiceRecovery sr = new ServiceRecovery();
+        setServices(sr.Recovery());        
+    }
     
     public void updates(String input, String id, String stage, String idExServ, String numberSt){
        String[] s= stage.split(" ");

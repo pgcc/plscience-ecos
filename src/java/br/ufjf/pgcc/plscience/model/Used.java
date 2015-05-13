@@ -39,9 +39,9 @@ public class Used implements Serializable {
     private Integer idUsed;
     @Column(name = "Description")
     private String description;
-    @JoinColumn(name = "Agent_idAgent", referencedColumnName = "idActivity")
+    @JoinColumn(name = "Activity_idActivity", referencedColumnName = "idActivity")
     @ManyToOne(optional = false)
-    private Activity agentidAgent;
+    private Activity activityidActivity;
     @JoinColumn(name = "Task_idTask", referencedColumnName = "idTask")
     @ManyToOne(optional = false)
     private Task taskidTask;
@@ -69,12 +69,12 @@ public class Used implements Serializable {
         this.description = description;
     }
 
-    public Activity getAgentidAgent() {
-        return agentidAgent;
+    public Activity getActivityidActivity() {
+        return activityidActivity;
     }
 
-    public void setAgentidAgent(Activity agentidAgent) {
-        this.agentidAgent = agentidAgent;
+    public void setActivityidActivity(Activity activityidActivity) {
+        this.activityidActivity = activityidActivity;
     }
 
     public Task getTaskidTask() {

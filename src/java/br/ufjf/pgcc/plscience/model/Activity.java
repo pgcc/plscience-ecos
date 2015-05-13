@@ -57,11 +57,11 @@ public class Activity implements Serializable {
     private br.ufjf.pgcc.plscience.model.Entity entityidEntity;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityidActivity")
     private List<WasControledBy> wasControledByList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentidAgent")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityidActivity")
     private List<Used> usedList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentidAgent")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityidActivity")
     private List<WasEndedBy> wasEndedByList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentidAgent")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityidActivity")
     private List<WasStartedBy> wasStartedByList;
 
     public Activity() {

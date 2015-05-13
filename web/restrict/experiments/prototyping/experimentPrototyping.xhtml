@@ -187,8 +187,8 @@
                              </h:form>
                              
                          </p:overlayPanel>
-                      <p:commandButton id="movieBtnSearchAll" value="Search All" icon="ui-icon-search" action="#{experimentPrototyping.searchServices()}" update="servicesResult"/>
-                      <p:dataTable var="service" value="#{experimentPrototyping.services}" id="servicesResult" style="margin-top: 20px">
+                        <p:commandButton id="movieBtnSearchAll" value="Search All" icon="ui-icon-search" action="#{experimentPrototyping.searchServicesAll()}" update="servicesResult"/>
+                        <p:dataTable var="service" value="#{experimentPrototyping.services}" id="servicesResult" style="margin-top: 20px">
                             <p:column headerText="Services Ranking">
                                 <h:outputText value="#{service.name}" />
                             </p:column>

@@ -23,8 +23,8 @@ public class EquivalentServices {
     
     public OntModel model;
     public InfModel modelInf;
-    public String file = "file:///D:/ServiceDescriptionInf.owl";
-    //public String file = "file:///opt/tomcat/webapps/plscience-ecos-collab/files/ServiceDescriptionInf.owl";
+    //public String file = "file:///D:/ServiceDescriptionInf.owl";
+    public String file = "file:///opt/tomcat/webapps/plscience-ecos-collab/files/ServiceDescriptionInf.owl";
     public String baseURI="http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl";
 
     
