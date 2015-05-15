@@ -39,8 +39,15 @@ public class ServiceRegistration {
     public void Register(ServiceDescriptionVO serv){
         
         try {
+            
+             //CAMINHO LOCAL
+            //File file = new File("C:\\ServiceDescriptionInf.owl");
+            
+            //CAMINHO SERVIDOR
+            File file = new File("/opt/tomcat/webapps/plscience/files/ServiceDescriptionInf.owl");
+            
             StringBuilder  sb = new StringBuilder();
-            File file = new File("C:\\ServiceDescriptionInf.owl");
+            
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
             String line;

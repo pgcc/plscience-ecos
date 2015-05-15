@@ -56,7 +56,7 @@ public class SimilarityCalculation1 {
         }else{
              syntacticSimilarity = syntacticSimilarity + 2;
         }
-         //frs.add("cadastrar usuario"); // sentenÁa Decidi que faz mais sentido ter apenas um req. Func. (Mudar de array para string)
+         //frs.add("cadastrar usuario"); // senten√ßa Decidi que faz mais sentido ter apenas um req. Func. (Mudar de array para string)
           if(!serviceRegistered.getIncludesSemantic().getHasFunctionalRequirements().isEmpty()){
               if(!serviceSearched.getIncludesSemantic().getHasFunctionalRequirements().isEmpty()){
                   if(serviceRegistered.getIncludesSemantic().getHasFunctionalRequirements().get(0)!=null && !"".equals(serviceRegistered.getIncludesSemantic().getHasFunctionalRequirements().get(0))){ 
@@ -83,7 +83,7 @@ public class SimilarityCalculation1 {
          if(serviceSearched.getIncludesSemantic().getHasSemanticReception()!= null && !"".equals(serviceSearched.getIncludesSemantic().getHasSemanticReception())){
             
                if(serviceRegistered.getIncludesSemantic().getHasSemanticReception() != null && !"".equals(serviceRegistered.getIncludesSemantic().getHasSemanticReception())){
-                   // se È igual 
+                   // se √© igual 
                    if(serviceSearched.getIncludesSemantic().getHasSemanticReception().equalsIgnoreCase(serviceRegistered.getIncludesSemantic().getHasSemanticReception())){
                        semanticSimilarity = semanticSimilarity + 0;
                    }else{
@@ -111,7 +111,7 @@ public class SimilarityCalculation1 {
          if(serviceSearched.getIncludesSemantic().getHasSemanticRepresentation()!= null && !"".equals(serviceSearched.getIncludesSemantic().getHasSemanticRepresentation())){
             
                if(serviceRegistered.getIncludesSemantic().getHasSemanticRepresentation() != null && !"".equals(serviceRegistered.getIncludesSemantic().getHasSemanticRepresentation())){
-                   // se È igual 
+                   // se √© igual 
                    if(serviceSearched.getIncludesSemantic().getHasSemanticRepresentation().equalsIgnoreCase(serviceRegistered.getIncludesSemantic().getHasSemanticRepresentation())){
                        semanticSimilarity = semanticSimilarity + 0;
                    }else{
@@ -140,7 +140,7 @@ public class SimilarityCalculation1 {
           if(serviceSearched.getIncludesSemantic().getHasSemanticReturn()!= null && !"".equals(serviceSearched.getIncludesSemantic().getHasSemanticReturn())){
             
                if(serviceRegistered.getIncludesSemantic().getHasSemanticReturn() != null && !"".equals(serviceRegistered.getIncludesSemantic().getHasSemanticReturn())){
-                   // se È igual 
+                   // se √© igual 
                    if(serviceSearched.getIncludesSemantic().getHasSemanticReturn().equalsIgnoreCase(serviceRegistered.getIncludesSemantic().getHasSemanticReturn())){
                        semanticSimilarity = semanticSimilarity + 0;
                    }else{
@@ -164,7 +164,7 @@ public class SimilarityCalculation1 {
          }else{
              semanticSimilarity = semanticSimilarity + 2;
          }
-          //nfrs.add("nao pode isso"); // sentenÁa
+          //nfrs.add("nao pode isso"); // senten√ßa
           if(!serviceRegistered.getIncludesPragmatic().getHasNonFunctionalRequirement().isEmpty()){
              if(!serviceSearched.getIncludesPragmatic().getHasNonFunctionalRequirement().isEmpty()){
                 
@@ -190,7 +190,7 @@ public class SimilarityCalculation1 {
           if(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasArtifact()!= null && !"".equals(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasArtifact())){
             
                if(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasArtifact() != null && !"".equals(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasArtifact())){
-                   // se È igual 
+                   // se √© igual 
                    if(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasArtifact().equalsIgnoreCase(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasArtifact())){
                        pragmaticSimilarity = pragmaticSimilarity + 0;
                    }else{
@@ -218,7 +218,7 @@ public class SimilarityCalculation1 {
            if(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasDomain()!= null && !"".equals(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasDomain())){
             
                if(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasDomain() != null && !"".equals(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasDomain())){
-                   // se È igual 
+                   // se √© igual 
                    if(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasDomain().equalsIgnoreCase(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasDomain())){
                        pragmaticSimilarity = pragmaticSimilarity + 0;
                    }else{
@@ -275,7 +275,7 @@ public class SimilarityCalculation1 {
         }else{
                pragmaticSimilarity = pragmaticSimilarity + 2; 
          }
-           // c.setHasRestriction("restric"); // sentenÁa
+           // c.setHasRestriction("restric"); // senten√ßa
            if(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasRestriction() != null && !"".equals(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasRestriction())){
             if(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasRestriction() != null && !"".equals(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasRestriction())){
                 pragmaticSimilarity = pragmaticSimilarity + nlProcessor.sentenceSimilaritySumo(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasRestriction(), serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasRestriction());
@@ -286,7 +286,7 @@ public class SimilarityCalculation1 {
         }else{
                pragmaticSimilarity = pragmaticSimilarity + 2;
         }
-           //c.setHow("assim"); // sentenÁa
+           //c.setHow("assim"); // senten√ßa
            if(serviceSearched.getIncludesPragmatic().getIncludesContext().getHow() != null && !"".equals(serviceSearched.getIncludesPragmatic().getIncludesContext().getHow())){
             if(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHow() != null && !"".equals(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHow())){
                 pragmaticSimilarity = nlProcessor.sentenceSimilaritySumo(serviceSearched.getIncludesPragmatic().getIncludesContext().getHow(), serviceRegistered.getIncludesPragmatic().getIncludesContext().getHow());
@@ -297,7 +297,7 @@ public class SimilarityCalculation1 {
         }else{
              pragmaticSimilarity = pragmaticSimilarity + 2;  
         }
-           // c.setWhat("isso"); // sentenÁa
+           // c.setWhat("isso"); // senten√ßa
            if(serviceSearched.getIncludesPragmatic().getIncludesContext().getWhat() != null && !"".equals(serviceSearched.getIncludesPragmatic().getIncludesContext().getWhat())){
             if(serviceRegistered.getIncludesPragmatic().getIncludesContext().getWhat() != null && !"".equals(serviceRegistered.getIncludesPragmatic().getIncludesContext().getWhat())){
                 pragmaticSimilarity = nlProcessor.sentenceSimilaritySumo(serviceSearched.getIncludesPragmatic().getIncludesContext().getWhat(), serviceRegistered.getIncludesPragmatic().getIncludesContext().getWhat());
@@ -314,11 +314,11 @@ public class SimilarityCalculation1 {
            if(null!= serviceSearched.getIncludesPragmatic().getIncludesContext().getHasInvolved() && !serviceSearched.getIncludesPragmatic().getIncludesContext().getHasInvolved().isEmpty()){
             
                for (ScientistVO scien : serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasInvolved()) {
-                   //st1.setHasCompleteName("joao"); // string simples ou setenÁa
+                   //st1.setHasCompleteName("joao"); // string simples ou seten√ßa
                    localSimilarity = localSimilarity + nlProcessor.stringSimilarityLeveshteinDistance(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasInvolved().get(0).getHasCompleteName(), scien.getHasCompleteName());
                    //st1.setHasEmail("joao@couves"); // string simple
                    localSimilarity = localSimilarity + nlProcessor.stringSimilarityLeveshteinDistance(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasInvolved().get(0).getHasEmail(), scien.getHasEmail());
-                   //st1.setHasInstitutionFiliation("HU"); // string simples ou setenÁa
+                   //st1.setHasInstitutionFiliation("HU"); // string simples ou seten√ßa
                    localSimilarity = localSimilarity + nlProcessor.stringSimilarityLeveshteinDistance(serviceSearched.getIncludesPragmatic().getIncludesContext().getHasInvolved().get(0).getHasInstitutionFiliation(), scien.getHasInstitutionFiliation());
                    
                    if(localSimilarityPrevious == 0 ||localSimilarity<localSimilarityPrevious ){
@@ -381,6 +381,15 @@ public class SimilarityCalculation1 {
             pragmaticSimilarity = pragmaticSimilarity + 2;  
         }
         similarity = (SyntacticWeight * (syntacticSimilarity/2)) + (SemanticWeight * (semanticSimilarity/ 4)) + (PragmaticWeight * (pragmaticSimilarity/14));      
+         
+            if(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasReputation()!= null && !"".equals(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasReputation())){
+                double rep = Integer.parseInt(serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasReputation());
+                if(rep > 2){
+                    similarity= similarity*(10/(rep*10));
+                }
+            }
+            
+        
         return similarity;
         
     }
@@ -392,15 +401,15 @@ public class SimilarityCalculation1 {
       
          List<ServiceDescriptionVO> services = sr.Recovery();
          
-         // Testando registro de serviÁo
+         // Testando registro de servi√ßo
          
          
-         //add sint·tica
+         //add sint√°tica
          SyntacticVO sync = new SyntacticVO();
          sync.setHasAddress("endereco");
          sync.setHasReturn("bollean");
          
-         //add sem‚ntica
+         //add sem√¢ntica
          SemanticVO sem = new SemanticVO();
          ArrayList<String> frs = new ArrayList();
          frs.add("cadastrar usuario");

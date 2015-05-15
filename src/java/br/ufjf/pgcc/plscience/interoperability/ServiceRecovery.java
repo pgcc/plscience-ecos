@@ -34,7 +34,13 @@ public class ServiceRecovery {
         
         try {
             StringBuilder  sb = new StringBuilder();
-            File file = new File("C:\\ServiceDescriptionInf.owl");
+            
+            //CAMINHO LOCAL
+            //File file = new File("C:\\ServiceDescriptionInf.owl");
+            
+            //CAMINHO NO SERVIDOR
+            File file = new File("/opt/tomcat/webapps/plscience/files/ServiceDescriptionInf.owl");
+            
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
             String line;
@@ -271,7 +277,9 @@ public class ServiceRecovery {
         
         int whoIni = partial.indexOf("<PLScienceServiceDescription:who rdf:resource=\"&PLScienceServiceDescription;");
         int whoFim = partial.indexOf("/>");
-        con.setWho(partial.substring(whoIni+76, whoFim));
+        if(whoIni!= -1 && whoFim!=-1){
+            con.setWho(partial.substring(whoIni+76, whoFim));
+        }
         return con;
     }
     

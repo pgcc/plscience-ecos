@@ -45,39 +45,31 @@ public class ExperimentDAO extends GenericDAO {
     public void updateExperimentServices(ExperimentServices experimentServ) {
         
         //Recuperando Experiment pelo id
-        Experiment ex = getId(experimentServ.getExperiment().getId());
+        Experiment ex = getExperimentById(experimentServ.getExperiment().getId());
+        //Experiment ex = getId(experimentServ.getExperiment().getId());
         experimentServ.setExperiment(ex);
         
         //Verificar se experimentServ é novo ou não
         if(experimentServ.getId().equals((long) 0)){
             //Salvando experiment services
             experimentServ.setId(null);
-            getEntityManager().getTransaction().begin();
-            getEntityManager().persist(experimentServ);
-            getEntityManager().getTransaction().commit();
-            finish();
+//            getEntityManager().getTransaction().begin();
+//            getEntityManager().persist(experimentServ);
+//            getEntityManager().getTransaction().commit();
+//            finish();
+            saveExperimentService(experimentServ);
         }else{
             //Recuperando id
             ExperimentServices exServ = getEntityManager().find(ExperimentServices.class,experimentServ.getId());
             
-            getEntityManager().getTransaction().begin();
+//            getEntityManager().getTransaction().begin();
             exServ.setService_name(experimentServ.getService_name());
             exServ.setStage(experimentServ.getStage());
-           
-            getEntityManager().getTransaction().commit();
-            finish(); 
+//           
+//            getEntityManager().getTransaction().commit();
+//            finish();
+            saveExperimentService(exServ);
         }
-        
-        
-        //Recuperando id
-       /* ExperimentServices exServ = ExperimentServicesGetbyNameandStage(experiment.getExperimentServices().getService_name(),experiment.getExperimentServices().getStage());
-        
-        getEntityManager().getTransaction().begin();
-        Experiment ex = getEntityManager().find(Experiment.class, experiment.getId());
-        ex.setExperimentServices(exServ);
-        //getEntityManager().merge(experiment);
-        getEntityManager().getTransaction().commit();
-        finish();    */
     }
     
     public void recreateExperimentServices(ExperimentServices experimentServ) {
@@ -176,5 +168,58 @@ public class ExperimentDAO extends GenericDAO {
         }
         finish();
         return experimentService;
+    }
+    
+    /**
+     * Persite uma ExperimentServices
+     * 
+     * @param experimentServices
+     * @return
+     */
+    public ExperimentServices saveExperimentService(ExperimentServices experimentServices) {
+        
+        getEntityManager().getTransaction().begin();
+        try {
+            experimentServices = getEntityManager().merge(experimentServices);
+            getEntityManager().getTransaction().commit();
+            System.out.println("Registro gravado com sucesso");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finish();
+        return experimentServices;
+    }
+    
+    public ExperimentServices findServices(Integer stage, Long id) {
+        
+        Query query = getEntityManager().createQuery("select a from ExperimentServices As a where a.stage =:stage and a.experiment.id =:id ");
+        query.setParameter("stage", stage);
+        query.setParameter("id", id);
+
+        List<ExperimentServices> experiments = query.getResultList();
+        if (experiments != null && experiments.size() > 0) {
+            return experiments.get(0);
+        }
+
+        return null;
+    }
+    
+    /**
+     * Busca uma especifica
+     *
+     * @param id
+     * @return
+     */
+    public Experiment getExperimentById(Long id) {
+        
+        Query query = getEntityManager().createQuery("select a from Experiment As a where a.id =:id ");
+        query.setParameter("id", id);
+
+        List<Experiment> expiriments = query.getResultList();
+        if (expiriments != null && expiriments.size() > 0) {
+            return expiriments.get(0);
+        }
+
+        return null;
     }
 }

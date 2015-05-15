@@ -25,7 +25,11 @@ public class DiseasesComplexNetwork {
         List<String> diseases = new ArrayList();
          try {
            
-            File file = new File("C:\\diseasome.gexf.xml");
+            // CAMINHO LOCAL
+            //File file = new File("C:\\diseasome.gexf.xml");
+             
+            //CAMINHO NO SERVIDOR
+            File file = new File("/opt/tomcat/webapps/plscience/files/diseasome.gexf.xml");
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
             String line;
@@ -50,8 +54,12 @@ public class DiseasesComplexNetwork {
          List<String> ids = new ArrayList();
          StringBuilder  sb = new StringBuilder();
         try {
+            
+           // CAMINHO LOCAL
+           //File file = new File("C:\\diseasome.gexf.xml");
            
-            File file = new File("C:\\diseasome.gexf.xml");
+           //CAMINHO NO SERVIDOR
+            File file = new File("/opt/tomcat/webapps/plscience/files/diseasome.gexf.xml");
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
             String line;

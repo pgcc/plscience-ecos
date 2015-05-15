@@ -1,0 +1,1677 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY PLScienceServiceDescription "http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/fran/ontologies/2014/11/untitled-ontology-27#"
+     xml:base="http://www.semanticweb.org/fran/ontologies/2014/11/untitled-ontology-27"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:PLScienceServiceDescription="http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/fran/ontologies/2014/11/untitled-ontology-27">
+        <rdfs:comment>PL-Science service description, considering syntactic, semantic and pragmatic aspects!</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasInvolved -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;hasInvolved">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Scientist"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasParameter -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;hasParameter">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Parameter"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#includesContext -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;includesContext">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Context"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#includesHardware -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;includesHardware">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Hardware"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#includesPragmatic -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;includesPragmatic">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <owl:inverseOf rdf:resource="&PLScienceServiceDescription;pragmaticIsIncludedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#includesSemantic -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;includesSemantic">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <owl:inverseOf rdf:resource="&PLScienceServiceDescription;semanticIsIncludedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#includesSyntactic -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;includesSyntactic">
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#pragmaticIsIncludedBy -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;pragmaticIsIncludedBy">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#pragmaticallyEquivalent -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;pragmaticallyEquivalent">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesPragmatic"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;pragmaticIsIncludedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#semanticIsIncludedBy -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;semanticIsIncludedBy">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#semanticallyEquivalent -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;semanticallyEquivalent">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesSemantic"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;semanticIsIncludedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#syntacticIsIncludedBy -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;syntacticIsIncludedBy">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+        <owl:inverseOf rdf:resource="&PLScienceServiceDescription;includesSyntactic"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#syntacticallyEquivalent -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;syntacticallyEquivalent">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesSyntactic"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;syntacticIsIncludedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#who -->
+
+    <owl:ObjectProperty rdf:about="&PLScienceServiceDescription;who">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:range rdf:resource="&PLScienceServiceDescription;Scientist"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasArtifact -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasArtifact">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasCPU -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasCPU">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasHardwareConfiguration"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasComments -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasComments">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasCompleteName -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasCompleteName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Scientist"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasIdentification"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasContextComposition -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasContextComposition">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasDomain -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasDomain">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasEmail -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasEmail">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Scientist"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasIdentification"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasFunctionalRequirements -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasFunctionalRequirements">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <owl:propertyDisjointWith rdf:resource="&PLScienceServiceDescription;hasNonFunctionalRequirement"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSemanticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasHardwareConfiguration -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasHardwareConfiguration">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Hardware"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasIdentification -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasIdentification">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Scientist"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasInstitutionFiliation -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasInstitutionFiliation">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Scientist"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasIdentification"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasLicense -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasLicense">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasName -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSyntacticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasNonFunctionalRequirement -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasNonFunctionalRequirement">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasOperationalSystem -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasOperationalSystem">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasHardwareConfiguration"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasRAM -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasRAM">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasHardwareConfiguration"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasROM -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasROM">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasHardwareConfiguration"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasReputation -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasReputation">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasRestriction -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasRestriction">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasReturn -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasReturn">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSyntacticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasSemanticComposition -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasSemanticComposition">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasSemanticReception -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasSemanticReception">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSemanticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasSemanticRepresentation -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasSemanticRepresentation">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSemanticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasSemanticReturn -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasSemanticReturn">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasSemanticComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasSyntacticComposition -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasSyntacticComposition">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasType -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasType">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Parameter"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#hasValue -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;hasValue">
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Parameter"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#how -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;how">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#what -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;what">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#when -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;when">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#where -->
+
+    <owl:DatatypeProperty rdf:about="&PLScienceServiceDescription;where">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&PLScienceServiceDescription;hasContextComposition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Context -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Context">
+        <rdfs:subClassOf rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <owl:disjointWith rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <owl:disjointWith rdf:resource="&PLScienceServiceDescription;Semantic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Hardware -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Hardware">
+        <rdfs:subClassOf rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <owl:disjointWith rdf:resource="&PLScienceServiceDescription;Semantic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Parameter -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Parameter"/>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Pragmatic -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Pragmatic"/>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Scientist -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Scientist"/>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Semantic -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Semantic"/>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Service -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Service"/>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Syntactic -->
+
+    <owl:Class rdf:about="&PLScienceServiceDescription;Syntactic"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Context1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:what> artifact 2.05 composition with artifact 3.90</PLScienceServiceDescription:what>
+        <PLScienceServiceDescription:hasLicense>public</PLScienceServiceDescription:hasLicense>
+        <PLScienceServiceDescription:hasComments>very good</PLScienceServiceDescription:hasComments>
+        <PLScienceServiceDescription:hasRestriction>not valid for anemic subjects</PLScienceServiceDescription:hasRestriction>
+        <PLScienceServiceDescription:where>RJ, Brazil</PLScienceServiceDescription:where>
+        <PLScienceServiceDescription:hasReputation>5</PLScienceServiceDescription:hasReputation>
+        <PLScienceServiceDescription:when>20140424000000</PLScienceServiceDescription:when>
+        <PLScienceServiceDescription:hasArtifact>Prot45</PLScienceServiceDescription:hasArtifact>
+        <PLScienceServiceDescription:hasDomain>HIV</PLScienceServiceDescription:hasDomain>
+        <PLScienceServiceDescription:how>Composition</PLScienceServiceDescription:how>
+        <PLScienceServiceDescription:who rdf:resource="&PLScienceServiceDescription;Scientist1"/>
+        <PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist1"/>
+        <PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Context2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:hasLicense>4.2.5</PLScienceServiceDescription:hasLicense>
+        <PLScienceServiceDescription:hasReputation>7</PLScienceServiceDescription:hasReputation>
+        <PLScienceServiceDescription:when>20140510000000</PLScienceServiceDescription:when>
+        <PLScienceServiceDescription:hasRestriction>can not be applied to children younger than 6 years</PLScienceServiceDescription:hasRestriction>
+        <PLScienceServiceDescription:hasComments>It works fine!</PLScienceServiceDescription:hasComments>
+        <PLScienceServiceDescription:what>artifact 2.05 utilization</PLScienceServiceDescription:what>
+        <PLScienceServiceDescription:hasArtifact>Prot46</PLScienceServiceDescription:hasArtifact>
+        <PLScienceServiceDescription:how>Experiment</PLScienceServiceDescription:how>
+        <PLScienceServiceDescription:where>Miami, Florida</PLScienceServiceDescription:where>
+        <PLScienceServiceDescription:hasDomain>muscle regenaration</PLScienceServiceDescription:hasDomain>
+        <PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist1"/>
+        <PLScienceServiceDescription:who rdf:resource="&PLScienceServiceDescription;Scientist2"/>
+        <PLScienceServiceDescription:hasInvolved rdf:resource="&PLScienceServiceDescription;Scientist2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Hardware1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:hasCPU>I5</PLScienceServiceDescription:hasCPU>
+        <PLScienceServiceDescription:hasROM>1</PLScienceServiceDescription:hasROM>
+        <PLScienceServiceDescription:hasRAM>4</PLScienceServiceDescription:hasRAM>
+        <PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Hardware2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:hasRAM>8</PLScienceServiceDescription:hasRAM>
+        <PLScienceServiceDescription:hasROM>2</PLScienceServiceDescription:hasROM>
+        <PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+        <PLScienceServiceDescription:hasOperationalSystem>Windows</PLScienceServiceDescription:hasOperationalSystem>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Parameter1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Parameter1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Parameter"/>
+        <PLScienceServiceDescription:hasType>cell</PLScienceServiceDescription:hasType>
+        <PLScienceServiceDescription:hasValue>object31</PLScienceServiceDescription:hasValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Parameter2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Parameter2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Parameter"/>
+        <PLScienceServiceDescription:hasValue>object32</PLScienceServiceDescription:hasValue>
+        <PLScienceServiceDescription:hasType>cell</PLScienceServiceDescription:hasType>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Pragmatic1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:hasNonFunctionalRequirement>performance below 15 minutes</PLScienceServiceDescription:hasNonFunctionalRequirement>
+        <PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context1"/>
+        <PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware1"/>
+        <PLScienceServiceDescription:pragmaticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Pragmatic2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+        <PLScienceServiceDescription:hasNonFunctionalRequirement>memory space demanded below 1GB</PLScienceServiceDescription:hasNonFunctionalRequirement>
+        <PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context2"/>
+        <PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware2"/>
+        <PLScienceServiceDescription:pragmaticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service2"/>
+        <PLScienceServiceDescription:pragmaticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Scientist1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+        <PLScienceServiceDescription:hasInstitutionFiliation>Center of HIV Research (CHR-RJ)</PLScienceServiceDescription:hasInstitutionFiliation>
+        <PLScienceServiceDescription:hasCompleteName>Marcio Werner</PLScienceServiceDescription:hasCompleteName>
+        <PLScienceServiceDescription:hasEmail>werner.marcio@chr.org</PLScienceServiceDescription:hasEmail>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Scientist2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Scientist2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Scientist"/>
+        <PLScienceServiceDescription:hasEmail>winter.maria@health.us</PLScienceServiceDescription:hasEmail>
+        <PLScienceServiceDescription:hasInstitutionFiliation>Health Department of Miami</PLScienceServiceDescription:hasInstitutionFiliation>
+        <PLScienceServiceDescription:hasCompleteName>Maria Winter</PLScienceServiceDescription:hasCompleteName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Semantic1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <PLScienceServiceDescription:hasSemanticReturn>if the protein prot45 was isolated</PLScienceServiceDescription:hasSemanticReturn>
+        <PLScienceServiceDescription:hasFunctionalRequirements>to isolate protein Prot45</PLScienceServiceDescription:hasFunctionalRequirements>
+        <PLScienceServiceDescription:hasSemanticReception>type B cell</PLScienceServiceDescription:hasSemanticReception>
+        <PLScienceServiceDescription:hasSemanticRepresentation>Protein Pro45 isolation</PLScienceServiceDescription:hasSemanticRepresentation>
+        <PLScienceServiceDescription:semanticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:semanticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Semantic2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+        <PLScienceServiceDescription:hasSemanticReception>type A cell</PLScienceServiceDescription:hasSemanticReception>
+        <PLScienceServiceDescription:hasSemanticReturn>if protein Prot46 was synthesized inside the received cell</PLScienceServiceDescription:hasSemanticReturn>
+        <PLScienceServiceDescription:hasSemanticRepresentation>protein Prot46  synthesis </PLScienceServiceDescription:hasSemanticRepresentation>
+        <PLScienceServiceDescription:hasFunctionalRequirements>to synthesize protein Prot46</PLScienceServiceDescription:hasFunctionalRequirements>
+        <PLScienceServiceDescription:semanticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Service1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+        <PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic1"/>
+        <PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic1"/>
+        <PLScienceServiceDescription:pragmaticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:semanticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:syntacticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:syntacticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:semanticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntactic1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Service2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+        <PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic2"/>
+        <PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic2"/>
+        <PLScienceServiceDescription:syntacticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service2"/>
+        <PLScienceServiceDescription:semanticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service2"/>
+        <PLScienceServiceDescription:pragmaticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service2"/>
+        <PLScienceServiceDescription:pragmaticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntactic2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Service3 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service3">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+        <PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic2"/>
+        <PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic1"/>
+        <PLScienceServiceDescription:semanticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:syntacticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:pragmaticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service2"/>
+        <PLScienceServiceDescription:semanticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:pragmaticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:syntacticallyEquivalent rdf:resource="&PLScienceServiceDescription;Service3"/>
+        <PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntactic1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Syntactic1 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntactic1">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+        <PLScienceServiceDescription:hasReturn>true</PLScienceServiceDescription:hasReturn>
+        <PLScienceServiceDescription:hasName>service45/1.2</PLScienceServiceDescription:hasName>
+        <PLScienceServiceDescription:hasParameter rdf:resource="&PLScienceServiceDescription;Parameter1"/>
+        <PLScienceServiceDescription:syntacticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service1"/>
+        <PLScienceServiceDescription:syntacticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/fran/ontologies/2014/6/PLScienceServiceDescription.owl#Syntactic2 -->
+
+    <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntactic2">
+        <rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+        <PLScienceServiceDescription:hasReturn>true</PLScienceServiceDescription:hasReturn>
+        <PLScienceServiceDescription:hasName>service46/1.3</PLScienceServiceDescription:hasName>
+        <PLScienceServiceDescription:hasParameter rdf:resource="&PLScienceServiceDescription;Parameter2"/>
+        <PLScienceServiceDescription:syntacticIsIncludedBy rdf:resource="&PLScienceServiceDescription;Service2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;Context"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;Hardware"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;Semantic"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointProperties"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;pragmaticIsIncludedBy"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;semanticIsIncludedBy"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;syntacticIsIncludedBy"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointProperties"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesPragmatic"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesSemantic"/>
+            <rdf:Description rdf:about="&PLScienceServiceDescription;includesSyntactic"/>
+        </owl:members>
+    </rdf:Description>
+	
+	
+<!-- new individuals -->
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_bloodOTPService">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://4456/plscience-ecos-collab/rest/bloodOTPService</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_bloodOTPService">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Insulin resistance</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Insulin resistance</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Insulin resistance</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Calcular a resistencia a insulina</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_bloodOTPService">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>Quad Core</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>8</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_bloodOTPService">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Private</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>2</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>09-05-2013</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Ratos</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Este servico foi criado pela equipe de pesquisadores da UFLA. Ele tem como objetivo analisar a resistencia a insulina a partir de uma amostra de sangue e portanto, esta ligado ao conceito Insulin Resistance na rede complexa de doencas humanas. O servico foi criado visando o requisito nao funcional de desempenho e foi testado em uma maquina Quad Core com 8 GB de RAM, 500 GB ROM e sistema operacional Linux. Este servico esta restrito a testes em ratos e se encontra sob o dominio de licencas privadas.</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Teste de resistencia a insulina</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Calcular a resistencia a insulina</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFLA</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Insulin resistance</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_bloodOTPService">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Desempenho</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_bloodOTPService"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_bloodOTPService"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_bloodOTPService">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_bloodOTPService"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_bloodOTPService"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_bloodOTPService"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_lmn45Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://4456/plscience-ecos-collab/rest/lmn45Service</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_lmn45Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Insulin resistance</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Obesity</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Obesity</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Calcular o risco de desenvolvimento da obesidade</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_lmn45Service">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I3</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>16</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_lmn45Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Private</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>2</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>07-09-2010</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction></PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Endereco do servico: http://4456/plscience-ecos-collab/rest/lmn45Service 
+Retorno do Servico: stringtype 
+Testes feitos no SO: Linux 
+Este servico foi criado por um grupo de pesquisadores da USP que trabalha com doencas relacionadas ao sangue (Blood Group). Este servico especifico tem como funcao calcular o risco de desenvolvimento da obesidade (Obesity) com base em parametros sanguineos. Este servico recebe uma string contendo a cadeia de informacao relacionada a resistencia a insulina (Insulin Resistence)e retorna o risco de obesidade (Obesity) identificado. O artefato usado no servico e o teste de resistencia a insulina.</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Teste de resistencia a insulina</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Calcular o risco de desenvolvimento da obesidade a partir do teste de resistencia a insulina</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>USP</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Obesity</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_lmn45Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Confiabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_lmn45Service"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_lmn45Service"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_lmn45Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_lmn45Service"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_lmn45Service"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_lmn45Service"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_bloodTypeProbability">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://4456/plscience-ecos-collab/rest/345tr</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_bloodTypeProbability">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Asthma</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Asthma</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Calcular a probabilidade de risco de desenvolvimento de Asma</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_bloodTypeProbability">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>16</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Mac OS</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_bloodTypeProbability">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>2</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>03-05-2011</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Este servico retorna uma stringtype. 
+Este servico recebe uma sequencia que identifica uma amostra de sangue (Blood Group) e tem como objetivo calcular a probabilidade de risco de desenvolvimento de Asma. Portanto, este servico esta inserido no dominio da Asma (Asthma). Sua licenca e publica (Public) e sua construcao visou o atendimento do requisito nao funcional de Desempenho. O execucao do servico demora em torno de 2 minutos e os testes foram efetuados em uma maquina I7, 16 RAM, 1024 ROM e sistema operacional Mac OS. O servico esta restrito a amostra de sangue humanas (Humans Blood). 
+
+Desenvolvido pela equipe de pesquisadores da UFJF
+</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Sangue</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Calcular a probabilidade de risco de desenvolvimento de Asma</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Asthma</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_bloodTypeProbability">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Desempenho</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_bloodTypeProbability"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_bloodTypeProbability"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_bloodTypeProbability">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_bloodTypeProbability"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_bloodTypeProbability"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_bloodTypeProbability"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_543pxyBlood">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://www.nenc.ufjf.br/plscience-ecos-collab/rest/bloodTypeProbability</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_543pxyBlood">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Calcular a probabilidade de heranca de tipo sanguineo</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_543pxyBlood">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>8</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Mac OS</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_543pxyBlood">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>1</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>10-07-2012</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Mac OS</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments> Este servico tem como objetivo calcular a probabilidade de heranca de tipo sanguineo. Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo na rede complexa de doencas humanas (Blood Group). O artefato envolvido na execucao do servico e sangue.
+A licenca de uso do servico e publica. 
+O servico foi construido visando o requisito nao funcional de reusabilidade. 
+Os testes foram executados em maquina com as seguintes configuracoes: Sistema Operacional Mac OS. RAM 8 GB. ROM 1024 GB. CPU I7. 
+Equipe de pesquisadores UNIRIO 
+Data de publicacao 10-07-2012.</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Sangue</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Calcular a probabilidade de heranca de tipo sanguineo</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UNIRIO</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Blood Group</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_543pxyBlood">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Reusabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_543pxyBlood"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_543pxyBlood"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_543pxyBlood">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_543pxyBlood"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_543pxyBlood"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_543pxyBlood"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_btpAnalisysServices">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://www.nenc.ufjf.br/plscience-ecos-collab/rest/bloodTypeProbability</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_btpAnalisysServices">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Calcular a probabilidade de heranca de tipo sanguineo</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_btpAnalisysServices">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>8</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Mac OS</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_btpAnalisysServices">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>5</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>10-06-2013</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Mac OS</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Servico desenvolvido pela equipe de pesquisadores da USP. 
+Data de publicacoo: 10-06-2013
+Este servico foi criado para calcular a probabilidade de heranca de tipo sanguineo. O artefato usado para execucao do servico e o sangue. Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo na rede complexa de doencas humanas (Blood Group).  
+O requisito nao funcional visado em sua construcao foi a reusabilidade. Os testes foram executados em uma maquina I7, como sistema Operacional Mac OS, 8 GB RAM e 1024 GB ROM. Sua licenca de uso e publica.</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Sangue</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Calcular a probabilidade de heranca de tipo sanguineo</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>USP</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Blood Group</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_btpAnalisysServices">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Reusabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_btpAnalisysServices"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_btpAnalisysServices"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_btpAnalisysServices">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_btpAnalisysServices"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_btpAnalisysServices"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_btpAnalisysServices"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_xpr32Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://3345/plscience-ecos-collab/rest/xpr32Service</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_xpr32Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Renal tubular acidosis</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Sepsis</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Sepsis</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Identificar renal tubular acidosis</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_xpr32Service">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I3</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>8</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Windows</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_xpr32Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Private</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>2</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>10-01-2014</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Desenvolvido pela equipe de pesquisadores da UNIRIO. O grupo trabalha com doencas ligadas ao sangue.
+O objetivo deste servico e identificar "renal tubular acidosis" em uma amostra de sangue. 
+Este servico tem como principal requisito nao funcional a disponibilidade. Portanto, uma serie de estrategias foram adotadas para que ele esteja sempre acessivel.
+Data de publicacao: 10-01-2014</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Sepsis</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Identificar renal tubular acidosis em uma amostra de sangue</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UNIRIO</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Sepsis</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_xpr32Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Disponibilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_xpr32Service"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_xpr32Service"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_xpr32Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_xpr32Service"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_xpr32Service"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_xpr32Service"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_combinationPhenotypesServices">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://3345/plscience-ecos-collab/rest/combinationPhenotypesServices</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_combinationPhenotypesServices">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Malaria</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Malaria</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>produzir a combinacao de genotipos para o teste da malaria</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_combinationPhenotypesServices">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I5</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>16</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Windows</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_combinationPhenotypesServices">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Private</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>3</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>10-04-2014</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Windows</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Retorno do servico: stringtype
+Equipe de desenvolvimento: UNIRIO 
+Data de Publicacao: 10-04-2014 
+O artefato usado para execucao deste servico e o sangue. 
+Este servico recebe uma amostra sanguinea (Blood Group) e tem como objetivo gerar o produto cartesiano da combinacao de parametros usados no teste da Malaria. Essa combinacao busca tecnicas para a medicao da atividade da enzima topoisomerase I do parasita Plasmodium. </PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Sangue</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Gerar o produto cartesiano da combinacao de genotipos sanguineos</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UNIRIO</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Malaria</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_combinationPhenotypesServices">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Agilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_combinationPhenotypesServices"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_combinationPhenotypesServices"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_combinationPhenotypesServices">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_combinationPhenotypesServices"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_combinationPhenotypesServices"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_combinationPhenotypesServices"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_matrixCombinationPhenotypesPrimitiveType">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://www.nenc.ufjf.br/plscience-ecos-collab/rest/matrixCombinationPhenotypesPrimitiveType</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_matrixCombinationPhenotypesPrimitiveType">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Gerar o produto cartesiano da combinacao de genotipos sanguineos</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_matrixCombinationPhenotypesPrimitiveType">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>24</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Windows</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_matrixCombinationPhenotypesPrimitiveType">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Private</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>1</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>15-06-2014</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Este servico tem como objetivo gerar o produto cartesiano da combinacao de genotipos sanguineos. 
+Sua recepcao, retorno e representacao estao relacionado ao conceito de grupo sanguineo na rede complexa de doencas humanas (Blood Group). 
+O artefato usado para execucao do servico e a matriz de combinacao de genotipos. 
+Este servico tem como requisito nao funcional a reusabilidade e foi testado em um ambiente com as seguintes configuracoes: Maquina I7, 24 RAM, 1024 ROM, sistema operacional Windows. 
+Servico criado pela equipe de pesquisadores da UFF. Este grupo desenvolve pesquisas no dominio da Malaria. 
+Data de Publicacao: 15-06-2014 
+Restricao de uso do servico: Sangue Humano (Humans Blood).   
+</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Matriz de Combinacao de genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Gerar o produto cartesiano da combinacao de genotipos sanguineos</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFF</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Malaria</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_matrixCombinationPhenotypesPrimitiveType">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Reusabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_matrixCombinationPhenotypesPrimitiveType"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_matrixCombinationPhenotypesPrimitiveType"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_matrixCombinationPhenotypesPrimitiveType">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_matrixCombinationPhenotypesPrimitiveType"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_matrixCombinationPhenotypesPrimitiveType"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_matrixCombinationPhenotypesPrimitiveType"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_matrixCombinationPhenotypes">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://3365/plscience-ecos-collab/rest/matrixCombinationPhenotypes</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_matrixCombinationPhenotypes">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Produzir uma matriz de combinacao de genotipos sanguineos</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_matrixCombinationPhenotypes">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>24</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_matrixCombinationPhenotypes">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>1</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>13-09-2001</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Retorno do servico: stringtype
+Licenca de uso: Publica  
+Este servico produz uma matriz de combinacao de genotipos sanguineos.  
+Data de Publicacao: 13-09-2001 
+Produzida por: UFRJ 
+
+Detalhamento:  
+Com o proposito de produzir uma matriz de combinacao de genotipos sanguineos. Este servico recebe os genotipos de tipos sanguineos possiveis derivados de dois grupos sanguineos(Blood Group) e retorna o produto cartesiano dos mesmo no formato de uma matriz (Blood Group). Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo.
+O artefato usado para execucao deste servico e a matriz de combinacao de fenatipos.
+O requisito nao funcional visado foi a portabilidade. Teste com os servicos foram feitos em uma maquina I7, 24 GB RAM, 1024 GB ROM e Sistema Operacional Linux. matrixCombinationPhenotypes</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Matriz de Combinacao de genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Produzir uma matriz de combinacao de genotipos sanguineos</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFRJ</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Blood Group</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_matrixCombinationPhenotypes">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Portabillidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_matrixCombinationPhenotypes"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_matrixCombinationPhenotypes"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_matrixCombinationPhenotypes">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_matrixCombinationPhenotypes"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_matrixCombinationPhenotypes"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_matrixCombinationPhenotypes"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_mrx138Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://www.nenc.ufjf.br/plscience-ecos-collab/rest/matrixCombinationPhenotypes</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_mrx138Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Produzir uma matriz de combinacao de genotipos sanguineos</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_mrx138Service">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>24</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_mrx138Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>5</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>16-03-2015</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Este servico retorna uma stringtype. 
+Produzido pela equipe de pesquisadores da UFRJ com licenca de uso publica. 
+A partir do artefato matriz de combinacao de genotipos, este servico produz uma matriz de combinacao de genotipos. Este servico recebe os genotipos de tipos sanguineos possiveis derivados de dois grupos sanguineos(Blood Group) e retorna o produto cartesiano dos mesmo no formato de uma matriz (Blood Group). Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo. 
+
+Requisito nao funcional: Portabilidade. 
+Ambiente de teste: maquina I7, 24 GB RAM, 1024 GB ROM e SO Linux. 
+Publicado em 16-03-2015.</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Matriz de Combinacao de genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Produzir uma matriz de combinacao de genotipos sanguineos</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFRJ</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Blood Group</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_mrx138Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Portabillidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_mrx138Service"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_mrx138Service"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_mrx138Service">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_mrx138Service"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_mrx138Service"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_mrx138Service"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_xk8Analysis">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://3345/plscience-ecos-collab/rest/xk8Analysis</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_xk8Analysis">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Parkinson</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Parkinson</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Identificar a possibilidade de Parkinson</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_xk8Analysis">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>16</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_xk8Analysis">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Private</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>2</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>04-04-2013</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Linux</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Produzido pela equipe de pesquisadores da UFRJ. 
+Publicado em 04-04-2013. 
+
+Este servico recebe uma sequencia que identifica uma amostra de sangue (Blood Group) e analise a mesma, baseado em uma serie de parametros, para retornar o risco de desenvolvimento da doenca de Parkinson. O artefato usado para execucao deste servico e o Sangue. 
+A construcao deste servico visou o desempenho. Testes foram realizados no seguinte ambiente: Maquina equipada com processador I7, 16 GB RAM, 500 GB ROM e SO Linux.</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Sangue</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Analisar uma amostra de sangue analisar a possibilidade de Parkinson</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFRJ</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Parkinson</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_xk8Analysis">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Desempenho</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_xk8Analysis"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_xk8Analysis"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_xk8Analysis">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_xk8Analysis"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_xk8Analysis"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_xk8Analysis"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_malariaAnalysis">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://3345/plscience-ecos-collab/rest/phenotypeAnalysis</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_malariaAnalysis">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Malaria</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Identificar a presenca de malaria</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_malariaAnalysis">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I5</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>16</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_malariaAnalysis">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Private</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>5</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>15-02-2015</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Tipo de retorno: stringtype 
+
+Este servico tem como requisito funcional identificar a presenca de Malaria em uma amostra de sangue. 
+O dominio deste servico e ligado ao conceito Malaria na rede complexa de doencas humanas. O artefato usado para execucao do servico e o sangue. Este servico tem a restricao de aplicacao ao sangue humano (Humans Blood). 
+
+Publicado em 15-02-2015. Produzido pela equipe de pesquisadores da UFJF.</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Sangue</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Analisar uma amostra de sangue para determinar a presenca de malaria.</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Malaria</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_malariaAnalysis">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Agilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_malariaAnalysis"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_malariaAnalysis"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_malariaAnalysis">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_malariaAnalysis"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_malariaAnalysis"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_malariaAnalysis"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_phenotypeTranslationPrimitiveType">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://www.nenc.ufjf.br/plscience-ecos-collab/rest//phenotypeTranslationPrimitiveType</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_phenotypeTranslationPrimitiveType">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Converte tipos sanguineos nos possiveis genotipos</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_phenotypeTranslationPrimitiveType">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>8</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Windows</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_phenotypeTranslationPrimitiveType">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>4</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>15-04-2014</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Este servico foi desenvolvido por pesquisadores da UFJF. 
+
+Servico com o objetivo de converter tipos sanguineos nos possiveis genotipos. 
+Sua recepcao, retorno e representacao estao relacionado ao conceito de grupo sanguineo (Blood Group).  
+
+Este servico possui com requisito nao funcional a composabilidade (composability). Para verificar o mesmo foram efetuados testes em uma maquina contendo o S.O. Windows, I7, 500 GB ROM e 8 GB RAM. Restricao de uso: sangue humano (Humans Blood).
+ </PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Transformar o grupo sanguineo nos genotipos correspondentes</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Malaria</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_phenotypeTranslationPrimitiveType">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Composabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_phenotypeTranslationPrimitiveType"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_phenotypeTranslationPrimitiveType"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_phenotypeTranslationPrimitiveType">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_phenotypeTranslationPrimitiveType"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_phenotypeTranslationPrimitiveType"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_phenotypeTranslationPrimitiveType"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_phenotypeTranslationService">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://3306/plscience-ecos-collab/rest/phenotypeTranslationService</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_phenotypeTranslationService">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Traduzir tipos sanguineos em genotipos</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_phenotypeTranslationService">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I5</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>16</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_phenotypeTranslationService">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>1</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>12-02-2012</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Este servico tem como requisito funcional traduzir tipos sanguineos em genotipos.
+Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo na rede complexa de doencas humanas (Blood Group). O artefato usado para execucao do servico sao genotipos. 
+A restricao de uso do servico e ser sangue humano (Humans Blood). 
+
+Licenca de uso publica. Produzido por UFJF. 
+Este servico foi testa em uma maquina Linux, com I5, 500 GB ROM e 16 GB RAM.</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Transformar o grupo sanguineo nos genotipos correspondentes</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Blood Group</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_phenotypeTranslationService">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Reusabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_phenotypeTranslationService"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_phenotypeTranslationService"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_phenotypeTranslationService">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_phenotypeTranslationService"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_phenotypeTranslationService"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_phenotypeTranslationService"/>
+</owl:NamedIndividual>
+
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_vinc45c">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://www.nenc.ufjf.br/plscience-ecos-collab/rest/vinc45c</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_vinc45c">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>traduzir tipos sanguineos em genotipos</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_vinc45c">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I5</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>500</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>16</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_vinc45c">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>5</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>12-01-2009</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Licenca de uso: publica 
+Produzido por: UFJF 
+Publicado em: 12-01-2009 
+
+Este servico tem como requisito funcional traduzir tipos sanguineos em genotipos. 
+Desta forma, o servico recebe dois grupos sanguineos (Blood Group) e retorna os genotipos correspondentes (Blood Group). 
+Sua representacao e dominio do servico tambem estao ligado ao conceito de grupos sanguineos (Blood Group). 
+A restricao de uso do servico e ser sangue humano (Humans Blood). 
+
+O requisito nao funcional alvo deste servico e a reusabilidade. Os testes desse requisito foram feitos em uma maquina Linux, com I5, 500 GB ROM e 16 GB RAM.
+</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Transformar o grupo sanguineo nos genotipos correspondentes</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Blood Group</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_vinc45c">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Reusabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_vinc45c"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_vinc45c"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_vinc45c">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_vinc45c"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_vinc45c"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_vinc45c"/>
+</owl:NamedIndividual>
+
+
+
+
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
