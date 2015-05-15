@@ -962,7 +962,7 @@ Este servico foi criado por um grupo de pesquisadores da USP que trabalha com do
  <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
 <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
 <PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
-<PLScienceServiceDescription:hasROM>1056</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
 <PLScienceServiceDescription:hasRAM>16</PLScienceServiceDescription:hasRAM>
 <PLScienceServiceDescription:hasOperationalSystem>Mac OS</PLScienceServiceDescription:hasOperationalSystem>
 </owl:NamedIndividual>
@@ -975,7 +975,7 @@ Este servico foi criado por um grupo de pesquisadores da USP que trabalha com do
 <PLScienceServiceDescription:when>03-05-2011</PLScienceServiceDescription:when>
 <PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
 <PLScienceServiceDescription:hasComments>Este servico retorna uma stringtype. 
-Este servico recebe uma sequencia que identifica uma amostra de sangue (Blood Group) e tem como objetivo calcular a probabilidade de risco de desenvolvimento de Asma. Portanto, este servico esta inserido no dominio da Asma (Asthma). Sua licenca e publica (Public) e sua construcao visou o atendimento do requisito nao funcional de Desempenho. O execucao do servico demora em torno de 2 minutos e os testes foram efetuados em uma maquina I7, 16 RAM, 1056 ROM e sistema operacional Mac OS. O servico esta restrito a amostra de sangue humanas (Humans Blood). 
+Este servico recebe uma sequencia que identifica uma amostra de sangue (Blood Group) e tem como objetivo calcular a probabilidade de risco de desenvolvimento de Asma. Portanto, este servico esta inserido no dominio da Asma (Asthma). Sua licenca e publica (Public) e sua construcao visou o atendimento do requisito nao funcional de Desempenho. O execucao do servico demora em torno de 2 minutos e os testes foram efetuados em uma maquina I7, 16 RAM, 1024 ROM e sistema operacional Mac OS. O servico esta restrito a amostra de sangue humanas (Humans Blood). 
 
 Desenvolvido pela equipe de pesquisadores da UFJF
 </PLScienceServiceDescription:hasComments>
@@ -1016,7 +1016,7 @@ Desenvolvido pela equipe de pesquisadores da UFJF
  <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
 <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
 <PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
-<PLScienceServiceDescription:hasROM>1056</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
 <PLScienceServiceDescription:hasRAM>8</PLScienceServiceDescription:hasRAM>
 <PLScienceServiceDescription:hasOperationalSystem>Mac OS</PLScienceServiceDescription:hasOperationalSystem>
 </owl:NamedIndividual>
@@ -1031,7 +1031,7 @@ Desenvolvido pela equipe de pesquisadores da UFJF
 <PLScienceServiceDescription:hasComments> Este servico tem como objetivo calcular a probabilidade de heranca de tipo sanguineo. Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo na rede complexa de doencas humanas (Blood Group). O artefato envolvido na execucao do servico e sangue.
 A licenca de uso do servico e publica. 
 O servico foi construido visando o requisito nao funcional de reusabilidade. 
-Os testes foram executados em maquina com as seguintes configuracoes: Sistema Operacional Mac OS. RAM 8 GB. ROM 1056 GB. CPU I7. 
+Os testes foram executados em maquina com as seguintes configuracoes: Sistema Operacional Mac OS. RAM 8 GB. ROM 1024 GB. CPU I7. 
 Equipe de pesquisadores UNIRIO 
 Data de publicacao 10-07-2012.</PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
@@ -1071,7 +1071,7 @@ Data de publicacao 10-07-2012.</PLScienceServiceDescription:hasComments>
  <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
 <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
 <PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
-<PLScienceServiceDescription:hasROM>1056</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
 <PLScienceServiceDescription:hasRAM>8</PLScienceServiceDescription:hasRAM>
 <PLScienceServiceDescription:hasOperationalSystem>Mac OS</PLScienceServiceDescription:hasOperationalSystem>
 </owl:NamedIndividual>
@@ -1086,7 +1086,7 @@ Data de publicacao 10-07-2012.</PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:hasComments>Servico desenvolvido pela equipe de pesquisadores da USP. 
 Data de publicacoo: 10-06-2013
 Este servico foi criado para calcular a probabilidade de heranca de tipo sanguineo. O artefato usado para execucao do servico e o sangue. Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo na rede complexa de doencas humanas (Blood Group).  
-O requisito nao funcional visado em sua construcao foi a reusabilidade. Os testes foram executados em uma maquina I7, como sistema Operacional Mac OS, 8 GB RAM e 1056 GB ROM. Sua licenca de uso e publica.</PLScienceServiceDescription:hasComments>
+O requisito nao funcional visado em sua construcao foi a reusabilidade. Os testes foram executados em uma maquina I7, como sistema Operacional Mac OS, 8 GB RAM e 1024 GB ROM. Sua licenca de uso e publica.</PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
 <PLScienceServiceDescription:hasArtifact>Sangue</PLScienceServiceDescription:hasArtifact>
 <PLScienceServiceDescription:how>Calcular a probabilidade de heranca de tipo sanguineo</PLScienceServiceDescription:how>
@@ -1170,7 +1170,7 @@ Data de publicacao: 10-01-2014</PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
 <PLScienceServiceDescription:hasSemanticReturn>Malaria</PLScienceServiceDescription:hasSemanticReturn>
 <PLScienceServiceDescription:hasSemanticRepresentation>Malaria</PLScienceServiceDescription:hasSemanticRepresentation>
- <PLScienceServiceDescription:hasFunctionalRequirements>produzir a combinacao de fenotipos para o teste da malaria</PLScienceServiceDescription:hasFunctionalRequirements>
+ <PLScienceServiceDescription:hasFunctionalRequirements>produzir a combinacao de genotipos para o teste da malaria</PLScienceServiceDescription:hasFunctionalRequirements>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_combinationPhenotypesServices">
@@ -1196,7 +1196,7 @@ O artefato usado para execucao deste servico e o sangue.
 Este servico recebe uma amostra sanguinea (Blood Group) e tem como objetivo gerar o produto cartesiano da combinacao de parametros usados no teste da Malaria. Essa combinacao busca tecnicas para a medicao da atividade da enzima topoisomerase I do parasita Plasmodium. </PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
 <PLScienceServiceDescription:hasArtifact>Sangue</PLScienceServiceDescription:hasArtifact>
-<PLScienceServiceDescription:how>Gerar o produto cartesiano da combinacao de fenotipos sanguineos</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:how>Gerar o produto cartesiano da combinacao de genotipos sanguineos</PLScienceServiceDescription:how>
 <PLScienceServiceDescription:where>UNIRIO</PLScienceServiceDescription:where>
  <PLScienceServiceDescription:hasDomain>Malaria</PLScienceServiceDescription:hasDomain>
 </owl:NamedIndividual>
@@ -1224,14 +1224,14 @@ Este servico recebe uma amostra sanguinea (Blood Group) e tem como objetivo gera
 <PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
 <PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
 <PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
- <PLScienceServiceDescription:hasFunctionalRequirements>Gerar o produto cartesiano da combinacao de fenotipos sanguineos</PLScienceServiceDescription:hasFunctionalRequirements>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Gerar o produto cartesiano da combinacao de genotipos sanguineos</PLScienceServiceDescription:hasFunctionalRequirements>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_matrixCombinationPhenotypesPrimitiveType">
  <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
 <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
 <PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
-<PLScienceServiceDescription:hasROM>1056</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
 <PLScienceServiceDescription:hasRAM>24</PLScienceServiceDescription:hasRAM>
 <PLScienceServiceDescription:hasOperationalSystem>Windows</PLScienceServiceDescription:hasOperationalSystem>
 </owl:NamedIndividual>
@@ -1243,17 +1243,17 @@ Este servico recebe uma amostra sanguinea (Blood Group) e tem como objetivo gera
  <PLScienceServiceDescription:hasReputation>1</PLScienceServiceDescription:hasReputation>
 <PLScienceServiceDescription:when>15-06-2014</PLScienceServiceDescription:when>
 <PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
-<PLScienceServiceDescription:hasComments>Este servico tem como objetivo gerar o produto cartesiano da combinacao de fenotipos sanguineos. 
+<PLScienceServiceDescription:hasComments>Este servico tem como objetivo gerar o produto cartesiano da combinacao de genotipos sanguineos. 
 Sua recepcao, retorno e representacao estao relacionado ao conceito de grupo sanguineo na rede complexa de doencas humanas (Blood Group). 
-O artefato usado para execucao do servico e a matriz de combinacao de fenotipos. 
-Este servico tem como requisito nao funcional a reusabilidade e foi testado em um ambiente com as seguintes configuracoes: Maquina I7, 24 RAM, 1056 ROM, sistema operacional Windows. 
+O artefato usado para execucao do servico e a matriz de combinacao de genotipos. 
+Este servico tem como requisito nao funcional a reusabilidade e foi testado em um ambiente com as seguintes configuracoes: Maquina I7, 24 RAM, 1024 ROM, sistema operacional Windows. 
 Servico criado pela equipe de pesquisadores da UFF. Este grupo desenvolve pesquisas no dominio da Malaria. 
 Data de Publicacao: 15-06-2014 
 Restricao de uso do servico: Sangue Humano (Humans Blood).   
 </PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
-<PLScienceServiceDescription:hasArtifact>Matriz de Combinacao de Fenotipos</PLScienceServiceDescription:hasArtifact>
-<PLScienceServiceDescription:how>Gerar o produto cartesiano da combinacao de fenotipos sanguineos</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:hasArtifact>Matriz de Combinacao de genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Gerar o produto cartesiano da combinacao de genotipos sanguineos</PLScienceServiceDescription:how>
 <PLScienceServiceDescription:where>UFF</PLScienceServiceDescription:where>
  <PLScienceServiceDescription:hasDomain>Malaria</PLScienceServiceDescription:hasDomain>
 </owl:NamedIndividual>
@@ -1281,14 +1281,14 @@ Restricao de uso do servico: Sangue Humano (Humans Blood).
 <PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
 <PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
 <PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
- <PLScienceServiceDescription:hasFunctionalRequirements>Produzir uma matriz de combinacao de fenotipos sanguineos</PLScienceServiceDescription:hasFunctionalRequirements>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Produzir uma matriz de combinacao de genotipos sanguineos</PLScienceServiceDescription:hasFunctionalRequirements>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_matrixCombinationPhenotypes">
  <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
 <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
 <PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
-<PLScienceServiceDescription:hasROM>1056</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
 <PLScienceServiceDescription:hasRAM>24</PLScienceServiceDescription:hasRAM>
 <PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
 </owl:NamedIndividual>
@@ -1302,17 +1302,17 @@ Restricao de uso do servico: Sangue Humano (Humans Blood).
 <PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
 <PLScienceServiceDescription:hasComments>Retorno do servico: stringtype
 Licenca de uso: Publica  
-Este servico produz uma matriz de combinacao de fenotipos sanguineos.  
+Este servico produz uma matriz de combinacao de genotipos sanguineos.  
 Data de Publicacao: 13-09-2001 
 Produzida por: UFRJ 
 
 Detalhamento:  
-Com o proposito de produzir uma matriz de combinacao de fenotipos sanguineos. Este servico recebe os fenotipos de tipos sanguineos possiveis derivados de dois grupos sanguineos(Blood Group) e retorna o produto cartesiano dos mesmo no formato de uma matriz (Blood Group). Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo.
+Com o proposito de produzir uma matriz de combinacao de genotipos sanguineos. Este servico recebe os genotipos de tipos sanguineos possiveis derivados de dois grupos sanguineos(Blood Group) e retorna o produto cartesiano dos mesmo no formato de uma matriz (Blood Group). Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo.
 O artefato usado para execucao deste servico e a matriz de combinacao de fenatipos.
-O requisito nao funcional visado foi a portabilidade. Teste com os servicos foram feitos em uma maquina I7, 24 GB RAM, 1056 GB ROM e Sistema Operacional Linux. matrixCombinationPhenotypes</PLScienceServiceDescription:hasComments>
+O requisito nao funcional visado foi a portabilidade. Teste com os servicos foram feitos em uma maquina I7, 24 GB RAM, 1024 GB ROM e Sistema Operacional Linux. matrixCombinationPhenotypes</PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
-<PLScienceServiceDescription:hasArtifact>Matriz de Combinacao de Fenotipos</PLScienceServiceDescription:hasArtifact>
-<PLScienceServiceDescription:how>Produzir uma matriz de combinacao de fenotipos sanguineos</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:hasArtifact>Matriz de Combinacao de genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Produzir uma matriz de combinacao de genotipos sanguineos</PLScienceServiceDescription:how>
 <PLScienceServiceDescription:where>UFRJ</PLScienceServiceDescription:where>
  <PLScienceServiceDescription:hasDomain>Blood Group</PLScienceServiceDescription:hasDomain>
 </owl:NamedIndividual>
@@ -1340,14 +1340,14 @@ O requisito nao funcional visado foi a portabilidade. Teste com os servicos fora
 <PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
 <PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
 <PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
- <PLScienceServiceDescription:hasFunctionalRequirements>Produzir uma matriz de combinacao de fenotipos sanguineos</PLScienceServiceDescription:hasFunctionalRequirements>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Produzir uma matriz de combinacao de genotipos sanguineos</PLScienceServiceDescription:hasFunctionalRequirements>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_mrx138Service">
  <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
 <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
 <PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
-<PLScienceServiceDescription:hasROM>1056</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
 <PLScienceServiceDescription:hasRAM>24</PLScienceServiceDescription:hasRAM>
 <PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
 </owl:NamedIndividual>
@@ -1361,14 +1361,14 @@ O requisito nao funcional visado foi a portabilidade. Teste com os servicos fora
 <PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
 <PLScienceServiceDescription:hasComments>Este servico retorna uma stringtype. 
 Produzido pela equipe de pesquisadores da UFRJ com licenca de uso publica. 
-A partir do artefato matriz de combinacao de fenotipos, este servico produz uma matriz de combinacao de fenotipos. Este servico recebe os fenotipos de tipos sanguineos possiveis derivados de dois grupos sanguineos(Blood Group) e retorna o produto cartesiano dos mesmo no formato de uma matriz (Blood Group). Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo. 
+A partir do artefato matriz de combinacao de genotipos, este servico produz uma matriz de combinacao de genotipos. Este servico recebe os genotipos de tipos sanguineos possiveis derivados de dois grupos sanguineos(Blood Group) e retorna o produto cartesiano dos mesmo no formato de uma matriz (Blood Group). Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo. 
 
 Requisito nao funcional: Portabilidade. 
-Ambiente de teste: maquina I7, 24 GB RAM, 1056 GB ROM e SO Linux. 
+Ambiente de teste: maquina I7, 24 GB RAM, 1024 GB ROM e SO Linux. 
 Publicado em 16-03-2015.</PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
-<PLScienceServiceDescription:hasArtifact>Matriz de Combinacao de Fenotipos</PLScienceServiceDescription:hasArtifact>
-<PLScienceServiceDescription:how>Produzir uma matriz de combinacao de fenotipos sanguineos</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:hasArtifact>Matriz de Combinacao de genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Produzir uma matriz de combinacao de genotipos sanguineos</PLScienceServiceDescription:how>
 <PLScienceServiceDescription:where>UFRJ</PLScienceServiceDescription:where>
  <PLScienceServiceDescription:hasDomain>Blood Group</PLScienceServiceDescription:hasDomain>
 </owl:NamedIndividual>
@@ -1457,7 +1457,7 @@ A construcao deste servico visou o desempenho. Testes foram realizados no seguin
  <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
 <rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
 <PLScienceServiceDescription:hasCPU>I5</PLScienceServiceDescription:hasCPU>
-<PLScienceServiceDescription:hasROM>1056</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
 <PLScienceServiceDescription:hasRAM>16</PLScienceServiceDescription:hasRAM>
 <PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
 </owl:NamedIndividual>
@@ -1505,7 +1505,7 @@ Publicado em 15-02-2015. Produzido pela equipe de pesquisadores da UFJF.</PLScie
 <PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
 <PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
 <PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
- <PLScienceServiceDescription:hasFunctionalRequirements>Converte tipos sanguineos nos possiveis fenotipos</PLScienceServiceDescription:hasFunctionalRequirements>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Converte tipos sanguineos nos possiveis genotipos</PLScienceServiceDescription:hasFunctionalRequirements>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_phenotypeTranslationPrimitiveType">
@@ -1526,14 +1526,14 @@ Publicado em 15-02-2015. Produzido pela equipe de pesquisadores da UFJF.</PLScie
 <PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
 <PLScienceServiceDescription:hasComments>Este servico foi desenvolvido por pesquisadores da UFJF. 
 
-Servico com o objetivo de converter tipos sanguineos nos possiveis fenotipos. 
+Servico com o objetivo de converter tipos sanguineos nos possiveis genotipos. 
 Sua recepcao, retorno e representacao estao relacionado ao conceito de grupo sanguineo (Blood Group).  
 
 Este servico possui com requisito nao funcional a composabilidade (composability). Para verificar o mesmo foram efetuados testes em uma maquina contendo o S.O. Windows, I7, 500 GB ROM e 8 GB RAM. Restricao de uso: sangue humano (Humans Blood).
  </PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
-<PLScienceServiceDescription:hasArtifact>Fenotipos</PLScienceServiceDescription:hasArtifact>
-<PLScienceServiceDescription:how>Transformar o grupo sanguineo nos fenotipos correspondentes</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:hasArtifact>genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Transformar o grupo sanguineo nos genotipos correspondentes</PLScienceServiceDescription:how>
 <PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
  <PLScienceServiceDescription:hasDomain>Malaria</PLScienceServiceDescription:hasDomain>
 </owl:NamedIndividual>
@@ -1561,7 +1561,7 @@ Este servico possui com requisito nao funcional a composabilidade (composability
 <PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
 <PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
 <PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
- <PLScienceServiceDescription:hasFunctionalRequirements>Traduzir tipos sanguineos em fenotipos</PLScienceServiceDescription:hasFunctionalRequirements>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Traduzir tipos sanguineos em genotipos</PLScienceServiceDescription:hasFunctionalRequirements>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_phenotypeTranslationService">
@@ -1580,15 +1580,15 @@ Este servico possui com requisito nao funcional a composabilidade (composability
  <PLScienceServiceDescription:hasReputation>1</PLScienceServiceDescription:hasReputation>
 <PLScienceServiceDescription:when>12-02-2012</PLScienceServiceDescription:when>
 <PLScienceServiceDescription:hasRestriction>Humans Blood</PLScienceServiceDescription:hasRestriction>
-<PLScienceServiceDescription:hasComments>Este servico tem como requisito funcional traduzir tipos sanguineos em fenotipos.
-Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo na rede complexa de doencas humanas (Blood Group). O artefato usado para execucao do servico sao Fenotipos. 
+<PLScienceServiceDescription:hasComments>Este servico tem como requisito funcional traduzir tipos sanguineos em genotipos.
+Sua recepcao, retorno, representacao e dominio estao relacionado ao conceito de grupo sanguineo na rede complexa de doencas humanas (Blood Group). O artefato usado para execucao do servico sao genotipos. 
 A restricao de uso do servico e ser sangue humano (Humans Blood). 
 
 Licenca de uso publica. Produzido por UFJF. 
 Este servico foi testa em uma maquina Linux, com I5, 500 GB ROM e 16 GB RAM.</PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
-<PLScienceServiceDescription:hasArtifact>Fenotipos</PLScienceServiceDescription:hasArtifact>
-<PLScienceServiceDescription:how>Transformar o grupo sanguineo nos fenotipos correspondentes</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:hasArtifact>genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Transformar o grupo sanguineo nos genotipos correspondentes</PLScienceServiceDescription:how>
 <PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
  <PLScienceServiceDescription:hasDomain>Blood Group</PLScienceServiceDescription:hasDomain>
 </owl:NamedIndividual>
@@ -1617,7 +1617,7 @@ Este servico foi testa em uma maquina Linux, com I5, 500 GB ROM e 16 GB RAM.</PL
 <PLScienceServiceDescription:hasSemanticReception>Blood Group</PLScienceServiceDescription:hasSemanticReception>
 <PLScienceServiceDescription:hasSemanticReturn>Blood Group</PLScienceServiceDescription:hasSemanticReturn>
 <PLScienceServiceDescription:hasSemanticRepresentation>Blood Group</PLScienceServiceDescription:hasSemanticRepresentation>
- <PLScienceServiceDescription:hasFunctionalRequirements>traduzir tipos sanguineos em fenotipos</PLScienceServiceDescription:hasFunctionalRequirements>
+ <PLScienceServiceDescription:hasFunctionalRequirements>traduzir tipos sanguineos em genotipos</PLScienceServiceDescription:hasFunctionalRequirements>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_vinc45c">
@@ -1640,16 +1640,16 @@ Este servico foi testa em uma maquina Linux, com I5, 500 GB ROM e 16 GB RAM.</PL
 Produzido por: UFJF 
 Publicado em: 12-01-2009 
 
-Este servico tem como requisito funcional traduzir tipos sanguineos em fenotipos. 
-Desta forma, o servico recebe dois grupos sanguineos (Blood Group) e retorna os fenotipos correspondentes (Blood Group). 
+Este servico tem como requisito funcional traduzir tipos sanguineos em genotipos. 
+Desta forma, o servico recebe dois grupos sanguineos (Blood Group) e retorna os genotipos correspondentes (Blood Group). 
 Sua representacao e dominio do servico tambem estao ligado ao conceito de grupos sanguineos (Blood Group). 
 A restricao de uso do servico e ser sangue humano (Humans Blood). 
 
 O requisito nao funcional alvo deste servico e a reusabilidade. Os testes desse requisito foram feitos em uma maquina Linux, com I5, 500 GB ROM e 16 GB RAM.
 </PLScienceServiceDescription:hasComments>
 <PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
-<PLScienceServiceDescription:hasArtifact>Fenotipos</PLScienceServiceDescription:hasArtifact>
-<PLScienceServiceDescription:how>Transformar o grupo sanguineo nos fenotipos correspondentes</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:hasArtifact>genotipos</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Transformar o grupo sanguineo nos genotipos correspondentes</PLScienceServiceDescription:how>
 <PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
  <PLScienceServiceDescription:hasDomain>Blood Group</PLScienceServiceDescription:hasDomain>
 </owl:NamedIndividual>
