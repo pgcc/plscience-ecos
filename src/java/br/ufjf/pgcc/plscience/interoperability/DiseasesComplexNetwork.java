@@ -29,7 +29,7 @@ public class DiseasesComplexNetwork {
             //File file = new File("D:\\diseasome.gexf.xml");
             
             //CAMINHO SERVIDOR
-            File file = new File("/opt/tomcat/webapps/plscience-ecos-collab/files/diseasome.gexf.xml");
+            File file = new File("/var/www/ontologies/diseasome.gexf.xml");
             
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
@@ -60,7 +60,7 @@ public class DiseasesComplexNetwork {
             //File file = new File("D:\\diseasome.gexf.xml");
             
             //CAMINHO SERVIDOR
-            File file = new File("/opt/tomcat/webapps/plscience-ecos-collab/files/diseasome.gexf.xml");
+            File file = new File("/var/www/ontologies/diseasome.gexf.xml");
             
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             

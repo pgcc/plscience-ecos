@@ -45,7 +45,7 @@ public class ServiceRegistration {
             //File file = new File("D:\\ServiceDescriptionInf.owl");
             
             //CAMINHO SERVIDOR
-            File file = new File("/opt/tomcat/webapps/plscience-ecos-collab/files/ServiceDescriptionInf.owl");
+            File file = new File("/var/www/ontologies/ServiceDescriptionInf.owl");
             
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
