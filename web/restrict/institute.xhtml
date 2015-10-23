@@ -26,6 +26,10 @@
 
                         <h:outputText value="#{lista.acronym}" />
                     </p:column>
+                    <p:column headerText="Description" sortBy="#{lista.description}" filterBy="#{lista.description}">
+
+                        <h:outputText value="#{lista.description}" />
+                    </p:column>
                     <p:column headerText="Actions" exportable="false">
                         <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
                             <f:setPropertyActionListener target="#{entityBean.entity}"
@@ -80,7 +84,9 @@
                     Name:
                     <p:inputText id="name" value="#{entityBean.entity.name}" />  
                     Acronym:
-                    <p:inputText value="#{entityBean.entity.acronym}" />  
+                    <p:inputText id="acronym" value="#{entityBean.entity.acronym}" /> 
+                    Description:
+                    <p:inputText id="description" value="#{entityBean.entity.description}" />
                 </p:panelGrid>  
                 <br/>
                 <p:commandButton value="Record"  

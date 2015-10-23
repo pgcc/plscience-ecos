@@ -9,7 +9,7 @@
         <br/>
         <h:form id="formPrincipal" enctype="multipart/form-data">
             <div align="center">
-                <p:dataTable var="lista" value="#{workflowBean.workflows}"
+                <p:dataTable var="lista" value="#{newworkflowBean.workflows}"
                              id="tabelaWorkflow" emptyMessage="No records found"
                              paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
@@ -29,16 +29,19 @@
                     <p:column headerText="Date Version" sortBy="#{lista.dateVersion}" filterBy="#{lista.dateVersion}">
                         <h:outputText value="#{lista.dateVersion}"><f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT-3"/></h:outputText>
                     </p:column>
-                    <p:column headerText="SGWfC" sortBy="#{lista.SGWfC}" filterBy="#{lista.SGWfC}">
-                        <h:outputText value="#{lista.SGWfC}" />
+                    <p:column headerText="Number Stages:" sortBy="#{lista.numberStage}" filterBy="#{lista.numberStage}">
+                        <h:outputText value="#{lista.numberStage}" />
+                    </p:column>
+                    <p:column headerText="SGWfC" sortBy="#{lista.SGWfCidSGWfC.name}" filterBy="#{lista.SGWfCidSGWfC.name}">
+                        <h:outputText value="#{lista.SGWfCidSGWfC.name}" />
                     </p:column>
                     <p:column headerText="Actions" exportable="false">
                         <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
-                            <f:setPropertyActionListener target="#{workflowBean.workflow}"
+                            <f:setPropertyActionListener target="#{newworkflowBean.workflow}"
                                                          value="#{lista}" />
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-trash" value="Delete" onclick="PF('remove').show();"> 
-                            <f:setPropertyActionListener target="#{workflowBean.workflow}"
+                            <f:setPropertyActionListener target="#{newworkflowBean.workflow}"
                                                          value="#{lista}" />
                         </p:commandButton> 
                     </p:column>
@@ -84,38 +87,36 @@
             <p:dialog header="Record" widgetVar="record" modal="false" focus="name">
                 <p:panelGrid id="panelRecord" columns="2"> 
                     Name:
-                    <p:inputText id="name" value="#{workflowBean.workflow.name}" />  
+                    <p:inputText id="name" value="#{newworkflowBean.workflow.name}" />  
                     Description:
-                    <p:inputText value="#{workflowBean.workflow.description}" />  
+                    <p:inputText value="#{newworkflowBean.workflow.description}" />  
                     Version:
-                    <p:inputMask value="#{workflowBean.workflow.version}" mask="99.99.99"/>  
+                    <p:inputMask value="#{newworkflowBean.workflow.version}" mask="99.99.99"/>  
                     Date Version:
-                    <p:calendar id="popup" value="#{workflowBean.workflow.dateVersion}" />  
+                    <p:calendar id="popup" value="#{newworkflowBean.workflow.dateVersion}" />
+                    Number Stages:
+                    <p:inputText value="#{newworkflowBean.workflow.numberStage}" />  
                     SGWfC:
-                    <p:selectOneMenu id="sgwfc" value="#{workflowBean.workflow.SGWfC}" style="width:125px">
+                    <p:selectOneMenu id="sgwfc" value="#{newworkflowBean.workflow.SGWfCidSGWfC}" converter="sgwfcConverter">
                         <f:selectItem itemLabel="Select One" itemValue="" />
-                        <f:selectItem itemLabel="Kepler" itemValue="Kepler" />
-                        <f:selectItem itemLabel="Taverna" itemValue="Taverna" />
-                        <f:selectItem itemLabel="VisTrails" itemValue="VisTrails" />
-                        <f:selectItem itemLabel="Galaxy" itemValue="Galaxy" />
-                        <f:selectItem itemLabel="Outher" itemValue="Outher" />
+                        <f:selectItems value="#{sGWfCBean.SGWfCs}" var="sgwfcname" itemLabel="#{sgwfcname.name}" itemValue="#{sgwfcname}"/>
                     </p:selectOneMenu>
-                    
-                    Archive of Workflow:
-                    <p:fileUpload fileUploadListener="#{workflowBean.doUpload}" 
-                                  label="Search..." auto="false"/>
-                      
-                    <p:messages  severity="info" escape="false" showDetail="true" 
-                                 autoUpdate="true" closable="true"/>
-                   
+                    <ui:remove>
+                        Archive of Workflow:
+                        <p:fileUpload fileUploadListener="#{newworkflowBean.doUpload}" 
+                                      label="Search..." auto="false"/>
+
+                        <p:messages  severity="info" escape="false" showDetail="true" 
+                                     autoUpdate="true" closable="true"/>
+                    </ui:remove>
                 </p:panelGrid>  
                 <br/>
-                <p:commandButton value="Record" actionListener="#{workflowBean.record}" onclick="record.hide()" alt="Record"/> 
+                <p:commandButton value="Record" actionListener="#{newworkflowBean.record}" onclick="record.hide()" alt="Record"/> 
             </p:dialog>
             <p:dialog header="Delete" widgetVar="remove" modal="false"> 
                 Are you sure?
                 <p:commandButton value="Delete"  
-                                 actionListener="#{workflowBean.exclude}" onclick="remove.hide()" alt="Delete" /> 
+                                 actionListener="#{newworkflowBean.exclude}" onclick="remove.hide()" alt="Delete" /> 
             </p:dialog>
         </h:form>
     </ui:define>

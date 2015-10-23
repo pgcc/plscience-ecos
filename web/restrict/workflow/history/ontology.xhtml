@@ -1,0 +1,60 @@
+<ui:composition template="/WEB-INF/templates/workflowLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Information</h2>
+        <div class="row">
+            <div class="col-md-2">
+                <ui:include src="contextMenu.xhtml" />
+            </div>
+            <div class="col-md-10">
+                <h2>Information of the details</h2>
+                <h:form id="formPrincipal">
+                    <div align="center">
+                        <p:dataTable var="ont" value="#{ontologyBean.ontology}"
+                                     id="tbl" emptyMessage="No records found"
+                                     paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
+                            
+                            <p:column headerText="Information with inferences" sortBy="#{ont}" filterBy="#{ont}">
+                                <h:outputText value="#{ont}" />
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </div>
+                    <br/>
+
+                    <div align="center">
+                        <h3>Export Page Data Only</h3>
+
+                        <h:commandLink id="excel">
+                            <p:graphicImage name="./images/exports/excel.png" />
+                            <p:dataExporter type="xls" target="tbl" fileName="information" postProcessor="#{ontologyBean.postProcessXLS}" />
+                        </h:commandLink>
+
+                        <h:commandLink id="pdf">
+                            <p:graphicImage name="./images/exports/pdf.png" />
+                            <p:dataExporter type="pdf" target="tbl" fileName="information" preProcessor="#{ontologyBean.preProcessPDF}" />
+                        </h:commandLink>
+
+
+                        <h:commandLink>
+                            <p:graphicImage name="./images/exports/csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="tbl" fileName="information" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="./images/exports/xml.png" width="24"/>
+                            <p:dataExporter type="xml" target="tbl" fileName="information" />
+                        </h:commandLink>
+                    </div>
+
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

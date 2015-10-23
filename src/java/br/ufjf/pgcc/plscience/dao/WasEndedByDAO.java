@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.WasEndedBy;
@@ -15,7 +10,7 @@ import javax.persistence.Query;
  *
  * @author tassio
  */
-public class WasEndedByDAO {
+public class WasEndedByDAO extends PersistenceUtil{
 
     public static WasEndedByDAO wasEndedByDAO;
 
@@ -26,66 +21,44 @@ public class WasEndedByDAO {
         return wasEndedByDAO;
     }
 
-    /**
-     * Busca uma WasEndedBy especifica
-     *
-     * @param name
-     * @return
-     */
-    public WasEndedBy buscar(String name) {
+  public List<WasEndedBy> buscar(int idworkflow) {
         EntityManager em = PersistenceUtil.getEntityManager();
-
-        Query query = em.createQuery("select a from WasEndedBy as a where  upper(a.name)=:wasEndedBy");
-        query.setParameter("wasEndedBy", name.toUpperCase());
-
-        @SuppressWarnings("unchecked")
-        List<WasEndedBy> WasEndedBy = query.getResultList();
-        if (WasEndedBy != null && WasEndedBy.size() > 0) {
-            return WasEndedBy.get(0);
-        }
-
-        return null;
+        Query query = em.createQuery("SELECT DISTINCT wib FROM WasEndedBy wib JOIN Used used Where wib.taskidTask.idTask = used.taskidTask.idTask AND used.workflowidWorkflow.idWorkflow = :id");
+        query.setParameter("id", idworkflow);
+        return query.getResultList();
     }
 
-    /**
-     * Busca todas as WasEndedBys
-     *
-     * @return
-     */
     public List<WasEndedBy> buscarTodas() {
-       EntityManager em = PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         Query query = em.createQuery("from WasEndedBy As a");
         return query.getResultList();
     }
 
-    /**
-     * Remove uma WasEndedBy
-     *
-     * @param idWasEndedBy
-     */
     public void remover(WasEndedBy idWasEndedBy) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
-        idWasEndedBy = em.merge(idWasEndedBy);
-        em.remove(idWasEndedBy);
-        em.getTransaction().commit();
+        try {
+            idWasEndedBy = em.merge(idWasEndedBy);
+            em.remove(idWasEndedBy);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+        closeEntityManager();
     }
 
-    /**
-     * Persite uma WasEndedBy
-     *
-     * @param wasEndedBy
-     * @return
-     */
     public WasEndedBy persistir(WasEndedBy wasEndedBy) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
         try {
             wasEndedBy = em.merge(wasEndedBy);
             em.getTransaction().commit();
-            System.out.println("Registro gravado com sucesso");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
         }
+        closeEntityManager();
         return wasEndedBy;
     }
 

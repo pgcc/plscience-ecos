@@ -1,12 +1,5 @@
 package br.ufjf.pgcc.plscience.controller;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 import br.ufjf.pgcc.plscience.dao.AgentDAO;
 import br.ufjf.pgcc.plscience.model.Agent;
 import br.ufjf.pgcc.plscience.util.EncryptPasswordUtil;
@@ -44,18 +37,15 @@ public class AgentBean implements Serializable {
     Agent agent = new Agent();
 
     List agents = new ArrayList();
-    
-    //construtor
+
     public AgentBean() {
         agents = new AgentDAO().buscarTodas();
         agent = new Agent();
     }
-    
-    //Métodos dos botões 
+
     public void record(ActionEvent actionEvent) {
         new AgentDAO().persistir(agent);
         agents = new AgentDAO().buscarTodas();
-        //agent = new Agent();
     }
 
     public void save() throws IOException {
@@ -64,8 +54,7 @@ public class AgentBean implements Serializable {
             getAgent().setPassword(passwordMD5);
             new AgentDAO().persistir(getAgent());
             agents = new AgentDAO().buscarTodas();
-            //agent = new Agent();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/plscience-ecos-collab/faces/login.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/plscience/faces/login.xhtml");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Scientist registered with success!"));
         } catch (HibernateException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
@@ -77,8 +66,7 @@ public class AgentBean implements Serializable {
         agents = new AgentDAO().buscarTodas();
         agent = new Agent();
     }
-    
-    //getters and setters
+
     public Agent getAgent() {
         return agent;
     }

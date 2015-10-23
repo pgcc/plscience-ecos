@@ -1,0 +1,67 @@
+<ui:composition template="/WEB-INF/templates/experimentLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-md-2">
+                <ui:include src="contextMenu.xhtml" />
+            </div>
+            <div class="col-md-10">
+                <h2 class="page-header">Tasks x Experiment</h2>
+        <br/>
+        <h:form id="formPrincipal">
+            <div align="center">
+                <p:dataTable var="lista" value="#{usedBean.buscarexperiment(workspace.experiment.idExperiment)}"
+                             id="tabelaWorkflowhasExperiment" emptyMessage="No records found"
+                             paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
+
+                    <p:column headerText="ID" sortBy="#{lista.idUsed}" filterBy="#{lista.idUsed}">
+
+                        <h:outputText value="#{lista.idUsed}" />
+                    </p:column>
+                  
+                    <p:column headerText="Tasks" sortBy="#{lista.taskidTask.name}" filterBy="#{lista.taskidTask.name}">
+
+                        <h:outputText value="#{lista.taskidTask.name}" />
+                    </p:column>
+    
+
+                </p:dataTable>
+            </div>
+            <br/>
+       
+            <div align="center">
+                <h3>Export Page Data Only</h3>
+
+                <h:commandLink id="excel">
+                    <p:graphicImage name="./images/exports/excel.png" />
+                    <p:dataExporter type="xls" target="tabelaWorkflowhasExperiment" fileName="workflowhasExperiments" postProcessor="#{workflowhasExperimentBean.postProcessXLS}" />
+                </h:commandLink>
+
+                <h:commandLink id="pdf">
+                    <p:graphicImage name="./images/exports/pdf.png" />
+                    <p:dataExporter type="pdf" target="tabelaWorkflowhasExperiment" fileName="workflowhasExperiments" preProcessor="#{workflowhasExperimentBean.preProcessPDF}" />
+                </h:commandLink>
+
+
+                <h:commandLink>
+                    <p:graphicImage name="./images/exports/csv.png" width="24"/>
+                    <p:dataExporter type="csv" target="tabelaWorkflowhasExperiment" fileName="workflowhasExperiments" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="./images/exports/xml.png" width="24"/>
+                    <p:dataExporter type="xml" target="tabelaWorkflowhasExperiment" fileName="workflowhasExperiments" />
+                </h:commandLink>
+            </div>
+
+        </h:form>
+
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

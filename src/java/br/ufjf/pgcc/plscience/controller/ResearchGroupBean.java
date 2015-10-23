@@ -1,12 +1,5 @@
 package br.ufjf.pgcc.plscience.controller;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 import br.ufjf.pgcc.plscience.dao.ResearchGroupDAO;
 import br.ufjf.pgcc.plscience.model.ResearchGroup;
 import java.util.ArrayList;
@@ -41,14 +34,12 @@ public class ResearchGroupBean implements Serializable {
     ResearchGroup researchGroup = new ResearchGroup();
 
     List researchGroups = new ArrayList();
-    
-    //construtor
+
     public ResearchGroupBean() {
         researchGroups = new ResearchGroupDAO().buscarTodas();
         researchGroup = new ResearchGroup();
     }
-    
-    //Métodos dos botões 
+
     public void record(ActionEvent actionEvent) {
         new ResearchGroupDAO().persistir(researchGroup);
         researchGroups = new ResearchGroupDAO().buscarTodas();
@@ -60,8 +51,7 @@ public class ResearchGroupBean implements Serializable {
         researchGroups = new ResearchGroupDAO().buscarTodas();
         researchGroup = new ResearchGroup();
     }
-    
-    //getters and setters
+
     public ResearchGroup getResearchGroup() {
         return researchGroup;
     }

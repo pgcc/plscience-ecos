@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.WasStartedBy;
@@ -15,7 +10,7 @@ import javax.persistence.Query;
  *
  * @author tassio
  */
-public class WasStartedByDAO {
+public class WasStartedByDAO extends PersistenceUtil{
 
     public static WasStartedByDAO wasStartedByDAO;
 
@@ -26,66 +21,44 @@ public class WasStartedByDAO {
         return wasStartedByDAO;
     }
 
-    /**
-     * Busca uma WasStartedBy especifica
-     *
-     * @param name
-     * @return
-     */
-    public WasStartedBy buscar(String name) {
+     public List<WasStartedBy> buscar(int idworkflow) {
         EntityManager em = PersistenceUtil.getEntityManager();
-
-        Query query = em.createQuery("select a from WasStartedBy as a where  upper(a.name)=:wasStartedBy");
-        query.setParameter("wasStartedBy", name.toUpperCase());
-
-        @SuppressWarnings("unchecked")
-        List<WasStartedBy> WasStartedBy = query.getResultList();
-        if (WasStartedBy != null && WasStartedBy.size() > 0) {
-            return WasStartedBy.get(0);
-        }
-
-        return null;
+        Query query = em.createQuery("SELECT DISTINCT wib FROM WasStartedBy wib JOIN Used used Where wib.taskidTask.idTask = used.taskidTask.idTask AND used.workflowidWorkflow.idWorkflow = :id");
+        query.setParameter("id", idworkflow);
+        return query.getResultList();
     }
 
-    /**
-     * Busca todas as WasStartedBys
-     *
-     * @return
-     */
     public List<WasStartedBy> buscarTodas() {
-       EntityManager em = PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         Query query = em.createQuery("from WasStartedBy As a");
         return query.getResultList();
     }
 
-    /**
-     * Remove uma WasStartedBy
-     *
-     * @param idWasStartedBy
-     */
     public void remover(WasStartedBy idWasStartedBy) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
-        idWasStartedBy = em.merge(idWasStartedBy);
-        em.remove(idWasStartedBy);
-        em.getTransaction().commit();
+        try {
+            idWasStartedBy = em.merge(idWasStartedBy);
+            em.remove(idWasStartedBy);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+        closeEntityManager();
     }
 
-    /**
-     * Persite uma WasStartedBy
-     *
-     * @param wasStartedBy
-     * @return
-     */
     public WasStartedBy persistir(WasStartedBy wasStartedBy) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
         try {
             wasStartedBy = em.merge(wasStartedBy);
             em.getTransaction().commit();
-            System.out.println("Registro gravado com sucesso");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
         }
+        closeEntityManager();
         return wasStartedBy;
     }
 

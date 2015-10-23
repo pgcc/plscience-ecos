@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.controller;
 
 import br.ufjf.pgcc.plscience.dao.WasDerivedFromDAO;
@@ -39,13 +34,16 @@ public class WasDerivedFromBean {
 
     List wasDerivedFroms = new ArrayList();
 
-    //construtor
     public WasDerivedFromBean() {
         wasDerivedFroms = new WasDerivedFromDAO().buscarTodas();
         wasDerivedFrom = new WasDerivedFrom();
     }
 
-    //Métodos dos botões 
+    public List<WasDerivedFrom> buscarhistoricalofworkflow(int idworkflow, String type) {
+        wasDerivedFroms = (List) new WasDerivedFromDAO().buscar(idworkflow, type);
+        return wasDerivedFroms;
+    }
+
     public void record(ActionEvent actionEvent) {
         new WasDerivedFromDAO().persistir(wasDerivedFrom);
         wasDerivedFroms = new WasDerivedFromDAO().buscarTodas();
@@ -57,8 +55,7 @@ public class WasDerivedFromBean {
         wasDerivedFroms = new WasDerivedFromDAO().buscarTodas();
         wasDerivedFrom = new WasDerivedFrom();
     }
-    
-    //getters and setters
+
     public WasDerivedFrom getWasDerivedFrom() {
         return wasDerivedFrom;
     }
@@ -99,6 +96,6 @@ public class WasDerivedFromBean {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         //String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "demo" + File.separator + "images" + File.separator + "prime_logo.png";
 
-       // pdf.add(Image.getInstance(logo));
+        // pdf.add(Image.getInstance(logo));
     }
 }

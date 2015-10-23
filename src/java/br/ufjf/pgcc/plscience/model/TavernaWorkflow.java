@@ -72,10 +72,10 @@ public class TavernaWorkflow implements Serializable {
     @Column(name="created_at")
     private Date createdAt;
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tavernaWorkflow", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tavernaWorkflow", cascade = CascadeType.ALL)
     private Set<TavernaWorkflowRun> runs = new HashSet<TavernaWorkflowRun>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tavernaWorkflow", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tavernaWorkflow", cascade = CascadeType.ALL)
     private Set<TavernaWorkflowInput> inputs = new HashSet<TavernaWorkflowInput>();
         
     /**

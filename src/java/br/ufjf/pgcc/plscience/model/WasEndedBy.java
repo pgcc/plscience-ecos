@@ -46,12 +46,12 @@ public class WasEndedBy implements Serializable {
     private Date dateEnded;
     @Column(name = "Description")
     private String description;
-    @JoinColumn(name = "Activity_idActivity", referencedColumnName = "idActivity")
-    @ManyToOne(optional = false)
-    private Activity activityidActivity;
     @JoinColumn(name = "Task_idTask", referencedColumnName = "idTask")
     @ManyToOne(optional = false)
     private Task taskidTask;
+    @JoinColumn(name = "Activity_idActivity", referencedColumnName = "idActivity")
+    @ManyToOne(optional = false)
+    private Activity activityidActivity;
 
     public WasEndedBy() {
     }
@@ -84,20 +84,20 @@ public class WasEndedBy implements Serializable {
         this.description = description;
     }
 
-    public Activity getActivityidActivity() {
-        return activityidActivity;
-    }
-
-    public void setActivityidActivity(Activity activityidActivity) {
-        this.activityidActivity = activityidActivity;
-    }
-
     public Task getTaskidTask() {
         return taskidTask;
     }
 
     public void setTaskidTask(Task taskidTask) {
         this.taskidTask = taskidTask;
+    }
+
+    public Activity getActivityidActivity() {
+        return activityidActivity;
+    }
+
+    public void setActivityidActivity(Activity activityidActivity) {
+        this.activityidActivity = activityidActivity;
     }
 
     @Override

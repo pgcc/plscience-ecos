@@ -27,12 +27,12 @@ public class BloodTypeWorkflowTavernaConversion {
         
         WebServiceTask t1 = new WebServiceTask();
         t1.setName("phenotypeTranslationPrimitiveType");
-        t1.setWsdl("http://localhost:8080/plscience-ecos/rest/application.wadl");
+        t1.setWsdl("http://www.nenc.ufjf.br/plscience/rest/application.wadl");
         t1.setOperation("translate");
 
         WebServiceTask t2 = new WebServiceTask();
         t2.setName("matrixCombinationPhenotypesPrimitiveTypes");
-        t2.setWsdl("http://localhost:8080/plscience-ecos/rest/application.wadl");
+        t2.setWsdl("http://www.nenc.ufjf.br/plscience/rest/application.wadl");
         t2.setOperation("generateMatrix");
         
         {
@@ -58,7 +58,7 @@ public class BloodTypeWorkflowTavernaConversion {
         
         WebServiceTask bloodType = new WebServiceTask();
         bloodType.setName("bloodTypeProbabilityPrimitiveType");
-        bloodType.setWsdl("http://localhost:8080/plscience-ecos/rest/application.wadl");
+        bloodType.setWsdl("http://www.nenc.ufjf.br/plscience/rest/application.wadl");
         bloodType.setOperation("calculate");
         
         InputPort phenotypes = new InputPort("phenotypes");
@@ -81,8 +81,8 @@ public class BloodTypeWorkflowTavernaConversion {
         wf.addTask(bloodType);
         
         try {
-            File acme = new File("C:\\output.acme");
-            File taverna = new File("C:\\output.t2flow");
+            File acme = new File("/var/www/files/output.acme");
+            File taverna = new File("/var/www/files/output.t2flow");
             PatternLanguageWriter.writePatternLanguagemWorkflow(wf, acme);
             Parser parser = new TavernaParser();
             parser.fromPatternLanguage(acme, taverna);

@@ -39,12 +39,12 @@ public class WasAssociatedWith implements Serializable {
     private Integer idWasAssociatedWith;
     @Column(name = "Description")
     private String description;
-    @JoinColumn(name = "Agent_idAgent", referencedColumnName = "idAgent")
+    @JoinColumn(name = "Experiment_Experiment", referencedColumnName = "idExperiment")
     @ManyToOne
-    private Agent agentidAgent;
-    @JoinColumn(name = "ResearchGroup_idResearchGroup", referencedColumnName = "idResearchGroup")
+    private Experiment experimentExperiment;
+    @JoinColumn(name = "Workflow_idWorkflow", referencedColumnName = "idWorkflow")
     @ManyToOne
-    private ResearchGroup researchGroupidResearchGroup;
+    private Workflow workflowidWorkflow;
 
     public WasAssociatedWith() {
     }
@@ -69,20 +69,20 @@ public class WasAssociatedWith implements Serializable {
         this.description = description;
     }
 
-    public Agent getAgentidAgent() {
-        return agentidAgent;
+    public Experiment getExperimentExperiment() {
+        return experimentExperiment;
     }
 
-    public void setAgentidAgent(Agent agentidAgent) {
-        this.agentidAgent = agentidAgent;
+    public void setExperimentExperiment(Experiment experimentExperiment) {
+        this.experimentExperiment = experimentExperiment;
     }
 
-    public ResearchGroup getResearchGroupidResearchGroup() {
-        return researchGroupidResearchGroup;
+    public Workflow getWorkflowidWorkflow() {
+        return workflowidWorkflow;
     }
 
-    public void setResearchGroupidResearchGroup(ResearchGroup researchGroupidResearchGroup) {
-        this.researchGroupidResearchGroup = researchGroupidResearchGroup;
+    public void setWorkflowidWorkflow(Workflow workflowidWorkflow) {
+        this.workflowidWorkflow = workflowidWorkflow;
     }
 
     @Override

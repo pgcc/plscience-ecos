@@ -65,8 +65,10 @@ public class Agent implements Serializable {
     @JoinColumn(name = "Institution", referencedColumnName = "idEntity")
     @ManyToOne(optional = false)
     private br.ufjf.pgcc.plscience.model.Entity institution;
+    @OneToMany(mappedBy = "idAgent")
+    private List<Experiment> experimentList;
     @OneToMany(mappedBy = "agentidAgent")
-    private List<WasAssociatedWith> wasAssociatedWithList;
+    private List<IsPartOf> isPartOfList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentidAgent")
     private List<WasControledBy> wasControledByList;
     @OneToMany(mappedBy = "agentidAgentchef")
@@ -152,12 +154,21 @@ public class Agent implements Serializable {
     }
 
     @XmlTransient
-    public List<WasAssociatedWith> getWasAssociatedWithList() {
-        return wasAssociatedWithList;
+    public List<Experiment> getExperimentList() {
+        return experimentList;
     }
 
-    public void setWasAssociatedWithList(List<WasAssociatedWith> wasAssociatedWithList) {
-        this.wasAssociatedWithList = wasAssociatedWithList;
+    public void setExperimentList(List<Experiment> experimentList) {
+        this.experimentList = experimentList;
+    }
+
+    @XmlTransient
+    public List<IsPartOf> getIsPartOfList() {
+        return isPartOfList;
+    }
+
+    public void setIsPartOfList(List<IsPartOf> isPartOfList) {
+        this.isPartOfList = isPartOfList;
     }
 
     @XmlTransient

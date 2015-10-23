@@ -48,7 +48,7 @@ public class ResearchGroup implements Serializable {
     @Column(name = "Description")
     private String description;
     @OneToMany(mappedBy = "researchGroupidResearchGroup")
-    private List<WasAssociatedWith> wasAssociatedWithList;
+    private List<IsPartOf> isPartOfList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "researchGroupidResearchGroup")
     private List<WasGeneratedBy> wasGeneratedByList;
     @JoinColumn(name = "Agent_idAgent_chef", referencedColumnName = "idAgent")
@@ -92,12 +92,12 @@ public class ResearchGroup implements Serializable {
     }
 
     @XmlTransient
-    public List<WasAssociatedWith> getWasAssociatedWithList() {
-        return wasAssociatedWithList;
+    public List<IsPartOf> getIsPartOfList() {
+        return isPartOfList;
     }
 
-    public void setWasAssociatedWithList(List<WasAssociatedWith> wasAssociatedWithList) {
-        this.wasAssociatedWithList = wasAssociatedWithList;
+    public void setIsPartOfList(List<IsPartOf> isPartOfList) {
+        this.isPartOfList = isPartOfList;
     }
 
     @XmlTransient

@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">                
+    <h:form>
+        <p:menu style="width: 100%">
+            <p:submenu label="Tasks">
+                <p:menuitem value="Inputs" icon="ui-icon-shuffle" outcome="/restrict/workflow/execution/inputs.xhtml">
+                    <f:param name="tab" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Outputs" icon="ui-icon-extlink" outcome="/restrict/workflow/execution/outputs.xhtml">
+                    <f:param name="tab" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Task Relations" icon="ui-icon-transfer-e-w" outcome="/restrict/workflow/execution/taskrelations.xhtml">
+                    <f:param name="tab" value="2" />
+                </p:menuitem>
+            </p:submenu>
+            <p:submenu label="Runs">
+                <p:menuitem value="Started" icon="ui-icon-battery-1" outcome="/restrict/workflow/execution/started.xhtml">
+                    <f:param name="tab" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Ended" icon="ui-icon-battery-3" outcome="/restrict/workflow/execution/ended.xhtml">
+                    <f:param name="tab" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Used" icon="ui-icon-script" outcome="/restrict/workflow/execution/used.xhtml">
+                    <f:param name="tab" value="2" />
+                </p:menuitem>
+            </p:submenu>
+        </p:menu>
+    </h:form>
+</ui:composition>

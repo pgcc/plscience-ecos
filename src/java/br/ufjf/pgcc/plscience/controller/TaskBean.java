@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.controller;
 
 import br.ufjf.pgcc.plscience.dao.TaskDAO;
@@ -39,13 +34,11 @@ public class TaskBean {
 
     List tasks = new ArrayList();
 
-    //construtor
     public TaskBean() {
         tasks = new TaskDAO().buscarTodas();
         task = new Task();
     }
 
-    //Métodos dos botões 
     public void record(ActionEvent actionEvent) {
         new TaskDAO().persistir(task);
         tasks = new TaskDAO().buscarTodas();
@@ -57,8 +50,7 @@ public class TaskBean {
         tasks = new TaskDAO().buscarTodas();
         task = new Task();
     }
-    
-    //getters and setters
+
     public Task getTask() {
         return task;
     }

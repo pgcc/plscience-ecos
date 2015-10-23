@@ -37,7 +37,6 @@ public class WasRevisionOf implements Serializable {
     @Basic(optional = false)
     @Column(name = "idWasRevisionOf")
     private Integer idWasRevisionOf;
-    @Basic(optional = false)
     @Column(name = "Type")
     private String type;
     @JoinColumn(name = "RevisionOf", referencedColumnName = "idWorkflow")
@@ -52,11 +51,6 @@ public class WasRevisionOf implements Serializable {
 
     public WasRevisionOf(Integer idWasRevisionOf) {
         this.idWasRevisionOf = idWasRevisionOf;
-    }
-
-    public WasRevisionOf(Integer idWasRevisionOf, String type) {
-        this.idWasRevisionOf = idWasRevisionOf;
-        this.type = type;
     }
 
     public Integer getIdWasRevisionOf() {

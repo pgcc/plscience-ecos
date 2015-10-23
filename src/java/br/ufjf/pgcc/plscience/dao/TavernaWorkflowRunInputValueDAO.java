@@ -33,7 +33,7 @@ public class TavernaWorkflowRunInputValueDAO extends GenericDAO {
     
     public TavernaWorkflowRunInputValue save(TavernaWorkflowRunInputValue inputValue) {
         getEntityManager().getTransaction().begin();
-        inputValue.setInput(getEntityManager().merge(inputValue.getInput()));
+        inputValue.setInputValue(getEntityManager().merge(inputValue.getInputValue()));
         getEntityManager().persist(inputValue);
         getEntityManager().getTransaction().commit();
         finish();

@@ -1,62 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.controller;
 
+import br.ufjf.pgcc.plscience.dao.SGWfCDAO;
 import br.ufjf.pgcc.plscience.dao.WorkflowDAO;
+import br.ufjf.pgcc.plscience.model.SGWfC;
 import br.ufjf.pgcc.plscience.model.Workflow;
 import java.util.ArrayList;
-import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
  * @author tassio
  */
 @ManagedBean(name = "workflowBean")
-@ViewScoped
+@SessionScoped
 public class WorkflowBean {
 
     Workflow workflow = new Workflow();
+    SGWfC sgwfc = new SGWfC();
 
     List workflows = new ArrayList();
+    List sgwfcs = new ArrayList();
 
     private byte[] arquivo;
 
-    //construtor
     public WorkflowBean() {
         workflows = new WorkflowDAO().buscarTodas();
+        sgwfcs = new SGWfCDAO().buscarTodas();
         workflow = new Workflow();
+        sgwfc = new SGWfC();
     }
 
-    //Métodos dos botões 
     public void record(ActionEvent actionEvent) {
         new WorkflowDAO().persistir(workflow);
         workflows = new WorkflowDAO().buscarTodas();
@@ -85,6 +75,22 @@ public class WorkflowBean {
         this.workflows = workflows;
     }
 
+    public SGWfC getSgwfc() {
+        return sgwfc;
+    }
+
+    public void setSgwfc(SGWfC sgwfc) {
+        this.sgwfc = sgwfc;
+    }
+
+    public List getSgwfcs() {
+        return sgwfcs;
+    }
+
+    public void setSgwfcs(List sgwfcs) {
+        this.sgwfcs = sgwfcs;
+    }
+
     public void postProcessXLS(Object document) {
         HSSFWorkbook wb = (HSSFWorkbook) document;
         HSSFSheet sheet = wb.getSheetAt(0);
@@ -110,22 +116,6 @@ public class WorkflowBean {
         //String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "demo" + File.separator + "images" + File.separator + "prime_logo.png";
 
         // pdf.add(Image.getInstance(logo));
-    }
-
-    public void doUpload(FileUploadEvent fileUploadEvent) throws FileNotFoundException, IOException {
-        UploadedFile uploadedFile = fileUploadEvent.getFile();
-        String fileNameUploaded = uploadedFile.getFileName();
-        long fileSizeUploaded = uploadedFile.getSize();
-        String infoAboutFile = "<br/> File Received: <b>" + fileNameUploaded + "</b><br/>" + "File Size: <b>" + fileSizeUploaded + "</b>";
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        //ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-        //String caminho = scontext.getRealPath("/home/tassio/");
-        arquivo = fileUploadEvent.getFile().getContents();
-        //FileOutputStream fos = new FileOutputStream(caminho + fileNameUploaded);
-        FileOutputStream fos = new FileOutputStream("/home/tassio/" + fileNameUploaded);
-        //fos.write(arquivo);
-        fos.close();
-        facesContext.addMessage(null, new FacesMessage("Success", infoAboutFile));
     }
 
 }

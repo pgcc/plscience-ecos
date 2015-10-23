@@ -9,15 +9,13 @@
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
             <p:graphicImage name="/images/ajax-loader.gif" />
         </p:dialog>
-        <h1>Collaborative PL-Science</h1>
+        <h1>Ecos PL-Science ProVersion</h1>
         <h:form>  
             <p:menubar>
                 <p:menuitem value="Login" icon="ui-icon-home" url="/faces/login.xhtml" />
                 <p:submenu label="Experiments" icon="ui-icon-lightbulb">
-                    <p:menuitem value="Browse Experiments"/>
                     <p:menuitem value="Experiment Life Cycle" url="/faces/experiments/experimentLifeCycle.xhtml"/>
                 </p:submenu>
-                <p:menuitem value="Developers API" icon="ui-icon-script" />
                 <f:facet name="options">
                     <p:commandButton value="Register" icon="ui-icon-plusthick" action="scientist/newAgent.xhtml?faces-redirect=true" ajax="false" />
                 </f:facet>

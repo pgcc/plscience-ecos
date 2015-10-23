@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.Entity;
@@ -15,7 +10,7 @@ import javax.persistence.Query;
  *
  * @author tassio
  */
-public class EntityDAO {
+public class EntityDAO extends PersistenceUtil{
 
     public static EntityDAO entityDAO;
 
@@ -26,12 +21,6 @@ public class EntityDAO {
         return entityDAO;
     }
 
-    /**
-     * Busca uma especifica
-     *
-     * @param nome
-     * @return
-     */
     public Entity buscar(String nome) {
         EntityManager em = PersistenceUtil.getEntityManager();
         Query query = em.createQuery("select a from Entity As a where a.name =:nome ");
@@ -57,47 +46,38 @@ public class EntityDAO {
 
         return null;
     }
-    
-    /**
-     * Busca todas
-     *
-     * @return
-     */
+
     public List<Entity> buscarTodas() {
         EntityManager em = PersistenceUtil.getEntityManager();
         Query query = em.createQuery("from Entity As a");
         return query.getResultList();
     }
 
-    /**
-     * Remove uma entity
-     *
-     * @param entity
-     */
     public void remover(Entity entity) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
-        entity = em.merge(entity);
-        em.remove(entity);
-        em.getTransaction().commit();
+        try {
+            entity = em.merge(entity);
+            em.remove(entity);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
+        } 
+        closeEntityManager();
     }
 
-    /**
-     * Persite uma Entity
-     *
-     * @param entity
-     * @return
-     */
     public Entity persistir(Entity entity) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
         try {
             entity = em.merge(entity);
             em.getTransaction().commit();
-            //System.out.println("Registro gravado com sucesso");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
         }
+        closeEntityManager();
         return entity;
     }
 

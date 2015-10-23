@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">                
+    <h:form>
+        <p:menu style="width: 100%">
+            <p:submenu label="Information">
+                <p:menuitem value="Corrective" icon="ui-icon-check" outcome="/restrict/workflow/history/corrective.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Evolutionary" icon="ui-icon-seek-next"  outcome="/restrict/workflow/history/evolutionary.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>                    
+                <p:menuitem value="Adaptive" icon="ui-icon-transferthick-e-w"  outcome="/restrict/workflow/history/adaptive.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>                    
+                <p:menuitem value="Reengineer" icon="ui-icon-refresh"  outcome="/restrict/workflow/history/reengineer.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>                    
+            </p:submenu>
+            <p:submenu label="Information with inferences">
+                <p:menuitem value="Details" icon="ui-icon-check"  outcome="/restrict/workflow/history/ontology.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+            </p:submenu>
+        </p:menu>
+    </h:form>
+</ui:composition>

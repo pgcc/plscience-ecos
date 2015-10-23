@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.WasDerivedFrom;
@@ -15,9 +10,8 @@ import javax.persistence.Query;
  *
  * @author tassio
  */
-public class WasDerivedFromDAO {
-    
-    
+public class WasDerivedFromDAO extends PersistenceUtil {
+
     public static WasDerivedFromDAO wasDerivedFromDAO;
 
     public static WasDerivedFromDAO getInstance() {
@@ -27,57 +21,35 @@ public class WasDerivedFromDAO {
         return wasDerivedFromDAO;
     }
 
-    /**
-     * Busca uma WasDerivedFrom especifica
-     *
-     * @param name
-     * @return
-     */
-    public WasDerivedFrom buscar(String name) {
+    public List<WasDerivedFrom> buscar(int idworkflow, String type) {
         EntityManager em = PersistenceUtil.getEntityManager();
 
-        Query query = em.createQuery("select a from WasDerivedFrom as a where  upper(a.name)=:wasDerivedFrom");
-        query.setParameter("wasDerivedFrom", name.toUpperCase());
-
-        @SuppressWarnings("unchecked")
-        List<WasDerivedFrom> WasDerivedFrom = query.getResultList();
-        if (WasDerivedFrom != null && WasDerivedFrom.size() > 0) {
-            return WasDerivedFrom.get(0);
-        }
-
-        return null;
+        Query query = em.createQuery("SELECT DISTINCT wdf FROM WasDerivedFrom wdf WHERE wdf.derivedTo.idWorkflow = :id AND wdf.type= :stype");
+        query.setParameter("id", idworkflow);
+        query.setParameter("stype", type);
+        return query.getResultList();
     }
 
-    /**
-     * Busca todas as WasDerivedFroms
-     *
-     * @return
-     */
     public List<WasDerivedFrom> buscarTodas() {
-     EntityManager em = PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         Query query = em.createQuery("from WasDerivedFrom As a");
         return query.getResultList();
     }
 
-    /**
-     * Remove uma WasDerivedFrom
-     *
-     * @param idWasDerivedFrom
-     */
     public void remover(WasDerivedFrom idWasDerivedFrom) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
-        idWasDerivedFrom = em.merge(idWasDerivedFrom);
-        em.remove(idWasDerivedFrom);
-        em.getTransaction().commit();
+        try {
+            idWasDerivedFrom = em.merge(idWasDerivedFrom);
+            em.remove(idWasDerivedFrom);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+        closeEntityManager();
     }
 
-    /**
-     * Persite uma WasDerivedFrom
-     *
-     * @param wasDerivedFrom
-     * @return
-     */
     public WasDerivedFrom persistir(WasDerivedFrom wasDerivedFrom) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
@@ -85,10 +57,12 @@ public class WasDerivedFromDAO {
             wasDerivedFrom = em.merge(wasDerivedFrom);
             em.getTransaction().commit();
             System.out.println("Registro gravado com sucesso");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
         }
+        closeEntityManager();
         return wasDerivedFrom;
     }
 
-    
 }

@@ -25,15 +25,6 @@
                     <p:column headerText="Description" sortBy="#{lista.description}" filterBy="#{lista.description}">
                         <h:outputText value="#{lista.description}" />
                     </p:column>
-                    <p:column headerText="Started" sortBy="#{lista.started}" filterBy="#{lista.started}">
-                        <h:outputText value="#{lista.started}"><f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" timeZone="GMT-3"/></h:outputText>
-                    </p:column>
-                    <p:column headerText="Ended" sortBy="#{lista.ended}" filterBy="#{lista.ended}">
-                        <h:outputText value="#{lista.ended}" ><f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" timeZone="GMT-3"/></h:outputText>
-                    </p:column>
-                    <p:column headerText="Workflow" sortBy="#{lista.workflowidWorkflow.name}" filterBy="#{lista.workflowidWorkflow.name}">
-                        <h:outputText value="#{lista.workflowidWorkflow.name}" />
-                    </p:column>
                     <p:column headerText="Actions" exportable="false">
                         <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
                             <f:setPropertyActionListener target="#{taskBean.task}"
@@ -48,12 +39,10 @@
                 </p:dataTable>
             </div>
             <br/>
-            <ui:remove>
-                <p:column>
-                    <p:commandButton icon="ui-icon-plus" value="New" onclick="PF('record').show();">  
-                    </p:commandButton> 
-                </p:column>
-            </ui:remove>
+            <p:column>
+                <p:commandButton icon="ui-icon-plus" value="New" onclick="PF('record').show();">  
+                </p:commandButton> 
+            </p:column>
             <div align="center">
                 <h3>Export Page Data Only</h3>
 
@@ -91,17 +80,8 @@
                     <p:inputText id="name" value="#{taskBean.task.name}" />  
                     Type:
                     <p:inputText value="#{taskBean.task.type}" />  
-                    Deswcription:
+                    Description:
                     <p:inputText value="#{taskBean.task.description}" />
-                    Started:
-                    <p:calendar id="started" value="#{taskBean.task.started}" pattern="MM/dd/yyyy HH:mm:ss" />  
-                    Ended:
-                    <p:calendar id="ended" value="#{taskBean.task.ended}" pattern="MM/dd/yyyy HH:mm:ss"/>
-                    Workflow:
-                    <p:selectOneMenu id="workflow" value="#{workflowhasExperimentBean.workflowhasExperiment.workflowidWorkflow}" converter="workflowConverter">
-                        <f:selectItem itemLabel="Select One" itemValue="" />
-                        <f:selectItems value="#{workflowBean.workflows}" var="workflowname" itemLabel="#{workflowname.name}" itemValue="#{workflowname}" />
-                    </p:selectOneMenu>
                 </p:panelGrid>    
                 <br/>
                 <p:commandButton value="Record"  

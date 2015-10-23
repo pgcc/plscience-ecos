@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -38,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Workflow.findByDescription", query = "SELECT w FROM Workflow w WHERE w.description = :description"),
     @NamedQuery(name = "Workflow.findByVersion", query = "SELECT w FROM Workflow w WHERE w.version = :version"),
     @NamedQuery(name = "Workflow.findByDateVersion", query = "SELECT w FROM Workflow w WHERE w.dateVersion = :dateVersion"),
-    @NamedQuery(name = "Workflow.findBySGWfC", query = "SELECT w FROM Workflow w WHERE w.sGWfC = :sGWfC")})
+    @NamedQuery(name = "Workflow.findByNumberStage", query = "SELECT w FROM Workflow w WHERE w.numberStage = :numberStage")})
 public class Workflow implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,26 +53,32 @@ public class Workflow implements Serializable {
     private String name;
     @Column(name = "Description")
     private String description;
-    @Basic(optional = false)
     @Column(name = "Version")
     private String version;
     @Column(name = "DateVersion")
     @Temporal(TemporalType.DATE)
     private Date dateVersion;
-    @Column(name = "SGWfC")
-    private String sGWfC;
+    @Column(name = "NumberStage")
+    private Integer numberStage;
+    @OneToMany(mappedBy = "workflowidWorkflow")
+    private List<WasAssociatedWith> wasAssociatedWithList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workflowidWorkflow")
-    private List<Task> taskList;
+    private List<WasEndedByWT> wasEndedByWTList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "derivedOf")
     private List<WasDerivedFrom> wasDerivedFromList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "derivedTo")
     private List<WasDerivedFrom> wasDerivedFromList1;
-    @OneToMany(mappedBy = "workflowidWorkflow")
-    private List<WasAttributedTo> wasAttributedToList;
+    @JoinColumn(name = "SGWfC_idSGWfC", referencedColumnName = "idSGWfC")
+    @ManyToOne
+    private SGWfC sGWfCidSGWfC;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "workflowidWorkflow")
+    private List<WasStartedByWT> wasStartedByWTList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "revisionOf")
     private List<WasRevisionOf> wasRevisionOfList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "revisionTo")
     private List<WasRevisionOf> wasRevisionOfList1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "workflowidWorkflow")
+    private List<Used> usedList;
 
     public Workflow() {
     }
@@ -79,10 +87,9 @@ public class Workflow implements Serializable {
         this.idWorkflow = idWorkflow;
     }
 
-    public Workflow(Integer idWorkflow, String name, String version) {
+    public Workflow(Integer idWorkflow, String name) {
         this.idWorkflow = idWorkflow;
         this.name = name;
-        this.version = version;
     }
 
     public Integer getIdWorkflow() {
@@ -125,21 +132,30 @@ public class Workflow implements Serializable {
         this.dateVersion = dateVersion;
     }
 
-    public String getSGWfC() {
-        return sGWfC;
+    public Integer getNumberStage() {
+        return numberStage;
     }
 
-    public void setSGWfC(String sGWfC) {
-        this.sGWfC = sGWfC;
+    public void setNumberStage(Integer numberStage) {
+        this.numberStage = numberStage;
     }
 
     @XmlTransient
-    public List<Task> getTaskList() {
-        return taskList;
+    public List<WasAssociatedWith> getWasAssociatedWithList() {
+        return wasAssociatedWithList;
     }
 
-    public void setTaskList(List<Task> taskList) {
-        this.taskList = taskList;
+    public void setWasAssociatedWithList(List<WasAssociatedWith> wasAssociatedWithList) {
+        this.wasAssociatedWithList = wasAssociatedWithList;
+    }
+
+    @XmlTransient
+    public List<WasEndedByWT> getWasEndedByWTList() {
+        return wasEndedByWTList;
+    }
+
+    public void setWasEndedByWTList(List<WasEndedByWT> wasEndedByWTList) {
+        this.wasEndedByWTList = wasEndedByWTList;
     }
 
     @XmlTransient
@@ -160,13 +176,21 @@ public class Workflow implements Serializable {
         this.wasDerivedFromList1 = wasDerivedFromList1;
     }
 
-    @XmlTransient
-    public List<WasAttributedTo> getWasAttributedToList() {
-        return wasAttributedToList;
+    public SGWfC getSGWfCidSGWfC() {
+        return sGWfCidSGWfC;
     }
 
-    public void setWasAttributedToList(List<WasAttributedTo> wasAttributedToList) {
-        this.wasAttributedToList = wasAttributedToList;
+    public void setSGWfCidSGWfC(SGWfC sGWfCidSGWfC) {
+        this.sGWfCidSGWfC = sGWfCidSGWfC;
+    }
+
+    @XmlTransient
+    public List<WasStartedByWT> getWasStartedByWTList() {
+        return wasStartedByWTList;
+    }
+
+    public void setWasStartedByWTList(List<WasStartedByWT> wasStartedByWTList) {
+        this.wasStartedByWTList = wasStartedByWTList;
     }
 
     @XmlTransient
@@ -185,6 +209,15 @@ public class Workflow implements Serializable {
 
     public void setWasRevisionOfList1(List<WasRevisionOf> wasRevisionOfList1) {
         this.wasRevisionOfList1 = wasRevisionOfList1;
+    }
+
+    @XmlTransient
+    public List<Used> getUsedList() {
+        return usedList;
+    }
+
+    public void setUsedList(List<Used> usedList) {
+        this.usedList = usedList;
     }
 
     @Override

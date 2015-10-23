@@ -23,6 +23,7 @@
  */
 package br.ufjf.pgcc.plscience.bean.experiments;
 
+import br.ufjf.pgcc.plscience.bean.experiments.prototyping.ExperimentPrototyping;
 import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.model.ExperimentServices;
@@ -59,7 +60,7 @@ public class Workspace implements Serializable {
         exServ = new ArrayList<ExperimentServices>();
         List<ExperimentServices> allExServ = new ExperimentDAO().getAllExperimentServices();
         for(ExperimentServices es: allExServ){
-            if(null!=es.getExperiment() && null!=es.getExperiment().getIdExperiment() && es.getExperiment().getIdExperiment().equals(experiment.getIdExperiment())){
+            if(null!=es.getExperiment() && null!=es.getExperiment().getIdExperiment()&& es.getExperiment().getIdExperiment().equals(experiment.getIdExperiment())){
                 exServ.add(es);
             }
         }
@@ -105,19 +106,6 @@ public class Workspace implements Serializable {
         this.numberStages = numberStages;
     }
     
-//    public void drawStages(String nStages){
-//        numberStages = nStages;
-//        for(int i=0;i<Integer.valueOf(nStages);i++){
-//            ExperimentServices exS = new ExperimentServices();
-//            exS.setId((long) 0);
-//            exS.setStage(i);
-//            exServ.add(exS);
-//        }
-//        ExperimentDAO exDao = new ExperimentDAO();
-//        exDao.updateNumberStages(experiment.getIdExperiment(), Integer.parseInt(nStages));
-//            
-//    }
-    
     public void drawStages(String nStages){
         numberStages = nStages;
         Experiment ex = new Experiment();
@@ -125,11 +113,10 @@ public class Workspace implements Serializable {
         
         //apagando os existentes
         for(ExperimentServices e: exServ){
-            ex = new Experiment();
-            //ex.setId(experiment.getId());
-            ex.setIdExperiment(experiment.getIdExperiment());
-            e.setExperiment(ex);
-            exDao.recreateExperimentServices(e);
+             ex = new Experiment();
+             ex.setIdExperiment(experiment.getIdExperiment());
+             e.setExperiment(ex);
+             exDao.recreateExperimentServices(e);
         }
         exServ = new ArrayList<ExperimentServices>();
         //criando os novos
@@ -148,8 +135,9 @@ public class Workspace implements Serializable {
             //
             exServ.add(exS);
         }
-        
-        exDao.updateNumberStages(experiment.getIdExperiment(), Integer.parseInt(nStages));     
+    
+        exDao.updateNumberStages(experiment.getIdExperiment(), Integer.parseInt(nStages));
+            
     }
     
      public void update(){

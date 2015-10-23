@@ -24,10 +24,7 @@ public class DiseasesComplexNetwork {
     public List<String> loadConcepts(){
         List<String> diseases = new ArrayList();
          try {
-             
-            //CAMINHO LOCAL
-            //File file = new File("D:\\diseasome.gexf.xml");
-            
+         
             //CAMINHO SERVIDOR
             File file = new File("/var/www/ontologies/diseasome.gexf.xml");
             
@@ -55,10 +52,7 @@ public class DiseasesComplexNetwork {
          List<String> ids = new ArrayList();
          StringBuilder  sb = new StringBuilder();
         try {
-           
-            //CAMINHO LOCAL
-            //File file = new File("D:\\diseasome.gexf.xml");
-            
+        
             //CAMINHO SERVIDOR
             File file = new File("/var/www/ontologies/diseasome.gexf.xml");
             

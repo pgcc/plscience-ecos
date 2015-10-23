@@ -5,16 +5,8 @@
  */
 package br.ufjf.pgcc.plscience.interoperability;
 
-import br.ufjf.pgcc.plscience.vo.ContextVO;
-import br.ufjf.pgcc.plscience.vo.HardwareVO;
-import br.ufjf.pgcc.plscience.vo.PragmaticVO;
 import br.ufjf.pgcc.plscience.vo.ScientistVO;
-import br.ufjf.pgcc.plscience.vo.SemanticVO;
 import br.ufjf.pgcc.plscience.vo.ServiceDescriptionVO;
-import br.ufjf.pgcc.plscience.vo.ServiceVO;
-import br.ufjf.pgcc.plscience.vo.SyntacticVO;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -393,94 +385,5 @@ public class SimilarityCalculation1 {
         return similarity;
         
     }
-    
-     /*public static void main(String[] args) throws IOException {
-        
-         ServiceDescriptionVO sdesc = new ServiceDescriptionVO();
-         ServiceRecovery sr = new ServiceRecovery();
-      
-         List<ServiceDescriptionVO> services = sr.Recovery();
-         
-         // Testando registro de serviço
-         
-         
-         //add sintática
-         SyntacticVO sync = new SyntacticVO();
-         sync.setHasAddress("endereco");
-         sync.setHasReturn("bollean");
-         
-         //add semântica
-         SemanticVO sem = new SemanticVO();
-         ArrayList<String> frs = new ArrayList();
-         frs.add("cadastrar usuario");
-         sem.setHasFunctionalRequirements(frs);
-         sem.setHasSemanticReception("conceito a");
-         sem.setHasSemanticRepresentation("conceito b");
-         sem.setHasSemanticReturn("conceito c");
-         
-         //add cientista
-         ScientistVO st1 = new ScientistVO();
-         st1.setHasCompleteName("joao");
-         st1.setHasEmail("joao@couves");
-         st1.setHasInstitutionFiliation("HU");
-         
-         ScientistVO st2 = new ScientistVO();
-         st2.setHasCompleteName("joana");
-         st2.setHasEmail("joana@couves");
-         st2.setHasInstitutionFiliation("HU");
-         
-         ArrayList<ScientistVO> sts = new ArrayList<ScientistVO>();
-         sts.add(st1);
-         sts.add(st2);
-         
-         //add hardware
-         HardwareVO h = new HardwareVO();
-         h.setHasCPU("Quad Core");
-         h.setHasOperationalSystem("Linux");
-         h.setHasRAM("6");
-         h.setHasROM("500");
-         
-         
-         //add contexto
-         ContextVO c = new ContextVO();
-         c.setHasArtifact("Prot 100");
-         c.setHasComments("Blbl");
-         c.setHasDomain("DNA");
-         c.setHasInvolved(sts);
-         c.setHasLicense("public");
-         c.setHasReputation("5");
-         c.setHasRestriction("restric");
-         c.setHow("assim");
-         c.setWhat("isso");
-         c.setWhen("aquele dia");
-         c.setWhere("la");
-         
-         // Arrumar o who para um cientista. Arrumar como pegar o nome dos individuos, 
-         //colocar um propriedade para poder acessar depois.
-         c.setWho("");
-         
-         // add pragmatic
-         PragmaticVO p = new PragmaticVO();
-         ArrayList<String> nfrs = new ArrayList<String>();
-         nfrs.add("nao pode isso");
-         p.setHasNonFunctionalRequirement(nfrs);
-         p.setIncludesContext(c);
-         p.setIncludesHardware(h);
-     
-         
-         sdesc.setName("testeFran");
-         sdesc.setIncludesSyntactic(sync);
-         sdesc.setIncludesSemantic(sem);
-         sdesc.setIncludesPragmatic(p);
-         
-         SimilarityCalculation1 sc1 = new SimilarityCalculation1();
-         System.out.println(sc1.calculate(sdesc, sdesc, 1, 1, 1));
-         System.out.println(sc1.calculate(sdesc, services.get(0), 1, 1, 1));
-         System.out.println(sc1.calculate(sdesc, services.get(1), 1, 1, 1));
-         
-     
-         
-
-    } */
     
 }

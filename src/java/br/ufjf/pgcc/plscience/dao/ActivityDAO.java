@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.Activity;
@@ -15,7 +10,7 @@ import javax.persistence.Query;
  *
  * @author tassio
  */
-public class ActivityDAO {
+public class ActivityDAO extends PersistenceUtil {
 
     public static ActivityDAO activityDAO;
 
@@ -26,17 +21,11 @@ public class ActivityDAO {
         return activityDAO;
     }
 
-    /**
-     * Busca uma Activity especifica
-     *
-     * @param name
-     * @return
-     */
-    public Activity buscar(String name) {
+    public Activity buscar(int id) {
         EntityManager em = PersistenceUtil.getEntityManager();
 
-        Query query = em.createQuery("select a from Activity as a where  upper(a.name)=:activity");
-        query.setParameter("activity", name.toUpperCase());
+        Query query = em.createQuery("select a from Activity as a where  a.idActivity=:activity");
+        query.setParameter("activity", id);
 
         @SuppressWarnings("unchecked")
         List<Activity> Activity = query.getResultList();
@@ -47,45 +36,37 @@ public class ActivityDAO {
         return null;
     }
 
-    /**
-     * Busca todas as Activitys
-     *
-     * @return
-     */
     public List<Activity> buscarTodas() {
-       EntityManager em = PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         Query query = em.createQuery("from Activity As a");
         return query.getResultList();
     }
 
-    /**
-     * Remove uma Activity
-     *
-     * @param idActivity
-     */
     public void remover(Activity idActivity) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
-        idActivity = em.merge(idActivity);
-        em.remove(idActivity);
-        em.getTransaction().commit();
+        try {
+            idActivity = em.merge(idActivity);
+            em.remove(idActivity);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+        closeEntityManager();
     }
 
-    /**
-     * Persite uma Activity
-     *
-     * @param activity
-     * @return
-     */
     public Activity persistir(Activity activity) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
         try {
             activity = em.merge(activity);
             em.getTransaction().commit();
-            System.out.println("Registro gravado com sucesso");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
         }
+        closeEntityManager();
         return activity;
     }
 

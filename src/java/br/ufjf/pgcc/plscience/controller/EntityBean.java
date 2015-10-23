@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.controller;
 
 import br.ufjf.pgcc.plscience.dao.EntityDAO;
@@ -40,13 +35,11 @@ public class EntityBean implements Serializable{
 
     List entitys = new ArrayList();
 
-    //construtor
     public EntityBean() {
         entitys = new EntityDAO().buscarTodas();
         entity = new Entity();
     }
 
-    //Métodos dos botões 
     public void record(ActionEvent actionEvent) {
         new EntityDAO().persistir(entity);
         entitys = new EntityDAO().buscarTodas();
@@ -58,8 +51,7 @@ public class EntityBean implements Serializable{
         entitys = new EntityDAO().buscarTodas();
         entity = new Entity();
     }
-    
-    //getters and setters
+
     public Entity getEntity() {
         return entity;
     }

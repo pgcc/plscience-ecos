@@ -12,13 +12,11 @@ import br.ufjf.pgcc.plscience.vo.PragmaticVO;
 import br.ufjf.pgcc.plscience.vo.ScientistVO;
 import br.ufjf.pgcc.plscience.vo.SemanticVO;
 import br.ufjf.pgcc.plscience.vo.ServiceDescriptionVO;
-import br.ufjf.pgcc.plscience.vo.ServiceVO;
 import br.ufjf.pgcc.plscience.vo.SyntacticVO;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,10 +32,7 @@ public class ServiceRecovery {
         
         try {
             StringBuilder  sb = new StringBuilder();
-            
-            //CAMINHO LOCAL
-            //File file = new File("D:\\ServiceDescriptionInf.owl");
-            
+           
             //CAMINHO NO SERVIDOR
             File file = new File("/var/www/ontologies/ServiceDescriptionInf.owl");
             
@@ -305,11 +300,4 @@ public class ServiceRecovery {
         return scie;
     }
     
-  
-    /* public static void main(String[] args) throws IOException {
-         ServiceRecovery sr = new ServiceRecovery();
-      
-         sr.Recovery();
-        
-    }*/
 }

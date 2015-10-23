@@ -1,28 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <ui:include src="/WEB-INF/templates/head.xhtml" />
-        <h:outputStylesheet library="css" name="workspace.css" />
-        <h:outputStylesheet library="css" name="vis.min.css" />
-        <h:outputScript library="js" name="guid.js" />
-        <h:outputScript library="js" name="workflow.js" />
-        <h:outputScript library="js" name="vis.min.js" />
     </h:head>
     <h:body>
         <ui:include src="/WEB-INF/templates/header.xhtml" />
-        <p:layout>
-            <p:layoutUnit id="palette" position="east" size="250" header="Palette" resizable="true" collapsible="true">
-                <p:commandButton value="Add Workflow" id="newWorkflow" type="button" />
-                <p:commandButton value="Add Task" id="newTask" type="button" />
-            </p:layoutUnit>
-            <p:layoutUnit position="center">
-                <ui:insert name="content"></ui:insert>
-            </p:layoutUnit>
-        </p:layout>
+        <div class="container-fluid" id="main">
+            <h2 class="page-header">Workflow</h2>
+            <h:form>
+                <p:tabMenu activeIndex="#{param.tab}">
+                    <p:menuitem value="Information" outcome="/restrict/workflow/workflow.xhtml">
+                        <f:param name="tab" value="0" />
+                    </p:menuitem>
+                    <p:menuitem value="Tasks" outcome="/restrict/workflow/tasks/tasks.xhtml">
+                        <f:param name="tab" value="1" />
+                    </p:menuitem>
+                    <p:menuitem value="Execution" outcome="/restrict/workflow/execution/execution.xhtml">
+                        <f:param name="tab" value="2" />
+                    </p:menuitem>
+                    <p:menuitem value="History" outcome="/restrict/workflow/history/historyversion.xhtml">
+                        <f:param name="tab" value="3" />
+                    </p:menuitem>
+                    <p:menuitem value="Run Results" outcome="/restrict/workflow/runresults/results.xhtml">
+                        <f:param name="tab" value="4" />
+                    </p:menuitem>
+                </p:tabMenu>
+            </h:form>
+            <ui:insert name="content"></ui:insert>
+        </div>
     </h:body>
 </html>

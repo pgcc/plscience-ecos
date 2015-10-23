@@ -1,0 +1,38 @@
+<ui:composition template="/WEB-INF/templates/workflowLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputLabel value="Id:" styleClass="panelGridLabel" />
+                <h:outputText value="#{workflowBean.workflow.idWorkflow}" />
+
+                <h:outputLabel value="Title:" styleClass="panelGridLabel" />
+                <h:outputText value="#{workflowBean.workflow.name}" />
+
+                <h:outputLabel value="Data Version:" styleClass="panelGridLabel" />
+                <h:outputText value="#{workflowBean.workflow.dateVersion}">
+                    <f:convertDateTime pattern="MM/dd/yyyy" /> 
+                </h:outputText>
+
+                <h:outputLabel value="Version:" styleClass="panelGridLabel" />
+                <h:outputText value="#{workflowBean.workflow.version}"> 
+                    <f:convertDateTime pattern="MM/dd/yyyy" /> 
+                </h:outputText>
+
+                <h:outputLabel value="Number Stages:" styleClass="panelGridLabel" />
+                <h:outputText value="#{workflowBean.workflow.numberStage}" />
+
+                <h:outputLabel value="SGWfC:" styleClass="panelGridLabel" />
+                <h:outputText value="#{workflowBean.workflow.SGWfCidSGWfC.name}" />
+
+                <h:outputLabel value="Description:" styleClass="panelGridLabel" />
+                <h:outputText value="#{workflowBean.workflow.description}" />
+
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

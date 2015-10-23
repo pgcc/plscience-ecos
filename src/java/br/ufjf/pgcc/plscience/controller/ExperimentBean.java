@@ -1,12 +1,5 @@
 package br.ufjf.pgcc.plscience.controller;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.model.Experiment;
 import java.util.ArrayList;
@@ -41,14 +34,12 @@ public class ExperimentBean implements Serializable {
     Experiment experiment = new Experiment();
 
     List experiments = new ArrayList();
-    
-    //construtor
+
     public ExperimentBean() {
         experiments = new ExperimentDAO().getAll();
         experiment = new Experiment();
     }
-    
-    //Métodos dos botões 
+
     public void record(ActionEvent actionEvent) {
         new ExperimentDAO().save(experiment);
         experiments = new ExperimentDAO().getAll();
@@ -60,8 +51,7 @@ public class ExperimentBean implements Serializable {
         experiments = new ExperimentDAO().getAll();
         experiment = new Experiment();
     }
-    
-    //getters and setters
+
     public Experiment getExperiment() {
         return experiment;
     }

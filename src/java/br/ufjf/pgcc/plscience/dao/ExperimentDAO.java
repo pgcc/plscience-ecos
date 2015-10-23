@@ -36,7 +36,7 @@ import javax.persistence.Query;
  * @author vitorfs
  */
 public class ExperimentDAO extends GenericDAO {
-        
+
     public static ExperimentDAO expirimentDAO;
 
     public static ExperimentDAO getInstance() {
@@ -46,15 +46,9 @@ public class ExperimentDAO extends GenericDAO {
         return expirimentDAO;
     }
 
-    /**
-     * Busca uma especifica
-     *
-     * @param nome
-     * @return
-     */
     public Experiment getExperimentByName(String nome) {
         EntityManager em = PersistenceUtil.getEntityManager();
-        Query query = em.createQuery("select a from Experiment As a where a.description =:nome ");
+        Query query = em.createQuery("select a from Experiment As a where a.name =:nome ");
         query.setParameter("nome", nome.toUpperCase());
 
         List<Experiment> expiriments = query.getResultList();
@@ -64,86 +58,26 @@ public class ExperimentDAO extends GenericDAO {
 
         return null;
     }
-
-    /**
-     * Busca todas
-     *
-     * @return
-     */
-    public List<Experiment> getAll() {
-        EntityManager em = PersistenceUtil.getEntityManager();
-        Query query = em.createQuery("from Experiment As a");
-        return (List<Experiment>) query.getResultList();
-    }
-
-    /**
-     * Remove uma experiment
-     *
-     * @param expiriment
-     */
+    
     public void remove(Experiment expiriment) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
-        expiriment = em.merge(expiriment);
-        em.remove(expiriment);
-        em.getTransaction().commit();
-    }
-
-    /**
-     * Persite uma Experiment 
-     *
-     * @param experiment 
-     * @return
-     */
-    public Experiment save(Experiment experiment) {
-        EntityManager em = PersistenceUtil.getEntityManager();
-        em.getTransaction().begin();
         try {
-            experiment = em.merge(experiment);
+            expiriment = em.merge(expiriment);
+            em.remove(expiriment);
             em.getTransaction().commit();
-            System.out.println("Registro gravado com sucesso");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
         }
-        return experiment;
+        finish();
     }
     
-    /**
-     * Persite uma ExperimentServices
-     * 
-     * @param experimentServices
-     * @return
-     */
-    public ExperimentServices saveExperimentService(ExperimentServices experimentServices) {
-        EntityManager em = PersistenceUtil.getEntityManager();
-        em.getTransaction().begin();
-        try {
-            experimentServices = em.merge(experimentServices);
-            em.getTransaction().commit();
-            System.out.println("Registro gravado com sucesso");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return experimentServices;
-    }
-    
-    /**
-     * Busca uma especifica
-     *
-     * @param nome
-     * @return
-     */
-    public Experiment getExperimentById(Integer idExperiment) {
-        EntityManager em = PersistenceUtil.getEntityManager();
-        Query query = em.createQuery("select a from Experiment As a where a.idExperiment =:idExperiment ");
-        query.setParameter("idExperiment", idExperiment);
-
-        List<Experiment> expiriments = query.getResultList();
-        if (expiriments != null && expiriments.size() > 0) {
-            return expiriments.get(0);
-        }
-
-        return null;
+    public void save(Experiment experiment) {
+        getEntityManager().getTransaction().begin();
+        getEntityManager().persist(experiment);
+        getEntityManager().getTransaction().commit();
+        finish();
     }
     
     public void updateExperimentServices(ExperimentServices experimentServ) {
@@ -153,7 +87,7 @@ public class ExperimentDAO extends GenericDAO {
         //Experiment ex = getId(experimentServ.getExperiment().getId());
         experimentServ.setExperiment(ex);
         
-        //Verificar se experimentServ é novo ou não
+        //Verificar se experimentServ � novo ou n�o
         if(experimentServ.getId().equals((long) 0)){
             //Salvando experiment services
             experimentServ.setId(null);
@@ -176,32 +110,13 @@ public class ExperimentDAO extends GenericDAO {
         }
     }
     
-    public List<ExperimentServices> getAllExperimentServices() {
-        Query query = getEntityManager().createQuery("SELECT e FROM ExperimentServices AS e");
-        List<ExperimentServices> experimentServices = query.getResultList();
-        finish();
-        return experimentServices;
-    }
-    
-    public void updateNumberStages(Integer id, Integer n){
-        //Recuperando id
-        Experiment ex = getEntityManager().find(Experiment.class,id);
-        
-        getEntityManager().getTransaction().begin();
-        ex.setNumberStages(n);
-        //getEntityManager().merge(experiment);
-        getEntityManager().getTransaction().commit();
-        finish();    
-        
-    }
-    
     public void recreateExperimentServices(ExperimentServices experimentServ) {
         
         //Recuperando Experiment pelo id
-        Experiment ex = getExperimentById(experimentServ.getExperiment().getIdExperiment());
+        Experiment ex = getId(experimentServ.getExperiment().getIdExperiment());
         experimentServ.setExperiment(ex);
         
-        //Verificar se experimentServ é novo ou não
+        //Verificar se experimentServ � novo ou n�o
         if(experimentServ.getId().equals((long) 0)){
             //Salvando experiment services
             experimentServ.setId(null);
@@ -220,17 +135,127 @@ public class ExperimentDAO extends GenericDAO {
             getEntityManager().getTransaction().commit();
             finish(); 
         }
+        
+        
+        //Recuperando id
+       /* ExperimentServices exServ = ExperimentServicesGetbyNameandStage(experiment.getExperimentServices().getService_name(),experiment.getExperimentServices().getStage());
+        
+        getEntityManager().getTransaction().begin();
+        Experiment ex = getEntityManager().find(Experiment.class, experiment.getId());
+        ex.setExperimentServices(exServ);
+        //getEntityManager().merge(experiment);
+        getEntityManager().getTransaction().commit();
+        finish();    */
     }
-
-    public ExperimentServices findServices(Integer stage, Integer idExperiment) {
-        EntityManager em = PersistenceUtil.getEntityManager();
-        Query query = em.createQuery("select a from ExperimentServices As a where a.stage =:stage and a.experiment.idExperiment =:idExperiment ");
+    
+    public void updateNumberStages(int id, Integer n){
+        //Recuperando id
+        Experiment ex = getEntityManager().find(Experiment.class,id);
+        
+        getEntityManager().getTransaction().begin();
+        ex.setNumberStages(n);
+        //getEntityManager().merge(experiment);
+        getEntityManager().getTransaction().commit();
+        finish();    
+        
+    }
+    
+    public void update(Experiment experiment){
+        getEntityManager().getTransaction().begin();
+        getEntityManager().merge(experiment);
+        getEntityManager().getTransaction().commit();
+        finish();
+        
+    }
+    
+    public List<Experiment> getAll() {
+        Query query = getEntityManager().createQuery("SELECT e FROM Experiment e");
+        List<Experiment> experiments = query.getResultList();
+        finish();
+        return experiments;
+    }
+    
+     public List<ExperimentServices> getAllExperimentServices() {
+        Query query = getEntityManager().createQuery("SELECT e FROM ExperimentServices e");
+        List<ExperimentServices> experimentServices = query.getResultList();
+        finish();
+        return experimentServices;
+    }
+    
+    public Experiment getId(int id) {
+        Query query = getEntityManager().createQuery("SELECT e FROM Experiment e  where e.idExperiment =:nome");
+        List<Experiment> experiments = query.getResultList();
+        Experiment experiment = new Experiment();
+        for(Experiment e: experiments){
+            if(e.getIdExperiment().equals(id)){
+                experiment = e;
+            }
+        }
+        finish();
+        return experiment;
+    }
+    
+    public ExperimentServices ExperimentServicesGetbyNameandStage(String name, Integer stage){
+        Query query = getEntityManager().createQuery("SELECT e FROM ExperimentServices e");
+        List<ExperimentServices> experiments = query.getResultList();
+        ExperimentServices experimentService = new ExperimentServices();
+        for(ExperimentServices e: experiments){
+            if(e.getService_name().equals(name) && e.getStage().equals(stage)){
+                experimentService = e;
+            }
+        }
+        finish();
+        return experimentService;
+    }
+    
+    /**
+     * Persite uma ExperimentServices
+     * 
+     * @param experimentServices
+     * @return
+     */
+    public ExperimentServices saveExperimentService(ExperimentServices experimentServices) {
+        
+        getEntityManager().getTransaction().begin();
+        try {
+            experimentServices = getEntityManager().merge(experimentServices);
+            getEntityManager().getTransaction().commit();
+            System.out.println("Registro gravado com sucesso");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finish();
+        return experimentServices;
+    }
+    
+    public ExperimentServices findServices(Integer stage, Long id) {
+        
+        Query query = getEntityManager().createQuery("select a from ExperimentServices As a where a.stage =:stage and a.experiment.id =:id ");
         query.setParameter("stage", stage);
-        query.setParameter("idExperiment", idExperiment);
+        query.setParameter("id", id);
 
         List<ExperimentServices> experiments = query.getResultList();
         if (experiments != null && experiments.size() > 0) {
             return experiments.get(0);
+        }
+
+        return null;
+    }
+    
+    /**
+     * Busca uma especifica
+     *
+     * @param id
+     * @return
+     */
+    public Experiment getExperimentById(int id) {
+        
+        Query query = getEntityManager().createQuery("select a from Experiment As a where a.id =:id ");
+        query.setParameter("id", id);
+
+        List<Experiment> expiriments = query.getResultList();
+        if (expiriments != null && expiriments.size() > 0) {
+            return expiriments.get(0);
         }
 
         return null;

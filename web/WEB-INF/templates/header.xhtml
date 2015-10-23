@@ -9,41 +9,39 @@
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
             <p:graphicImage name="/images/ajax-loader.gif" />
         </p:dialog>
-        <h1>Collaborative PL-Science</h1>
+        <h1>Ecos PL-Science ProVersion</h1>
         <h:form>  
             <p:menubar>
                 <p:menuitem value="Home" icon="ui-icon-home" url="/faces/restrict/index.xhtml" />
-                <p:submenu label="Product Line" icon="ui-icon-copy">
-                    <p:menuitem value="Products"/>
-                    <p:menuitem value="Core Artifact"/>
-                    <p:menuitem value="Domain Engineering"/>
-                </p:submenu>
+                <ui:remove>
+                    //não foi implementado a linha de produto ainda - mais informações na dissertação do anrafel
+                    <p:submenu label="Product Line" icon="ui-icon-copy">
+                        <p:menuitem value="Products"/>
+                        <p:menuitem value="Core Artifact"/>
+                        <p:menuitem value="Domain Engineering"/>
+                    </p:submenu>
+                </ui:remove>
                 <p:submenu label="Experiments" icon="ui-icon-lightbulb">
-                    <p:menuitem value="New Experiment" icon="ui-icon-plusthick" action="/faces/restrict/experiments/newExperiment.xhtml" />
-                    <p:menuitem value="My Experiments" url="/faces/restrict/experiments/myExperiments.xhtml"/>
-                    <p:menuitem value="Browse Experiments"/>
-                    <p:menuitem value="Experiment Life Cycle" url="/faces/restrict/experiments/experimentLifeCycle.xhtml"/>
-                    <p:menuitem icon="ui-icon-locked" value="Experiments" url="/faces/restrict/experiments.xhtml"/>
-                    <p:menuitem icon="ui-icon-locked" value="Workflow x Experiment" url="/faces/restrict/workflowxexperiment.xhtml"/>
+                    <p:menuitem icon="ui-icon-document" value="Experiments" url="/faces/restrict/experiments.xhtml"/>
+                    <p:menuitem icon="ui-icon-folder-open" value="My Experiments" url="/faces/restrict/experiments/myExperiments.xhtml"/>
+                    <p:menuitem icon="ui-icon-note" value="Workflow x Experiment" url="/faces/restrict/workflowxexperiment.xhtml"/>
+                    <p:menuitem icon="ui-icon-arrowrefresh-1-e" value="Experiment Life Cycle" url="/faces/restrict/experiments/experimentLifeCycle.xhtml"/>
                 </p:submenu>
                 <p:submenu label="Scientific Workflow" icon="ui-icon-gear">
-                    <p:menuitem value="My Workflows" url="/faces/restrict/myWorkflows.xhtml"/>
-                    <p:menuitem value="Browse Workflows"/>
-                    <p:menuitem value="Workflow Management System"/>
-                    <p:menuitem icon="ui-icon-document" value="Workflows" url="/faces/restrict/workflows.xhtml"/>
-                    <p:menuitem icon="ui-icon-document" value="Tasks" url="/faces/restrict/tasks.xhtml"/>
+                    <p:menuitem icon="ui-icon-folder-collapsed" value="My Workflows" url="/faces/restrict/workflow/myWorkflows.xhtml"/>
+                    <p:menuitem icon="ui-icon-cart" value="SGWfC" url="/faces/restrict/sgwfc.xhtml"/>
+                    <p:menuitem icon="ui-icon-gear" value="Workflows" url="/faces/restrict/workflows.xhtml"/>
+                    <p:menuitem icon="ui-icon-clipboard" value="Tasks" url="/faces/restrict/tasks.xhtml"/>
                 </p:submenu>
                 <p:submenu label="Members" icon="ui-icon-contact">
                     <p:menuitem icon="ui-icon-person" value="Research" url="/faces/restrict/research.xhtml"/>
                     <p:menuitem icon="ui-icon-search" value="Research Group" url="/faces/restrict/researchgroup.xhtml"/>
-                    <p:menuitem icon="ui-icon-search" value="Research x Group" url="/faces/restrict/researchxgroup.xhtml"/>
+                    <p:menuitem icon="ui-icon-suitcase" value="Research x Group" url="/faces/restrict/researchxgroup.xhtml"/>
                     <p:menuitem icon="ui-icon-comment" value="Vídeo Chat" url="/faces/restrict/videochat.xhtml"/>
                 </p:submenu>
-                <p:menuitem value="Network" icon="ui-icon-person" />
-                <p:menuitem value="Developers API" icon="ui-icon-script" />
                 <p:submenu label="Settings" icon="ui-icon-wrench">
-                    <p:menuitem value="Manager Institute" icon="ui-icon-gear" url="/faces/restrict/institute.xhtml" />
-                    <p:menuitem value="Manager Activity" icon="ui-icon-gear" url="/faces/restrict/activity.xhtml" />
+                    <p:menuitem value="Manager Institute" icon="ui-icon-bookmark" url="/faces/restrict/institute.xhtml" />
+                    <p:menuitem value="Manager Activity" icon="ui-icon-bookmark" url="/faces/restrict/activity.xhtml" />
                 </p:submenu>
                 <f:facet name="options">
                     <p:commandButton icon="ui-icon-power" value="Exit" action="#{userLoginBean.logout}" />

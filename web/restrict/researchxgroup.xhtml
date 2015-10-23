@@ -5,18 +5,18 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        <h2 class="page-header">Workflows x Experiment</h2>
+        <h2 class="page-header">Research x Group</h2>
         <br/>
         <h:form id="formPrincipal">
             <div align="center">
-                <p:dataTable var="lista" value="#{agenthasResearchGroupBean.agenthasResearchGroups}"
+                <p:dataTable var="lista" value="#{isPartOfBean.isPartOfs}"
                              id="tabelaWorkflowhasExperiment" emptyMessage="No records found"
                              paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
 
-                    <p:column headerText="ID" sortBy="#{lista.idAgenthasResearchGroup}" filterBy="#{lista.idAgenthasResearchGroup}">
+                    <p:column headerText="ID" sortBy="#{lista.idIsPartOf}" filterBy="#{lista.idIsPartOf}">
 
-                        <h:outputText value="#{lista.idAgenthasResearchGroup}" />
+                        <h:outputText value="#{lista.idIsPartOf}" />
                     </p:column>
                     <p:column headerText="Research Group" sortBy="#{lista.researchGroupidResearchGroup.name}" filterBy="#{lista.researchGroupidResearchGroup.name}">
 
@@ -26,13 +26,18 @@
 
                         <h:outputText value="#{lista.agentidAgent.name}" />
                     </p:column>
+                    <p:column headerText="Description" sortBy="#{lista.description}" filterBy="#{lista.description}">
+
+                        <h:outputText value="#{lista.description}" />
+                    </p:column>
+                    
                     <p:column headerText="Actions" exportable="false">
                         <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
-                            <f:setPropertyActionListener target="#{agenthasResearchGroupBean.agenthasResearchGroup}"
+                            <f:setPropertyActionListener target="#{isPartOfBean.isPartOf}"
                                                          value="#{lista}" />
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-trash" value="Delete" onclick="PF('remove').show();"> 
-                            <f:setPropertyActionListener target="#{agenthasResearchGroupBean.agenthasResearchGroup}"
+                            <f:setPropertyActionListener target="#{isPartOfBean.isPartOf}"
                                                          value="#{lista}" />
                         </p:commandButton> 
                     </p:column>
@@ -78,26 +83,29 @@
             <p:dialog header="Record" widgetVar="record" modal="false" focus="name">
                 <p:panelGrid id="panelRecord" columns="2"> 
                     ID:
-                    <p:inputText id="name" value="#{agenthasResearchGroupBean.agenthasResearchGroup.idAgenthasResearchGroup}" disabled="true" />
+                    <p:inputText id="name" value="#{isPartOfBean.isPartOf.idIsPartOf}" disabled="true" />
                     Research Group:
-                    <p:selectOneMenu id="researchgroup" value="#{agenthasResearchGroupBean.agenthasResearchGroup.researchGroupidResearchGroup}" converter="researchGroupConverter">
+                    <p:selectOneMenu id="researchgroup" value="#{isPartOfBean.isPartOf.researchGroupidResearchGroup}" converter="researchGroupConverter">
                         <f:selectItem itemLabel="Select One" itemValue="" />
                         <f:selectItems value="#{researchGroupBean.researchGroups}" var="rgname" itemLabel="#{rgname.name}" itemValue="#{rgname}" />
                     </p:selectOneMenu>
                     Research:
-                    <p:selectOneMenu id="res" value="#{agenthasResearchGroupBean.agenthasResearchGroup.agentidAgent}" converter="agentConverter">
+                    <p:selectOneMenu id="res" value="#{isPartOfBean.isPartOf.agentidAgent}" converter="agentConverter">
                         <f:selectItem itemLabel="Select One" itemValue="" />
                         <f:selectItems value="#{agentBean.agents}" var="agentname" itemLabel="#{agentname.name}" itemValue="#{agentname}" />
                     </p:selectOneMenu>
+                    Description:
+                    <p:inputText id="description" value="#{isPartOfBean.isPartOf.description}" disabled="false
+                                 " />
                 </p:panelGrid>  
                 <br/>
                 <p:commandButton value="Record"  
-                                 actionListener="#{agenthasResearchGroupBean.record}" onclick="record.hide()" alt="Record"/> 
+                                 actionListener="#{isPartOfBean.record}" onclick="record.hide()" alt="Record"/> 
             </p:dialog>
             <p:dialog header="Delete" widgetVar="remove" modal="false"> 
                 Are you sure?
                 <p:commandButton value="Delete"  
-                                 actionListener="#{agenthasResearchGroupBean.exclude}" onclick="remove.hide()" alt="Delete" /> 
+                                 actionListener="#{isPartOfBean.exclude}" onclick="remove.hide()" alt="Delete" /> 
             </p:dialog>
         </h:form>
     </ui:define>

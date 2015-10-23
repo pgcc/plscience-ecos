@@ -6,7 +6,6 @@
 package br.ufjf.pgcc.plscience.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,14 +14,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -38,9 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Task.findByIdTask", query = "SELECT t FROM Task t WHERE t.idTask = :idTask"),
     @NamedQuery(name = "Task.findByName", query = "SELECT t FROM Task t WHERE t.name = :name"),
     @NamedQuery(name = "Task.findByType", query = "SELECT t FROM Task t WHERE t.type = :type"),
-    @NamedQuery(name = "Task.findByDescription", query = "SELECT t FROM Task t WHERE t.description = :description"),
-    @NamedQuery(name = "Task.findByStarted", query = "SELECT t FROM Task t WHERE t.started = :started"),
-    @NamedQuery(name = "Task.findByEnded", query = "SELECT t FROM Task t WHERE t.ended = :ended")})
+    @NamedQuery(name = "Task.findByDescription", query = "SELECT t FROM Task t WHERE t.description = :description")})
 public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,49 +41,34 @@ public class Task implements Serializable {
     @Basic(optional = false)
     @Column(name = "idTask")
     private Integer idTask;
-    @Basic(optional = false)
     @Column(name = "Name")
     private String name;
     @Column(name = "Type")
     private String type;
     @Column(name = "Description")
     private String description;
-    @Basic(optional = false)
-    @Column(name = "Started")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date started;
-    @Column(name = "Ended")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ended;
-    @JoinColumn(name = "Workflow_idWorkflow", referencedColumnName = "idWorkflow")
-    @ManyToOne(optional = false)
-    private Workflow workflowidWorkflow;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskidTask")
-    private List<Port> portList;
+    private List<OutputPort> outputPortList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskidTask")
+    private List<WasEndedByWT> wasEndedByWTList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskidTask")
+    private List<InputPort> inputPortList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskidTask")
     private List<WasInformedBy> wasInformedByList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskidTask")
+    private List<WasStartedByWT> wasStartedByWTList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskidTask")
     private List<Used> usedList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskidTask")
     private List<WasEndedBy> wasEndedByList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskidTask")
     private List<WasStartedBy> wasStartedByList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskfather")
-    private List<ActedOnBeHalfOf> actedOnBeHalfOfList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskchildren")
-    private List<ActedOnBeHalfOf> actedOnBeHalfOfList1;
 
     public Task() {
     }
 
     public Task(Integer idTask) {
         this.idTask = idTask;
-    }
-
-    public Task(Integer idTask, String name, Date started) {
-        this.idTask = idTask;
-        this.name = name;
-        this.started = started;
     }
 
     public Integer getIdTask() {
@@ -125,37 +103,31 @@ public class Task implements Serializable {
         this.description = description;
     }
 
-    public Date getStarted() {
-        return started;
+    @XmlTransient
+    public List<OutputPort> getOutputPortList() {
+        return outputPortList;
     }
 
-    public void setStarted(Date started) {
-        this.started = started;
-    }
-
-    public Date getEnded() {
-        return ended;
-    }
-
-    public void setEnded(Date ended) {
-        this.ended = ended;
-    }
-
-    public Workflow getWorkflowidWorkflow() {
-        return workflowidWorkflow;
-    }
-
-    public void setWorkflowidWorkflow(Workflow workflowidWorkflow) {
-        this.workflowidWorkflow = workflowidWorkflow;
+    public void setOutputPortList(List<OutputPort> outputPortList) {
+        this.outputPortList = outputPortList;
     }
 
     @XmlTransient
-    public List<Port> getPortList() {
-        return portList;
+    public List<WasEndedByWT> getWasEndedByWTList() {
+        return wasEndedByWTList;
     }
 
-    public void setPortList(List<Port> portList) {
-        this.portList = portList;
+    public void setWasEndedByWTList(List<WasEndedByWT> wasEndedByWTList) {
+        this.wasEndedByWTList = wasEndedByWTList;
+    }
+
+    @XmlTransient
+    public List<InputPort> getInputPortList() {
+        return inputPortList;
+    }
+
+    public void setInputPortList(List<InputPort> inputPortList) {
+        this.inputPortList = inputPortList;
     }
 
     @XmlTransient
@@ -165,6 +137,15 @@ public class Task implements Serializable {
 
     public void setWasInformedByList(List<WasInformedBy> wasInformedByList) {
         this.wasInformedByList = wasInformedByList;
+    }
+
+    @XmlTransient
+    public List<WasStartedByWT> getWasStartedByWTList() {
+        return wasStartedByWTList;
+    }
+
+    public void setWasStartedByWTList(List<WasStartedByWT> wasStartedByWTList) {
+        this.wasStartedByWTList = wasStartedByWTList;
     }
 
     @XmlTransient
@@ -192,24 +173,6 @@ public class Task implements Serializable {
 
     public void setWasStartedByList(List<WasStartedBy> wasStartedByList) {
         this.wasStartedByList = wasStartedByList;
-    }
-
-    @XmlTransient
-    public List<ActedOnBeHalfOf> getActedOnBeHalfOfList() {
-        return actedOnBeHalfOfList;
-    }
-
-    public void setActedOnBeHalfOfList(List<ActedOnBeHalfOf> actedOnBeHalfOfList) {
-        this.actedOnBeHalfOfList = actedOnBeHalfOfList;
-    }
-
-    @XmlTransient
-    public List<ActedOnBeHalfOf> getActedOnBeHalfOfList1() {
-        return actedOnBeHalfOfList1;
-    }
-
-    public void setActedOnBeHalfOfList1(List<ActedOnBeHalfOf> actedOnBeHalfOfList1) {
-        this.actedOnBeHalfOfList1 = actedOnBeHalfOfList1;
     }
 
     @Override

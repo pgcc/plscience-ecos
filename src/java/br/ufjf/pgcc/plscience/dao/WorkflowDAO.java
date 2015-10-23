@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.Workflow;
@@ -15,9 +10,8 @@ import javax.persistence.Query;
  *
  * @author tassio
  */
-public class WorkflowDAO {
-    
-    
+public class WorkflowDAO extends PersistenceUtil{
+
     public static WorkflowDAO workflowDAO;
 
     public static WorkflowDAO getInstance() {
@@ -27,17 +21,11 @@ public class WorkflowDAO {
         return workflowDAO;
     }
 
-    /**
-     * Busca uma Workflow especifica
-     *
-     * @param name
-     * @return
-     */
-    public Workflow buscar(String name) {
+    public Workflow buscar(int id) {
         EntityManager em = PersistenceUtil.getEntityManager();
 
-        Query query = em.createQuery("select a from Workflow as a where  upper(a.name)=:workflow");
-        query.setParameter("workflow", name.toUpperCase());
+        Query query = em.createQuery("select a from Workflow as a where  a.idWorkflow= :workflow");
+        query.setParameter("workflow", id);
 
         @SuppressWarnings("unchecked")
         List<Workflow> Workflow = query.getResultList();
@@ -48,11 +36,6 @@ public class WorkflowDAO {
         return null;
     }
 
-    /**
-     * Busca todas as Workflows
-     *
-     * @return
-     */
     @SuppressWarnings("unchecked")
     public List<Workflow> buscarTodas() {
         EntityManager em = PersistenceUtil.getEntityManager();
@@ -60,36 +43,32 @@ public class WorkflowDAO {
         return query.getResultList();
     }
 
-    /**
-     * Remove uma Workflow
-     *
-     * @param idWorkflow
-     */
     public void remover(Workflow idWorkflow) {
         EntityManager em = PersistenceUtil.getEntityManager();
-        em.getTransaction().begin();
-        idWorkflow = em.merge(idWorkflow);
-        em.remove(idWorkflow);
-        em.getTransaction().commit();
+         em.getTransaction().begin();
+        try {
+            idWorkflow = em.merge(idWorkflow);
+            em.remove(idWorkflow);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+        closeEntityManager();
     }
 
-    /**
-     * Persite uma Workflow
-     *
-     * @param workflow
-     * @return
-     */
     public Workflow persistir(Workflow workflow) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
         try {
             workflow = em.merge(workflow);
             em.getTransaction().commit();
-            System.out.println("Registro gravado com sucesso");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
         }
+        closeEntityManager();
         return workflow;
     }
 
-    
 }

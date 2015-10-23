@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.controller;
 
 import br.ufjf.pgcc.plscience.dao.WasInformedByDAO;
@@ -39,16 +34,19 @@ public class WasInformedByBean {
 
     List wasInformedBys = new ArrayList();
 
-    //construtor
     public WasInformedByBean() {
         wasInformedBys = new WasInformedByDAO().buscarTodas();
         wasInformedBy = new WasInformedBy();
     }
+    
+    public List<WasInformedBy> buscartaskbyworkflow(int idworkflow) {
+        wasInformedBys = (List) new WasInformedByDAO().buscar(idworkflow);
+        return wasInformedBys;
+    }
 
-    //Métodos dos botões 
     public void record(ActionEvent actionEvent) {
         new WasInformedByDAO().persistir(wasInformedBy);
-        wasInformedBys = new WasInformedByDAO().buscarTodas();
+        wasInformedBys = (List) new WasInformedByDAO().buscarTodas();
         wasInformedBy = new WasInformedBy();
     }
 
@@ -57,8 +55,7 @@ public class WasInformedByBean {
         wasInformedBys = new WasInformedByDAO().buscarTodas();
         wasInformedBy = new WasInformedBy();
     }
-    
-    //getters and setters
+
     public WasInformedBy getWasInformedBy() {
         return wasInformedBy;
     }

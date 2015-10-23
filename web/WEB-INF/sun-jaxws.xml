@@ -2,4 +2,5 @@
 <endpoints version="2.0" xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime">
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsProVersion" name="WsProVersion" url-pattern="/WsProVersion"/>
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsProVersion" name="WsProVersion" url-pattern="/WsProVersion"/>
+  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsProVersion" name="WsProVersion" url-pattern="/WsProVersion"/>
 </endpoints>

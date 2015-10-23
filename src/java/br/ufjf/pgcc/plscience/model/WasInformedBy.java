@@ -39,12 +39,12 @@ public class WasInformedBy implements Serializable {
     private Integer idWasInformedBy;
     @Column(name = "Description")
     private String description;
-    @JoinColumn(name = "Entity_idEntity", referencedColumnName = "idEntity")
-    @ManyToOne(optional = false)
-    private br.ufjf.pgcc.plscience.model.Entity entityidEntity;
     @JoinColumn(name = "Task_idTask", referencedColumnName = "idTask")
     @ManyToOne(optional = false)
     private Task taskidTask;
+    @JoinColumn(name = "Activity_idActivity", referencedColumnName = "idActivity")
+    @ManyToOne(optional = false)
+    private Activity activityidActivity;
 
     public WasInformedBy() {
     }
@@ -69,20 +69,20 @@ public class WasInformedBy implements Serializable {
         this.description = description;
     }
 
-    public br.ufjf.pgcc.plscience.model.Entity getEntityidEntity() {
-        return entityidEntity;
-    }
-
-    public void setEntityidEntity(br.ufjf.pgcc.plscience.model.Entity entityidEntity) {
-        this.entityidEntity = entityidEntity;
-    }
-
     public Task getTaskidTask() {
         return taskidTask;
     }
 
     public void setTaskidTask(Task taskidTask) {
         this.taskidTask = taskidTask;
+    }
+
+    public Activity getActivityidActivity() {
+        return activityidActivity;
+    }
+
+    public void setActivityidActivity(Activity activityidActivity) {
+        this.activityidActivity = activityidActivity;
     }
 
     @Override

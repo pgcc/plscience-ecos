@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.Used;
@@ -15,7 +10,7 @@ import javax.persistence.Query;
  *
  * @author tassio
  */
-public class UsedDAO {
+public class UsedDAO extends PersistenceUtil{
 
     public static UsedDAO usedDAO;
 
@@ -26,66 +21,53 @@ public class UsedDAO {
         return usedDAO;
     }
 
-    /**
-     * Busca uma Used especifica
-     *
-     * @param name
-     * @return
-     */
-    public Used buscar(String name) {
+    public List<Used> buscar(int idworkflow) {
         EntityManager em = PersistenceUtil.getEntityManager();
 
-        Query query = em.createQuery("select a from Used as a where  upper(a.name)=:used");
-        query.setParameter("used", name.toUpperCase());
+        Query query = em.createQuery("SELECT DISTINCT u FROM Used u WHERE u.workflowidWorkflow.idWorkflow = :id");
+        query.setParameter("id", idworkflow);
+        return query.getResultList();
+    }
+    
+      public List<Used> buscarporexperimento(int idworkflow) {
+        EntityManager em = PersistenceUtil.getEntityManager();
 
-        @SuppressWarnings("unchecked")
-        List<Used> Used = query.getResultList();
-        if (Used != null && Used.size() > 0) {
-            return Used.get(0);
-        }
-
-        return null;
+        Query query = em.createQuery("SELECT DISTINCT u FROM Used u JOIN WasAssociatedWith waw WHERE u.workflowidWorkflow.idWorkflow = waw.workflowidWorkflow.idWorkflow and waw.experimentExperiment.idExperiment = :id");
+        query.setParameter("id", idworkflow);
+        return query.getResultList();
     }
 
-    /**
-     * Busca todas as Useds
-     *
-     * @return
-     */
     public List<Used> buscarTodas() {
-       EntityManager em = PersistenceUtil.getEntityManager();
+        EntityManager em = PersistenceUtil.getEntityManager();
         Query query = em.createQuery("from Used As a");
         return query.getResultList();
     }
 
-    /**
-     * Remove uma Used
-     *
-     * @param idUsed
-     */
     public void remover(Used idUsed) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
-        idUsed = em.merge(idUsed);
-        em.remove(idUsed);
-        em.getTransaction().commit();
+        try {
+            idUsed = em.merge(idUsed);
+            em.remove(idUsed);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+        closeEntityManager();
     }
 
-    /**
-     * Persite uma Used
-     *
-     * @param used
-     * @return
-     */
     public Used persistir(Used used) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
         try {
             used = em.merge(used);
             em.getTransaction().commit();
-            System.out.println("Registro gravado com sucesso");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
         }
+        closeEntityManager();
         return used;
     }
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.controller;
 
 import br.ufjf.pgcc.plscience.dao.ActivityDAO;
@@ -42,7 +37,7 @@ public class ActivityBean implements Serializable{
     Entity entity = new Entity();
     List activitys = new ArrayList();
     List entitys = new ArrayList();
-    //construtor
+
     public ActivityBean() {
         activitys = new ActivityDAO().buscarTodas();
         activity = new Activity();
@@ -50,7 +45,6 @@ public class ActivityBean implements Serializable{
         entity = new Entity();
     }
 
-    //Métodos dos botões 
     public void record(ActionEvent actionEvent) {
         activity.setEntityidEntity( entity);
         new ActivityDAO().persistir(activity);
@@ -68,7 +62,6 @@ public class ActivityBean implements Serializable{
         return entitys;
     }
 
-    //getters and setters
     public void setEntitys(List entitys) {    
         this.entitys = entitys;
     }

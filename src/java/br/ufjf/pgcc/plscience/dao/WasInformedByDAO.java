@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.WasInformedBy;
@@ -15,7 +10,7 @@ import javax.persistence.Query;
  *
  * @author tassio
  */
-public class WasInformedByDAO {
+public class WasInformedByDAO extends PersistenceUtil {
 
     public static WasInformedByDAO wasInformedByPortEntityDAO;
 
@@ -26,66 +21,45 @@ public class WasInformedByDAO {
         return wasInformedByPortEntityDAO;
     }
 
-    /**
-     * Busca uma WasInformedBy especifica
-     *
-     * @param name
-     * @return
-     */
-    public WasInformedBy buscar(String name) {
+    public List<WasInformedBy> buscar(int idworkflow) {
         EntityManager em = PersistenceUtil.getEntityManager();
 
-        Query query = em.createQuery("select a from WasInformedBy as a where  upper(a.name)=:wasInformedByPortEntity");
-        query.setParameter("wasInformedByPortEntity", name.toUpperCase());
-
-        @SuppressWarnings("unchecked")
-        List<WasInformedBy> WasInformedBy = query.getResultList();
-        if (WasInformedBy != null && WasInformedBy.size() > 0) {
-            return WasInformedBy.get(0);
-        }
-
-        return null;
+        Query query = em.createQuery("SELECT DISTINCT wib FROM WasInformedBy wib JOIN Used used Where wib.taskidTask.idTask = used.taskidTask.idTask AND wib.taskidTask.idTask = SOME (SELECT used.taskidTask.idTask FROM Used used WHERE used.workflowidWorkflow.idWorkflow = :id)");
+        query.setParameter("id", idworkflow);
+        return query.getResultList();
     }
 
-    /**
-     * Busca todas as WasInformedBys
-     *
-     * @return
-     */
     public List<WasInformedBy> buscarTodas() {
         EntityManager em = PersistenceUtil.getEntityManager();
         Query query = em.createQuery("from WasInformedBy As a");
         return query.getResultList();
     }
 
-    /**
-     * Remove uma WasInformedBy
-     *
-     * @param idWasInformedBy
-     */
     public void remover(WasInformedBy idWasInformedBy) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
-        idWasInformedBy = em.merge(idWasInformedBy);
-        em.remove(idWasInformedBy);
-        em.getTransaction().commit();
+        try {
+            idWasInformedBy = em.merge(idWasInformedBy);
+            em.remove(idWasInformedBy);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+        closeEntityManager();
     }
 
-    /**
-     * Persite uma WasInformedBy
-     *
-     * @param wasInformedByPortEntity
-     * @return
-     */
     public WasInformedBy persistir(WasInformedBy wasInformedByPortEntity) {
         EntityManager em = PersistenceUtil.getEntityManager();
         em.getTransaction().begin();
         try {
             wasInformedByPortEntity = em.merge(wasInformedByPortEntity);
             em.getTransaction().commit();
-            System.out.println("Registro gravado com sucesso");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
         }
+        closeEntityManager();
         return wasInformedByPortEntity;
     }
 

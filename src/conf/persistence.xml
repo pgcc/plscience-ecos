@@ -1,62 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="PLSciencePU" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>br.ufjf.pgcc.plscience.model.ActedOnBeHalfOf</class>
-        <class>br.ufjf.pgcc.plscience.model.Activity</class>
-        <class>br.ufjf.pgcc.plscience.model.Agent</class>
-        <class>br.ufjf.pgcc.plscience.model.Entity</class>
-        <class>br.ufjf.pgcc.plscience.model.Experiment</class>
-        <class>br.ufjf.pgcc.plscience.model.ExperimentServices</class>
-        <class>br.ufjf.pgcc.plscience.model.Port</class>
-        <class>br.ufjf.pgcc.plscience.model.ResearchGroup</class>
-        <class>br.ufjf.pgcc.plscience.model.Task</class>
-        <class>br.ufjf.pgcc.plscience.model.TavernaWorkflow</class>
-        <class>br.ufjf.pgcc.plscience.model.TavernaWorkflowInput</class>
-        <class>br.ufjf.pgcc.plscience.model.TavernaWorkflowRun</class>
-        <class>br.ufjf.pgcc.plscience.model.TavernaWorkflowRunInputValue</class>
-        <class>br.ufjf.pgcc.plscience.model.Used</class>
-        <class>br.ufjf.pgcc.plscience.model.WasAssociatedWith</class>
-        <class>br.ufjf.pgcc.plscience.model.WasAttributedTo</class>
-        <class>br.ufjf.pgcc.plscience.model.WasControledBy</class>
-        <class>br.ufjf.pgcc.plscience.model.WasDerivedFrom</class>
-        <class>br.ufjf.pgcc.plscience.model.WasEndedBy</class>
-        <class>br.ufjf.pgcc.plscience.model.WasGeneratedBy</class>
-        <class>br.ufjf.pgcc.plscience.model.WasInformedBy</class>
-        <class>br.ufjf.pgcc.plscience.model.WasRevisionOf</class>
-        <class>br.ufjf.pgcc.plscience.model.WasStartedBy</class>
-        <class>br.ufjf.pgcc.plscience.model.Workflow</class>
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        <properties>
-            
-            <!-- DADOS CONEXAO -->  
-            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />  
-            
-            <!-- CONFIGURAÇÃO DO SERVIDOR -->
-            <property name="hibernate.connection.username" value="root" />  
-            <property name="hibernate.connection.password" value="nenc2015" />
-            
-            <!-- CONFIGURAÇÃO LOCAL -->
-<!--            <property name="hibernate.connection.username" value="root" />  
-            <property name="hibernate.connection.password" value="root" />-->
-              
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/plscienceprov" />  
-            <property name="hibernate.default_schema" value="plscienceprov"/>  
-          
-            <!-- CONFIGURACAO -->  
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />  
-            <property name="hibernate.hbm2ddl.auto" value="update" />  
-            <property name="hibernate.show_sql" value="true" />  
-            <property name="hibernate.format_sql" value="true" />  
-            <property name="hibernate.archive.autodetection" value="class" />  
-              
-            <!-- POOL -->  
-            <property name="hibernate.c3p0.min_size" value="5"/>  
-            <property name="hibernate.c3p0.max_size" value="20"/>  
-            <property name="hibernate.c3p0.timeout" value="300"/>  
-            <property name="hibernate.c3p0.max_statements" value="50"/>  
-            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
-            
-        </properties>
-    </persistence-unit>
+  <persistence-unit name="PLSciencePU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>br.ufjf.pgcc.plscience.model.ActedOnBeHalfOf</class>
+    <class>br.ufjf.pgcc.plscience.model.Activity</class>
+    <class>br.ufjf.pgcc.plscience.model.Agent</class>
+    <class>br.ufjf.pgcc.plscience.model.Entity</class>
+    <class>br.ufjf.pgcc.plscience.model.Experiment</class>
+    <class>br.ufjf.pgcc.plscience.model.ExperimentServices</class>
+    <class>br.ufjf.pgcc.plscience.model.Port</class>
+    <class>br.ufjf.pgcc.plscience.model.ResearchGroup</class>
+    <class>br.ufjf.pgcc.plscience.model.Task</class>
+    <class>br.ufjf.pgcc.plscience.model.TavernaWorkflow</class>
+    <class>br.ufjf.pgcc.plscience.model.TavernaWorkflowInput</class>
+    <class>br.ufjf.pgcc.plscience.model.TavernaWorkflowRun</class>
+    <class>br.ufjf.pgcc.plscience.model.TavernaWorkflowRunInputValue</class>
+    <class>br.ufjf.pgcc.plscience.model.Used</class>
+    <class>br.ufjf.pgcc.plscience.model.WasAssociatedWith</class>
+    <class>br.ufjf.pgcc.plscience.model.WasAttributedTo</class>
+    <class>br.ufjf.pgcc.plscience.model.WasControledBy</class>
+    <class>br.ufjf.pgcc.plscience.model.WasDerivedFrom</class>
+    <class>br.ufjf.pgcc.plscience.model.WasEndedBy</class>
+    <class>br.ufjf.pgcc.plscience.model.WasGeneratedBy</class>
+    <class>br.ufjf.pgcc.plscience.model.WasInformedBy</class>
+    <class>br.ufjf.pgcc.plscience.model.WasRevisionOf</class>
+    <class>br.ufjf.pgcc.plscience.model.WasStartedBy</class>
+    <class>br.ufjf.pgcc.plscience.model.Workflow</class>
+    <class>br.ufjf.pgcc.plscience.model.InputPort</class>
+    <class>br.ufjf.pgcc.plscience.model.IsPartOf</class>
+    <class>br.ufjf.pgcc.plscience.model.OutputPort</class>
+    <class>br.ufjf.pgcc.plscience.model.SGWfC</class>
+    <class>br.ufjf.pgcc.plscience.model.WasStartedByWT</class>
+    <class>br.ufjf.pgcc.plscience.model.ActedOnBehalfOf</class>
+    <class>br.ufjf.pgcc.plscience.model.WasEndedByWT</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/plscience?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="tfmsifm"/>
+    </properties>
+  </persistence-unit>
 </persistence>

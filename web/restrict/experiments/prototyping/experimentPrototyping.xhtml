@@ -29,14 +29,14 @@
                          <h:outputLabel value="  Service related:" />
                          <p:inputText  id="serviceRelated#{result.service_name}" value="#{result.service_name}" binding="#{input1}"  label="serviceRelated"/>
                          
-                         <p:commandButton value="Save" action="#{experimentPrototyping.updates(input1.value, workspace.experiment.idExperiment, input2.value, result.id, inputStage.value)}" />
+                         <p:commandButton value="Save" action="#{experimentPrototyping.updates(input1.value, workspace.experiment.id, input2.value, result.id, inputStage.value)}" />
                                 
                         </p:column>
                         
                                                
                       </p:dataTable>
                         
-                         <p:commandButton id="movieBtn" value="Search" icon="ui-icon-search" />
+                         <p:commandButton id="movieBtn" value="search" icon="ui-icon-search" />
                          
                          <p:overlayPanel id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" style="width:600px">
                              <h:form id="searchPage">
@@ -54,7 +54,7 @@
                                   <h:outputLabel value="Semantic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                                   <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                                     <h:outputLabel for="hasSemanticReturn" value="Semantic Return" />
-                                    <h:inputText id="hasSemanticReturn" value="#{experimentPrototyping.serviceDescriptionVO.includesSemantic.hasSemanticReturn}" />
+                                    <h:inputText id="hasSemanticReturn" value="#{experimentPrototyping.serviceDescriptionVO.includesSemantic.hasSemanticReturn}" />             
                                     <h:outputLabel for="hasSemanticReception" value="Semantic Reception" />
                                     <h:inputText id="hasSemanticReception" value="#{experimentPrototyping.serviceDescriptionVO.includesSemantic.hasSemanticReception}" />
                                     <h:outputLabel for="hasSemanticRepresentation" value="Semantic Representation" />
@@ -97,12 +97,12 @@
                                     <h:inputText id="hasOperationalSystem" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasOperationalSystem}" />
                                     <h:outputLabel for="hasRAM" value="RAM (GB)" />
                                     <h:inputText id="hasRAM" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasRAM}">
-                                        <f:validateRegex pattern="[0-9]+"/>
+                                         <f:validateRegex pattern="[0-9]+"/>
                                     </h:inputText>
-                                    <h:outputLabel for="hasROM" value="ROM (GB)" />
-                                    <h:inputText id="hasROM" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasROM}">
+                                     <h:outputLabel for="hasROM" value="ROM (GB)" />
+                                     <h:inputText id="hasROM" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasROM}">
                                         <f:validateRegex pattern="[0-9]+"/>
-                                    </h:inputText>
+                                     </h:inputText>    
                                  </h:panelGrid>
                                   
                                  
@@ -187,8 +187,8 @@
                              </h:form>
                              
                          </p:overlayPanel>
-                        <p:commandButton id="movieBtnSearchAll" value="Search All" icon="ui-icon-search" action="#{experimentPrototyping.searchServicesAll()}" update="servicesResult"/>
-                        <p:dataTable var="service" value="#{experimentPrototyping.services}" id="servicesResult" style="margin-top: 20px">
+                      <p:commandButton id="movieBtnSearchAll" value="Search All" icon="ui-icon-search" action="#{experimentPrototyping.searchServicesAll()}" update="servicesResult"/>
+                      <p:dataTable var="service" value="#{experimentPrototyping.services}" id="servicesResult" style="margin-top: 20px">
                             <p:column headerText="Services Ranking">
                                 <h:outputText value="#{service.name}" />
                             </p:column>

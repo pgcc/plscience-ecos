@@ -52,8 +52,6 @@ public class Entity implements Serializable {
     @OneToMany(mappedBy = "entityidEntity")
     private List<Experiment> experimentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "entityidEntity")
-    private List<WasInformedBy> wasInformedByList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "entityidEntity")
     private List<Activity> activityList;
 
     public Entity() {
@@ -116,15 +114,6 @@ public class Entity implements Serializable {
 
     public void setExperimentList(List<Experiment> experimentList) {
         this.experimentList = experimentList;
-    }
-
-    @XmlTransient
-    public List<WasInformedBy> getWasInformedByList() {
-        return wasInformedByList;
-    }
-
-    public void setWasInformedByList(List<WasInformedBy> wasInformedByList) {
-        this.wasInformedByList = wasInformedByList;
     }
 
     @XmlTransient

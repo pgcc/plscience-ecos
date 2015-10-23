@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="experiment_services")
 public class ExperimentServices implements Serializable, Comparable<ExperimentServices> {
- 
+  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
@@ -78,6 +78,6 @@ public class ExperimentServices implements Serializable, Comparable<ExperimentSe
             return -1;
                
     }
-  
+ 
 }
 

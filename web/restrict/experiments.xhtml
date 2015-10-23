@@ -33,10 +33,10 @@
                         <h:outputText value="#{lista.version}" />
                     </p:column>
                     <p:column headerText="Date Started" sortBy="#{lista.dateStarted}" filterBy="#{lista.dateStarted}">
-                        <h:outputText value="#{lista.dateStarted}"> <f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT-3"/></h:outputText>
+                        <h:outputText value="#{lista.dateStarted}"> <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/></h:outputText>
                     </p:column>
                     <p:column headerText="Date Ended" sortBy="#{lista.dateEnded}" filterBy="#{lista.dateEnded}">
-                        <h:outputText value="#{lista.dateEnded}">> <f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT-3"/></h:outputText>
+                        <h:outputText value="#{lista.dateEnded}">> <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/></h:outputText>
                     </p:column>
                     <p:column headerText="Actions" exportable="false">
                         <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 

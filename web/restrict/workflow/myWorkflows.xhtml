@@ -1,0 +1,38 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">My Workflows</h2>
+
+        <h:form>
+            <p:dataTable var="workflow" value="#{newworkflowBean.workflows}" id="tabelaWorkflow" emptyMessage="No Records Found"
+                            paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%; margin: 20px 0">
+>
+                
+                <p:column headerText="Id">
+                    <h:outputText value="#{workflow.idWorkflow}" />
+                </p:column>
+                <p:column headerText="Name">
+                    <h:outputText value="#{workflow.name}" />
+                </p:column>
+                <p:column headerText="Description">
+                    <h:outputText value="#{workflow.description}" />
+                </p:column>
+                <p:column>
+                    <p:commandButton title="Details" 
+                                     value="Details" 
+                                     icon="ui-icon-zoomin" 
+                                     action="/faces/restrict/workflow/workflow.xhtml?faces-redirect=true"
+                                     ajax="true">
+                        <f:setPropertyActionListener value="#{workflow}" target="#{workflowBean.workflow}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

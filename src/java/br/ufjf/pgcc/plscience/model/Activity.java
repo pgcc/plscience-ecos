@@ -52,13 +52,13 @@ public class Activity implements Serializable {
     private String description;
     @OneToMany(mappedBy = "activityidActivity")
     private List<Experiment> experimentList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityidActivity")
+    private List<WasInformedBy> wasInformedByList;
     @JoinColumn(name = "Entity_idEntity", referencedColumnName = "idEntity")
     @ManyToOne(optional = false)
     private br.ufjf.pgcc.plscience.model.Entity entityidEntity;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityidActivity")
     private List<WasControledBy> wasControledByList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityidActivity")
-    private List<Used> usedList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityidActivity")
     private List<WasEndedBy> wasEndedByList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityidActivity")
@@ -117,6 +117,15 @@ public class Activity implements Serializable {
         this.experimentList = experimentList;
     }
 
+    @XmlTransient
+    public List<WasInformedBy> getWasInformedByList() {
+        return wasInformedByList;
+    }
+
+    public void setWasInformedByList(List<WasInformedBy> wasInformedByList) {
+        this.wasInformedByList = wasInformedByList;
+    }
+
     public br.ufjf.pgcc.plscience.model.Entity getEntityidEntity() {
         return entityidEntity;
     }
@@ -132,15 +141,6 @@ public class Activity implements Serializable {
 
     public void setWasControledByList(List<WasControledBy> wasControledByList) {
         this.wasControledByList = wasControledByList;
-    }
-
-    @XmlTransient
-    public List<Used> getUsedList() {
-        return usedList;
-    }
-
-    public void setUsedList(List<Used> usedList) {
-        this.usedList = usedList;
     }
 
     @XmlTransient

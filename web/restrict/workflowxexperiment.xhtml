@@ -9,14 +9,14 @@
         <br/>
         <h:form id="formPrincipal">
             <div align="center">
-                <p:dataTable var="lista" value="#{workflowhasExperimentBean.workflowhasExperiments}"
+                <p:dataTable var="lista" value="#{wasAssociatedWithBean.wasAssociatedWiths}"
                              id="tabelaWorkflowhasExperiment" emptyMessage="No records found"
                              paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
 
-                    <p:column headerText="ID" sortBy="#{lista.idWorkflowhasExperiment}" filterBy="#{lista.idWorkflowhasExperiment}">
+                    <p:column headerText="ID" sortBy="#{lista.idWasAssociatedWith}" filterBy="#{lista.idWasAssociatedWith}">
 
-                        <h:outputText value="#{lista.idWorkflowhasExperiment}" />
+                        <h:outputText value="#{lista.idWasAssociatedWith}" />
                     </p:column>
                     <p:column headerText="Experiment" sortBy="#{lista.experimentExperiment.name}" filterBy="#{lista.experimentExperiment.name}">
 
@@ -28,11 +28,11 @@
                     </p:column>
                     <p:column headerText="Actions" exportable="false">
                         <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
-                            <f:setPropertyActionListener target="#{workflowhasExperimentBean.workflowhasExperiment}"
+                            <f:setPropertyActionListener target="#{wasAssociatedWithBean.wasAssociatedWith}"
                                                          value="#{lista}" />
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-trash" value="Delete" onclick="PF('remove').show();"> 
-                            <f:setPropertyActionListener target="#{workflowhasExperimentBean.workflowhasExperiment}"
+                            <f:setPropertyActionListener target="#{wasAssociatedWithBean.wasAssociatedWith}"
                                                          value="#{lista}" />
                         </p:commandButton> 
                     </p:column>
@@ -78,26 +78,26 @@
             <p:dialog header="Record" widgetVar="record" modal="false" focus="name">
                 <p:panelGrid id="panelRecord" columns="2"> 
                     ID:
-                    <p:inputText id="name" value="#{workflowhasExperimentBean.workflowhasExperiment.idWorkflowhasExperiment}" disabled="true" />
+                    <p:inputText id="name" value="#{wasAssociatedWithBean.wasAssociatedWith.idWasAssociatedWith}" disabled="true" />
                     Experiment:
-                    <p:selectOneMenu id="experiment" value="#{workflowhasExperimentBean.workflowhasExperiment.experimentExperiment}" converter="experimentConverter">
+                    <p:selectOneMenu id="experiment" value="#{wasAssociatedWithBean.wasAssociatedWith.experimentExperiment}" converter="experimentConverter">
                         <f:selectItem itemLabel="Select One" itemValue="" />
                         <f:selectItems value="#{experimentBean.experiments}" var="experimentname" itemLabel="#{experimentname.name}" itemValue="#{experimentname}" />
                     </p:selectOneMenu>
                     Workflow:
-                    <p:selectOneMenu id="workflow" value="#{workflowhasExperimentBean.workflowhasExperiment.workflowidWorkflow}" converter="workflowConverter">
+                    <p:selectOneMenu id="workflow" value="#{wasAssociatedWithBean.wasAssociatedWith.workflowidWorkflow}" converter="workflowConverter">
                         <f:selectItem itemLabel="Select One" itemValue="" />
                         <f:selectItems value="#{workflowBean.workflows}" var="workflowname" itemLabel="#{workflowname.name}" itemValue="#{workflowname}" />
                     </p:selectOneMenu>
                 </p:panelGrid>  
                 <br/>
                 <p:commandButton value="Record"  
-                                 actionListener="#{workflowhasExperimentBean.record}" onclick="record.hide()" alt="Record"/> 
+                                 actionListener="#{wasAssociatedWithBean.record}" onclick="record.hide()" alt="Record"/> 
             </p:dialog>
             <p:dialog header="Delete" widgetVar="remove" modal="false"> 
                 Are you sure?
                 <p:commandButton value="Delete"  
-                                 actionListener="#{workflowhasExperimentBean.exclude}" onclick="remove.hide()" alt="Delete" /> 
+                                 actionListener="#{wasAssociatedWithBean.exclude}" onclick="remove.hide()" alt="Delete" /> 
             </p:dialog>
         </h:form>
     </ui:define>

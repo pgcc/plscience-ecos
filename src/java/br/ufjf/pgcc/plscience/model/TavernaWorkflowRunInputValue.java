@@ -50,7 +50,7 @@ public class TavernaWorkflowRunInputValue implements Serializable {
     @Column(name="input_value")
     private String inputValue;
     
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="taverna_workflow_input_id")
     private TavernaWorkflowInput input;
 
