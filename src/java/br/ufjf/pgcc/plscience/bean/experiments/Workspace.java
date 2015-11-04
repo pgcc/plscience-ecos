@@ -124,12 +124,14 @@ public class Workspace implements Serializable {
             ExperimentServices exS = new ExperimentServices();
             exS.setId((long) 0);
             exS.setStage(i);
+            
             //
              ExperimentServices exService = new ExperimentServices();
              exService.setService_name("");
              exService.setStage(i);
              exService.setId((long) 0);
              ex.setIdExperiment(experiment.getIdExperiment());
+             System.out.println("ex : " + ex.toString());
              exService.setExperiment(ex);
              exDao.recreateExperimentServices(exService);
             //

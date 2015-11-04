@@ -34,6 +34,7 @@ import javax.persistence.Query;
 /**
  *
  * @author vitorfs
+ * @author lesimoes
  */
 public class ExperimentDAO extends GenericDAO {
 
@@ -46,18 +47,18 @@ public class ExperimentDAO extends GenericDAO {
         return expirimentDAO;
     }
 
-    public Experiment getExperimentByName(String nome) {
-        EntityManager em = PersistenceUtil.getEntityManager();
-        Query query = em.createQuery("select a from Experiment As a where a.name =:nome ");
-        query.setParameter("nome", nome.toUpperCase());
-
-        List<Experiment> expiriments = query.getResultList();
-        if (expiriments != null && expiriments.size() > 0) {
-            return expiriments.get(0);
-        }
-
-        return null;
-    }
+//    public Experiment getExperimentByName(String nome) {
+//        EntityManager em = PersistenceUtil.getEntityManager();
+//        Query query = em.createQuery("select a from Experiment As a where a.name =:nome ");
+//        query.setParameter("nome", nome.toUpperCase());
+//
+//        List<Experiment> expiriments = query.getResultList();
+//        if (expiriments != null && expiriments.size() > 0) {
+//            return expiriments.get(0);
+//        }
+//
+//        return null;
+//    }
     
     public void remove(Experiment expiriment) {
         EntityManager em = PersistenceUtil.getEntityManager();
@@ -183,7 +184,8 @@ public class ExperimentDAO extends GenericDAO {
     }
     
     public Experiment getId(int id) {
-        Query query = getEntityManager().createQuery("SELECT e FROM Experiment e  where e.idExperiment =:nome");
+        Query query = getEntityManager().createQuery("SELECT e FROM Experiment e  where e.idExperiment =:id");
+        query.setParameter("id", id);
         List<Experiment> experiments = query.getResultList();
         Experiment experiment = new Experiment();
         for(Experiment e: experiments){
@@ -250,7 +252,7 @@ public class ExperimentDAO extends GenericDAO {
      */
     public Experiment getExperimentById(int id) {
         
-        Query query = getEntityManager().createQuery("select a from Experiment As a where a.id =:id ");
+        Query query = getEntityManager().createQuery("select a from Experiment As a where a.idExperiment =:id ");
         query.setParameter("id", id);
 
         List<Experiment> expiriments = query.getResultList();

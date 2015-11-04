@@ -87,6 +87,14 @@ public class Experiment implements Serializable {
         this.idExperiment = idExperiment;
     }
 
+       /**
+     * @return the id
+     */
+    public Integer getId() {
+        return idExperiment;
+    }
+
+    
     public Integer getIdExperiment() {
         return idExperiment;
     }
