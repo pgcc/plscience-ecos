@@ -41,6 +41,7 @@ import br.ufjf.pgcc.plscience.vo.SyntacticVO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -65,8 +66,9 @@ public class ExperimentPrototyping implements Serializable {
     private Experiment experiment;
     private String serviceName;
     private String equivalencesResult;
-
     
+    
+
 
     public ExperimentPrototyping() {
         experiment =new Experiment();
@@ -224,10 +226,10 @@ public class ExperimentPrototyping implements Serializable {
         ServiceRecovery sr = new ServiceRecovery();
         setServices(sr.Recovery());        
     }
-    
+   
     public void updates(String input, String id, String stage, String idExServ, String numberSt){
        String[] s= stage.split(" ");
-       System.out.println("Estou passando "+ input +" iD "+ id + " Stage " +s[1]);
+       System.out.println("Estou passando "+ input +" iD "+ id + " Stage " +s[1] );
       
        
        try {
@@ -248,6 +250,8 @@ public class ExperimentPrototyping implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
         }
     }
+    
+ 
     
     public void registerServices(){
         System.out.println("Registreiii");

@@ -104,6 +104,7 @@ public class ExperimentDAO extends GenericDAO {
 //            getEntityManager().getTransaction().begin();
             exServ.setService_name(experimentServ.getService_name());
             exServ.setStage(experimentServ.getStage());
+            exServ.setLatestTime();
 //           
 //            getEntityManager().getTransaction().commit();
 //            finish();

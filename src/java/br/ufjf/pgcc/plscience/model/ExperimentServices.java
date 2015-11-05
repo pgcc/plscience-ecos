@@ -6,6 +6,7 @@
 package br.ufjf.pgcc.plscience.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,10 +15,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import static javax.persistence.TemporalType.DATE;
 
 /**
  *
  * @author Fran
+ * @autor lesimoes
  */
 @Entity
 @Table(name="experiment_services")
@@ -34,6 +38,9 @@ public class ExperimentServices implements Serializable, Comparable<ExperimentSe
     @Column(name="service_name")
     private String service_name;
     
+    @Temporal(DATE)
+    @Column(name="latestTime_used")
+    private Date latestTime;
       
     @ManyToOne
     @JoinColumn(name="idExperiment")
@@ -69,6 +76,7 @@ public class ExperimentServices implements Serializable, Comparable<ExperimentSe
 
     public void setExperiment(Experiment experiment) {
         this.experiment = experiment;
+        setLatestTime();
     }
     
     public int compareTo(ExperimentServices experimentService) {
@@ -77,6 +85,21 @@ public class ExperimentServices implements Serializable, Comparable<ExperimentSe
         }     
             return -1;
                
+    }
+
+    /**
+     * @return the latestTime
+     */
+    public Date getLatestTime() {
+        return latestTime;
+    }
+
+    /**
+     * @param latestTime the latestTime to set
+     */
+    public void setLatestTime() {
+        this.latestTime = new Date(System.currentTimeMillis());
+        System.out.println("Latest Time: " + latestTime.toString());
     }
  
 }
