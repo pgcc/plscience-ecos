@@ -170,6 +170,41 @@ public class ExperimentDAO extends GenericDAO {
         
     }
     
+    
+        public List getFrequencyService(String service_name){
+        String consult = "SELECT COUNT(*) FROM experiment_services WHERE service_name LIKE ?service_name";
+        Query query = getEntityManager().createNativeQuery(consult);
+        query.setParameter("service_name", "%" + service_name + "%");
+        
+        List frequencyService = query.getResultList();
+//        System.out.println("Service " + service_name + " FREQUENCY " + frequencyService.toString());
+       // ExperimentServices expService = new ExperimentServices();
+        
+        finish();
+        return frequencyService;
+    }
+        
+        public List getTotalService(){
+            String consult = "SELECT COUNT(*) FROM experiment_services";
+            Query query = getEntityManager().createNativeQuery(consult);
+            
+            List totalService = query.getResultList();
+           
+            finish();
+            return totalService;
+        }
+        
+        
+        public List getLatestTimeUsed(String service_name){
+            String consult = "SELECT latestTime_used FROM experiment_services WHERE service_name LIKE ?service_name ORDER BY latestTime_used DESC LIMIT 1" ;
+            Query query = getEntityManager().createNativeQuery(consult);
+            query.setParameter("service_name", "%" + service_name + "%");
+            List latestTime = query.getResultList();
+            finish();
+            return latestTime;
+        }
+    
+    
     public List<Experiment> getAll() {
         Query query = getEntityManager().createQuery("SELECT e FROM Experiment e");
         List<Experiment> experiments = query.getResultList();
