@@ -6,6 +6,8 @@
 
 package br.ufjf.pgcc.plscience.recos;
 
+import static jdk.nashorn.internal.objects.NativeMath.round;
+
 /**
  * 
  * @author lesimoes
@@ -19,7 +21,9 @@ public class RecosService {
     private String updated_At;
     private String latestTime_used;
     private int frequencyService;
-
+    private double rating;
+    private double time;
+    
     /**
      * @return the id
      */
@@ -73,7 +77,7 @@ public class RecosService {
      * @param created_At the created_At to set
      */
     public void setCreated_At(String created_At) {
-        this.created_At = created_At;
+        this.created_At = created_At.substring(0, 10);
     }
 
     /**
@@ -87,14 +91,17 @@ public class RecosService {
      * @param updated_At the updated_At to set
      */
     public void setUpdated_At(String updated_At) {
-        this.updated_At = updated_At;
+        this.updated_At = updated_At.substring(0, 10);
     }
 
     /**
      * @return the latestTime_used
      */
     public String getLatestTime_used() {
-        return latestTime_used;
+        if(latestTime_used == "[]")
+            return "0000-00-00";
+        else
+        return latestTime_used.substring(1, 11);
     }
 
     /**
@@ -116,6 +123,34 @@ public class RecosService {
      */
     public void setFrequencyService(int frequencyService) {
         this.frequencyService = frequencyService;
+    }
+
+    /**
+     * @return the rating
+     */
+    public double getRating() {
+        return rating;
+    }
+
+    /**
+     * @param rating the rating to set
+     */
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    /**
+     * @return the time
+     */
+    public double getTime() {
+        return time;
+    }
+
+    /**
+     * @param time the time to set
+     */
+    public void setTime(double time) {
+        this.time = time;
     }
     
     

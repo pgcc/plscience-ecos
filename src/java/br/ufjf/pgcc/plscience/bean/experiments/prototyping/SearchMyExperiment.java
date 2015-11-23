@@ -32,6 +32,7 @@ import br.ufjf.myexperiment.model.User;
 import br.ufjf.myexperiment.model.Workflow;
 import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.recos.IntegrationModule;
+import br.ufjf.pgcc.plscience.recos.calculateFactors;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +81,7 @@ public class SearchMyExperiment implements Serializable {
 //            experiments = new ExperimentDAO().getFrequencyService("protein_protein_interactions.xml");
             
             IntegrationModule.setWorkflows(workflows);
+            
             
         } catch (Exception e) {
         }

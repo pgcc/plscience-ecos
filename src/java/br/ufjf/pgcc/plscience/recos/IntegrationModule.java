@@ -25,7 +25,7 @@ public class IntegrationModule {
     
     public static void setWorkflows(List<Workflow> workflowList){
         servicesList = new ArrayList<RecosService>();
-        
+       
         
         
         for(int i = 0 ; i < workflowList.size() ; i ++){
@@ -38,7 +38,7 @@ public class IntegrationModule {
            recosService.setUpdated_At(workflowList.get(i).getUpdatedAt());
            recosService.setTitle(workflowList.get(i).getDescription());
            
- 
+            
           
            
            List frequencyService = new ExperimentDAO().getFrequencyService(workflowList.get(i).getDescription());
@@ -55,21 +55,27 @@ public class IntegrationModule {
         }
         
         setTotalService();
+        calculateFactors(servicesList, totalService);
         showRecos(servicesList);
         
     }
     
     public static void showRecos(List<RecosService> list){
         for(int i = 0 ; i < list.size() ; i ++){
-            System.out.println("Id: " + list.get(i).getId()+" - Title: " + list.get(i).getTitle() + "\nCreated At: " + list.get(i).getTitle()+
+            System.out.println("Id: " + list.get(i).getId()+" - Title: " + list.get(i).getTitle() + "\nCreated At: " + list.get(i).getCreated_At()+
                    "\nUpdated At: " + list.get(i).getUpdated_At() + "\nLatest Time Used: " + list.get(i).getLatestTime_used() +
-               "\nFrequency: " + list.get(i).getFrequencyService() + "\nTotal Services:" + totalService + "\n-----------------------------");
+               "\nFrequency: " + list.get(i).getFrequencyService() + "\nTotal Services:" + totalService + 
+                    "\nRating: " + list.get(i).getRating() + "\nTime: " + list.get(i).getTime() + " \n-----------------------------");
         
         }
         
        
     }
     
+    private static void calculateFactors(List<RecosService> list, int totalService){
+        calculateFactors.setList(list, totalService);
+        calculateFactors.calculator();
+    }
     
     public static void setTotalService(){
         List totalServices = new ExperimentDAO().getTotalService();

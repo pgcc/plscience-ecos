@@ -99,7 +99,7 @@ public class ExperimentServices implements Serializable, Comparable<ExperimentSe
      */
     public void setLatestTime() {
         this.latestTime = new Date(System.currentTimeMillis());
-        System.out.println("Latest Time: " + latestTime.toString());
+       
     }
  
 }

@@ -212,6 +212,30 @@ public class ExperimentDAO extends GenericDAO {
         return experiments;
     }
     
+    public List<Experiment> getAllNames(){
+        Query query = getEntityManager().createQuery("SELECT e.name FROM Experiment e");
+        List<Experiment> experiments = query.getResultList();
+        finish();
+        return experiments;
+    }
+    
+    public List getIdFromName(String nameExp){
+        Query query = getEntityManager().createNativeQuery("SELECT idExperiment FROM Experiment WHERE Name = ?nameExp");
+        query.setParameter("nameExp", nameExp);
+        List exp = query.getResultList();
+        finish();
+        return exp;
+    }
+    
+    public List<Experiment> getAllStages(int idExperiment){
+        String consult = "SELECT * FROM plscience.experiment_services WHERE idExperiment = ?idExperiment ORDER BY stage;" ;
+        Query query = getEntityManager().createNativeQuery(consult);
+        query.setParameter("idExperiment", idExperiment);
+        List stages = query.getResultList();
+        finish();
+        return stages;
+    }
+    
      public List<ExperimentServices> getAllExperimentServices() {
         Query query = getEntityManager().createQuery("SELECT e FROM ExperimentServices e");
         List<ExperimentServices> experimentServices = query.getResultList();

@@ -48,4 +48,12 @@ public class MyExperiments implements Serializable {
         return new ExperimentDAO().getAll();
     }
     
+    public List<Experiment> getExperimentNames(){
+        return new ExperimentDAO().getAllNames();
+    }
+    
+    public List getIdFromName(String name){
+        return new ExperimentDAO().getIdFromName(name);
+    }
+    
 }
