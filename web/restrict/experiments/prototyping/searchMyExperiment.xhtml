@@ -29,7 +29,9 @@
                         <p:commandButton value="Search" icon="ui-icon-search" actionListener="#{searchMyExperiment.search}" update="searchResults" />
                     </h:panelGrid>
                     <p:outputPanel id="searchResults">
-                        <p:dataTable var="result" value="#{searchMyExperiment.workflows}" rendered="#{searchMyExperiment.workflows ne null}" style="margin-top: 20px">
+                        <p:dataTable var="result" value="#{searchMyExperiment.workflows}" rendered="#{searchMyExperiment.workflows ne null}" 
+                                     style="margin-top: 20px" resizableColumns="true" liveResize="true">
+                            
                             <f:facet name="header">
                                 Workflows
                             </f:facet>
@@ -45,9 +47,31 @@
                             <p:column headerText="Resource">
                                 <a href="#{result.resource}" target="_blank">#{result.resource}</a>
                             </p:column>
+                            <p:column  headerText="Add" width="100">
+                                <p:commandButton  id="addBtn" icon="ui-icon-plus" />
+                                
+                                <p:overlayPanel id="addPanel" for="addBtn" hideEffect="fade" dynamic="true" style="width:600px">
+                                    <h:outputText value="Add Service to Experiment" />
+                                   <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                                    <h:outputText value="Experiment Name : " />
+                                    <p:selectOneMenu id="console" value="#{myExperiments.experimentNames}" style="width:125px">
+                                        <f:selectItem itemLabel="Select One" itemValue=""/>
+                                        <f:selectItems value="#{myExperiments.experimentNames}" binding="#{inputIdExp}"/> 
+                                         <p:ajax event="valueChange" update="addPanel" />
+                                    </p:selectOneMenu>
+                                    <h:outputText value="Id Experiment: "/>
+                                    <h:outputText value="#{myExperiments.getIdFromName(inputIdExp.value)}"/>
+                                    
+                                   </h:panelGrid>
+                                </p:overlayPanel>
+                            
+                            </p:column>>
+                            
                         </p:dataTable>
                         
-                        <p:dataTable var="result" value="#{searchMyExperiment.files}" rendered="#{searchMyExperiment.files ne null}" style="margin-top: 20px">
+                        
+                        <p:dataTable var="result" value="#{searchMyExperiment.files}" rendered="#{searchMyExperiment.files ne null}" 
+                                     style="margin-top: 20px" resizableColumns="true" liveResize="true">
                             <f:facet name="header">
                                 Files
                             </f:facet>
@@ -65,7 +89,8 @@
                             </p:column>
                         </p:dataTable>
 
-                        <p:dataTable var="result" value="#{searchMyExperiment.packs}" rendered="#{searchMyExperiment.packs ne null}" style="margin-top: 20px">
+                        <p:dataTable var="result" value="#{searchMyExperiment.packs}" rendered="#{searchMyExperiment.packs ne null}" 
+                                     style="margin-top: 20px" resizableColumns="true" liveResize="true">
                             <f:facet name="header">
                                 Packs
                             </f:facet>
@@ -80,7 +105,8 @@
                             </p:column>
                         </p:dataTable>
                         
-                        <p:dataTable var="result" value="#{searchMyExperiment.groups}" rendered="#{searchMyExperiment.groups ne null}" style="margin-top: 20px">
+                        <p:dataTable var="result" value="#{searchMyExperiment.groups}" rendered="#{searchMyExperiment.groups ne null}" 
+                                     style="margin-top: 20px" resizableColumns="true" liveResize="true">
                             <f:facet name="header">
                                 Groups
                             </f:facet>
@@ -95,7 +121,8 @@
                             </p:column>
                         </p:dataTable>
                         
-                        <p:dataTable var="result" value="#{searchMyExperiment.users}" rendered="#{searchMyExperiment.users ne null}" style="margin-top: 20px">
+                        <p:dataTable var="result" value="#{searchMyExperiment.users}" rendered="#{searchMyExperiment.users ne null}" 
+                                     style="margin-top: 20px" resizableColumns="true" liveResize="true">
                             <f:facet name="header">
                                 Users
                             </f:facet>

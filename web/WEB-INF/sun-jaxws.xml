@@ -3,4 +3,5 @@
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsProVersion" name="WsProVersion" url-pattern="/WsProVersion"/>
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsProVersion" name="WsProVersion" url-pattern="/WsProVersion"/>
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsProVersion" name="WsProVersion" url-pattern="/WsProVersion"/>
+  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsProVersion" name="WsProVersion" url-pattern="/WsProVersion"/>
 </endpoints>
