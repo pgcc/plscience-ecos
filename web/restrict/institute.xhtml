@@ -31,7 +31,7 @@
                         <h:outputText value="#{lista.description}" />
                     </p:column>
                     <p:column headerText="Actions" exportable="false">
-                        <p:commandButton icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
+                        <p:commandButton action="#{entityBean.editar}" icon="ui-icon-trash" value="Edit" onclick="PF('record').show();"> 
                             <f:setPropertyActionListener target="#{entityBean.entity}"
                                                          value="#{lista}" />
                         </p:commandButton>
@@ -72,14 +72,13 @@
                     <p:dataExporter type="xml" target="tabelaEntity" fileName="entitys" />
                 </h:commandLink>
             </div>
-
             <p:confirmDialog global="true">  
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />  
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />  
             </p:confirmDialog>  
 
 
-            <p:dialog header="Record" widgetVar="record" modal="false" focus="name">
+            <p:dialog header="Record" widgetVar="record" modal="true" focus="name">
                 <p:panelGrid id="panelRecord" columns="2"> 
                     Name:
                     <p:inputText id="name" value="#{entityBean.entity.name}" />  

@@ -29,6 +29,14 @@ public class WasInformedByDAO extends PersistenceUtil {
         return query.getResultList();
     }
 
+    public List<WasInformedBy> buscarcomproblema(int idworkflow) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+
+        Query query = em.createQuery("SELECT DISTINCT wib FROM WasInformedBy wib JOIN Used used Where wib.taskidTask.idTask = used.taskidTask.idTask AND wib.taskidTask.description like '%Failure%' AND wib.taskidTask.idTask = SOME (SELECT used.taskidTask.idTask FROM Used used WHERE used.workflowidWorkflow.idWorkflow = :id)");
+        query.setParameter("id", idworkflow);
+        return query.getResultList();
+    }
+    
     public List<WasInformedBy> buscarTodas() {
         EntityManager em = PersistenceUtil.getEntityManager();
         Query query = em.createQuery("from WasInformedBy As a");

@@ -1,0 +1,32 @@
+<ui:composition template="/WEB-INF/templates/workflowLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Information</h2>
+        <div class="row">
+            <div class="col-md-2">
+                <ui:include src="contextMenu.xhtml" />
+            </div>
+            <div class="col-md-10">
+                <h2>SPARQL</h2>
+
+                <div align="center">
+                    <h:form id="formPrincipal">
+                        <p:inputTextarea rows="15" cols="60" value="#{ontologyBean.sql}"/>
+                        <br/>
+                        <p:commandButton actionListener="#{ontologyBean.buscarporsparql}" id="search" icon="ui-icon-disk" title="Search" value="Search" >
+                            <f:setPropertyActionListener value="#{ontologyBean.sql}" target="#{ontologyBean}"/>
+                        </p:commandButton>
+                        
+
+
+                    </h:form>
+                </div>
+                
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

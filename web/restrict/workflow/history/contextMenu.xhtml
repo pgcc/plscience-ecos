@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui">                
     <h:form>
         <p:menu style="width: 100%">
-            <p:submenu label="Information">
+            <p:submenu label="Informations">
                 <p:menuitem value="Corrective" icon="ui-icon-check" outcome="/restrict/workflow/history/corrective.xhtml">
                     <f:param name="tab" value="3" />
                 </p:menuitem>
@@ -18,9 +18,22 @@
                 <p:menuitem value="Reengineer" icon="ui-icon-refresh"  outcome="/restrict/workflow/history/reengineer.xhtml">
                     <f:param name="tab" value="3" />
                 </p:menuitem>                    
-            </p:submenu>
-            <p:submenu label="Information with inferences">
-                <p:menuitem value="Details" icon="ui-icon-check"  outcome="/restrict/workflow/history/ontology.xhtml">
+                <p:menuitem value="Maintenance" icon="ui-icon-check"  outcome="/restrict/workflow/history/maintenance.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Evolution To" icon="ui-icon-check"  outcome="/restrict/workflow/history/ontologyevolutionto.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Evolution Of" icon="ui-icon-check"  outcome="/restrict/workflow/history/ontologyevolutionof.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Similar Workflows" icon="ui-icon-check"  outcome="/restrict/workflow/history/workflowsimilar.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="All information" icon="ui-icon-check"  outcome="/restrict/workflow/history/ontologyallinformation.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="SPARQL" icon="ui-icon-check"  outcome="/restrict/workflow/history/ontologysparql.xhtml">
                     <f:param name="tab" value="3" />
                 </p:menuitem>
             </p:submenu>

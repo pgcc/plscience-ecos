@@ -32,6 +32,9 @@
                     <p:column headerText="Number Stages:" sortBy="#{lista.numberStage}" filterBy="#{lista.numberStage}">
                         <h:outputText value="#{lista.numberStage}" />
                     </p:column>
+                    <p:column headerText="Link:" sortBy="#{lista.link}" filterBy="#{lista.link}">
+                        <h:outputText value="#{lista.link}" />
+                    </p:column>
                     <p:column headerText="SGWfC" sortBy="#{lista.SGWfCidSGWfC.name}" filterBy="#{lista.SGWfCidSGWfC.name}">
                         <h:outputText value="#{lista.SGWfCidSGWfC.name}" />
                     </p:column>
@@ -96,19 +99,19 @@
                     <p:calendar id="popup" value="#{newworkflowBean.workflow.dateVersion}" />
                     Number Stages:
                     <p:inputText value="#{newworkflowBean.workflow.numberStage}" />  
+                    Link:
+                    <p:inputText value="#{newworkflowBean.workflow.link}" />
                     SGWfC:
                     <p:selectOneMenu id="sgwfc" value="#{newworkflowBean.workflow.SGWfCidSGWfC}" converter="sgwfcConverter">
                         <f:selectItem itemLabel="Select One" itemValue="" />
                         <f:selectItems value="#{sGWfCBean.SGWfCs}" var="sgwfcname" itemLabel="#{sgwfcname.name}" itemValue="#{sgwfcname}"/>
                     </p:selectOneMenu>
-                    <ui:remove>
-                        Archive of Workflow:
+                    Archive of Workflow:
                         <p:fileUpload fileUploadListener="#{newworkflowBean.doUpload}" 
                                       label="Search..." auto="false"/>
 
                         <p:messages  severity="info" escape="false" showDetail="true" 
                                      autoUpdate="true" closable="true"/>
-                    </ui:remove>
                 </p:panelGrid>  
                 <br/>
                 <p:commandButton value="Record" actionListener="#{newworkflowBean.record}" onclick="record.hide()" alt="Record"/> 

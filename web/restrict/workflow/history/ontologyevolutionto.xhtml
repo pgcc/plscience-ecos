@@ -11,10 +11,10 @@
                 <ui:include src="contextMenu.xhtml" />
             </div>
             <div class="col-md-10">
-                <h2>Information of the details</h2>
+                <h2>Evolution To</h2>
                 <h:form id="formPrincipal">
                     <div align="center">
-                        <p:dataTable var="ont" value="#{ontologyBean.ontology}"
+                        <p:dataTable var="ont" value="#{ontologyBean.getEvolutionTo(workflowBean.workflow.name)}"
                                      id="tbl" emptyMessage="No records found"
                                      paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                      paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">

@@ -67,6 +67,10 @@ public class EntityBean implements Serializable{
     public void setEntitys(List entitys) {
         this.entitys = entitys;
     }
+        
+    public void editar() {
+        entity = new EntityDAO().buscarPorID(entity.getIdEntity()); // busca no banco de dados qual registro que vai ser alterado.
+    }
 
     public void postProcessXLS(Object document) {
         HSSFWorkbook wb = (HSSFWorkbook) document;

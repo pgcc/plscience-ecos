@@ -44,6 +44,11 @@ public class WasInformedByBean {
         return wasInformedBys;
     }
 
+     public List<WasInformedBy> buscartaskproblem(int idworkflow) {
+        wasInformedBys = (List) new WasInformedByDAO().buscarcomproblema(idworkflow);
+        return wasInformedBys;
+    }
+    
     public void record(ActionEvent actionEvent) {
         new WasInformedByDAO().persistir(wasInformedBy);
         wasInformedBys = (List) new WasInformedByDAO().buscarTodas();

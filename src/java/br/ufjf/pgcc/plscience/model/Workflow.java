@@ -7,9 +7,7 @@ package br.ufjf.pgcc.plscience.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,12 +17,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,8 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Workflow.findByDescription", query = "SELECT w FROM Workflow w WHERE w.description = :description"),
     @NamedQuery(name = "Workflow.findByVersion", query = "SELECT w FROM Workflow w WHERE w.version = :version"),
     @NamedQuery(name = "Workflow.findByDateVersion", query = "SELECT w FROM Workflow w WHERE w.dateVersion = :dateVersion"),
-    @NamedQuery(name = "Workflow.findByNumberStage", query = "SELECT w FROM Workflow w WHERE w.numberStage = :numberStage")})
+    @NamedQuery(name = "Workflow.findByNumberStage", query = "SELECT w FROM Workflow w WHERE w.numberStage = :numberStage"),
+    @NamedQuery(name = "Workflow.findByLink", query = "SELECT w FROM Workflow w WHERE w.link = :link")})
 public class Workflow implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,10 +49,14 @@ public class Workflow implements Serializable {
     @Column(name = "idWorkflow")
     private Integer idWorkflow;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "Name")
     private String name;
+    @Size(max = 255)
     @Column(name = "Description")
     private String description;
+    @Size(max = 255)
     @Column(name = "Version")
     private String version;
     @Column(name = "DateVersion")
@@ -60,25 +64,12 @@ public class Workflow implements Serializable {
     private Date dateVersion;
     @Column(name = "NumberStage")
     private Integer numberStage;
-    @OneToMany(mappedBy = "workflowidWorkflow")
-    private List<WasAssociatedWith> wasAssociatedWithList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "workflowidWorkflow")
-    private List<WasEndedByWT> wasEndedByWTList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "derivedOf")
-    private List<WasDerivedFrom> wasDerivedFromList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "derivedTo")
-    private List<WasDerivedFrom> wasDerivedFromList1;
+    @Size(max = 255)
+    @Column(name = "link")
+    private String link;
     @JoinColumn(name = "SGWfC_idSGWfC", referencedColumnName = "idSGWfC")
     @ManyToOne
     private SGWfC sGWfCidSGWfC;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "workflowidWorkflow")
-    private List<WasStartedByWT> wasStartedByWTList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "revisionOf")
-    private List<WasRevisionOf> wasRevisionOfList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "revisionTo")
-    private List<WasRevisionOf> wasRevisionOfList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "workflowidWorkflow")
-    private List<Used> usedList;
 
     public Workflow() {
     }
@@ -140,40 +131,12 @@ public class Workflow implements Serializable {
         this.numberStage = numberStage;
     }
 
-    @XmlTransient
-    public List<WasAssociatedWith> getWasAssociatedWithList() {
-        return wasAssociatedWithList;
+    public String getLink() {
+        return link;
     }
 
-    public void setWasAssociatedWithList(List<WasAssociatedWith> wasAssociatedWithList) {
-        this.wasAssociatedWithList = wasAssociatedWithList;
-    }
-
-    @XmlTransient
-    public List<WasEndedByWT> getWasEndedByWTList() {
-        return wasEndedByWTList;
-    }
-
-    public void setWasEndedByWTList(List<WasEndedByWT> wasEndedByWTList) {
-        this.wasEndedByWTList = wasEndedByWTList;
-    }
-
-    @XmlTransient
-    public List<WasDerivedFrom> getWasDerivedFromList() {
-        return wasDerivedFromList;
-    }
-
-    public void setWasDerivedFromList(List<WasDerivedFrom> wasDerivedFromList) {
-        this.wasDerivedFromList = wasDerivedFromList;
-    }
-
-    @XmlTransient
-    public List<WasDerivedFrom> getWasDerivedFromList1() {
-        return wasDerivedFromList1;
-    }
-
-    public void setWasDerivedFromList1(List<WasDerivedFrom> wasDerivedFromList1) {
-        this.wasDerivedFromList1 = wasDerivedFromList1;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public SGWfC getSGWfCidSGWfC() {
@@ -182,42 +145,6 @@ public class Workflow implements Serializable {
 
     public void setSGWfCidSGWfC(SGWfC sGWfCidSGWfC) {
         this.sGWfCidSGWfC = sGWfCidSGWfC;
-    }
-
-    @XmlTransient
-    public List<WasStartedByWT> getWasStartedByWTList() {
-        return wasStartedByWTList;
-    }
-
-    public void setWasStartedByWTList(List<WasStartedByWT> wasStartedByWTList) {
-        this.wasStartedByWTList = wasStartedByWTList;
-    }
-
-    @XmlTransient
-    public List<WasRevisionOf> getWasRevisionOfList() {
-        return wasRevisionOfList;
-    }
-
-    public void setWasRevisionOfList(List<WasRevisionOf> wasRevisionOfList) {
-        this.wasRevisionOfList = wasRevisionOfList;
-    }
-
-    @XmlTransient
-    public List<WasRevisionOf> getWasRevisionOfList1() {
-        return wasRevisionOfList1;
-    }
-
-    public void setWasRevisionOfList1(List<WasRevisionOf> wasRevisionOfList1) {
-        this.wasRevisionOfList1 = wasRevisionOfList1;
-    }
-
-    @XmlTransient
-    public List<Used> getUsedList() {
-        return usedList;
-    }
-
-    public void setUsedList(List<Used> usedList) {
-        this.usedList = usedList;
     }
 
     @Override

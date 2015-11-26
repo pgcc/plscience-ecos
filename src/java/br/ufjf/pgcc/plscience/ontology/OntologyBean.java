@@ -33,7 +33,16 @@ import org.apache.poi.hssf.util.HSSFColor;
 public class OntologyBean implements Serializable {
 
     private List<String> ontologys;
+    private String sql;
+    
+    public String getSql() {
+        return sql;
+    }
 
+    public void setSql(String sql) {
+        this.sql = sql;
+    }
+    
     public void load() throws IOException {
         try {
             OntologyDAO ontologyDAO = new OntologyDAO();
@@ -47,6 +56,18 @@ public class OntologyBean implements Serializable {
         OntologyDAO ontologyDAO = new OntologyDAO();
         ontologys = ontologyDAO.buscartodos();
 
+        return ontologys;
+    }
+
+    public List<String> getEvolutionTo(String workflow) {
+        OntologyDAO ontologyDAO = new OntologyDAO();
+        ontologys = ontologyDAO.buscarEvolutionTo(workflow);
+        return ontologys;
+    }
+
+    public List<String> getEvolutionOf(String workflow) {
+        OntologyDAO ontologyDAO = new OntologyDAO();
+        ontologys = ontologyDAO.buscarEvolutionOf(workflow);
         return ontologys;
     }
 
@@ -75,6 +96,21 @@ public class OntologyBean implements Serializable {
         //String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "demo" + File.separator + "images" + File.separator + "prime_logo.png";
 
         // pdf.add(Image.getInstance(logo));
+    }
+
+    public List<String> buscarporsparql(String sql) {
+        System.out.println("sql:" + sql);
+        OntologyDAO ontologyDAO = new OntologyDAO();
+        ontologys = ontologyDAO.buscarSPARQL(sql);
+
+        return ontologys;
+    }
+    
+     public List<String> buscarsimilar(int workflow) {
+        OntologyDAO ontologyDAO = new OntologyDAO();
+        ontologys = ontologyDAO.Similar(workflow);
+
+        return ontologys;
     }
 
 }

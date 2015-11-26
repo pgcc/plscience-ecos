@@ -32,6 +32,10 @@
                 <h:outputLabel value="Description:" styleClass="panelGridLabel" />
                 <h:outputText value="#{workflowBean.workflow.description}" />
 
+                <h:outputLabel value="Download:" styleClass="panelGridLabel" />
+                <h:outputLink target="_blank" value="#{workflowBean.workflow.link}">
+                    <h:outputText value="#{workflowBean.workflow.link}" />
+                </h:outputLink>
             </h:panelGrid>
         </h:form>
     </ui:define>

@@ -54,6 +54,12 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.ontology.OntResource;
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -94,7 +100,7 @@ public class OntologyDAO {
         ontModel.read(ontologia);
         Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
         reasoner = reasoner.bindSchema(ontModel);
-        OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
+        OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM_TRANS_INF;
         ontModelSpec.setReasoner(reasoner);
         //ontologia carregada na máquina de inferencia
         model = ModelFactory.createOntologyModel(ontModelSpec, ontModel);
@@ -386,6 +392,8 @@ public class OntologyDAO {
         }
         //determinando que o fluxo de saida vai para o arquivo e não para a tela            
         BufferedWriter out = new BufferedWriter(arquivo);
+        //ontologia carregada na máquina de inferencia
+        model = ModelFactory.createOntologyModel(ontModelSpec, model);
         //utilizar RDF/XML-ABBREV, so RDF/XML da erro no protege!        
         model.write(out, "RDF/XML-ABBREV");
 
@@ -394,10 +402,23 @@ public class OntologyDAO {
     }
 
     public List<String> buscartodos() {
-        String baseURI = "http://www.w3.org/ns/prov#";
+        //variavel global
         OntModel model;
-        model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        model.read("file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl");
+        //uri da ontologia
+        String baseURI = "http://www.w3.org/ns/prov#";
+        //caminho fisico da ontologia
+        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
+
+        //inicia a maquina de inferencia e carrega a ontologia nela
+        OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        ontModel.read(ontologia);
+        Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
+        reasoner = reasoner.bindSchema(ontModel);
+        OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
+        ontModelSpec.setReasoner(reasoner);
+        //ontologia carregada na máquina de inferencia
+        model = ModelFactory.createOntologyModel(ontModelSpec, ontModel);
+
         List ontologys = new ArrayList();
         OntClass equipe = model.getOntClass(baseURI + "Workflow");
         OntProperty nome = model.getOntProperty(baseURI + "Used");
@@ -431,5 +452,178 @@ public class OntologyDAO {
             }
         }
         return ontologys;
+    }
+
+    public List<String> buscarSPARQL(String sql) {
+        //variavel global
+        OntModel model;
+        //uri da ontologia
+        String baseURI = "http://www.w3.org/ns/prov#";
+        //caminho fisico da ontologia
+        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
+
+        //inicia a maquina de inferencia e carrega a ontologia nela
+        OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        ontModel.read(ontologia);
+        Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
+        reasoner = reasoner.bindSchema(ontModel);
+        OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
+        ontModelSpec.setReasoner(reasoner);
+        //ontologia carregada na máquina de inferencia
+        model = ModelFactory.createOntologyModel(ontModelSpec, ontModel);
+
+        if (sql.equals("")) {
+            sql = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                    + "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                    + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                    + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                    + "PREFIX prov: <http://www.w3.org/ns/prov#>\n"
+                    + "\n"
+                    + "SELECT ?subject ?object\n"
+                    + "	WHERE { ?subject prov:Used <http://www.w3.org/ns/prov#Sum>}";
+        }
+        Query query = QueryFactory.create(sql);
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+        List resultslist = new ArrayList();
+        while (results.hasNext()) {
+            QuerySolution next = results.next();
+            String result = null;
+            result = next.toString().replace("( ?subject = <http://www.w3.org/ns/prov#", "");
+            resultslist.add(result.replace("> )", ""));
+        }
+
+        return resultslist;
+    }
+
+    public List<String> buscarEvolutionTo(String workflow) {
+        //variavel global
+        OntModel model;
+        //uri da ontologia
+        String baseURI = "http://www.w3.org/ns/prov#";
+        //caminho fisico da ontologia
+        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
+
+        //inicia a maquina de inferencia e carrega a ontologia nela
+        OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        ontModel.read(ontologia);
+        Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
+        reasoner = reasoner.bindSchema(ontModel);
+        OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
+        ontModelSpec.setReasoner(reasoner);
+        //ontologia carregada na máquina de inferencia
+        model = ModelFactory.createOntologyModel(ontModelSpec, ontModel);
+        String sql = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "PREFIX prov: <http://www.w3.org/ns/prov#>\n"
+                + "\n"
+                + "SELECT ?subject ?object\n"
+                + "	WHERE { ?subject prov:EvolutionOf <http://www.w3.org/ns/prov#" + workflow + ">}";
+        Query query = QueryFactory.create(sql);
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+        List resultslist = new ArrayList();
+        while (results.hasNext()) {
+            QuerySolution next = results.next();
+            String result = null;
+            result = next.toString().replace("( ?subject = <http://www.w3.org/ns/prov#", "");
+            resultslist.add(result.replace("> )", ""));
+        }
+
+        return resultslist;
+    }
+
+    public List<String> buscarEvolutionOf(String workflow) {
+        //variavel global
+        OntModel model;
+        //uri da ontologia
+        String baseURI = "http://www.w3.org/ns/prov#";
+        //caminho fisico da ontologia
+        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
+
+        //inicia a maquina de inferencia e carrega a ontologia nela
+        OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        ontModel.read(ontologia);
+        Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
+        reasoner = reasoner.bindSchema(ontModel);
+        OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
+        ontModelSpec.setReasoner(reasoner);
+        //ontologia carregada na máquina de inferencia
+        model = ModelFactory.createOntologyModel(ontModelSpec, ontModel);
+        String sql = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "PREFIX prov: <http://www.w3.org/ns/prov#>\n"
+                + "\n"
+                + "SELECT ?subject ?object\n"
+                + "	WHERE { ?subject prov:EvolutionTo <http://www.w3.org/ns/prov#" + workflow + ">}";
+        Query query = QueryFactory.create(sql);
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+        List resultslist = new ArrayList();
+        while (results.hasNext()) {
+            QuerySolution next = results.next();
+            String result = null;
+            result = next.toString().replace("( ?subject = <http://www.w3.org/ns/prov#", "");
+            resultslist.add(result.replace("> )", ""));
+        }
+
+        return resultslist;
+    }
+
+    public List<String> Similar(int workflow) {
+        //variavel global
+        OntModel model;
+        //uri da ontologia
+        String baseURI = "http://www.w3.org/ns/prov#";
+        //caminho fisico da ontologia
+        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
+
+        //inicia a maquina de inferencia e carrega a ontologia nela
+        OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        ontModel.read(ontologia);
+        Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
+        reasoner = reasoner.bindSchema(ontModel);
+        OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
+        ontModelSpec.setReasoner(reasoner);
+        //ontologia carregada na máquina de inferencia
+        model = ModelFactory.createOntologyModel(ontModelSpec, ontModel);
+        Used used = new Used();
+        List useds = new ArrayList();
+        useds = UsedDAO.getInstance().buscar(5);
+        String sql = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "PREFIX prov: <http://www.w3.org/ns/prov#>\n"
+                + "\n"
+                + "SELECT ?subject\n"
+                + "	WHERE { \n"
+                + "{";
+
+        String sql2 = "";
+        for (Object u : useds) {
+            used = (Used) u;
+
+            sql2 = sql2 + " ?subject prov:Used <http://www.w3.org/ns/prov#" + used.getTaskidTask().getName() + ">.";
+        }
+
+        sql = sql + sql2 + "}}";
+
+        Query query = QueryFactory.create(sql);
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+        List resultslist = new ArrayList();
+        while (results.hasNext()) {
+            QuerySolution next = results.next();
+            String result = null;
+            result = next.toString().replace("( ?subject = <http://www.w3.org/ns/prov#", "");
+            resultslist.add(result.replace("> )", ""));
+        }
+
+        return resultslist;
     }
 }

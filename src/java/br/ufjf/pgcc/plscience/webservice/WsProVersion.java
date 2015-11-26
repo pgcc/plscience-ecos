@@ -85,10 +85,10 @@ public class WsProVersion {
 
                 ws.setDateStarted(timestamp);
                 ws.setDescription("Task " + t.getName() + " started to activity " + act.getName());
-                WasStartedByDAO.getInstance().persistir(ws);
             } catch (Exception e) {
-                System.err.println("Failure in WasStartedBy of " + t.getName() + " with " + act.getName());
+                ws.setDescription("Failure in WasStartedBy of " + t.getName() + " with " + act.getName());
             }
+            WasStartedByDAO.getInstance().persistir(ws);
             ws = null;
         }
 
@@ -101,10 +101,10 @@ public class WsProVersion {
                 ip.setName("Starting port workflow to " + t.getName());
                 ip.setDescription("Port of task with valeu " + valueinput);
                 ip.setWf(workflow);
-                InputPortDAO.getInstance().persistir(ip);
             } catch (Exception e) {
-                System.err.println("Failure in InputPort of " + t.getName() + " with " + valueinput);
+                ip.setDescription("Failure in InputPort of " + t.getName() + " with " + valueinput);
             }
+            InputPortDAO.getInstance().persistir(ip);
         }
 
         //Table Used
@@ -114,10 +114,10 @@ public class WsProVersion {
                 u.setWorkflowidWorkflow(wf);
                 u.setTaskidTask(t);
                 u.setDescription("Task " + t.getName() + " was used in workflow " + wf.getName());
-                UsedDAO.getInstance().persistir(u);
             } catch (Exception e) {
-                System.err.println("Failure in Used to " + wf.getName() + " with " + t.getName());
+                u.setDescription("Failure in Used to " + wf.getName() + " with " + t.getName());
             }
+            UsedDAO.getInstance().persistir(u);
 
             // tabela WasStartedByWT
             WasStartedByWT wsbwt = new WasStartedByWT();
@@ -125,7 +125,6 @@ public class WsProVersion {
             try {
                 wsbwt.setTaskidTask(t);
                 wsbwt.setWorkflowidWorkflow(wf);
-                //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 Calendar calendar = Calendar.getInstance();
                 Timestamp timestamp = new Timestamp(calendar.getTime().getTime());
                 wsbwt.setStarted(timestamp);
@@ -154,11 +153,11 @@ public class WsProVersion {
             try {
                 wat.setExperimentExperiment(exp);
                 wat.setWorkflowidWorkflow(wf);
-                wat.setDescription("Workflow " +wf.getName()+ " was attributed to experimento " + exp.getName());
-                WasAssociatedWithDAO.getInstance().persistir(wat);
+                wat.setDescription("Workflow " + wf.getName() + " was attributed to experimento " + exp.getName());
             } catch (Exception e) {
-                System.err.println("Failure in WasAttributedTo " + wf.getName() +" with "+ exp.getName());
+                wat.setDescription("Failure in WasAttributedTo " + wf.getName() + " with " + exp.getName());
             }
+            WasAssociatedWithDAO.getInstance().persistir(wat);
         }
 
         //Table WasRevisionOf
@@ -170,7 +169,7 @@ public class WsProVersion {
                 wro.setType(typerevision);
                 WasRevisionOfDAO.getInstance().persistir(wro);
             } catch (Exception e) {
-                System.err.println("Failure in WasRevisionOf " + wf.getName() +" with "+ wfro.getName());
+                System.err.println("Failure in WasRevisionOf " + wf.getName() + " with " + wfro.getName());
             }
         }
     }
@@ -203,24 +202,24 @@ public class WsProVersion {
                 op.setTaskidTask(to);
                 op.setValue(valueoutput);
                 op.setName("Ended Port Task " + to.getName());
-                op.setDescription("Task " +to.getName()+ " output with valueoutput " + valueoutput);
+                op.setDescription("Task " + to.getName() + " output with valueoutput " + valueoutput);
                 op.setWf(workflow);
-                op = OutputPortDAO.getInstance().persistir(op);
             } catch (Exception e) {
-                System.err.println("Failure in OutputPort " + to.getName());
+                op.setDescription("Failure in OutputPort " + to.getName());
             }
+            op = OutputPortDAO.getInstance().persistir(op);
 
             InputPort ip = new InputPort();
             try {
                 ip.setTaskidTask(ti);
                 ip.setValue(valueinput);
                 ip.setName("Starting port task " + ti.getName());
-                ip.setDescription("Task " +ti.getName() + " input with valueinput " + valueinput);
+                ip.setDescription("Task " + ti.getName() + " input with valueinput " + valueinput);
                 ip.setWf(workflow);
-                ip = InputPortDAO.getInstance().persistir(ip);
             } catch (Exception e) {
-                System.err.println("Failure in InputPort " + ti.getName());
+                ip.setDescription("Failure in InputPort " + ti.getName());
             }
+            ip = InputPortDAO.getInstance().persistir(ip);
 
             //Table ActedOnBehalfOf
             ActedOnBehalfOf waw = new ActedOnBehalfOf();
@@ -228,11 +227,11 @@ public class WsProVersion {
                 waw.setInputPortidPort(ip);
                 waw.setOutputPortidPort(op);
                 waw.setDescription("Task " + to.getName() + " acted on behalf of task " + ti.getName());
-                waw.setWf(workflow);
-                ActedOnBehalfOfDAO.getInstance().persistir(waw);
+                waw.setWf(workflow);                
             } catch (Exception e) {
-                System.err.println("Failure in WasAssociatedWith " + to.getName() + " with " + ti.getName());
+                waw.setDescription("Failure in WasAssociatedWith " + to.getName() + " with " + ti.getName());
             }
+            ActedOnBehalfOfDAO.getInstance().persistir(waw);
 
             op = null;
             ip = null;
@@ -247,12 +246,12 @@ public class WsProVersion {
                 ip.setTaskidTask(ti);
                 ip.setValue(valueinput);
                 ip.setName("Starting port task " + ti.getName());
-                ip.setDescription("Task " +ti.getName() + " input with valueinput " + valueinput);
-                ip.setWf(workflow);
-                ip = InputPortDAO.getInstance().persistir(ip);
+                ip.setDescription("Task " + ti.getName() + " input with valueinput " + valueinput);
+                ip.setWf(workflow);                
             } catch (Exception e) {
-                System.err.println("Failure in InputPort " + ti.getName());
+                ip.setDescription("Failure in InputPort " + ti.getName());
             }
+            ip = InputPortDAO.getInstance().persistir(ip);
 
             ip = null;
 
@@ -266,11 +265,11 @@ public class WsProVersion {
                 op.setValue(valueoutput);
                 op.setName("Ended Port Task " + to.getName());
                 op.setDescription("Task " + to.getName() + " output with valueoutput " + valueoutput);
-                op.setWf(workflow);
-                op = OutputPortDAO.getInstance().persistir(op);
+                op.setWf(workflow);                
             } catch (Exception e) {
-                System.err.println("Failure in Output " + to.getName());
+                op.setDescription("Failure in Output " + to.getName());
             }
+            op = OutputPortDAO.getInstance().persistir(op);
 
             op = null;
         }
@@ -284,8 +283,9 @@ public class WsProVersion {
                 u.setDescription("Task " + ti.getName() + " was used in workflow " + wf.getName());
                 UsedDAO.getInstance().persistir(u);
             } catch (Exception e) {
-                System.err.println("Failure in Used "+ ti.getName() +" with "+ wf.getName());
+                u.setDescription("Failure in Used " + ti.getName() + " with " + wf.getName());
             }
+            UsedDAO.getInstance().persistir(u);
             u = null;
         }
 
@@ -302,10 +302,10 @@ public class WsProVersion {
 
                 ws.setDateStarted(timestamp);
                 ws.setDescription("Task " + ti.getName() + " started to activity " + act.getName());
-                WasStartedByDAO.getInstance().persistir(ws);
             } catch (Exception e) {
-                System.err.println("Failure in WasStartedBy " + ti.getName() + " with " + act.getName());
+                ws.setDescription("Failure in WasStartedBy " + ti.getName() + " with " + act.getName());
             }
+            WasStartedByDAO.getInstance().persistir(ws);
             ws = null;
         }
 
@@ -315,17 +315,14 @@ public class WsProVersion {
             try {
                 we.setTaskidTask(to);
                 we.setActivityidActivity(act);
-
-                //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 Calendar calendar = Calendar.getInstance();
                 Timestamp timestamp = new Timestamp(calendar.getTime().getTime());
-
                 we.setDateEnded(timestamp);
-                we.setDescription("Task " + to.getName() + " ended to activity " + act.getName());
-                WasEndedByDAO.getInstance().persistir(we);
+                we.setDescription("Task " + to.getName() + " ended to activity " + act.getName());                
             } catch (Exception e) {
-                System.err.println("Failure in WasEndedBy " + to.getName() + " with " + act.getName());
+                we.setDescription("Failure in WasEndedBy " + to.getName() + " with " + act.getName());
             }
+            WasEndedByDAO.getInstance().persistir(we);
             we = null;
         }
 
@@ -335,24 +332,22 @@ public class WsProVersion {
             try {
                 wi.setTaskidTask(to);
                 wi.setActivityidActivity(act);
-
-                wi.setDescription("Task " + to.getName() + " was successful for activity " + act.getName());
-                WasInformedByDAO.getInstance().persistir(wi);
+                wi.setDescription("Task " + to.getName() + " was successful for activity " + act.getName());                
             } catch (Exception e) {
-                System.err.println("Failure in WasInformedBy " + to.getName() + " with " + act.getName());
+                wi.setDescription("Failure in WasInformedBy " + to.getName() + " with " + act.getName());
             }
+            WasInformedByDAO.getInstance().persistir(wi);
             wi = null;
         } else if (taskoutput != 0 && activity != 0) {
             WasInformedBy wi = new WasInformedBy();
             try {
                 wi.setTaskidTask(to);
                 wi.setActivityidActivity(act);
-
-                wi.setDescription("Task " + to.getName() + " was unsuccessful for activity " + act.getName());
-                WasInformedByDAO.getInstance().persistir(wi);
+                wi.setDescription("Task " + to.getName() + " was unsuccessful for activity " + act.getName());                
             } catch (Exception e) {
-                System.err.println("Failure in WasInformedBy " + to.getName() + " with " + act.getName());
+                wi.setDescription("Failure in WasInformedBy " + to.getName() + " with " + act.getName());
             }
+            WasInformedByDAO.getInstance().persistir(wi);
             wi = null;
         } else {
             System.err.println("Failure in WasInformedBy Global");
