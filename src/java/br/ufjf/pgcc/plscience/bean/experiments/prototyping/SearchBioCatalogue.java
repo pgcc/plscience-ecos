@@ -26,6 +26,7 @@ package br.ufjf.pgcc.plscience.bean.experiments.prototyping;
 import br.ufjf.biocatalogue.core.BioCatalogueClient;
 import br.ufjf.biocatalogue.model.Result;
 import br.ufjf.biocatalogue.model.Search;
+import br.ufjf.pgcc.plscience.recos.IntegrationModule;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
@@ -62,6 +63,8 @@ public class SearchBioCatalogue implements Serializable {
             if (result != null) {
                 results = result.getResults();
             }
+            
+            IntegrationModule.setResults(results);
         } catch (Exception e) {
         }
     }

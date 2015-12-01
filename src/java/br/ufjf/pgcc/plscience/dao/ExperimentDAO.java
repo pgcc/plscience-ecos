@@ -219,6 +219,7 @@ public class ExperimentDAO extends GenericDAO {
         return experiments;
     }
     
+    
     public List getIdFromName(String nameExp){
         Query query = getEntityManager().createNativeQuery("SELECT idExperiment FROM Experiment WHERE Name = ?nameExp");
         query.setParameter("nameExp", nameExp);

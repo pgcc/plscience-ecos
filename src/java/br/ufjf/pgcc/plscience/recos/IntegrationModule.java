@@ -6,6 +6,7 @@
 
 package br.ufjf.pgcc.plscience.recos;
 
+import br.ufjf.biocatalogue.model.Result;
 import br.ufjf.myexperiment.model.Workflow;
 import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.model.ExperimentServices;
@@ -22,7 +23,7 @@ public class IntegrationModule {
     private static ExperimentServices expService;
     private static int totalService;
     
-    
+    //myExperiment search
     public static void setWorkflows(List<Workflow> workflowList){
         servicesList = new ArrayList<RecosService>();
        
@@ -40,7 +41,7 @@ public class IntegrationModule {
            
             
           
-           
+          
            List frequencyService = new ExperimentDAO().getFrequencyService(workflowList.get(i).getDescription());
            int frequency = Integer.parseInt(frequencyService.get(0).toString());
            recosService.setFrequencyService(frequency);
@@ -51,7 +52,7 @@ public class IntegrationModule {
            
            servicesList.add(i, recosService);
            
-           
+
         }
         
         setTotalService();
@@ -59,6 +60,39 @@ public class IntegrationModule {
         showRecos(servicesList);
         
     }
+
+    //BioCatalog search
+    public static void setResults(ArrayList<Result> resultsList){
+        
+        servicesList = new ArrayList<RecosService>();
+        
+        for(int i = 0 ; i < resultsList.size() ; i ++){
+            RecosService recosService = new RecosService();
+            
+            recosService.setResource(resultsList.get(i).getResource());
+            recosService.setCreated_At(resultsList.get(i).getCreated_at());
+            recosService.setUpdated_At(resultsList.get(i).getCreated_at());
+            recosService.setTitle(resultsList.get(i).getName());
+            
+            
+           List frequencyService = new ExperimentDAO().getFrequencyService(resultsList.get(i).getName());
+           int frequency = Integer.parseInt(frequencyService.get(0).toString());
+           recosService.setFrequencyService(frequency);
+     
+           List latestTime = new ExperimentDAO().getLatestTimeUsed(resultsList.get(i).getDescription());
+           String latest = latestTime.toString();
+           recosService.setLatestTime_used(latest);
+           
+           servicesList.add(i, recosService);
+           
+        }
+        
+        setTotalService();
+        System.out.println("Total " + totalService + " Service " + servicesList.size());
+        calculateFactors(servicesList, totalService);
+        showRecos(servicesList);
+    }
+    
     
     public static void showRecos(List<RecosService> list){
         for(int i = 0 ; i < list.size() ; i ++){

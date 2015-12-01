@@ -39,7 +39,7 @@ public class calculateFactors {
     
     private static void ratingCalculator(RecosService service){
         double rating = ((double) service.getFrequencyService() / (double) total);
-        service.setRating(rating);
+        service.setRating(10 * rating);
         
     }
     
@@ -50,6 +50,7 @@ public class calculateFactors {
        LocalDate createdAt = LocalDate.parse(service.getCreated_At(), formatter);
        LocalDate updatedAt = LocalDate.parse(service.getUpdated_At(), formatter);
        LocalDate latestUsed;
+       
        if(service.getLatestTime_used() == "0000-00-00")
            latestUsed = null;
        else 
@@ -57,18 +58,21 @@ public class calculateFactors {
        LocalDate today = LocalDate.now();
       
         
+        long lifeTime = ChronoUnit.DAYS.between(today, createdAt);
+        long updateTime =  ChronoUnit.DAYS.between(updatedAt, createdAt);
         
-        long lifeTime = ChronoUnit.DAYS.between(createdAt, today);
         long biasTime = 0;
-        
         if(latestUsed == null)
             biasTime = 0;
         else
-           biasTime  = ChronoUnit.DAYS.between(latestUsed, today);
+           biasTime  = (ChronoUnit.DAYS.between(today, latestUsed));
+        double bias = biasTime/(double)lifeTime;
         
-        long updateTime =  ChronoUnit.DAYS.between(updatedAt, today);
-        double time = ( (double) (lifeTime - biasTime)/updateTime);
+       double fresh = (lifeTime + updateTime)/ (double)lifeTime;
         
+       double time = fresh + bias;
+        
+        //System.out.println("Lifetime: " + lifeTime + " biasTime: " + biasTime + " uptadeTime: " + updateTime);
         service.setTime(time);
         
     }
