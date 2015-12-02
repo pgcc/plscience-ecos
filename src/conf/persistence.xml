@@ -35,10 +35,10 @@
     <class>br.ufjf.pgcc.plscience.model.WasEndedByWT</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/plscience?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/plscienceprov?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="camarila"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
         <property name="eclipselink.ddl-generation" value="none"/>
     <!-- or just value="create-tables" -->
     </properties>

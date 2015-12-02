@@ -1,0 +1,34 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Collaboration Services</h2>
+        
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="5">
+                <h3>General</h3><p:outputLabel value=" " />                       
+                <p:commandButton value="Register" icon="ui-icon-plusthick" style="width:250px"
+                                 action="/faces/restrict/collaborationServices/newCollaborationService.xhtml?faces-redirect=true" ajax="false" />
+                <p:outputLabel value=" " />
+                <p:commandButton value="List" icon="ui-icon-print" style="width:250px"
+                                 action="/faces/restrict/collaborationServices/myCollaborationServices.xhtml?faces-redirect=true" ajax="false" />
+                <p:outputLabel value=" " />
+                
+                <p:separator /><p:outputLabel value=" " />
+                <ui:remove>
+                <p:commandButton value="Analyze All Services" icon="ui-icon-lightbulb" style="width:250px"
+                                 action="/faces/restrict/collaborationServices/analyzeAllCollaborationServices.xhtml?faces-redirect=true" ajax="false" />
+                <p:outputLabel value=" " />
+                </ui:remove>
+                <p:commandButton value="Analyze Two Services" icon="ui-icon-lightbulb" style="width:250px"
+                                 action="/faces/restrict/collaborationServices/analyzeTwoCollaborationServices.xhtml?faces-redirect=true" ajax="false" />
+                <p:outputLabel value=" " />
+            </h:panelGrid>
+        </h:form>
+            
+        
+    </ui:define>
+</ui:composition>

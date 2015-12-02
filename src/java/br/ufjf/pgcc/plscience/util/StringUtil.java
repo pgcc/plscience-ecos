@@ -25,8 +25,11 @@ package br.ufjf.pgcc.plscience.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -52,4 +55,41 @@ public class StringUtil {
         return "";
     }
     
+    public static void removeList(List<String> l) {
+        for(int i = 0; i < l.size(); i++) {
+            
+            String s = l.get(i);            
+            char c = s.charAt(s.length()-1);
+            
+            if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || 
+                    c == '6' || c == '7' || c == '8' || c == '9' || c == '0'){
+                l.remove(i);
+                i = 0;
+            }
+            
+        }
+    }
+    
+    public static void main(String[] args) throws IOException {
+         
+        List<String> l = new ArrayList<String>();
+        
+        l.add("casa");
+        l.add("comida");
+        l.add("casa1");
+        l.add("comida1");
+        l.add("bola");
+        
+        System.out.println("\n\nLista 1:");
+        for(int i = 0; i < l.size(); i++) {
+            System.out.println(l.get(i));
+        }
+        
+        removeList(l);
+        
+        System.out.println("\n\nLista 2:");
+        for(int i = 0; i < l.size(); i++) {
+            System.out.println(l.get(i));
+        }
+    }
 }

@@ -9,17 +9,19 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 
 public class WordNetHandler {
 
-	private Vector<String> listaSinonimos = new Vector<String>();// lista de sinonimos
-	private Vector<String> listaHiperonimos = new Vector<String>();// lista de hiperonimos
+	private List<String> listaSinonimos = new ArrayList<String>();// lista de sinonimos
+	private List<String> listaHiperonimos = new ArrayList<String>();// lista de hiperonimos
+        
 	//modifique esses atributos para o local da sua WordNet
-	private final String unidade = "C:/";
-	private final String diretorioWordNet = unidade
-			+ "Program Files (x86)/WordNet/2.1/bin/wn ";
+	private final String unidade = "D:/Wordnet/";
+	private final String diretorioWordNet = "C:/Program Files (x86)/WordNet/2.1/bin/wn ";
 
 	/**
 	 * Consulta pelo conceito, caso seja do tipo Noum
@@ -103,7 +105,7 @@ public class WordNetHandler {
 		String tagTipoPalavra = null;// armazena tipo (substantivo, verbo, etc)
 										// palavra
 		String auxLinhaAnalisada = null;// auxiliar para análise da linha
-		int countSemantica = 0;// contador de semânticas (Sense) da palavra
+		int countSemantica = 0;// contador de sem�nticas (Sense) da palavra
 		// enquanto arquivo não acabar
 		while (!linhaAnalisada.equalsIgnoreCase("EOF")) {
 			String sinonimo;
@@ -131,7 +133,7 @@ public class WordNetHandler {
 				while (index != -1) {// enquanto houver elementos na lista
 					sinonimo = auxLinhaAnalisada.substring(0, index);// retira o
 																		// sinonimo
-					listaSinonimos.addElement(sinonimo.replaceAll("\\s+", ""));// armanzena-o
+					listaSinonimos.add(sinonimo.replaceAll("\\s+", ""));// armanzena-o
 																				// eliminando
 																				// possiveis
 																				// espacos
@@ -148,13 +150,13 @@ public class WordNetHandler {
 															// a lista
 				}
 				sinonimo = auxLinhaAnalisada;// último sinonimo da lista
-				listaSinonimos.addElement(sinonimo.replaceAll("\\s+", ""));// armazena-o
+				listaSinonimos.add(sinonimo.replaceAll("\\s+", ""));// armazena-o
 																			// eliminando
 																			// possiveis
 																			// espacos
 																			// em
 																			// branco
-				listaSinonimos.addElement("Sense " + countSemantica);// marca no
+				listaSinonimos.add("Sense " + countSemantica);// marca no
 																		// vector
 																		// o fim
 																		// deste
@@ -164,12 +166,12 @@ public class WordNetHandler {
 				// idem ao if
 				sinonimo = linhaAnalisada
 						.substring(linhaAnalisada.indexOf(">") + 2);
-				listaSinonimos.addElement(sinonimo.replaceAll("\\s+", ""));// elimina
+				listaSinonimos.add(sinonimo.replaceAll("\\s+", ""));// elimina
 																			// possiveis
 																			// espacos
 																			// em
 																			// branco
-				listaSinonimos.addElement("Sense " + countSemantica);// marca no
+				listaSinonimos.add("Sense " + countSemantica);// marca no
 																		// vector
 																		// o fim
 																		// deste
@@ -189,7 +191,7 @@ public class WordNetHandler {
 				int index = auxLinhaAnalisada.indexOf(",");
 				while (index != -1) {
 					hipernonimo = auxLinhaAnalisada.substring(0, index);
-					listaHiperonimos.addElement(hipernonimo.replaceAll("\\s+",
+					listaHiperonimos.add(hipernonimo.replaceAll("\\s+",
 							""));
 					auxLinhaAnalisada = auxLinhaAnalisada.substring(index + 2);
 					System.out
@@ -199,8 +201,8 @@ public class WordNetHandler {
 				}
 				hipernonimo = auxLinhaAnalisada;
 				listaHiperonimos
-						.addElement(hipernonimo.replaceAll("\\s+", ""));
-				listaHiperonimos.addElement("Sense " + countSemantica);// marca
+						.add(hipernonimo.replaceAll("\\s+", ""));
+				listaHiperonimos.add("Sense " + countSemantica);// marca
 																		// no
 																		// vector
 																		// o fim
@@ -210,8 +212,8 @@ public class WordNetHandler {
 					&& linhaAnalisada.indexOf(",") == -1) {
 				hipernonimo = auxLinhaAnalisada;
 				listaHiperonimos
-						.addElement(hipernonimo.replaceAll("\\s+", ""));
-				listaHiperonimos.addElement("Sense " + countSemantica);// marca
+						.add(hipernonimo.replaceAll("\\s+", ""));
+				listaHiperonimos.add("Sense " + countSemantica);// marca
 																		// no
 																		// vector
 																		// o fim
@@ -229,7 +231,7 @@ public class WordNetHandler {
 	 * 
 	 * @return - todos os sinonimos obtidos
 	 */
-	public Vector<String> getListaSinonimos() {
+	public List<String> getListaSinonimos() {
 		return listaSinonimos;
 	}
 
@@ -237,7 +239,7 @@ public class WordNetHandler {
 	 * 
 	 * @return - todos os hiperonimos obtidos
 	 */
-	public Vector<String> getListaHiperonimos() {
+	public List<String> getListaHiperonimos() {
 		return listaHiperonimos;
 	}
         
@@ -246,10 +248,11 @@ public class WordNetHandler {
       
          
          //wh.getWordNetConceptsVerb("chat");
-         //wh.handleWordNetConcepts(wh.getWordNetConceptsNoun("chat"));
-         wh.handleWordNetConcepts(wh.getWordNetConceptsVerb("chat"));
-         wh.getListaHiperonimos();
-         wh.getListaSinonimos();
+         wh.handleWordNetConcepts(wh.getWordNetConceptsNoun("Scientist"));
+         wh.handleWordNetConcepts(wh.getWordNetConceptsNoun("Researcher"));
+         //wh.handleWordNetConcepts(wh.getWordNetConceptsVerb("chat"));
+         //wh.getListaHiperonimos();
+         //wh.getListaSinonimos();
          
         
         }

@@ -1,0 +1,40 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Collaboration Services</h2>
+        
+        <h:form>
+            <h:panelGrid columns="3" cellpadding="5">
+                <h3>General</h3><p:outputLabel value=" " /><p:outputLabel value=" " />
+                <h:outputText value="Collaboration Service Type" style="font-weight: bold" />
+                <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/newCollaborativeServiceType.xhtml?faces-redirect=true" ajax="false" />
+                <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/myCollaborativeServiceTypes.xhtml?faces-redirect=true" ajax="false" />
+                <h:outputText value="Steps Scientific Experimentation" style="font-weight: bold" />
+                <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/newStepScientificExperimentation.xhtml?faces-redirect=true" ajax="false" />
+                <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/myStepsScientificExperimentation.xhtml?faces-redirect=true" ajax="false" />
+                
+                <p:separator /><p:outputLabel value=" " /><p:outputLabel value=" " />
+                
+                <h3>Coordination Features</h3><p:outputLabel value=" " /><p:outputLabel value=" " />                         
+                <h:outputText value="Role" style="font-weight: bold" />
+                <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/newRoler.xhtml?faces-redirect=true" ajax="false" />
+                <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/myRolers.xhtml?faces-redirect=true" ajax="false" />
+                
+                <p:separator /><p:outputLabel value=" " /><p:outputLabel value=" " />
+                
+                <h3>Group Formation Features</h3><p:outputLabel value=" " /><p:outputLabel value=" " />
+                <h:outputText value="Competence" style="font-weight: bold" />
+                <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/newCompetence.xhtml?faces-redirect=true" ajax="false" />
+                <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/myCompetences.xhtml?faces-redirect=true" ajax="false" />
+
+                <p:separator /><p:outputLabel value=" " /><p:outputLabel value=" " />
+                
+            </h:panelGrid>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

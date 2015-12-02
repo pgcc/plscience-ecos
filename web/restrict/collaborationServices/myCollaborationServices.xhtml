@@ -1,0 +1,46 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Collaborative Service</h2>
+
+        <h:form id="collaborationServicesMain">
+            <div align="center">
+                <p:dataTable id="collaborationServicesTable" var="collaborationService" 
+                             value="#{myCollaborationServices.collaborationServices}" style="margin: 20px 0">
+
+                    <p:column id="idHeader" headerText="ID">
+                        <h:outputText value="#{collaborationService.id}" />
+                    </p:column>
+
+                    <p:column id="nameHeader" headerText="Name Service">
+                        <h:outputText value="#{collaborationService.collabServiceName}" />
+                    </p:column>
+                    
+                    <p:column id="descriptionHeader" headerText="Description">
+                        <h:outputText value="#{collaborationService.description}" />
+                    </p:column>
+                    
+                    <p:column id="serviceTypeSHeader" headerText="Service Type">
+                        <h:outputText value="#{collaborationService.collaborativeServiceType.nameServiceType}" />
+                    </p:column>
+                    
+                    <p:column>
+                        <p:commandButton title="addFeatures" 
+                                         value="Add Features" 
+                                         icon="ui-icon-pencil" 
+                                         action="/faces/restrict/collaborationServices/collaborationServiceAddFeatures.xhtml?faces-redirect=true"
+                                         ajax="false">
+                            <f:setPropertyActionListener value="#{collaborationService}" target="#{workspaceCollabService.collaborationService}" />
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,36 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Steps Scientific Experimentation</h2>
+
+        <h:form id="stepMain">
+            <div align="center">
+                <p:dataTable id="stepTable" var="step" 
+                             value="#{myStepsScientificExperimentation.stepsScientificExperimentation}" style="margin: 20px 0">
+
+                    <p:column id="idHeader" headerText="ID">
+                        <h:outputText value="#{step.id}" />
+                    </p:column>
+
+                    <p:column id="numberHeader" headerText="Number Step">
+                        <h:outputText value="#{step.numberStep}" />
+                    </p:column>
+
+                    <p:column id="nameHeader" headerText="Name Step">
+                        <h:outputText value="#{step.nameStep}" />
+                    </p:column>
+                    
+                    <p:column id="descriptionHeader" headerText="Description">
+                        <h:outputText value="#{step.description}" />
+                    </p:column>
+                    
+                </p:dataTable>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

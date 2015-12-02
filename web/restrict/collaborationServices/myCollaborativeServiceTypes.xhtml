@@ -1,0 +1,32 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Collaborative Service Types</h2>
+
+        <h:form id="collaborativeServiceTypeMain">
+            <div align="center">
+                <p:dataTable id="collaborativeServiceTypeTable" var="collaborativeServiceType" 
+                             value="#{myCollaborativeServiceTypes.collaborativeServiceTypes}" style="margin: 20px 0">
+
+                    <p:column id="idHeader" headerText="ID">
+                        <h:outputText value="#{collaborativeServiceType.id}" />
+                    </p:column>
+
+                    <p:column id="nameHeader" headerText="Name Service Type">
+                        <h:outputText value="#{collaborativeServiceType.nameServiceType}" />
+                    </p:column>
+                    
+                    <p:column id="descriptionHeader" headerText="Description">
+                        <h:outputText value="#{collaborativeServiceType.description}" />
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

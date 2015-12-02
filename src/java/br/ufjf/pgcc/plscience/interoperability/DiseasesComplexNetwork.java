@@ -25,8 +25,11 @@ public class DiseasesComplexNetwork {
         List<String> diseases = new ArrayList();
          try {
          
+            // CAMINHO LOCAL
+            File file = new File("D:\\Ontologias\\diseasome.gexf.xml");
+             
             //CAMINHO SERVIDOR
-            File file = new File("/var/www/ontologies/diseasome.gexf.xml");
+            //File file = new File("/var/www/ontologies/diseasome.gexf.xml");
             
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             
@@ -53,8 +56,11 @@ public class DiseasesComplexNetwork {
          StringBuilder  sb = new StringBuilder();
         try {
         
+            // CAMINHO LOCAL
+            File file = new File("D:\\Ontologias\\diseasome.gexf.xml");
+           
             //CAMINHO SERVIDOR
-            File file = new File("/var/www/ontologies/diseasome.gexf.xml");
+            //File file = new File("/var/www/ontologies/diseasome.gexf.xml");
             
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             

@@ -1,0 +1,1295 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#"
+     xml:base="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl">
+        <rdfs:isDefinedBy>PL-Science Group</rdfs:isDefinedBy>
+        <rdfs:comment>Esta ontologia descreve o conhecimento envolvido na abordagem Collaborative PL-Science. O objetivo é possibilitar que novos conhecimentos possam ser descobertos a partir de consultas realizadas na base de dados. Visa permitir também a utilização de um vocabulário comum entre os cientistas e / ou pesquisadores neste domínio.</rdfs:comment>
+        <owl:versionIRI rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#construct -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#construct">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Product"/>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#wasConstructed"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#describes -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#describes">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHistory"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Product"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#develops -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#develops">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isRequired"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#construct"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#enables -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#enables">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment>Possibilita</rdfs:comment>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Interaction"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#generates -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#generates">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment>gera</rdfs:comment>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Interaction"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isGeneratedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasActivityHistory -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasActivityHistory">
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#describes"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasAdressee -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasAdressee">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Receptor"/>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isReceptorOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasAsParticipant -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasAsParticipant">
+        <rdfs:comment>Interação &quot;possui como participante&quot; Cientista</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#generates"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasAdressee"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#generates"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isWrittenBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasInterationOf -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasInterationOf">
+        <rdfs:comment>Tem interação de</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasMembers -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasMembers">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment>Possui membro</rdfs:comment>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Community"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasProduct -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasProduct">
+        <rdfs:comment>Comunidade de Cientistas tem produtos associados à ela.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasMembers"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#develops"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasRelation -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasRelation">
+        <rdfs:comment>Cientistas tem relação com o Artefato</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#writes"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isAbout"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasSome -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasSome">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#enables"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#generates"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#interactingWith -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#interactingWith">
+        <rdfs:comment>Interagem com</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#involves -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#involves">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Issuing"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Receptor"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isAbout -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isAbout">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isGeneratedBy"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isMadePossibleBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isAssociatedWith -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isAssociatedWith">
+        <rdfs:comment>Produto está associado à uma Comunidade de Cientistas</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isDevelopedBy"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isMemberOf"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isComposedBy -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isComposedBy">
+        <rdfs:comment>Produto é composto por Artefato</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#wasConstructed"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#uses"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isDevelopedBy -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isDevelopedBy">
+        <rdfs:comment>Produto é desenvolvido por Cientista</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#wasConstructed"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#requires"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isGeneratedBy -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isGeneratedBy">
+        <rdfs:comment>é gerada por</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isGeneratedFrom -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isGeneratedFrom">
+        <rdfs:comment>É gerado por</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#describes"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#wasConstructed"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isMadePossibleBy -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isMadePossibleBy">
+        <rdfs:comment>é possibilitada por</rdfs:comment>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#enables"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isManipulated -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isManipulated">
+        <rdfs:comment>Artefato é manipulado por Cientista</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isUsed"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#requires"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isMemberOf -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isMemberOf">
+        <rdfs:comment>É membro de</rdfs:comment>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasMembers"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isPartOf -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isPartOf">
+        <rdfs:comment>Artefato é parte de um Produto</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isUsed"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#construct"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isPartOfList -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isPartOfList">
+        <rdfs:comment>Cientista &quot;é parte da Lista de&quot; Interações</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isParticipantOf"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isMadePossibleBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isParticipantOf -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isParticipantOf">
+        <rdfs:comment>Cientista &quot;é participante de&quot; Interação</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isReceptorOf"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isGeneratedBy"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#writes"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isGeneratedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isReceptorOf -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isReceptorOf"/>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isRequired -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isRequired">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:comment>Requereu</rdfs:comment>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isResponsibleFor -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isResponsibleFor">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isRequired"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#resultsIn"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isStepOf -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isStepOf">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isGeneratedFrom"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#requires"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isStored -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isStored"/>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isTypeOf -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isTypeOf">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Product"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#IsolatedApplication"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Workflow"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isUsed -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isUsed">
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#uses"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isWrittenBy -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isWrittenBy">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Issuing"/>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#writes"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Note"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isinvolved -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isinvolved">
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#involves"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#listOfParticipants -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#listOfParticipants">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#enables"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasAsParticipant"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#manipulates -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#manipulates">
+        <rdfs:comment>Cientista manipula Artefato</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isRequired"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#uses"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#requires -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#requires">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isRequired"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#resultsIn -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#resultsIn">
+        <rdfs:comment>A realização de uma atividade &quot;Resulta em&quot; Histórico de Atividades</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#construct"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#hasActivityHistory"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#stores -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#stores">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment>Local URL armazena o endereço de um Artefato (Núcleo onde ele está disponível)</rdfs:comment>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LocalURL"/>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#isStored"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#FeatureModel"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#MappingFile"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Ontology"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Other"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#uses -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#uses">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Artifact"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#wasConstructed -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#wasConstructed">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Product"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#writes -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#writes"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHasDateTime -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHasDateTime">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHasDescription -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHasDescription">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHistoryHasDescription -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHistoryHasDescription">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHistory"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#MessageHasText -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#MessageHasText">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#NoteHasText -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#NoteHasText"/>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ScientistHasName -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ScientistHasName">
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#productHasName -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#productHasName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Product"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#productHasPurpose -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#productHasPurpose">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Product"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#scientistHasEmail -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#scientistHasEmail">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#enables"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Interaction"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHistory -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHistory">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Product"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Artifact -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Artifact"/>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Community -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Community"/>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ComposeProduct -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ComposeProduct">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#EditArtifact"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#IncludeArtifact"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Developer -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Developer">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#EditArtifact -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#EditArtifact">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ComposeProduct"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#IncludeArtifact"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#FeatureModel -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#FeatureModel">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Artifact"/>
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#MappingFile"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Ontology"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Other"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#IncludeArtifact -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#IncludeArtifact">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Activity"/>
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ComposeProduct"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#EditArtifact"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Interaction -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Interaction">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#generates"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#IsolatedApplication -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#IsolatedApplication">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#TypeofProduct"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Workflow"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Issuing -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Issuing">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LocalURL -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LocalURL"/>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#MappingFile -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#MappingFile">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Artifact"/>
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#FeatureModel"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Ontology"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Other"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Interaction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Note -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Note"/>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Ontology -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Ontology">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Artifact"/>
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#FeatureModel"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#MappingFile"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Other"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Other -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Other">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Artifact"/>
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#FeatureModel"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#MappingFile"/>
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Ontology"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Product -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Product"/>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Receptor -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Receptor">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ResearchCenter -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ResearchCenter">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Community"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#TypeofProduct -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#TypeofProduct">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Product"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#University -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#University">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Community"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Workflow -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Workflow">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#TypeofProduct"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product01 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product01">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ComposeProduct"/>
+        <ActivityHasDateTime rdf:datatype="&xsd;string">02/10/13 - 14:31</ActivityHasDateTime>
+        <ActivityHasDescription rdf:datatype="&xsd;string">Develop a Product</ActivityHasDescription>
+        <construct rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#PR_Pipeline_PhredPhrap"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product02 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product02">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ComposeProduct"/>
+        <ActivityHasDateTime rdf:datatype="&xsd;string">09/10/13 - 12:45</ActivityHasDateTime>
+        <ActivityHasDescription rdf:datatype="&xsd;string">Develop a Product</ActivityHasDescription>
+        <construct rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#PR_MultipleAlignment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Edit_Artifact01 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Edit_Artifact01">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#EditArtifact"/>
+        <ActivityHasDateTime rdf:datatype="&xsd;string">04/10/13 - 08:55</ActivityHasDateTime>
+        <ActivityHasDescription rdf:datatype="&xsd;string">Edit Artifact</ActivityHasDescription>
+        <uses rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_04AeroSpaceFeatureModel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Include_Artifact01 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Include_Artifact01">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#IncludeArtifact"/>
+        <ActivityHasDateTime rdf:datatype="&xsd;string">03/10/13 - 09:45</ActivityHasDateTime>
+        <ActivityHasDescription rdf:datatype="&xsd;string">Include Artifact</ActivityHasDescription>
+        <uses rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_04AeroSpaceFeatureModel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_01SequenceAligningFeatureModel -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_01SequenceAligningFeatureModel">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#FeatureModel"/>
+        <isUsed rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product01"/>
+        <isUsed rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product02"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_02SequenceAligningMapping -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_02SequenceAligningMapping">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#MappingFile"/>
+        <isUsed rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product01"/>
+        <isUsed rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product02"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_03SequenceAligningOntology -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_03SequenceAligningOntology">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Ontology"/>
+        <isUsed rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product01"/>
+        <isUsed rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product02"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_04AeroSpaceFeatureModel -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_04AeroSpaceFeatureModel">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#FeatureModel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHistory01 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHistory01">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ActivityHistory"/>
+        <ActivityHistoryHasDescription rdf:datatype="&xsd;string">SequenceAligning/application_type/workflow/sequence_plattform/NGS...</ActivityHistoryHasDescription>
+        <describes rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#PR_Pipeline_PhredPhrap"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#CO_Embrapa -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#CO_Embrapa">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ResearchCenter"/>
+        <hasMembers rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Arbex"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#CO_FioCruz -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#CO_FioCruz">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#ResearchCenter"/>
+        <hasMembers rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Kele"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#CO_UFJF -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#CO_UFJF">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#University"/>
+        <hasMembers rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Anrafel"/>
+        <hasMembers rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Jonathan"/>
+        <hasMembers rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Magnus"/>
+        <hasMembers rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Raphael"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#INTERACTION_01 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#INTERACTION_01">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Interaction"/>
+        <isMadePossibleBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product01"/>
+        <generates rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message01"/>
+        <generates rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message02"/>
+        <generates rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message06"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#INTERACTION_02 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#INTERACTION_02">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Interaction"/>
+        <isMadePossibleBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product02"/>
+        <generates rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message05"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#INTERACTION_03 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#INTERACTION_03">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Interaction"/>
+        <isMadePossibleBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Edit_Artifact01"/>
+        <generates rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message03"/>
+        <generates rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message04"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LU_http://plscience.superdignus.com/AeroSpaceOntology.owl -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LU_http://plscience.superdignus.com/AeroSpaceOntology.owl">
+        <stores rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_04AeroSpaceFeatureModel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LU_http://plscience.superdignus.com/SequenceAligningFeatureModel.xml -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LU_http://plscience.superdignus.com/SequenceAligningFeatureModel.xml">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LocalURL"/>
+        <stores rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_01SequenceAligningFeatureModel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LU_http://plscience.superdignus.com/SequenceAligningMapping.xml -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LU_http://plscience.superdignus.com/SequenceAligningMapping.xml">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LocalURL"/>
+        <stores rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_02SequenceAligningMapping"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LU_http://plscience.superdignus.com/SequenceAligningOntology.owl -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LU_http://plscience.superdignus.com/SequenceAligningOntology.owl">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#LocalURL"/>
+        <stores rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_03SequenceAligningOntology"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message01 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message01">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+        <hasAdressee rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Anrafel"/>
+        <isWrittenBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Jonathan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message02 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message02">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+        <isWrittenBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Anrafel"/>
+        <hasAdressee rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Jonathan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message03 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message03">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+        <isWrittenBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Magnus"/>
+        <hasAdressee rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Raphael"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message04 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message04">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+        <hasAdressee rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Magnus"/>
+        <isWrittenBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Raphael"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message05 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message05">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+        <hasAdressee rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Arbex"/>
+        <isWrittenBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Kele"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message06 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#M_Message06">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Message"/>
+        <hasAdressee rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Anrafel"/>
+        <isWrittenBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Magnus"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#N_Note01 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#N_Note01">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Note"/>
+        <isWrittenBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Jonathan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#N_Note02 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#N_Note02">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Note"/>
+        <isWrittenBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Arbex"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#N_Note03 -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#N_Note03">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Note"/>
+        <isAbout rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AR_04AeroSpaceFeatureModel"/>
+        <isWrittenBy rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Anrafel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#PR_MultipleAlignment -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#PR_MultipleAlignment">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#IsolatedApplication"/>
+        <productHasName rdf:datatype="&xsd;string">Multiple Alignment</productHasName>
+        <productHasPurpose rdf:datatype="&xsd;string">Realizar o Alinhamento Múltiplo de Sequências de DNA</productHasPurpose>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#PR_Pipeline_PhredPhrap -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#PR_Pipeline_PhredPhrap">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Workflow"/>
+        <productHasName rdf:datatype="&xsd;string">Pipeline PhredPhrap</productHasName>
+        <productHasPurpose rdf:datatype="&xsd;string">Realizar o Agrupamento de Sequências de DNA</productHasPurpose>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Anrafel -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Anrafel">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Developer"/>
+        <ScientistHasName rdf:datatype="&xsd;string">Anrafel Fernandes Pereira</ScientistHasName>
+        <scientistHasEmail rdf:datatype="&xsd;string">anrafel@live.com</scientistHasEmail>
+        <isRequired rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product01"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Arbex -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Arbex">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+        <ScientistHasName rdf:datatype="&xsd;string">Wagner Arbex</ScientistHasName>
+        <ScientistHasName rdf:datatype="&xsd;string">wagnerarbex@gmail.com</ScientistHasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Jonathan -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Jonathan">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Developer"/>
+        <ScientistHasName rdf:datatype="&xsd;string">Jonathan Muniz</ScientistHasName>
+        <scientistHasEmail rdf:datatype="&xsd;string">jsmuniz07@yahoo.com.br</scientistHasEmail>
+        <isRequired rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Edit_Artifact01"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Kele -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Kele">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Developer"/>
+        <ScientistHasName rdf:datatype="&xsd;string">Kele</ScientistHasName>
+        <scientistHasEmail rdf:datatype="&xsd;string">kele@gmail.com</scientistHasEmail>
+        <isRequired rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Develop_a_Product02"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Magnus -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Magnus">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Developer"/>
+        <ScientistHasName rdf:datatype="&xsd;string">Magnus Teixeira</ScientistHasName>
+        <scientistHasEmail rdf:datatype="&xsd;string">dignus07@gmail.com</scientistHasEmail>
+        <isRequired rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#AC_Include_Artifact01"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Raphael -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#SC_Raphael">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl#Scientist"/>
+        <ScientistHasName rdf:datatype="&xsd;string">Raphael Nunes</ScientistHasName>
+        <scientistHasEmail rdf:datatype="&xsd;string">raphaelnunes91@gmail.com</scientistHasEmail>
+    </owl:NamedIndividual>
+    <rdf:Description>
+        <rdfs:comment>This ontology describes the knowledge involved in the organization and access to artifacts from the core asset of SPL, ie, how artifacts are organized and structured, allowing it to be developed and shared a common vocabulary among scientists and / or researchers in this domain.</rdfs:comment>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

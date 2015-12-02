@@ -1,0 +1,32 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Competences</h2>
+
+        <h:form id="competenceMain">
+            <div align="center">
+                <p:dataTable id="competenceTable" var="competence" 
+                             value="#{myCompetences.competences}" style="margin: 20px 0">
+
+                    <p:column id="idHeader" headerText="ID">
+                        <h:outputText value="#{competence.id}" />
+                    </p:column>
+
+                    <p:column id="nameHeader" headerText="Name Competence">
+                        <h:outputText value="#{competence.competenceName}" />
+                    </p:column>
+                    
+                    <p:column id="descriptionHeader" headerText="Description">
+                        <h:outputText value="#{competence.description}" />
+                    </p:column>
+                    
+                </p:dataTable>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
