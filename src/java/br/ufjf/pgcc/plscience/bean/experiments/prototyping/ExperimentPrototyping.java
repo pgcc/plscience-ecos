@@ -91,8 +91,8 @@ public class ExperimentPrototyping implements Serializable {
     public void drawStages(String nStages){
         numberStages = nStages;
         stages = new ArrayList<String>();
-        for(int i=0;i<Integer.valueOf(nStages);i++){
-            stages.add("Stage "+i);
+        for(int i=1;i <= Integer.valueOf(nStages);i++){
+            stages.add("Stage " + i);
         }
             
     }
@@ -221,37 +221,58 @@ public class ExperimentPrototyping implements Serializable {
         setServices(servicesRankingSorted);
                        
     }
-    
-     public void searchServicesAll(){
-        ServiceRecovery sr = new ServiceRecovery();
-        setServices(sr.Recovery());        
-    }
+      
    
-    public void updates(String input, String id, String stage, String idExServ, String numberSt){
+//    public void updates(String input, String id, String stage, String idExServ, String numberSt){
+//       String[] s= stage.split(" ");
+//       System.out.println("Estou passando "+ input +" iD "+ id + " Stage " +s[1] );
+//      
+//       
+//       try {
+//           ExperimentDAO exDao = new ExperimentDAO();
+//           Experiment ex = new Experiment();
+//           ExperimentServices exServ = new ExperimentServices();
+//           exServ.setService_name(input);
+//           exServ.setStage(Integer.parseInt(s[1]));
+//           exServ.setId(Long.parseLong(idExServ));
+//           ex.setIdExperiment(Integer.parseInt(id));
+//           exServ.setExperiment(ex);
+//           System.out.println("O ID do ExServi e esse aqui galera: "+idExServ);
+//           exDao.updateExperimentServices(exServ);
+//           
+//            
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment updated with success!"));   
+//        } catch (HibernateException e) {
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
+//        }
+//    }
+    
+     public void updates(String serviceName, String idExperiment, String stage, String idExperimentService, String numberSt){
        String[] s= stage.split(" ");
-       System.out.println("Estou passando "+ input +" iD "+ id + " Stage " +s[1] );
+       System.out.println("Estou passando "+ serviceName +" iD "+ idExperiment + " Stage " +s[1]);
       
        
        try {
            ExperimentDAO exDao = new ExperimentDAO();
            Experiment ex = new Experiment();
-           ExperimentServices exServ = new ExperimentServices();
-           exServ.setService_name(input);
-           exServ.setStage(Integer.parseInt(s[1]));
-           exServ.setId(Long.parseLong(idExServ));
-           ex.setIdExperiment(Integer.parseInt(id));
-           exServ.setExperiment(ex);
-           System.out.println("O ID do ExServi e esse aqui galera: "+idExServ);
-           exDao.updateExperimentServices(exServ);
+//           ExperimentServices exServ = new ExperimentServices();
+//           exServ.setService_name(input);
+//           exServ.setStage(Integer.parseInt(s[1]));
+//           exServ.setId(Long.parseLong(idExServ));
+//           ex.setIdExperiment(Integer.parseInt(id));
+//           exServ.setExperiment(ex);
+//           System.out.println("O ID do ExServi e esse aqui galera: "+idExServ);
+//           exDao.updateExperimentServices(exServ);
            
+           ExperimentServices experimentServiceDB = exDao.findServices(Integer.parseInt(s[1]), Long.parseLong(idExperiment));
+           experimentServiceDB.setService_name(serviceName);
+           exDao.updateExperimentServices(experimentServiceDB);
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Experiment updated with success!"));   
         } catch (HibernateException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
         }
     }
-    
- 
     
     public void registerServices(){
         System.out.println("Registreiii");
@@ -342,5 +363,8 @@ public class ExperimentPrototyping implements Serializable {
        
     }
     
-    
+    public void searchServicesAll(){
+        ServiceRecovery sr = new ServiceRecovery();
+        setServices(sr.Recovery());        
+    }    
 }

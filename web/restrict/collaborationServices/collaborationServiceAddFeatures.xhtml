@@ -29,42 +29,42 @@
                 
                 <h:outputText value=" " /><h:outputText value=" " /><h:outputText value=" " />
                 
-                <h:outputLabel for="roler" value="Roles: " />
+                <h:outputLabel for="roler" value="Roles: " rendered="#{workspaceCollabService.checkRole()}" />
                 <p:selectCheckboxMenu id="roler" value="#{workspaceCollabService.rolerList}" 
                                       converter="rolerConverter" label="-- Select at least one role --"
-                                      filter="true" filterMatchMode="startsWith" panelStyle="width:350px" disabled="#{!workspaceCollabService.checkRole()}" >
+                                      filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkRole()}" >
                     <f:selectItems value="#{rolerBean.rolers}" var="roler"
                                    itemLabel="#{roler.roleName} (Level #{roler.hierarchyLevel})" itemValue="#{roler}" />                      
                 </p:selectCheckboxMenu>
-                <p:commandLink value="Link Role" update="displayRolers" disabled="#{!workspaceCollabService.checkRole()}" />
-                <p:outputPanel id="displayRolers" style="width:350px" >
+                <p:commandLink value="Link Role" update="displayRolers" rendered="#{workspaceCollabService.checkRole()}" />
+                <p:outputPanel id="displayRolers" style="width:350px" rendered="#{workspaceCollabService.checkRole()}" >
                     <p:dataList value="#{workspaceCollabService.rolerList}" 
                                 var="roler" emptyMessage="No roles">
                         #{roler.roleName} (Level #{roler.hierarchyLevel})
                     </p:dataList>
                 </p:outputPanel>
                 <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
-                               update="displayRolers" disabled="#{!workspaceCollabService.checkRole()}" />
-                <h:outputText value=" " />
+                               update="displayRolers" rendered="#{workspaceCollabService.checkRole()}" />
+                <h:outputText value=" " rendered="#{workspaceCollabService.checkRole()}" />
                 
                 <h:outputText value=" " /><h:outputText value=" " /><h:outputText value=" " />
                 
-                <h:outputLabel for="competence" value="Competences: " />
+                <h:outputLabel for="competence" value="Competences: " rendered="#{workspaceCollabService.checkCompetence()}" />
                 <p:selectCheckboxMenu id="competence" value="#{workspaceCollabService.competenceList}" 
                                       converter="competenceConverter" label="-- Select at least one competence --"
-                                      filter="true" filterMatchMode="startsWith" panelStyle="width:350px" disabled="#{!workspaceCollabService.checkCompetence()}" >
+                                      filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkCompetence()}" >
                     <f:selectItems value="#{competenceBean.competences}" var="competence"
                                    itemLabel="#{competence.competenceName}" itemValue="#{competence}" />                      
                 </p:selectCheckboxMenu>
-                <p:commandLink value="Link Competence" update="displayCompetences" disabled="#{!workspaceCollabService.checkCompetence()}" />
-                <p:outputPanel id="displayCompetences" style="width:350px">
+                <p:commandLink value="Link Competence" update="displayCompetences" rendered="#{workspaceCollabService.checkCompetence()}" />
+                <p:outputPanel id="displayCompetences" style="width:350px" rendered="#{workspaceCollabService.checkCompetence()}" >
                     <p:dataList value="#{workspaceCollabService.competenceList}" var="competence" emptyMessage="No competences">
                         #{competence.competenceName}
                     </p:dataList>
                 </p:outputPanel>
                 <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
-                               update="displayCompetences" disabled="#{!workspaceCollabService.checkCompetence()}" />
-                <h:outputText value=" " />
+                               update="displayCompetences" rendered="#{workspaceCollabService.checkCompetence()}" />
+                <h:outputText value=" " rendered="#{workspaceCollabService.checkCompetence()}" />
                 
                 <h:outputText value=" " /><h:outputText value=" " /><h:outputText value=" " />
                 

@@ -31,6 +31,12 @@ public class CollabScientificExperimentationBean implements Serializable {
         return collabOnt.testeDAO();
     }
     
+    public String testeOntology(){
+        CollabScientificExperimentationDAO collabOnt = new CollabScientificExperimentationDAO();
+        collabOnt.loadCollabOntologyDAO();
+        return "OK!";
+    }
+    
     public void load() throws IOException {
         try {
             CollabScientificExperimentationDAO collabOnt = new CollabScientificExperimentationDAO();

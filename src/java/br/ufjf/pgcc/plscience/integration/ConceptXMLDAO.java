@@ -8,6 +8,8 @@ package br.ufjf.pgcc.plscience.integration;
 import br.ufjf.pgcc.plscience.dao.GenericDAO;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.Query;
 
@@ -57,12 +59,24 @@ public class ConceptXMLDAO extends GenericDAO {
         query.setMaxResults(X);
         List<ConceptXML> conceptXMLs = query.getResultList();
         finish();
-        return conceptXMLs;
+        
+        if(conceptXMLs != null && conceptXMLs.size() > 0) {
+            Collections.sort(conceptXMLs, new Comparator(){
+                @Override
+                public int compare(Object o1, Object o2) {  
+                    ConceptXML p1 = (ConceptXML) o1;  
+                    ConceptXML p2 = (ConceptXML) o2;  
+                    return p1.getIdConceptXml() < p2.getIdConceptXml() ? -1 : (p1.getIdConceptXml() > p2.getIdConceptXml() ? +1 : 0);  
+                } 
+            });
+        }
+                
+        return conceptXMLs;        
     }
     
     public List<ConceptXML> getConceptXMLByIdStructXML(Long idStructXML) {
         
-        List<BigInteger> ConceptXMLlist = getListConceptsXML(idStructXML);
+        List<Long> ConceptXMLlist = getListConceptsXML(idStructXML);
         
         List<ConceptXML> ConceptXMLs = new ArrayList<ConceptXML>();
         
@@ -82,14 +96,14 @@ public class ConceptXMLDAO extends GenericDAO {
      * @param idStructXML
      * @return
      */
-    public List<BigInteger> getListConceptsXML(Long idStructXML) {
+    public List<Long> getListConceptsXML(Long idStructXML) {
         
         String q = "SELECT DISTINCT c.id_concept_xml FROM concept_XML AS c WHERE c.id_struct_xml = " + idStructXML;
         
         Query query = getEntityManager().createNativeQuery(q);
         //Query query = getEntityManager().createQuery(q);
 
-        List<BigInteger> concepts = query.getResultList();
+        List<Long> concepts = query.getResultList();
         finish();
         if (concepts != null && concepts.size() > 0) {
             return concepts;

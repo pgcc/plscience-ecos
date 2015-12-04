@@ -60,14 +60,14 @@ public class CoordinationServiceDAO extends GenericDAO {
         
         Query query = getEntityManager().createNativeQuery(q);
 
-        List<BigInteger> roles = query.getResultList();
+        List<Long> roles = query.getResultList();
         finish();
         if (roles != null && roles.size() > 0) {
             
             List<Long> rolesID = new ArrayList<Long>();
             
-            for(BigInteger bi : roles){
-                rolesID.add(bi.longValue());
+            for(Long bi : roles){
+                rolesID.add(bi);
             }
             
             return rolesID;

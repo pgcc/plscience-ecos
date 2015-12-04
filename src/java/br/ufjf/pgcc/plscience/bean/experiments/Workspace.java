@@ -65,7 +65,12 @@ public class Workspace implements Serializable {
             }
         }
         Collections.sort(exServ);
-        numberStages = String.valueOf(experiment.getNumberStages());
+        
+        if(experiment.getNumberStages() != null)
+            numberStages = String.valueOf(experiment.getNumberStages());
+        else
+            numberStages = "0";
+        
         return experiment;
     }
 

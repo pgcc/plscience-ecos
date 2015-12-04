@@ -95,7 +95,6 @@ public class ExperimentServices implements Serializable, Comparable<ExperimentSe
     }
 
     /**
-     * @param latestTime the latestTime to set
      */
     public void setLatestTime() {
         this.latestTime = new Date(System.currentTimeMillis());

@@ -43,11 +43,11 @@
                     <p:menuitem value="Manager Institute" icon="ui-icon-bookmark" url="/faces/restrict/institute.xhtml" />
                     <p:menuitem value="Manager Activity" icon="ui-icon-bookmark" url="/faces/restrict/activity.xhtml" />
                     <p:submenu label="Collaboration" icon="ui-icon-wrench">
-                        <p:menuitem value="Collaboration Services" url="/faces/restrict/collaborationServices/collaborationServices.xhtml"/>
-                        <ui:remove>
-                        <p:menuitem value="Collaboration Ontology" url="/faces/restrict/collaborationServices/collabOnto.xhtml" disabled="true" />
-                        </ui:remove>
+                        <p:menuitem value="Collaboration Services" url="/faces/restrict/collaborationServices/collaborationServices.xhtml"/>                
                         <p:menuitem value="Management" url="/faces/restrict/collaborationServices/managementCollaborationServices.xhtml"/>
+                        <ui:remove></ui:remove>
+                        <p:menuitem value="Collaboration Ontology" url="/faces/restrict/collaborationServices/collabOnto.xhtml" />
+                        <ui:remove></ui:remove>
                     </p:submenu>
                 </p:submenu>
                 <f:facet name="options">

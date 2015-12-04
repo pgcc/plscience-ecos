@@ -60,14 +60,14 @@ public class GroupServiceDAO extends GenericDAO {
         
         Query query = getEntityManager().createNativeQuery(q);
 
-        List<BigInteger> competences = query.getResultList();
+        List<Long> competences = query.getResultList();
         finish();
         if (competences != null && competences.size() > 0) {
             
             List<Long> competencesID = new ArrayList<Long>();
             
-            for(BigInteger bi : competences){
-                competencesID.add(bi.longValue());
+            for(Long bi : competences){
+                competencesID.add(bi);
             }
             
             return competencesID;

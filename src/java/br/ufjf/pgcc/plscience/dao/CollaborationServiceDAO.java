@@ -29,6 +29,9 @@ import br.ufjf.pgcc.plscience.model.CommunicationService;
 import br.ufjf.pgcc.plscience.model.CooperationService;
 import br.ufjf.pgcc.plscience.model.CoordinationService;
 import br.ufjf.pgcc.plscience.model.GroupService;
+import br.ufjf.pgcc.plscience.dao.StepsScientificExperimentationDAO;
+import br.ufjf.pgcc.plscience.model.StepsScientificExperimentation;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 
@@ -134,7 +137,6 @@ public class CollaborationServiceDAO extends GenericDAO {
                         "WHERE ss.collab_service_id = " + serviceID;
         
         Query query = getEntityManager().createNativeQuery(q);
-        //Query query = getEntityManager().createQuery(q);
 
         List<Long> steps = query.getResultList();
         finish();
@@ -144,6 +146,22 @@ public class CollaborationServiceDAO extends GenericDAO {
         return null;
     }
     
+    public List<StepsScientificExperimentation> getStepsScientificExperimentationByServiceID(Long serviceID) {
+        
+        List<Long> stepsIdList = getListIdSteps(serviceID);
+        
+        if(stepsIdList != null && stepsIdList.size() > 0) {            
+            List<StepsScientificExperimentation> stepsScientificExperimentation = new ArrayList<StepsScientificExperimentation>();
+            for(Long l: stepsIdList) {
+                stepsScientificExperimentation.add(new StepsScientificExperimentationDAO().getStepsScientificExperimentationById(l));
+            }
+            return stepsScientificExperimentation;            
+        }        
+        return null;
+    }
+    
+    //public List<StepsScientificExperimentation> getCollaborativeServiceTypeByServiceID(Long serviceID)
+             
     /* ------------------------------------------------------------------- */
     /* ---------------------- Communication Service ---------------------- */
     /* ------------------------------------------------------------------- */

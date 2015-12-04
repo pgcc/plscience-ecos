@@ -293,7 +293,7 @@ public class ExperimentDAO extends GenericDAO {
     
     public ExperimentServices findServices(Integer stage, Long id) {
         
-        Query query = getEntityManager().createQuery("select a from ExperimentServices As a where a.stage =:stage and a.experiment.id =:id ");
+        Query query = getEntityManager().createQuery("select a from ExperimentServices As a where a.stage =:stage and a.experiment.idExperiment =:id ");
         query.setParameter("stage", stage);
         query.setParameter("id", id);
 

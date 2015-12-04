@@ -31,20 +31,6 @@ public class InteroperabilityStructXMLDAO extends GenericDAO {
         finish();
     }
     
-    @Transactional
-    public void updateRatioInteroperability(double ratio, Long idStructXML) {
-        String q = "UPDATE interoperability_struct_xml SET interoperability_struct_xml.ratio_interoperability = " + ratio +
-                " WHERE interoperability_struct_xml.id_struct_xml = " + idStructXML;
-        
-        Query query = getEntityManager().createNativeQuery(q);
-        try{
-            int up = query.executeUpdate();
-            finish();
-        }catch (PersistenceException pe){
-            pe.printStackTrace();
-        }              
-    }
-    
     public List<InteroperabilityStructXML> getAll() {
         Query query = getEntityManager().createQuery("SELECT i FROM InteroperabilityStructXML i");
         List<InteroperabilityStructXML> interoperabilityStructXMLs = query.getResultList();
