@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <h:form>
+        <p:dataTable var="lista" value="#{agentBean.agents}"
+                             id="tabelaAgent" emptyMessage="No records found"
+                             paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10" rowsPerPageTemplate="10,25,50,100,9999" style="width:100%">
+
+            <p:column headerText="Action" >
+                <h:outputText value="Message" />
+            </p:column>
+            <p:column headerText="Name" sortBy="#{lista.name}" >
+                <h:outputText value="#{lista.name}" />
+            </p:column>            
+            <p:column headerText="Function" sortBy="#{lista.function}" >
+                <h:outputText value="#{lista.function}" />
+            </p:column>
+            <p:column headerText="Institution" sortBy="#{lista.institution}" >
+                <h:outputText value="#{lista.institution.acronym}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</ui:composition>
