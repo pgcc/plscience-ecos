@@ -39,8 +39,7 @@
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="tfmsifm"/>
-        <property name="eclipselink.ddl-generation" value="none"/>
-    <!-- or just value="create-tables" -->
+      <property name="eclipselink.ddl-generation" value="none"/>
     </properties>
   </persistence-unit>
 </persistence>

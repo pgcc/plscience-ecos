@@ -1,0 +1,301 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Register Collaboration Service</h2>
+        
+        <h:form id="newCollaborationServiceForm">
+            <p:growl id="growl" />
+            <p:panel header="Collaboration Service Data" style="margin: 10px 0;">
+                <p:messages id="messages" />
+                <h:panelGrid columns="3" cellpadding="4">
+                    <h:outputLabel for="collabServiceName" value="Name: " />
+                    <p:inputText id="collabServiceName" 
+                                 value="#{newCollaborationService.collaborationService.collabServiceName}" 
+                                 required="true" 
+                                 label="CollabServiceName"
+                                 size="50">
+                        <f:validateLength minimum="4" />
+                    </p:inputText>
+                    <p:message for="collabServiceName" />
+                    
+                    <h:outputLabel for="description" value="Description: " />
+                    <p:inputTextarea id="description"
+                                     value="#{newCollaborationService.collaborationService.description}"
+                                     rows="6" 
+                                     cols="51" 
+                                     counter="display" 
+                                     maxlength="350" 
+                                     counterTemplate="{0} characters remaining." 
+                                     autoResize="false" />
+                    <h:outputText id="display" />
+                    <p:message for="description" />
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" cellpadding="4">
+                    <h:outputLabel for="collabServiceType" value="Type: " />
+                    <p:selectOneMenu id="collabServiceType" value="#{newCollaborationService.collaborativeServiceType}" 
+                                     converter="collabServiceTypeConverter" 
+                                     panelStyle="width:200px"
+                                     effect="fade" var="c" style="width:450px" filter="true" filterMatchMode="startsWith">
+                        <f:selectItems value="#{collaborativeServiceTypeBean.collaborativeServiceTypes}" var="collaborativeServiceType" 
+                                       itemLabel="#{collaborativeServiceType.nameServiceType}" itemValue="#{collaborativeServiceType}" />
+
+                        <p:column>
+                            <h:outputText value="#{c.nameServiceType}" />
+                        </p:column>
+
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                    
+                <h:panelGrid columns="3" cellpadding="2">
+                    <h:outputLabel for="step" value="Steps Scientific Experimentation: " />
+                    <p:selectCheckboxMenu id="step" value="#{newCollaborationService.stepsScientificExperimentation}" 
+                                          converter="stepsScientificExperimentationConverter" label="-- Select at least one step --"
+                                          filter="true" filterMatchMode="startsWith" panelStyle="width:350px">
+                        <f:selectItems value="#{stepsScientificExperimentationBean.stepsScientificExperimentations}" var="step"
+                                       itemLabel="#{step.numberStep} - #{step.nameStep}" itemValue="#{step}" />                      
+                    </p:selectCheckboxMenu>
+                    <p:commandLink value="Link step" update="displaySteps" />
+                    <p:outputPanel id="displaySteps" style="width:350px">
+                        <p:dataList value="#{newCollaborationService.stepsScientificExperimentation}" var="step" emptyMessage="No step">
+                            #{step.numberStep} - #{step.nameStep}
+                        </p:dataList>
+                    </p:outputPanel>  
+                </h:panelGrid>
+                
+                <h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="4">
+
+                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="4">
+
+                        <h3>Communication Features</h3>
+                        <p:outputLabel value=" " />
+
+                        <p:outputLabel for="message" value="Message: " />
+                        <p:selectOneRadio id="message" value="#{newCollaborationService.communicationService.message}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="issuer" value="Issuer: " />
+                        <p:selectOneRadio id="issuer" value="#{newCollaborationService.communicationService.issuer}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="receiver" value="Receiver: " />
+                        <p:selectOneRadio id="receiver" value="#{newCollaborationService.communicationService.receiver}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="communicationProtocol" value="Communication Protocol: " />
+                        <p:selectOneRadio id="communicationProtocol" value="#{newCollaborationService.communicationService.communicationProtocol}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="commonSense" value="Common Sense: " />
+                        <p:selectOneRadio id="commonSense" value="#{newCollaborationService.communicationService.commonSense}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="synchronism" value="Synchronism: " />
+                        <p:selectOneRadio id="synchronism" value="#{newCollaborationService.communicationService.synchronism}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="transmissionMode" value="Transmission Mode: " />
+                        <p:selectOneRadio id="transmissionMode" value="#{newCollaborationService.communicationService.transmissionMode}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="compromise" value="Compromise: " />
+                        <p:selectOneRadio id="compromise" value="#{newCollaborationService.communicationService.compromise}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="negotiation" value="Negotiation: " />
+                        <p:selectOneRadio id="negotiation" value="#{newCollaborationService.communicationService.negotiation}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="code" value="Code: " />
+                        <p:selectOneRadio id="code" value="#{newCollaborationService.communicationService.code}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="mode" value="Mode: " />
+                        <p:selectOneRadio id="mode" value="#{newCollaborationService.communicationService.mode}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="interpretation" value="Interpretation: " />
+                        <p:selectOneRadio id="interpretation" value="#{newCollaborationService.communicationService.interpretation}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="4">
+                        
+                        <h3>Coordination Features</h3>
+                        <p:outputLabel value=" " />
+                        
+                        <p:outputLabel for="workPlan" value="Work Plan: " />
+                        <p:selectOneRadio id="workPlan" value="#{newCollaborationService.coordinationService.workPlan}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="deadline" value="Deadline: " />
+                        <p:selectOneRadio id="deadline" value="#{newCollaborationService.coordinationService.deadline}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="status" value="Status: " />
+                        <p:selectOneRadio id="status" value="#{newCollaborationService.coordinationService.status}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="role" value="Role: " />
+                        <p:selectOneRadio id="role" value="#{newCollaborationService.coordinationService.role}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="policy" value="Policy: " />
+                        <p:selectOneRadio id="policy" value="#{newCollaborationService.coordinationService.policy}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="monitoring" value="Monitoring: " />
+                        <p:selectOneRadio id="monitoring" value="#{newCollaborationService.coordinationService.monitoring}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="coupling" value="Coupling: " />
+                        <p:selectOneRadio id="coupling" value="#{newCollaborationService.coordinationService.coupling}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="4">
+                        
+                        <h3>Cooperation Features</h3>
+                        <p:outputLabel value=" " />
+                        
+                        <p:outputLabel for="activity" value="Activity: " />
+                        <p:selectOneRadio id="activity" value="#{newCollaborationService.cooperationService.activity}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="task" value="Task: " />
+                        <p:selectOneRadio id="task" value="#{newCollaborationService.cooperationService.task}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="product" value="Product: " />
+                        <p:selectOneRadio id="product" value="#{newCollaborationService.cooperationService.product}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="artifact" value="Artifact: " />
+                        <p:selectOneRadio id="artifact" value="#{newCollaborationService.cooperationService.artifact}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="sharedSpace" value="Shared Space: " />
+                        <p:selectOneRadio id="sharedSpace" value="#{newCollaborationService.cooperationService.sharedSpace}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="resource" value="Resource: " />
+                        <p:selectOneRadio id="resource" value="#{newCollaborationService.cooperationService.resource}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="share" value="Share: " />
+                        <p:selectOneRadio id="share" value="#{newCollaborationService.cooperationService.share}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="4">
+                        
+                        <h3>Group Formation Features</h3>
+                        <p:outputLabel value=" " />
+                        
+                        <p:outputLabel for="participant" value="Participant: " />
+                        <p:selectOneRadio id="participant" value="#{newCollaborationService.groupService.participant}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="belief" value="Belief: " />
+                        <p:selectOneRadio id="belief" value="#{newCollaborationService.groupService.belief}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="confidence" value="Confidence: " />
+                        <p:selectOneRadio id="confidence" value="#{newCollaborationService.groupService.confidence}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="motivation" value="Motivation: " />
+                        <p:selectOneRadio id="motivation" value="#{newCollaborationService.groupService.motivation}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="groupp" value="Group: " />
+                        <p:selectOneRadio id="groupp" value="#{newCollaborationService.groupService.groupp}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="competence" value="Competence: " />
+                        <p:selectOneRadio id="competence" value="#{newCollaborationService.groupService.competence}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="goal" value="Goal: " />
+                        <p:selectOneRadio id="goal" value="#{newCollaborationService.groupService.goal}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+                    </h:panelGrid>
+                
+                </h:panelGrid>
+                
+                <p:commandButton id="saveBtn" value="Register" icon="ui-icon-check" style="margin:0" actionListener="#{newCollaborationService.saveCollaborationService()}" update="growl"/>
+            </p:panel>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>

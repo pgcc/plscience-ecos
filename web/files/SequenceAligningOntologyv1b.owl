@@ -1,0 +1,1843 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY genome "http://plscience.superdignus.com/SequenceAligningOntology#INB-dev:genome.imim.es:" >
+]>
+
+
+<rdf:RDF xmlns="http://plscience.superdignus.com/SequenceAligningOntology#"
+     xml:base="http://plscience.superdignus.com/SequenceAligningOntology"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:genome="http://plscience.superdignus.com/SequenceAligningOntology#INB-dev:genome.imim.es:">
+    <owl:Ontology rdf:about="http://plscience.superdignus.com/SequenceAligningOntology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#biological_sequence_type -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#biological_sequence_type">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#biological_sequence"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_database"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#database_format_sequence_used -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#database_format_sequence_used">
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#BLAST_Basic_Local_Alignment_Search_Tool"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_database"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_format -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_format">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#MultiAlign"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_type -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_type">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#biological_sequence"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#next_task -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#next_task"/>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#performs_task -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#performs_task">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#performs_task_ -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#performs_task_">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by_"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#previous_task -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#previous_task">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+        <owl:inverseOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#next_task"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#query_format_used -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#query_format_used">
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#BLAST_Basic_Local_Alignment_Search_Tool"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_query_formats"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by_ -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by_">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:range rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks -->
+
+    <owl:ObjectProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_sequencing_platform"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#hasLocation -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#hasLocation">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#type -->
+
+    <owl:DatatypeProperty rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#type"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#AMPS_block_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#AMPS_block_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#DNA_strider_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#GCG_MSF_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#IG_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Jackknifer_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Pfam_Stockholm_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#asn1_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#clustalw_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#codata_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fitch_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#mega_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#BLASTN -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLASTN">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLAST_Basic_Local_Alignment_Search_Tool"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#database_format_sequence_used"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence_database"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#query_format_used"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#BLASTP -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLASTP">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLAST_Basic_Local_Alignment_Search_Tool"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#database_format_sequence_used"/>
+                        <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence_database"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#query_format_used"/>
+                        <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#BLASTX -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLASTX">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLAST_Basic_Local_Alignment_Search_Tool"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#database_format_sequence_used"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#query_format_used"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#translated_nucleotide"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#BLAST_Basic_Local_Alignment_Search_Tool -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLAST_Basic_Local_Alignment_Search_Tool">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#performs_task"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#pairwise_local_aligning"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#BLOSUM -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLOSUM">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_substitution_matrix"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#CAP3 -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#CAP3">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#performs_task"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_grouping"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#ClustalW2 -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#ClustalW2">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_type"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#DNA_sequence"/>
+                                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#performs_task"/>
+                <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#multiple_global_aligning"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:comment>Available at: http://www.ebi.ac.uk/Tools/msa/clustalw2/</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Clustal_Omega -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Clustal_Omega">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_type"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#DNA_sequence"/>
+                                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#RNA_sequence"/>
+                                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment>Available at: http://www.ebi.ac.uk/Tools/msa/clustalo/</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Consed -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Consed">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#performs_task"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing1"/>
+                                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing2"/>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Cross_match -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Cross_match">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#performs_task"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#vector_masking"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#DDBJ -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#DDBJ">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#EMBL_nucleotide_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Genbank_nucleotide_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Unigene"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#dbEST"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#dbSNP"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#est_human"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#DDBJ_Amino_Acid_Database_DAD -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#DDBJ_Amino_Acid_Database_DAD">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Entrez_GenBank_protein"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PIR"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#SWISS-PROT"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#TREMBL"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#UniProt"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#DNA_sequence -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#DNA_sequence">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#RNA_sequence"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#DNA_strider_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#DNA_strider_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#GCG_MSF_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#IG_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Jackknifer_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Pfam_Stockholm_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#asn1_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#clustalw_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#codata_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fitch_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#mega_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#EMBL -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#EMBL">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#EMBL_nucleotide_sequence_database -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#EMBL_nucleotide_sequence_database">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Genbank_nucleotide_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Unigene"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#dbEST"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#dbSNP"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#est_human"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Entrez_GenBank_protein -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Entrez_GenBank_protein">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PIR"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#SWISS-PROT"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#TREMBL"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#UniProt"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#FLX_454 -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#FLX_454">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#NGS"/>
+        <rdfs:comment>&amp;bioinformatics_task$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#GCG_MSF_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#GCG_MSF_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#IG_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Jackknifer_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Pfam_Stockholm_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#asn1_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#clustalw_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#codata_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fitch_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#mega_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#GDE_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#GDE_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#RSF_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#acedb_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fasta_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#gff_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#raw_sequence_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#staden_experiment_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#text_plain_format"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Genbank -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Genbank">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Genbank_nucleotide_sequence_database -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Genbank_nucleotide_sequence_database">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Unigene"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#dbEST"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#dbSNP"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#est_human"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#IG_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#IG_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Jackknifer_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Pfam_Stockholm_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#asn1_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#clustalw_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#codata_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fitch_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#mega_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Jackknifer_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Jackknifer_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Pfam_Stockholm_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#asn1_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#clustalw_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#codata_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fitch_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#mega_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#MultiAlign -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#MultiAlign">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_format"/>
+                        <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#EMBL"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_format"/>
+                        <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Genbank"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_format"/>
+                        <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#SwissProt"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_format"/>
+                        <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fasta_format"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#input_sequences_format"/>
+                        <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#multialign_format"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment>Available at: http://multalin.toulouse.inra.fr/multalin/</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#NBRF_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#NBRF_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#NGS -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#NGS">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_sequencing_platform"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing1"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_grouping"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#assembly"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#aligning"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#base_calling"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Sanger"/>
+        <rdfs:comment>#Choose the last task to compose the workflow that is being built: ALIGNING, ASSEMBLY, BASE_CALLING, SEQUENCE_GROUPING or VIEW_AND_EDITING1 OR VIEW_AND_EDITING2.&amp;bioinformatics_task$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Needleman_and_Wunsch -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Needleman_and_Wunsch">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#PAM -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#PAM">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_substitution_matrix"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#PHRAP -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#PHRAP">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#performs_task"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_grouping"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#PHRAP_View -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#PHRAP_View">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#performs_task"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing1"/>
+                                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing2"/>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#PHRED -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#PHRED">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#performs_task"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#base_calling"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#PIR -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#PIR">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#SWISS-PROT"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#TREMBL"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#UniProt"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#PIR_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#PIR_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Pfam_Stockholm_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Pfam_Stockholm_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#asn1_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#clustalw_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#codata_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fitch_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#mega_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#RNA_sequence -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#RNA_sequence">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#RSF_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#RSF_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#acedb_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fasta_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#gff_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#raw_sequence_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#staden_experiment_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#text_plain_format"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#SOLiDSystem -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#SOLiDSystem">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#NGS"/>
+        <rdfs:comment>&amp;bioinformatics_task$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#SWISS-PROT -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#SWISS-PROT">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#TREMBL"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#UniProt"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Sanger -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Sanger">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_sequencing_platform"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing1"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#vector_masking"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#base_calling"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#aligning"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#assembly"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_grouping"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>#Choose the last task to compose the workflow that is being built: ALIGNING, ASSEMBLY, BASE_CALLING, VECTOR_MASKING, SEQUENCE_GROUPING or VIEW_AND_EDITING1 OR VIEW_AND_EDITING2.&amp;bioinformatics_task$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Smith_Waterman -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Smith_Waterman">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#performs_task"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#pairwise_local_aligning"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment>Available at: http://www.ebi.ac.uk/Tools/psa/emboss_water</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Solexa -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Solexa">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#NGS"/>
+        <rdfs:comment>&amp;bioinformatics_task$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#SwissProt -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#SwissProt">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#TBLASTN -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#TBLASTN">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLAST_Basic_Local_Alignment_Search_Tool"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#database_format_sequence_used"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#translated_nucleotide"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#query_format_used"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#TBLASTX -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#TBLASTX">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLAST_Basic_Local_Alignment_Search_Tool"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#database_format_sequence_used"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#translated_nucleotide"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#query_format_used"/>
+                        <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#translated_nucleotide"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#TREMBL -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#TREMBL">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#UniProt"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#UniProt -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#UniProt">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence_database"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Unigene -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Unigene">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#dbEST"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#dbSNP"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#est_human"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#acedb_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#acedb_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fasta_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#gff_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#raw_sequence_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#staden_experiment_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#text_plain_format"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#aligning -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#aligning">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#previous_task"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_grouping"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#previous_task"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing1"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>#Choose the previous task for this workflow: SEQUENCE_GROUPING or VIEW_AND_EDITING.&amp;bioinformatics_task$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#application_type -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#application_type">
+        <rdfs:comment>$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#asn1_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#asn1_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#clustalw_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#codata_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fitch_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#mega_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#assembly -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#assembly">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#previous_task"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#aligning"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#previous_task"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing1"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>#Choose the previous task for this workflow: ALIGNING or VIEW_AND_EDITING.&amp;bioinformatics_task$S%</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#base_calling -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#base_calling">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRED"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>#Your product will be generated in the next step. Please choose the algorithms.&amp;bioinformatics_task$S@%</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_algorithm">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_concept"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_concept -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_concept">
+        <rdfs:comment>$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_data -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_data">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_concept"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_data_resource -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_data_resource">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_concept"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_file_formats -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_file_formats">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_concept"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_query_formats -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_query_formats">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_concept"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_sequencing_platform -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_sequencing_platform">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_concept"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_substitution_matrix -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_substitution_matrix">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_concept"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_concept"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#biological_sequence -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#biological_sequence">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_data"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#clustalw_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#clustalw_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#codata_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fitch_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#mega_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#codata_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#codata_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#fitch_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#mega_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#dbEST -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#dbEST">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#dbSNP"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#est_human"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#dbSNP -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#dbSNP">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence_database"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#est_human"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#est_human -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#est_human">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence_database"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#fasta_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#fasta_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#gff_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#raw_sequence_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#staden_experiment_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#text_plain_format"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#fitch_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#fitch_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#mega_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#gff_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#gff_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#raw_sequence_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#staden_experiment_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#text_plain_format"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#global_aligning -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#global_aligning">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_aligning"/>
+        <rdfs:comment>$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#isolated_application -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#isolated_application">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#application_type"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:onClass rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>&amp;sequence_platform$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#local_aligning -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#local_aligning">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_aligning"/>
+        <rdfs:comment>$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#mega_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#mega_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#multialign_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#multialign_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#multiple_global_aligning -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#multiple_global_aligning">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#global_aligning"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#ClustalW2"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>$S%</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#multiple_local_aligning -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#multiple_local_aligning">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#local_aligning"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#pairwise_local_aligning"/>
+        <rdfs:comment>$N%</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#nexus_paup_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#nucleotide -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_query_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#biological_sequence"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence_database -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence_database">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_database"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#biological_sequence_type"/>
+                <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#nucleotide_sequence"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence_database"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#pairwise_local_aligning -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#pairwise_local_aligning">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#local_aligning"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Smith_Waterman"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#BLAST_Basic_Local_Alignment_Search_Tool"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>$S%</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#paiwise_global_aligning -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#paiwise_global_aligning">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#global_aligning"/>
+        <rdfs:comment>$N%</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#phylip_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#phylip_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#selex_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#protein -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#protein">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_query_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#biological_sequence"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence_database -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence_database">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_database"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#biological_sequence_type"/>
+                <owl:allValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#protein_sequence"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#raw_sequence_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#raw_sequence_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#staden_experiment_format"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#text_plain_format"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#selex_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#selex_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#treecon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#sequence_aligning -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#sequence_aligning">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#aligning"/>
+        <rdfs:comment>$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#sequence_database -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#sequence_database">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_data_resource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_file_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#sequence_grouping -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#sequence_grouping">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#CAP3"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRAP"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#previous_task"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#base_calling"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#previous_task"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#vector_masking"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>#Choose the previous task for this workflow: BASE_CALLING or VECTOR_MASKING.&amp;bioinformatics_task$S%</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#staden_experiment_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#staden_experiment_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+        <owl:disjointWith rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#text_plain_format"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#tSMS -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#tSMS">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#NGS"/>
+        <rdfs:comment>&amp;bioinformatics_task$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#text_plain_format -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#text_plain_format">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#translated_nucleotide -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#translated_nucleotide">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_query_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#translated_nucleotide_sequence_database -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#translated_nucleotide_sequence_database">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_database"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#treecon -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#treecon">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_file_formats"/>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#vector_masking -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#vector_masking">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Cross_match"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#previous_task"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#base_calling"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>#Select now BASE_CALLING.&amp;bioinformatics_task$S%</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing1 -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing1">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#previous_task"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#sequence_grouping"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Consed"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRAP_View"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>#Select now SEQUENCE_GROUPING.&amp;bioinformatics_task$N%</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing2 -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#viewing_and_editing2">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#previous_task"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#aligning"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRAP_View"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#task_performed_by"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Consed"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>#Select now ALIGNING.&amp;bioinformatics_task$N%</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#workflow -->
+
+    <owl:Class rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#workflow">
+        <rdfs:subClassOf rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#application_type"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#workflow_possible_tasks"/>
+                <owl:someValuesFrom rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#bioinformatics_task"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>&amp;sequence_platform$N</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#CAP3_Sequence_Assembly_Program -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#CAP3_Sequence_Assembly_Program">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#CAP3"/>
+        <type>Application</type>
+        <hasLocation>http://pbil.univ-lyon1.fr/cap3.php</hasLocation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#ClustalW2_-_Multiple_Sequence_Alignment -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#ClustalW2_-_Multiple_Sequence_Alignment">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#ClustalW2"/>
+        <type>Application</type>
+        <hasLocation>http://www.ebi.ac.uk/Tools/msa/clustalw2/</hasLocation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#Clustal_Omega_-_Multiple_Sequence_Alignment -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#Clustal_Omega_-_Multiple_Sequence_Alignment">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Clustal_Omega"/>
+        <hasLocation>http://www.ebi.ac.uk/Tools/msa/clustalo/</hasLocation>
+        <type>Application</type>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#INB-dev:genome.imim.es:runCrossMatchToScreenVector -->
+
+    <owl:NamedIndividual rdf:about="&genome;runCrossMatchToScreenVector">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Cross_match"/>
+        <hasLocation>http://www.biocatalogue.org/services/2261</hasLocation>
+        <type>WebService</type>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#INB-dev:genome.imim.es:runPhrap -->
+
+    <owl:NamedIndividual rdf:about="&genome;runPhrap">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRAP"/>
+        <type>WebService</type>
+        <hasLocation>http://www.biocatalogue.org/services/2268</hasLocation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#INB-dev:genome.imim.es:runPhred -->
+
+    <owl:NamedIndividual rdf:about="&genome;runPhred">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRED"/>
+        <hasLocation>http://www.biocatalogue.org/services/2290</hasLocation>
+        <type>WebService</type>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#INB-dev:genome.imim.es:runPhredCollection -->
+
+    <owl:NamedIndividual rdf:about="&genome;runPhredCollection">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRED"/>
+        <hasLocation>http://www.biocatalogue.org/services/2293</hasLocation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#NCBI-BLASTN -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#NCBI-BLASTN">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#BLASTN"/>
+        <hasLocation rdf:datatype="&xsd;string">http://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&amp;BLAST_PROGRAMS=megaBlast&amp;PAGE_TYPE=BlastSearch&amp;SHOW_DEFAULTS=on&amp;LINK_LOC=blasthome</hasLocation>
+        <type>Application</type>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#runCrossMatchToScreenVectorCollectionService -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#runCrossMatchToScreenVectorCollectionService">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Cross_match"/>
+        <hasLocation>http://www.biocatalogue.org/services/1588</hasLocation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#runCrossMatchToScreenVectorService -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#runCrossMatchToScreenVectorService">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#Cross_match"/>
+        <type>WebService</type>
+        <hasLocation>http://www.biocatalogue.org/services/1586</hasLocation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#runPhrapService -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#runPhrapService">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRAP"/>
+        <type>WebService</type>
+        <hasLocation>http://www.biocatalogue.org/services/1567</hasLocation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#runPhrapWithQualityDataService -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#runPhrapWithQualityDataService">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRAP"/>
+        <hasLocation>http://www.biocatalogue.org/services/1582</hasLocation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#runPhredCollectionService -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#runPhredCollectionService">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRED"/>
+        <hasLocation>http://www.biocatalogue.org/services/1575</hasLocation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://plscience.superdignus.com/SequenceAligningOntology#runPhredService -->
+
+    <owl:NamedIndividual rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#runPhredService">
+        <rdf:type rdf:resource="http://plscience.superdignus.com/SequenceAligningOntology#PHRED"/>
+        <hasLocation>http://www.biocatalogue.org/services/1571</hasLocation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLASTN"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLASTP"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#BLASTX"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#TBLASTN"/>
+            <rdf:Description rdf:about="http://plscience.superdignus.com/SequenceAligningOntology#TBLASTX"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

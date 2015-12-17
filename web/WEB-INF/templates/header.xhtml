@@ -39,9 +39,20 @@
                     <p:menuitem icon="ui-icon-suitcase" value="Research x Group" url="/faces/restrict/researchxgroup.xhtml"/>
                     <p:menuitem icon="ui-icon-comment" value="Vídeo Chat" url="/faces/restrict/videochat.xhtml"/>
                 </p:submenu>
+                <p:submenu label="Collaboration" icon="ui-icon-comment">
+                    <p:menuitem value="Collaboration Layout" url="/faces/restrict/collaborationServices/indexCollab.xhtml" />
+                    <p:menuitem value="Collaboration Feature" url="/faces/restrict/collaborationServices/selectListUser.xhtml" />
+                </p:submenu>
                 <p:submenu label="Settings" icon="ui-icon-wrench">
                     <p:menuitem value="Manager Institute" icon="ui-icon-bookmark" url="/faces/restrict/institute.xhtml" />
                     <p:menuitem value="Manager Activity" icon="ui-icon-bookmark" url="/faces/restrict/activity.xhtml" />
+                    <p:submenu label="Collaboration Settings" icon="ui-icon-wrench">
+                        <p:menuitem value="Collaboration Services" url="/faces/restrict/collaborationServices/collaborationServices.xhtml"/>                
+                        <p:menuitem value="Management" url="/faces/restrict/collaborationServices/managementCollaborationServices.xhtml"/>
+                        <ui:remove></ui:remove>
+                        <p:menuitem value="Collaboration Ontology" url="/faces/restrict/collaborationServices/collabOnto.xhtml" />                        
+                        <ui:remove></ui:remove>
+                    </p:submenu>
                 </p:submenu>
                 <f:facet name="options">
                     <p:commandButton icon="ui-icon-power" value="Exit" action="#{userLoginBean.logout}" />

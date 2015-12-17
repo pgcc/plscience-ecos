@@ -41,8 +41,11 @@ public class ServiceRegistration {
         try {
             StringBuilder  sb = new StringBuilder();
            
+            //CAMINHO LOCAL
+            File file = new File("D:\\Ontologias\\ServiceDescriptionInf.owl");
+            
             //CAMINHO SERVIDOR
-            File file = new File("/var/www/ontologies/ServiceDescriptionInf.owl");
+            //File file = new File("/var/www/ontologies/ServiceDescriptionInf.owl");
             
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
             

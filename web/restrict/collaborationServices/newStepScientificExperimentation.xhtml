@@ -1,0 +1,51 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Register Step Scientific Experimentation</h2>
+        
+        <h:form id="newStepScientificExperimentationForm">
+            <p:growl id="growl" />
+            <p:panel header="Step Scientific Experimentation Data" style="margin: 10px 0;">
+                <h:panelGrid columns="3" cellpadding="5">
+                    <h:outputLabel for="nameStep" value="Name:* " />
+                    <p:inputText id="nameStep" 
+                                 value="#{newStepScientificExperimentation.stepsScientificExperimentation.nameStep}" 
+                                 required="true" 
+                                 label="NameStep"
+                                 size="50">
+                        <f:validateLength minimum="3" />
+                    </p:inputText>
+                    <p:message for="nameStep" />
+                    
+                    <h:outputLabel for="numberStep" value="Number Step:* " />
+                    <p:inputText id="numberStep" 
+                                 value="#{newStepScientificExperimentation.stepsScientificExperimentation.numberStep}" 
+                                 label="NumberStep"
+                                 size="50">
+                        <f:validateDoubleRange minimum="1" maximum="10" />
+                    </p:inputText>
+                    <p:message for="numberStep" />
+                    
+                    <h:outputLabel for="description" value="Description: " />
+                    <p:inputTextarea id="description"
+                                     value="#{newStepScientificExperimentation.stepsScientificExperimentation.description}"
+                                     rows="6" 
+                                     cols="51" 
+                                     counter="display" 
+                                     maxlength="250" 
+                                     counterTemplate="{0} characters remaining." 
+                                     autoResize="false" />
+                    <h:outputText id="display" />
+                </h:panelGrid>
+                                
+                <p:commandButton id="saveBtn" value="Register" icon="ui-icon-check" style="margin:0" actionListener="#{newStepScientificExperimentation.save()}" />
+                
+            </p:panel>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>

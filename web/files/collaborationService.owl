@@ -1,0 +1,2155 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY collaborationOntology "http://www.nenc.ufjf.br/ontologies/collaborationOntology#" >
+    <!ENTITY collaborationService "http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.nenc.ufjf.br/ontologies/collaborationOntology#"
+     xml:base="http://www.nenc.ufjf.br/ontologies/collaborationOntology"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:collaborationService="http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:collaborationOntology="http://www.nenc.ufjf.br/ontologies/collaborationOntology#">
+    <owl:Ontology rdf:about="http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#activityGeneratesProduct -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;activityGeneratesProduct">
+        <rdfs:domain rdf:resource="&collaborationService;Activity"/>
+        <rdfs:range rdf:resource="&collaborationService;Product"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;cooperationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#activityMadeInSharedSpace -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;activityMadeInSharedSpace">
+        <rdfs:domain rdf:resource="&collaborationService;Activity"/>
+        <rdfs:range rdf:resource="&collaborationService;SharedSpace"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;cooperationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#artifactProduct -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;artifactProduct">
+        <rdfs:domain rdf:resource="&collaborationService;Artifact"/>
+        <rdfs:range rdf:resource="&collaborationService;Product"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;cooperationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#artifactSharedSpace -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;artifactSharedSpace">
+        <rdfs:domain rdf:resource="&collaborationService;Artifact"/>
+        <rdfs:range rdf:resource="&collaborationService;SharedSpace"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;cooperationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#beliefParticipant -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;beliefParticipant">
+        <rdfs:domain rdf:resource="&collaborationService;Belief"/>
+        <rdfs:range rdf:resource="&collaborationService;Participant"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;groupFormationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#codeGeneratesMessage -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;codeGeneratesMessage">
+        <rdfs:domain rdf:resource="&collaborationService;Code"/>
+        <rdfs:range rdf:resource="&collaborationService;Message"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborationProperties -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborationProperties">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveActivity -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveActivity">
+        <rdfs:range rdf:resource="&collaborationService;Activity"/>
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveApplicationSubDomain -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveApplicationSubDomain">
+        <rdfs:range rdf:resource="&collaborationService;ApplicationSubDomain"/>
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveArtifact -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveArtifact">
+        <rdfs:range rdf:resource="&collaborationService;Artifact"/>
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveBelief -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveBelief">
+        <rdfs:range rdf:resource="&collaborationService;Belief"/>
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveCode -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveCode">
+        <rdfs:range rdf:resource="&collaborationService;Code"/>
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveCommonSense -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveCommonSense">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;CommonSense"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveCommunicationProtocol -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveCommunicationProtocol">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;CommunicationProtocol"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveCompetence -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveCompetence">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Competence"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveCompromise -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveCompromise">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Compromise"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveConfidence -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveConfidence">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Confidence"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveCoupling -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveCoupling">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Coupling"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveDeadline -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveDeadline">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Deadline"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveGoal -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveGoal">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Goal"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveGroup -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveGroup">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Group"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveHow -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveHow">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;How"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveInterpretation -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveInterpretation">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Interpretation"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveIssuer -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveIssuer">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Issuer"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveMessage -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveMessage">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Message"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveMode -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveMode">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Mode"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveMonitoring -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveMonitoring">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Monitoring"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveMotivation -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveMotivation">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Motivation"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveNegotiation -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveNegotiation">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Negotiation"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveParticipant -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveParticipant">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Participant"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHavePolicy -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHavePolicy">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Policy"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveProduct -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveProduct">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Product"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveReceiver -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveReceiver">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Receiver"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveResource -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveResource">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Resource"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveRole -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveRole">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Role"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveShare -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveShare">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Share"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveSharedSpace -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveSharedSpace">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;SharedSpace"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveStatus -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveStatus">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Status"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveSynchronism -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveSynchronism">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Synchronism"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveTask -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveTask">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Task"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveTransmissionMode -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveTransmissionMode">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;TransmissionMode"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveWhat -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveWhat">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;What"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveWhen -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveWhen">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;When"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveWhere -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveWhere">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Where"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveWho -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveWho">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;Who"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceCanHaveWorkPlan -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceCanHaveWorkPlan">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceHasApplicationDomain -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceHasApplicationDomain">
+        <rdfs:range rdf:resource="&collaborationService;ApplicationDomain"/>
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceHasCollaborativeServiceType -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceHasCollaborativeServiceType">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;CollaborativeServiceType"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceHasLifeCycleStage -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceHasLifeCycleStage">
+        <rdfs:domain rdf:resource="&collaborationService;CollaborativeService"/>
+        <rdfs:range rdf:resource="&collaborationService;LifeCycleStage"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborativeServiceProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#collaborativeServiceProperties -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;collaborativeServiceProperties">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#communicationProperties -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;communicationProperties">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#competenceParticipant -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;competenceParticipant">
+        <rdfs:domain rdf:resource="&collaborationService;Competence"/>
+        <rdfs:range rdf:resource="&collaborationService;Participant"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;groupFormationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#confidenceParticipant -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;confidenceParticipant">
+        <rdfs:domain rdf:resource="&collaborationService;Confidence"/>
+        <rdfs:range rdf:resource="&collaborationService;Participant"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;groupFormationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#cooperationProperties -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;cooperationProperties">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#coordinationProperties -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;coordinationProperties">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#couplingActivity -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;couplingActivity">
+        <rdfs:range rdf:resource="&collaborationService;Activity"/>
+        <rdfs:domain rdf:resource="&collaborationService;Coupling"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#deadlineTask -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;deadlineTask">
+        <rdfs:domain rdf:resource="&collaborationService;Deadline"/>
+        <rdfs:range rdf:resource="&collaborationService;Task"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#groupDoesActivity -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;groupDoesActivity">
+        <rdfs:range rdf:resource="&collaborationService;Activity"/>
+        <rdfs:domain rdf:resource="&collaborationService;Group"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#groupFormationProperties -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;groupFormationProperties">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#groupHasGoal -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;groupHasGoal">
+        <rdfs:range rdf:resource="&collaborationService;Goal"/>
+        <rdfs:domain rdf:resource="&collaborationService;Group"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;groupFormationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;groupDoesActivity"/>
+            <rdf:Description rdf:about="&collaborationService;activityGeneratesProduct"/>
+            <rdf:Description rdf:about="&collaborationService;productIsGoal"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#groupInteractsBySharedSpace -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;groupInteractsBySharedSpace">
+        <rdfs:domain rdf:resource="&collaborationService;Group"/>
+        <rdfs:range rdf:resource="&collaborationService;SharedSpace"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;groupDoesActivity"/>
+            <rdf:Description rdf:about="&collaborationService;activityMadeInSharedSpace"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#howIsCompromise -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;howIsCompromise">
+        <rdfs:range rdf:resource="&collaborationService;Compromise"/>
+        <rdfs:domain rdf:resource="&collaborationService;How"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#howIsWorkPlan -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;howIsWorkPlan">
+        <rdfs:domain rdf:resource="&collaborationService;How"/>
+        <rdfs:range rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#issuerGeneratesCode -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;issuerGeneratesCode">
+        <rdfs:range rdf:resource="&collaborationService;Code"/>
+        <rdfs:domain rdf:resource="&collaborationService;Issuer"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#issuerIsParticipant -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;issuerIsParticipant">
+        <rdfs:domain rdf:resource="&collaborationService;Issuer"/>
+        <rdfs:range rdf:resource="&collaborationService;Participant"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#issuerSendMessage -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;issuerSendMessage">
+        <rdfs:domain rdf:resource="&collaborationService;Issuer"/>
+        <rdfs:range rdf:resource="&collaborationService;Message"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;issuerGeneratesCode"/>
+            <rdf:Description rdf:about="&collaborationService;codeGeneratesMessage"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#issuerShareCommonSense -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;issuerShareCommonSense">
+        <rdfs:range rdf:resource="&collaborationService;CommonSense"/>
+        <rdfs:domain rdf:resource="&collaborationService;Issuer"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#issuerUsesProtocol -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;issuerUsesProtocol">
+        <rdfs:range rdf:resource="&collaborationService;CommunicationProtocol"/>
+        <rdfs:domain rdf:resource="&collaborationService;Issuer"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;issuerSendMessage"/>
+            <rdf:Description rdf:about="&collaborationService;messageFollowProtocol"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#messageEstablishCompromise -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;messageEstablishCompromise">
+        <rdfs:range rdf:resource="&collaborationService;Compromise"/>
+        <rdfs:domain rdf:resource="&collaborationService;Message"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#messageFollowProtocol -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;messageFollowProtocol">
+        <rdfs:range rdf:resource="&collaborationService;CommunicationProtocol"/>
+        <rdfs:domain rdf:resource="&collaborationService;Message"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#messageGeneratesInterpretation -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;messageGeneratesInterpretation">
+        <rdfs:range rdf:resource="&collaborationService;Interpretation"/>
+        <rdfs:domain rdf:resource="&collaborationService;Message"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#messageMode -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;messageMode">
+        <rdfs:range rdf:resource="&collaborationService;Message"/>
+        <rdfs:domain rdf:resource="&collaborationService;Mode"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#messageSynchronism -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;messageSynchronism">
+        <rdfs:range rdf:resource="&collaborationService;Message"/>
+        <rdfs:domain rdf:resource="&collaborationService;Synchronism"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;synchronismDeterminesTransmission"/>
+            <rdf:Description rdf:about="&collaborationService;messageTransmissionMode"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#messageTransmissionMode -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;messageTransmissionMode">
+        <rdfs:range rdf:resource="&collaborationService;Message"/>
+        <rdfs:domain rdf:resource="&collaborationService;TransmissionMode"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;transmissionRestrictsMode"/>
+            <rdf:Description rdf:about="&collaborationService;messageMode"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#monitoringControlsDeadline -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;monitoringControlsDeadline">
+        <rdfs:range rdf:resource="&collaborationService;Deadline"/>
+        <rdfs:domain rdf:resource="&collaborationService;Monitoring"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;coordinationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;monitoringFollowsWorkPlan"/>
+            <rdf:Description rdf:about="&collaborationService;workPlanSetsDeadline"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#monitoringControlsStatus -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;monitoringControlsStatus">
+        <rdfs:domain rdf:resource="&collaborationService;Monitoring"/>
+        <rdfs:range rdf:resource="&collaborationService;Status"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;coordinationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#monitoringFollowsWorkPlan -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;monitoringFollowsWorkPlan">
+        <rdfs:domain rdf:resource="&collaborationService;Monitoring"/>
+        <rdfs:range rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;coordinationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#negotiationEstablishWorkPlan -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;negotiationEstablishWorkPlan">
+        <rdfs:domain rdf:resource="&collaborationService;Negotiation"/>
+        <rdfs:range rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#negotiationPerformedPerMessage -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;negotiationPerformedPerMessage">
+        <rdfs:range rdf:resource="&collaborationService;Message"/>
+        <rdfs:domain rdf:resource="&collaborationService;Negotiation"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#negotiationResultInCompromise -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;negotiationResultInCompromise">
+        <rdfs:range rdf:resource="&collaborationService;Compromise"/>
+        <rdfs:domain rdf:resource="&collaborationService;Negotiation"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;negotiationPerformedPerMessage"/>
+            <rdf:Description rdf:about="&collaborationService;messageEstablishCompromise"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#negotiationSetsGoal -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;negotiationSetsGoal">
+        <rdfs:range rdf:resource="&collaborationService;Goal"/>
+        <rdfs:domain rdf:resource="&collaborationService;Negotiation"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#participantAcceptCompromise -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;participantAcceptCompromise">
+        <rdfs:range rdf:resource="&collaborationService;Compromise"/>
+        <rdfs:domain rdf:resource="&collaborationService;Participant"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;participantDoesNegotiation"/>
+            <rdf:Description rdf:about="&collaborationService;negotiationResultInCompromise"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#participantAcceptTask -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;participantAcceptTask">
+        <rdfs:domain rdf:resource="&collaborationService;Participant"/>
+        <rdfs:range rdf:resource="&collaborationService;Task"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#participantDoesNegotiation -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;participantDoesNegotiation">
+        <rdfs:range rdf:resource="&collaborationService;Negotiation"/>
+        <rdfs:domain rdf:resource="&collaborationService;Participant"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#participantGroup -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;participantGroup">
+        <rdfs:range rdf:resource="&collaborationService;Group"/>
+        <rdfs:domain rdf:resource="&collaborationService;Participant"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;groupFormationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#participantHasGoal -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;participantHasGoal">
+        <rdfs:range rdf:resource="&collaborationService;Goal"/>
+        <rdfs:domain rdf:resource="&collaborationService;Participant"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;groupFormationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;participantDoesNegotiation"/>
+            <rdf:Description rdf:about="&collaborationService;negotiationSetsGoal"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;participantGroup"/>
+            <rdf:Description rdf:about="&collaborationService;groupHasGoal"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#participantHasMotivation -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;participantHasMotivation">
+        <rdfs:range rdf:resource="&collaborationService;Motivation"/>
+        <rdfs:domain rdf:resource="&collaborationService;Participant"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;groupFormationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#participantPerformsRole -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;participantPerformsRole">
+        <rdfs:domain rdf:resource="&collaborationService;Participant"/>
+        <rdfs:range rdf:resource="&collaborationService;Role"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#perceptionProperties -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;perceptionProperties">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#productIsGoal -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;productIsGoal">
+        <rdfs:range rdf:resource="&collaborationService;Goal"/>
+        <rdfs:domain rdf:resource="&collaborationService;Product"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#rationaleHasHow -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;rationaleHasHow">
+        <rdfs:range rdf:resource="&collaborationService;How"/>
+        <rdfs:domain rdf:resource="&collaborationService;Rationale"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;perceptionProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#rationaleHasWhat -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;rationaleHasWhat">
+        <rdfs:domain rdf:resource="&collaborationService;Rationale"/>
+        <rdfs:range rdf:resource="&collaborationService;What"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;perceptionProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#rationaleHasWhen -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;rationaleHasWhen">
+        <rdfs:domain rdf:resource="&collaborationService;Rationale"/>
+        <rdfs:range rdf:resource="&collaborationService;When"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;perceptionProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#rationaleHasWhere -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;rationaleHasWhere">
+        <rdfs:domain rdf:resource="&collaborationService;Rationale"/>
+        <rdfs:range rdf:resource="&collaborationService;Where"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;perceptionProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#rationaleHasWho -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;rationaleHasWho">
+        <rdfs:domain rdf:resource="&collaborationService;Rationale"/>
+        <rdfs:range rdf:resource="&collaborationService;Who"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;perceptionProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#receiverGeneratesInterpretation -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;receiverGeneratesInterpretation">
+        <rdfs:range rdf:resource="&collaborationService;Interpretation"/>
+        <rdfs:domain rdf:resource="&collaborationService;Receiver"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;receiverGetMessage"/>
+            <rdf:Description rdf:about="&collaborationService;messageGeneratesInterpretation"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#receiverGetMessage -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;receiverGetMessage">
+        <rdfs:range rdf:resource="&collaborationService;Message"/>
+        <rdfs:domain rdf:resource="&collaborationService;Receiver"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#receiverIsParticipant -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;receiverIsParticipant">
+        <rdfs:range rdf:resource="&collaborationService;Participant"/>
+        <rdfs:domain rdf:resource="&collaborationService;Receiver"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#receiverShareCommonSense -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;receiverShareCommonSense">
+        <rdfs:range rdf:resource="&collaborationService;CommonSense"/>
+        <rdfs:domain rdf:resource="&collaborationService;Receiver"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#receiverUsesProtocol -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;receiverUsesProtocol">
+        <rdfs:range rdf:resource="&collaborationService;CommunicationProtocol"/>
+        <rdfs:domain rdf:resource="&collaborationService;Receiver"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;receiverGetMessage"/>
+            <rdf:Description rdf:about="&collaborationService;messageFollowProtocol"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#resourceSharedSpace -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;resourceSharedSpace">
+        <rdfs:domain rdf:resource="&collaborationService;Resource"/>
+        <rdfs:range rdf:resource="&collaborationService;SharedSpace"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;cooperationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#roleIsResponsibleByTask -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;roleIsResponsibleByTask">
+        <rdfs:domain rdf:resource="&collaborationService;Role"/>
+        <rdfs:range rdf:resource="&collaborationService;Task"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#shareTask -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;shareTask">
+        <rdfs:domain rdf:resource="&collaborationService;Share"/>
+        <rdfs:range rdf:resource="&collaborationService;Task"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;cooperationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#statusTask -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;statusTask">
+        <rdfs:domain rdf:resource="&collaborationService;Status"/>
+        <rdfs:range rdf:resource="&collaborationService;Task"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#synchronismDeterminesTransmission -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;synchronismDeterminesTransmission">
+        <rdfs:domain rdf:resource="&collaborationService;Synchronism"/>
+        <rdfs:range rdf:resource="&collaborationService;TransmissionMode"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#taskActivity -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;taskActivity">
+        <rdfs:range rdf:resource="&collaborationService;Activity"/>
+        <rdfs:domain rdf:resource="&collaborationService;Task"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;cooperationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#taskGeneratesArtifact -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;taskGeneratesArtifact">
+        <rdfs:range rdf:resource="&collaborationService;Artifact"/>
+        <rdfs:domain rdf:resource="&collaborationService;Task"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;cooperationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#taskRequiresResource -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;taskRequiresResource">
+        <rdfs:range rdf:resource="&collaborationService;Resource"/>
+        <rdfs:domain rdf:resource="&collaborationService;Task"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;cooperationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#transmissionRestrictsMode -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;transmissionRestrictsMode">
+        <rdfs:range rdf:resource="&collaborationService;Mode"/>
+        <rdfs:domain rdf:resource="&collaborationService;TransmissionMode"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;communicationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whatIsArtifact -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whatIsArtifact">
+        <rdfs:range rdf:resource="&collaborationService;Artifact"/>
+        <rdfs:domain rdf:resource="&collaborationService;What"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whatIsGoal -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whatIsGoal">
+        <rdfs:range rdf:resource="&collaborationService;Goal"/>
+        <rdfs:domain rdf:resource="&collaborationService;What"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whatIsNegotiation -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whatIsNegotiation">
+        <rdfs:range rdf:resource="&collaborationService;Negotiation"/>
+        <rdfs:domain rdf:resource="&collaborationService;What"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whatIsProduct -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whatIsProduct">
+        <rdfs:range rdf:resource="&collaborationService;Product"/>
+        <rdfs:domain rdf:resource="&collaborationService;What"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whenIsDeadline -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whenIsDeadline">
+        <rdfs:range rdf:resource="&collaborationService;Deadline"/>
+        <rdfs:domain rdf:resource="&collaborationService;When"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whereIsActivity -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whereIsActivity">
+        <rdfs:range rdf:resource="&collaborationService;Activity"/>
+        <rdfs:domain rdf:resource="&collaborationService;Where"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whereIsMessage -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whereIsMessage">
+        <rdfs:range rdf:resource="&collaborationService;Message"/>
+        <rdfs:domain rdf:resource="&collaborationService;Where"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whereIsResource -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whereIsResource">
+        <rdfs:range rdf:resource="&collaborationService;Resource"/>
+        <rdfs:domain rdf:resource="&collaborationService;Where"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whereIsSharedSpace -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whereIsSharedSpace">
+        <rdfs:range rdf:resource="&collaborationService;SharedSpace"/>
+        <rdfs:domain rdf:resource="&collaborationService;Where"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whereIsTask -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whereIsTask">
+        <rdfs:range rdf:resource="&collaborationService;Task"/>
+        <rdfs:domain rdf:resource="&collaborationService;Where"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whoIsGroup -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whoIsGroup">
+        <rdfs:range rdf:resource="&collaborationService;Group"/>
+        <rdfs:domain rdf:resource="&collaborationService;Who"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whoIsIssuer -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whoIsIssuer">
+        <rdfs:range rdf:resource="&collaborationService;Issuer"/>
+        <rdfs:domain rdf:resource="&collaborationService;Who"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whoIsParticipant -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whoIsParticipant">
+        <rdfs:range rdf:resource="&collaborationService;Participant"/>
+        <rdfs:domain rdf:resource="&collaborationService;Who"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whoIsReceiver -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whoIsReceiver">
+        <rdfs:range rdf:resource="&collaborationService;Receiver"/>
+        <rdfs:domain rdf:resource="&collaborationService;Who"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#whoIsRole -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;whoIsRole">
+        <rdfs:range rdf:resource="&collaborationService;Role"/>
+        <rdfs:domain rdf:resource="&collaborationService;Who"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#workPlanAllocatesResource -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;workPlanAllocatesResource">
+        <rdfs:range rdf:resource="&collaborationService;Resource"/>
+        <rdfs:domain rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;workPlanSetsTask"/>
+            <rdf:Description rdf:about="&collaborationService;taskRequiresResource"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#workPlanOrganizesActivity -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;workPlanOrganizesActivity">
+        <rdfs:range rdf:resource="&collaborationService;Activity"/>
+        <rdfs:domain rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;workPlanSetsCoupling"/>
+            <rdf:Description rdf:about="&collaborationService;couplingActivity"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#workPlanSetsCoupling -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;workPlanSetsCoupling">
+        <rdfs:range rdf:resource="&collaborationService;Coupling"/>
+        <rdfs:domain rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;coordinationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#workPlanSetsDeadline -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;workPlanSetsDeadline">
+        <rdfs:range rdf:resource="&collaborationService;Deadline"/>
+        <rdfs:domain rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;coordinationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#workPlanSetsPolicy -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;workPlanSetsPolicy">
+        <rdfs:range rdf:resource="&collaborationService;Policy"/>
+        <rdfs:domain rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;coordinationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#workPlanSetsRole -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;workPlanSetsRole">
+        <rdfs:range rdf:resource="&collaborationService;Role"/>
+        <rdfs:domain rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;coordinationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#workPlanSetsTask -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;workPlanSetsTask">
+        <rdfs:range rdf:resource="&collaborationService;Task"/>
+        <rdfs:domain rdf:resource="&collaborationService;WorkPlan"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;workPlanSetsRole"/>
+            <rdf:Description rdf:about="&collaborationService;roleIsResponsibleByTask"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;workPlanSetsDeadline"/>
+            <rdf:Description rdf:about="&collaborationService;deadlineTask"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#description -->
+
+    <owl:DatatypeProperty rdf:about="&collaborationService;description">
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;overall"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#name -->
+
+    <owl:DatatypeProperty rdf:about="&collaborationService;name">
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;overall"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#overall -->
+
+    <owl:DatatypeProperty rdf:about="&collaborationService;overall">
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Activity -->
+
+    <owl:Class rdf:about="&collaborationService;Activity">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Cooperation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#ApplicationDomain -->
+
+    <owl:Class rdf:about="&collaborationService;ApplicationDomain">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#ApplicationSubDomain -->
+
+    <owl:Class rdf:about="&collaborationService;ApplicationSubDomain">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Artifact -->
+
+    <owl:Class rdf:about="&collaborationService;Artifact">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Cooperation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Belief -->
+
+    <owl:Class rdf:about="&collaborationService;Belief">
+        <rdfs:subClassOf rdf:resource="&collaborationService;GroupFormation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Code -->
+
+    <owl:Class rdf:about="&collaborationService;Code">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#CollaborativeService -->
+
+    <owl:Class rdf:about="&collaborationService;CollaborativeService">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#CollaborativeServiceType -->
+
+    <owl:Class rdf:about="&collaborationService;CollaborativeServiceType">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#CommonSense -->
+
+    <owl:Class rdf:about="&collaborationService;CommonSense">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Communication -->
+
+    <owl:Class rdf:about="&collaborationService;Communication">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <owl:disjointUnionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;Code"/>
+            <rdf:Description rdf:about="&collaborationService;CommonSense"/>
+            <rdf:Description rdf:about="&collaborationService;CommunicationProtocol"/>
+            <rdf:Description rdf:about="&collaborationService;Compromise"/>
+            <rdf:Description rdf:about="&collaborationService;Interpretation"/>
+            <rdf:Description rdf:about="&collaborationService;Issuer"/>
+            <rdf:Description rdf:about="&collaborationService;Message"/>
+            <rdf:Description rdf:about="&collaborationService;Mode"/>
+            <rdf:Description rdf:about="&collaborationService;Negotiation"/>
+            <rdf:Description rdf:about="&collaborationService;Receiver"/>
+            <rdf:Description rdf:about="&collaborationService;Synchronism"/>
+            <rdf:Description rdf:about="&collaborationService;TransmissionMode"/>
+        </owl:disjointUnionOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#CommunicationProtocol -->
+
+    <owl:Class rdf:about="&collaborationService;CommunicationProtocol">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Competence -->
+
+    <owl:Class rdf:about="&collaborationService;Competence">
+        <rdfs:subClassOf rdf:resource="&collaborationService;GroupFormation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Compromise -->
+
+    <owl:Class rdf:about="&collaborationService;Compromise">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Confidence -->
+
+    <owl:Class rdf:about="&collaborationService;Confidence">
+        <rdfs:subClassOf rdf:resource="&collaborationService;GroupFormation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Cooperation -->
+
+    <owl:Class rdf:about="&collaborationService;Cooperation">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <owl:disjointUnionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;Activity"/>
+            <rdf:Description rdf:about="&collaborationService;Artifact"/>
+            <rdf:Description rdf:about="&collaborationService;Product"/>
+            <rdf:Description rdf:about="&collaborationService;Resource"/>
+            <rdf:Description rdf:about="&collaborationService;Share"/>
+            <rdf:Description rdf:about="&collaborationService;SharedSpace"/>
+            <rdf:Description rdf:about="&collaborationService;Task"/>
+        </owl:disjointUnionOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Coordination -->
+
+    <owl:Class rdf:about="&collaborationService;Coordination">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <owl:disjointUnionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;Coupling"/>
+            <rdf:Description rdf:about="&collaborationService;Deadline"/>
+            <rdf:Description rdf:about="&collaborationService;Monitoring"/>
+            <rdf:Description rdf:about="&collaborationService;Policy"/>
+            <rdf:Description rdf:about="&collaborationService;Role"/>
+            <rdf:Description rdf:about="&collaborationService;Status"/>
+            <rdf:Description rdf:about="&collaborationService;WorkPlan"/>
+        </owl:disjointUnionOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Coupling -->
+
+    <owl:Class rdf:about="&collaborationService;Coupling">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Coordination"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Deadline -->
+
+    <owl:Class rdf:about="&collaborationService;Deadline">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Coordination"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Goal -->
+
+    <owl:Class rdf:about="&collaborationService;Goal">
+        <rdfs:subClassOf rdf:resource="&collaborationService;GroupFormation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Group -->
+
+    <owl:Class rdf:about="&collaborationService;Group">
+        <rdfs:subClassOf rdf:resource="&collaborationService;GroupFormation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#GroupFormation -->
+
+    <owl:Class rdf:about="&collaborationService;GroupFormation">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <owl:disjointUnionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;Belief"/>
+            <rdf:Description rdf:about="&collaborationService;Competence"/>
+            <rdf:Description rdf:about="&collaborationService;Confidence"/>
+            <rdf:Description rdf:about="&collaborationService;Goal"/>
+            <rdf:Description rdf:about="&collaborationService;Group"/>
+            <rdf:Description rdf:about="&collaborationService;Motivation"/>
+            <rdf:Description rdf:about="&collaborationService;Participant"/>
+        </owl:disjointUnionOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#How -->
+
+    <owl:Class rdf:about="&collaborationService;How">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Perception"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Interpretation -->
+
+    <owl:Class rdf:about="&collaborationService;Interpretation">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Issuer -->
+
+    <owl:Class rdf:about="&collaborationService;Issuer">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#LifeCycleStage -->
+
+    <owl:Class rdf:about="&collaborationService;LifeCycleStage">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Message -->
+
+    <owl:Class rdf:about="&collaborationService;Message">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Mode -->
+
+    <owl:Class rdf:about="&collaborationService;Mode">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Monitoring -->
+
+    <owl:Class rdf:about="&collaborationService;Monitoring">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Coordination"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Motivation -->
+
+    <owl:Class rdf:about="&collaborationService;Motivation">
+        <rdfs:subClassOf rdf:resource="&collaborationService;GroupFormation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Negotiation -->
+
+    <owl:Class rdf:about="&collaborationService;Negotiation">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Participant -->
+
+    <owl:Class rdf:about="&collaborationService;Participant">
+        <rdfs:subClassOf rdf:resource="&collaborationService;GroupFormation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Perception -->
+
+    <owl:Class rdf:about="&collaborationService;Perception">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <owl:disjointUnionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;How"/>
+            <rdf:Description rdf:about="&collaborationService;Rationale"/>
+            <rdf:Description rdf:about="&collaborationService;What"/>
+            <rdf:Description rdf:about="&collaborationService;When"/>
+            <rdf:Description rdf:about="&collaborationService;Where"/>
+            <rdf:Description rdf:about="&collaborationService;Who"/>
+        </owl:disjointUnionOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Policy -->
+
+    <owl:Class rdf:about="&collaborationService;Policy">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Coordination"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Product -->
+
+    <owl:Class rdf:about="&collaborationService;Product">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Cooperation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Rationale -->
+
+    <owl:Class rdf:about="&collaborationService;Rationale">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Perception"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Receiver -->
+
+    <owl:Class rdf:about="&collaborationService;Receiver">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Resource -->
+
+    <owl:Class rdf:about="&collaborationService;Resource">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Cooperation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Role -->
+
+    <owl:Class rdf:about="&collaborationService;Role">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Coordination"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Share -->
+
+    <owl:Class rdf:about="&collaborationService;Share">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Cooperation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#SharedSpace -->
+
+    <owl:Class rdf:about="&collaborationService;SharedSpace">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Cooperation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Status -->
+
+    <owl:Class rdf:about="&collaborationService;Status">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Coordination"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Synchronism -->
+
+    <owl:Class rdf:about="&collaborationService;Synchronism">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Task -->
+
+    <owl:Class rdf:about="&collaborationService;Task">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Cooperation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#TransmissionMode -->
+
+    <owl:Class rdf:about="&collaborationService;TransmissionMode">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Communication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#What -->
+
+    <owl:Class rdf:about="&collaborationService;What">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Perception"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#When -->
+
+    <owl:Class rdf:about="&collaborationService;When">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Perception"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Where -->
+
+    <owl:Class rdf:about="&collaborationService;Where">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Perception"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#Who -->
+
+    <owl:Class rdf:about="&collaborationService;Who">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Perception"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#WorkPlan -->
+
+    <owl:Class rdf:about="&collaborationService;WorkPlan">
+        <rdfs:subClassOf rdf:resource="&collaborationService;Coordination"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#coupling_001 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;coupling_001">
+        <rdf:type rdf:resource="&collaborationService;Coupling"/>
+        <collaborationService:name>individual</collaborationService:name>
+        <collaborationService:description></collaborationService:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#coupling_002 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;coupling_002">
+        <rdf:type rdf:resource="&collaborationService;Coupling"/>
+        <collaborationService:description></collaborationService:description>
+        <collaborationService:name>with transfer</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#coupling_003 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;coupling_003">
+        <rdf:type rdf:resource="&collaborationService;Coupling"/>
+        <collaborationService:description></collaborationService:description>
+        <collaborationService:name>orchestrated</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#mode_001 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;mode_001">
+        <rdf:type rdf:resource="&collaborationService;Mode"/>
+        <collaborationService:name>linguistics</collaborationService:name>
+        <collaborationService:description></collaborationService:description>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#mode_002 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;mode_002">
+        <rdf:type rdf:resource="&collaborationService;Mode"/>
+        <collaborationService:description></collaborationService:description>
+        <collaborationService:name>symbolic</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#policy_001 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;policy_001">
+        <rdf:type rdf:resource="&collaborationService;Policy"/>
+        <collaborationService:name>access to resources</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#policy_002 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;policy_002">
+        <rdf:type rdf:resource="&collaborationService;Policy"/>
+        <collaborationService:name>concurrency control</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#synchronism_001 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;synchronism_001">
+        <rdf:type rdf:resource="&collaborationService;Synchronism"/>
+        <collaborationService:name>synchronous</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#synchronism_002 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;synchronism_002">
+        <rdf:type rdf:resource="&collaborationService;Synchronism"/>
+        <collaborationService:name>asynchronous</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#transmissionMode_001 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;transmissionMode_001">
+        <rdf:type rdf:resource="&collaborationService;TransmissionMode"/>
+        <collaborationService:name>write</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#transmissionMode_002 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;transmissionMode_002">
+        <rdf:type rdf:resource="&collaborationService;TransmissionMode"/>
+        <collaborationService:name>speak</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#transmissionMode_003 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;transmissionMode_003">
+        <rdf:type rdf:resource="&collaborationService;TransmissionMode"/>
+        <collaborationService:name>audio</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#transmissionMode_004 -->
+
+    <owl:NamedIndividual rdf:about="&collaborationService;transmissionMode_004">
+        <rdf:type rdf:resource="&collaborationService;TransmissionMode"/>
+        <collaborationService:name>video</collaborationService:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;coupling_001"/>
+            <rdf:Description rdf:about="&collaborationService;coupling_002"/>
+            <rdf:Description rdf:about="&collaborationService;coupling_003"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;Activity"/>
+            <rdf:Description rdf:about="&collaborationService;Artifact"/>
+            <rdf:Description rdf:about="&collaborationService;Product"/>
+            <rdf:Description rdf:about="&collaborationService;Resource"/>
+            <rdf:Description rdf:about="&collaborationService;Share"/>
+            <rdf:Description rdf:about="&collaborationService;SharedSpace"/>
+            <rdf:Description rdf:about="&collaborationService;Task"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;transmissionMode_001"/>
+            <rdf:Description rdf:about="&collaborationService;transmissionMode_002"/>
+            <rdf:Description rdf:about="&collaborationService;transmissionMode_003"/>
+            <rdf:Description rdf:about="&collaborationService;transmissionMode_004"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;Coupling"/>
+            <rdf:Description rdf:about="&collaborationService;Deadline"/>
+            <rdf:Description rdf:about="&collaborationService;Monitoring"/>
+            <rdf:Description rdf:about="&collaborationService;Policy"/>
+            <rdf:Description rdf:about="&collaborationService;Role"/>
+            <rdf:Description rdf:about="&collaborationService;Status"/>
+            <rdf:Description rdf:about="&collaborationService;WorkPlan"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;Belief"/>
+            <rdf:Description rdf:about="&collaborationService;Competence"/>
+            <rdf:Description rdf:about="&collaborationService;Confidence"/>
+            <rdf:Description rdf:about="&collaborationService;Goal"/>
+            <rdf:Description rdf:about="&collaborationService;Group"/>
+            <rdf:Description rdf:about="&collaborationService;Motivation"/>
+            <rdf:Description rdf:about="&collaborationService;Participant"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;Code"/>
+            <rdf:Description rdf:about="&collaborationService;CommonSense"/>
+            <rdf:Description rdf:about="&collaborationService;CommunicationProtocol"/>
+            <rdf:Description rdf:about="&collaborationService;Compromise"/>
+            <rdf:Description rdf:about="&collaborationService;Interpretation"/>
+            <rdf:Description rdf:about="&collaborationService;Issuer"/>
+            <rdf:Description rdf:about="&collaborationService;Message"/>
+            <rdf:Description rdf:about="&collaborationService;Mode"/>
+            <rdf:Description rdf:about="&collaborationService;Negotiation"/>
+            <rdf:Description rdf:about="&collaborationService;Receiver"/>
+            <rdf:Description rdf:about="&collaborationService;Synchronism"/>
+            <rdf:Description rdf:about="&collaborationService;TransmissionMode"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;policy_001"/>
+            <rdf:Description rdf:about="&collaborationService;policy_002"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;ApplicationDomain"/>
+            <rdf:Description rdf:about="&collaborationService;CollaborativeService"/>
+            <rdf:Description rdf:about="&collaborationService;CollaborativeServiceType"/>
+            <rdf:Description rdf:about="&collaborationService;Communication"/>
+            <rdf:Description rdf:about="&collaborationService;Cooperation"/>
+            <rdf:Description rdf:about="&collaborationService;Coordination"/>
+            <rdf:Description rdf:about="&collaborationService;GroupFormation"/>
+            <rdf:Description rdf:about="&collaborationService;LifeCycleStage"/>
+            <rdf:Description rdf:about="&collaborationService;Perception"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;ApplicationSubDomain"/>
+            <rdf:Description rdf:about="&collaborationService;CollaborativeService"/>
+            <rdf:Description rdf:about="&collaborationService;CollaborativeServiceType"/>
+            <rdf:Description rdf:about="&collaborationService;Communication"/>
+            <rdf:Description rdf:about="&collaborationService;Cooperation"/>
+            <rdf:Description rdf:about="&collaborationService;Coordination"/>
+            <rdf:Description rdf:about="&collaborationService;GroupFormation"/>
+            <rdf:Description rdf:about="&collaborationService;LifeCycleStage"/>
+            <rdf:Description rdf:about="&collaborationService;Perception"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;How"/>
+            <rdf:Description rdf:about="&collaborationService;What"/>
+            <rdf:Description rdf:about="&collaborationService;When"/>
+            <rdf:Description rdf:about="&collaborationService;Where"/>
+            <rdf:Description rdf:about="&collaborationService;Who"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

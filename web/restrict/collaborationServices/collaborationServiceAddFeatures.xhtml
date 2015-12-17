@@ -1,0 +1,76 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Collaborative Service</h2>
+        
+        <h:form id="collaborationServiceAddFeatureForm">
+            <p:growl id="growl" />
+            <h:panelGrid columns="3" cellpadding="5">
+                <h:outputText value="Id:" />
+                <h:inputText value="#{workspaceCollabService.collaborationService.id}" 
+                             disabled="true" size="50" />
+                <h:outputText value=" " />
+                
+                <h:outputText value="Service Name:" />
+                <h:inputText value="#{workspaceCollabService.collaborationService.collabServiceName}" 
+                             disabled="true"  size="50" />
+                <h:outputText value=" " />
+                
+                <h:outputText value="Description:" />
+                <h:inputTextarea value="#{workspaceCollabService.collaborationService.description}" 
+                                 disabled="true" 
+                                 rows="6" 
+                                 cols="51" />
+                <h:outputText value=" " />
+                
+                <h:outputText value=" " /><h:outputText value=" " /><h:outputText value=" " />
+                
+                <h:outputLabel for="roler" value="Roles: " rendered="#{workspaceCollabService.checkRole()}" />
+                <p:selectCheckboxMenu id="roler" value="#{workspaceCollabService.rolerList}" 
+                                      converter="rolerConverter" label="-- Select at least one role --"
+                                      filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkRole()}" >
+                    <f:selectItems value="#{rolerBean.rolers}" var="roler"
+                                   itemLabel="#{roler.roleName} (Level #{roler.hierarchyLevel})" itemValue="#{roler}" />                      
+                </p:selectCheckboxMenu>
+                <p:commandLink value="Link Role" update="displayRolers" rendered="#{workspaceCollabService.checkRole()}" />
+                <p:outputPanel id="displayRolers" style="width:350px" rendered="#{workspaceCollabService.checkRole()}" >
+                    <p:dataList value="#{workspaceCollabService.rolerList}" 
+                                var="roler" emptyMessage="No roles">
+                        #{roler.roleName} (Level #{roler.hierarchyLevel})
+                    </p:dataList>
+                </p:outputPanel>
+                <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                               update="displayRolers" rendered="#{workspaceCollabService.checkRole()}" />
+                <h:outputText value=" " rendered="#{workspaceCollabService.checkRole()}" />
+                
+                <h:outputText value=" " /><h:outputText value=" " /><h:outputText value=" " />
+                
+                <h:outputLabel for="competence" value="Competences: " rendered="#{workspaceCollabService.checkCompetence()}" />
+                <p:selectCheckboxMenu id="competence" value="#{workspaceCollabService.competenceList}" 
+                                      converter="competenceConverter" label="-- Select at least one competence --"
+                                      filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkCompetence()}" >
+                    <f:selectItems value="#{competenceBean.competences}" var="competence"
+                                   itemLabel="#{competence.competenceName}" itemValue="#{competence}" />                      
+                </p:selectCheckboxMenu>
+                <p:commandLink value="Link Competence" update="displayCompetences" rendered="#{workspaceCollabService.checkCompetence()}" />
+                <p:outputPanel id="displayCompetences" style="width:350px" rendered="#{workspaceCollabService.checkCompetence()}" >
+                    <p:dataList value="#{workspaceCollabService.competenceList}" var="competence" emptyMessage="No competences">
+                        #{competence.competenceName}
+                    </p:dataList>
+                </p:outputPanel>
+                <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                               update="displayCompetences" rendered="#{workspaceCollabService.checkCompetence()}" />
+                <h:outputText value=" " rendered="#{workspaceCollabService.checkCompetence()}" />
+                
+                <h:outputText value=" " /><h:outputText value=" " /><h:outputText value=" " />
+                
+                <p:commandButton id="saveBtn" value="Add Features" icon="ui-icon-check" style="margin:0" actionListener="#{workspaceCollabService.updateCollaborationService()}" update="growl"/>
+            </h:panelGrid>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>
