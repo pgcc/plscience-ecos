@@ -1,0 +1,43 @@
+<ui:composition template="/WEB-INF/templates/workflowLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-md-2">
+                <ui:include src="contextMenu.xhtml" />
+            </div>
+            <div class="col-md-10">
+                <h2>Search at myExperiment</h2>
+                <h:form id="searchMyExperimentForm">
+                    <h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
+                        <p:commandButton value="Search" icon="ui-icon-search" actionListener="#{searchMyExperiment.equivalentsearch(workflowBean.workflow.idWorkflow)}" update="searchResults" />
+                    </h:panelGrid>
+                    <p:outputPanel id="searchResults">
+                        <p:dataTable var="result" value="#{searchMyExperiment.workflows}" rendered="#{searchMyExperiment.workflows ne null}" 
+                                     style="margin-top: 20px" resizableColumns="true" liveResize="true">
+                            
+                            <f:facet name="header">
+                                Workflows
+                            </f:facet>
+                            <p:column headerText="Id" width="100">
+                                <h:outputText value="#{result.id}" />
+                            </p:column>
+                            <p:column headerText="Version" width="100">
+                                <h:outputText value="#{result.version}" />
+                            </p:column>
+                            <p:column headerText="Description">
+                                <h:outputText value="#{result.description}" />
+                            </p:column>
+                            <p:column headerText="Resource">
+                                <a href="#{result.resource}" target="_blank">#{result.resource}</a>
+                            </p:column>
+                        </p:dataTable>                        
+                    </p:outputPanel>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

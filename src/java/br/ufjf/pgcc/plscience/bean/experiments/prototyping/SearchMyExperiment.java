@@ -30,7 +30,10 @@ import br.ufjf.myexperiment.model.Pack;
 import br.ufjf.myexperiment.model.Search;
 import br.ufjf.myexperiment.model.User;
 import br.ufjf.myexperiment.model.Workflow;
+import br.ufjf.pgcc.plscience.controller.UsedBean;
 import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
+import br.ufjf.pgcc.plscience.dao.UsedDAO;
+import br.ufjf.pgcc.plscience.model.Used;
 import br.ufjf.pgcc.plscience.recos.IntegrationModule;
 import br.ufjf.pgcc.plscience.recos.calculateFactors;
 import java.io.Serializable;
@@ -46,24 +49,24 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean()
 @ViewScoped
 public class SearchMyExperiment implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private final MyExperimentClient client;
     private String searchQuery;
     private String type;
-    
+
     private List<Workflow> workflows;
     private List<Pack> packs;
     private List<User> users;
     private List<Group> groups;
     private List<File> files;
-    
+
     public SearchMyExperiment() {
         client = new MyExperimentClient();
         client.setBaseUri("http://www.myexperiment.org");
     }
-    
+
     public void search() {
         try {
             String query = searchQuery;
@@ -76,13 +79,33 @@ public class SearchMyExperiment implements Serializable {
             users = result.getUser();
             groups = result.getGroup();
             files = result.getFile();
-            
+
 //            List experiments = new ArrayList();
 //            experiments = new ExperimentDAO().getFrequencyService("protein_protein_interactions.xml");
+            IntegrationModule.setWorkflows(workflows);
+
+        } catch (Exception e) {
+        }
+    }
+
+    public void equivalentsearch(int workflow) {
+        try {
+
+            String query = "";
+            Used used = new Used();
+            List useds = new ArrayList();
+            useds = UsedDAO.getInstance().buscar(workflow);
+            for (Object u : useds) {
+                used = (Used) u;
+                query += used.getTaskidTask().getName() + "+and+";
+            }
+            //query += "search_field+and+Document_index+and+CountProteins+and+CountDiseases+and+CountDiseasesPerProtein+and+Flatten_and_make_unique+and+Link_proteins_to_diseases+and+Retrieve_documents+and+Discover_RatHumanMouseUniProt_proteins+and+";
+            query += "&type=workflow";
+            Search result = client.search(query);
+            workflows = result.getWorkflow();
             
             IntegrationModule.setWorkflows(workflows);
-            
-            
+
         } catch (Exception e) {
         }
     }
