@@ -1,0 +1,32 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Products</h2>
+
+        <h:form id="rolerMain">
+            <div align="center">
+                <p:dataTable id="productTable" var="product" 
+                             value="#{myProducts.products}" style="margin: 20px 0">
+
+                    <p:column id="idHeader" headerText="ID">
+                        <h:outputText value="#{product.id}" />
+                    </p:column>
+
+                    <p:column id="nameHeader" headerText="Name Product">
+                        <h:outputText value="#{product.productName}" />
+                    </p:column>
+                    
+                    <p:column id="descriptionHeader" headerText="Description">
+                        <h:outputText value="#{product.description}" />
+                    </p:column>
+                    
+                </p:dataTable>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

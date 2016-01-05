@@ -7,6 +7,7 @@ package br.ufjf.pgcc.plscience.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -69,6 +73,30 @@ public class CooperationService implements Serializable {
     
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "cooperationServiceId")
     private CollaborationService collaborationService;
+    
+    @JoinTable(name = "product_cooperation_service", joinColumns = {
+        @JoinColumn(name = "cooperation_service_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "product_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Product> productList;
+    
+    @JoinTable(name = "activity_concept_cooperation_service", joinColumns = {
+        @JoinColumn(name = "cooperation_service_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "activity_concept_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ActivityConcept> activityConceptList;
+    
+    @JoinTable(name = "task_concept_cooperation_service", joinColumns = {
+        @JoinColumn(name = "cooperation_service_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "task_concept_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TaskConcept> taskConceptList;
+    
+    @JoinTable(name = "artifact_cooperation_service", joinColumns = {
+        @JoinColumn(name = "cooperation_service_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "artifact_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Artifact> artifactList;
 
     public CooperationService() {
     }
@@ -161,6 +189,62 @@ public class CooperationService implements Serializable {
         this.collaborationService = collaborationService;
     }
 
+    /**
+     * @return the productList
+     */
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    /**
+     * @param productList the productList to set
+     */
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    /**
+     * @return the activityConceptList
+     */
+    public List<ActivityConcept> getActivityConceptList() {
+        return activityConceptList;
+    }
+
+    /**
+     * @param activityConceptList the activityConceptList to set
+     */
+    public void setActivityConceptList(List<ActivityConcept> activityConceptList) {
+        this.activityConceptList = activityConceptList;
+    }
+
+    /**
+     * @return the taskConceptList
+     */
+    public List<TaskConcept> getTaskConceptList() {
+        return taskConceptList;
+    }
+
+    /**
+     * @param taskConceptList the taskConceptList to set
+     */
+    public void setTaskConceptList(List<TaskConcept> taskConceptList) {
+        this.taskConceptList = taskConceptList;
+    }
+
+    /**
+     * @return the artifactList
+     */
+    public List<Artifact> getArtifactList() {
+        return artifactList;
+    }
+
+    /**
+     * @param artifactList the artifactList to set
+     */
+    public void setArtifactList(List<Artifact> artifactList) {
+        this.artifactList = artifactList;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -1,0 +1,42 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Register Product</h2>
+        
+        <h:form id="newProductForm">
+            <p:growl id="growl" />
+            <p:panel header="Product Data" style="margin: 10px 0;">
+                <h:panelGrid columns="3" cellpadding="5">
+                    <h:outputLabel for="productName" value="Name:* " />
+                    <p:inputText id="productName" 
+                                 value="#{newProduct.product.productName}" 
+                                 required="true" 
+                                 label="ProductName"
+                                 size="50">
+                        <f:validateLength minimum="5" />
+                    </p:inputText>
+                    <p:message for="productName" />
+                    
+                    <h:outputLabel for="description" value="Description: " />
+                    <p:inputTextarea id="description"
+                                     value="#{newProduct.product.description}"
+                                     rows="6" 
+                                     cols="51" 
+                                     counter="display" 
+                                     maxlength="250" 
+                                     counterTemplate="{0} characters remaining." 
+                                     autoResize="false" />
+                    <h:outputText id="display" />
+                </h:panelGrid>
+                                
+                <p:commandButton id="saveBtn" value="Register" icon="ui-icon-check" style="margin:0" actionListener="#{newProduct.save()}" />
+                
+            </p:panel>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>

@@ -12,15 +12,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Guilherme Martins
  */
 @Entity
-@Table(name = "roler")
-public class Roler implements Serializable {
+@Table(name = "communication_protocol")
+public class CommunicationProtocol implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
@@ -30,25 +35,22 @@ public class Roler implements Serializable {
     private Long id;
     
     @Basic(optional = false)
-    @Column(name = "role_name")
-    private String roleName;
-    
-    @Column(name = "hierarchy_level")
-    private Integer hierarchyLevel;
+    @Column(name = "communication_protocol_name")
+    private String communicationProtocolName;
     
     @Column(name = "description")
     private String description;
 
-    public Roler() {
+    public CommunicationProtocol() {
     }
 
-    public Roler(Long id) {
+    public CommunicationProtocol(Long id) {
         this.id = id;
     }
 
-    public Roler(Long id, String roleName) {
+    public CommunicationProtocol(Long id, String communicationProtocolName) {
         this.id = id;
-        this.roleName = roleName;
+        this.communicationProtocolName = communicationProtocolName;
     }
 
     public Long getId() {
@@ -59,20 +61,12 @@ public class Roler implements Serializable {
         this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getCommunicationProtocolName() {
+        return communicationProtocolName;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public Integer getHierarchyLevel() {
-        return hierarchyLevel;
-    }
-
-    public void setHierarchyLevel(Integer hierarchyLevel) {
-        this.hierarchyLevel = hierarchyLevel;
+    public void setCommunicationProtocolName(String communicationProtocolName) {
+        this.communicationProtocolName = communicationProtocolName;
     }
 
     public String getDescription() {
@@ -93,10 +87,10 @@ public class Roler implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roler)) {
+        if (!(object instanceof CommunicationProtocol)) {
             return false;
         }
-        Roler other = (Roler) object;
+        CommunicationProtocol other = (CommunicationProtocol) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -105,7 +99,7 @@ public class Roler implements Serializable {
 
     @Override
     public String toString() {
-        return "br.ufjf.pgcc.plscience.model.Role[ id=" + id + " ]";
+        return "br.ufjf.pgcc.plscience.model.CommunicationProtocol[ id=" + id + " ]";
     }
     
 }

@@ -12,43 +12,45 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Guilherme Martins
  */
 @Entity
-@Table(name = "roler")
-public class Roler implements Serializable {
-    
+@Table(name = "code")
+public class Code implements Serializable {
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "id")
     private Long id;
-    
     @Basic(optional = false)
-    @Column(name = "role_name")
-    private String roleName;
-    
-    @Column(name = "hierarchy_level")
-    private Integer hierarchyLevel;
-    
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "code_name")
+    private String codeName;
+    @Size(max = 255)
     @Column(name = "description")
     private String description;
 
-    public Roler() {
+    public Code() {
     }
 
-    public Roler(Long id) {
+    public Code(Long id) {
         this.id = id;
     }
 
-    public Roler(Long id, String roleName) {
+    public Code(Long id, String codeName) {
         this.id = id;
-        this.roleName = roleName;
+        this.codeName = codeName;
     }
 
     public Long getId() {
@@ -59,20 +61,12 @@ public class Roler implements Serializable {
         this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getCodeName() {
+        return codeName;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public Integer getHierarchyLevel() {
-        return hierarchyLevel;
-    }
-
-    public void setHierarchyLevel(Integer hierarchyLevel) {
-        this.hierarchyLevel = hierarchyLevel;
+    public void setCodeName(String codeName) {
+        this.codeName = codeName;
     }
 
     public String getDescription() {
@@ -93,10 +87,10 @@ public class Roler implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roler)) {
+        if (!(object instanceof Code)) {
             return false;
         }
-        Roler other = (Roler) object;
+        Code other = (Code) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -105,7 +99,7 @@ public class Roler implements Serializable {
 
     @Override
     public String toString() {
-        return "br.ufjf.pgcc.plscience.model.Role[ id=" + id + " ]";
+        return "br.ufjf.pgcc.plscience.model.Code[ id=" + id + " ]";
     }
     
 }

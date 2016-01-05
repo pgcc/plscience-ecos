@@ -125,7 +125,7 @@ public class Workspace implements Serializable {
         }
         exServ = new ArrayList<ExperimentServices>();
         //criando os novos
-        for(int i=0;i<Integer.valueOf(nStages);i++){
+        for(int i = 1; i <= Integer.valueOf(nStages); i++){
             ExperimentServices exS = new ExperimentServices();
             exS.setId((long) 0);
             exS.setStage(i);

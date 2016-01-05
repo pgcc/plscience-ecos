@@ -33,12 +33,21 @@
     <class>br.ufjf.pgcc.plscience.model.WasStartedByWT</class>
     <class>br.ufjf.pgcc.plscience.model.ActedOnBehalfOf</class>
     <class>br.ufjf.pgcc.plscience.model.WasEndedByWT</class>
+    <class>br.ufjf.pgcc.plscience.model.Compromise</class>
+    <class>br.ufjf.pgcc.plscience.model.Code</class>
+    <class>br.ufjf.pgcc.plscience.model.CommunicationProtocol</class>
+    <class>br.ufjf.pgcc.plscience.model.Artifact</class>
+    <class>br.ufjf.pgcc.plscience.model.ActivityConcept</class>
+    <class>br.ufjf.pgcc.plscience.model.Product</class>
+    <class>br.ufjf.pgcc.plscience.model.TaskConcept</class>
+    <class>br.ufjf.pgcc.plscience.model.CommonSense</class>
+    <class>br.ufjf.pgcc.plscience.model.Status</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/plscience?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="tfmsifm"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
       <property name="eclipselink.ddl-generation" value="none"/>
     </properties>
   </persistence-unit>

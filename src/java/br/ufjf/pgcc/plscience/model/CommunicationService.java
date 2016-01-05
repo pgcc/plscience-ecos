@@ -7,6 +7,7 @@ package br.ufjf.pgcc.plscience.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -89,6 +93,30 @@ public class CommunicationService implements Serializable {
     
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "communicationServiceId")
     private CollaborationService collaborationService;
+    
+    @JoinTable(name = "communication_protocol_communication_service", joinColumns = {
+        @JoinColumn(name = "communication_service_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "communication_protocol_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<CommunicationProtocol> communicationProtocolList;
+    
+    @JoinTable(name = "common_sense_communication_service", joinColumns = {
+        @JoinColumn(name = "communication_service_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "common_sense_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<CommonSense> commonSenseList;
+    
+    @JoinTable(name = "code_communication_service", joinColumns = {
+        @JoinColumn(name = "communication_service_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "code_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Code> codeList;
+    
+    @JoinTable(name = "compromise_communication_service", joinColumns = {
+        @JoinColumn(name = "communication_service_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "compromise_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Compromise> compromiseList;
 
     public CommunicationService() {
     }
@@ -226,6 +254,62 @@ public class CommunicationService implements Serializable {
         this.collaborationService = collaborationService;
     }
 
+    /**
+     * @return the communicationProtocolList
+     */
+    public List<CommunicationProtocol> getCommunicationProtocolList() {
+        return communicationProtocolList;
+    }
+
+    /**
+     * @param communicationProtocolList the communicationProtocolList to set
+     */
+    public void setCommunicationProtocolList(List<CommunicationProtocol> communicationProtocolList) {
+        this.communicationProtocolList = communicationProtocolList;
+    }
+
+    /**
+     * @return the commonSenseList
+     */
+    public List<CommonSense> getCommonSenseList() {
+        return commonSenseList;
+    }
+
+    /**
+     * @param commonSenseList the commonSenseList to set
+     */
+    public void setCommonSenseList(List<CommonSense> commonSenseList) {
+        this.commonSenseList = commonSenseList;
+    }
+
+    /**
+     * @return the codeList
+     */
+    public List<Code> getCodeList() {
+        return codeList;
+    }
+
+    /**
+     * @param codeList the codeList to set
+     */
+    public void setCodeList(List<Code> codeList) {
+        this.codeList = codeList;
+    }
+
+    /**
+     * @return the compromiseList
+     */
+    public List<Compromise> getCompromiseList() {
+        return compromiseList;
+    }
+
+    /**
+     * @param compromiseList the compromiseList to set
+     */
+    public void setCompromiseList(List<Compromise> compromiseList) {
+        this.compromiseList = compromiseList;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -12,15 +12,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Guilherme Martins
  */
 @Entity
-@Table(name = "roler")
-public class Roler implements Serializable {
+@Table(name = "product")
+public class Product implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
@@ -30,25 +33,22 @@ public class Roler implements Serializable {
     private Long id;
     
     @Basic(optional = false)
-    @Column(name = "role_name")
-    private String roleName;
-    
-    @Column(name = "hierarchy_level")
-    private Integer hierarchyLevel;
+    @Column(name = "product_name")
+    private String productName;
     
     @Column(name = "description")
     private String description;
 
-    public Roler() {
+    public Product() {
     }
 
-    public Roler(Long id) {
+    public Product(Long id) {
         this.id = id;
     }
 
-    public Roler(Long id, String roleName) {
+    public Product(Long id, String productName) {
         this.id = id;
-        this.roleName = roleName;
+        this.productName = productName;
     }
 
     public Long getId() {
@@ -59,20 +59,12 @@ public class Roler implements Serializable {
         this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public Integer getHierarchyLevel() {
-        return hierarchyLevel;
-    }
-
-    public void setHierarchyLevel(Integer hierarchyLevel) {
-        this.hierarchyLevel = hierarchyLevel;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getDescription() {
@@ -93,10 +85,10 @@ public class Roler implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roler)) {
+        if (!(object instanceof Product)) {
             return false;
         }
-        Roler other = (Roler) object;
+        Product other = (Product) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -105,7 +97,7 @@ public class Roler implements Serializable {
 
     @Override
     public String toString() {
-        return "br.ufjf.pgcc.plscience.model.Role[ id=" + id + " ]";
+        return "br.ufjf.pgcc.plscience.model.Product[ id=" + id + " ]";
     }
     
 }

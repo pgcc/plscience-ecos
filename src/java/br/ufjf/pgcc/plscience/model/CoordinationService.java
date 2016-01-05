@@ -83,6 +83,12 @@ public class CoordinationService implements Serializable {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Roler> rolerList;
     
+    @JoinTable(name = "status_coordination_service", joinColumns = {
+        @JoinColumn(name = "coordination_service_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "status_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Status> statusList;
+    
     public CoordinationService() {
     }
 
@@ -173,6 +179,20 @@ public class CoordinationService implements Serializable {
     public void setRolerList(List<Roler> rolerList) {
         this.rolerList = rolerList;
     }
+    
+    /**
+     * @return the statusList
+     */
+    public List<Status> getStatusList() {
+        return statusList;
+    }
+
+    /**
+     * @param statusList the statusList to set
+     */
+    public void setStatusList(List<Status> statusList) {
+        this.statusList = statusList;
+    }
 
     @XmlTransient
     public CollaborationService getCollaborationService() {
@@ -207,5 +227,5 @@ public class CoordinationService implements Serializable {
     public String toString() {
         return "br.ufjf.pgcc.plscience.model.CoordinationService[ id=" + id + " ]";
     }
- 
+    
 }
