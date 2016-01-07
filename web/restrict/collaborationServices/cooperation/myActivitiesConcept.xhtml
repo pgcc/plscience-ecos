@@ -5,23 +5,23 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        <h2 class="page-header">Products</h2>
+        <h2 class="page-header">Activities</h2>
 
-        <h:form id="productMain">
+        <h:form id="activityConceptMain">
             <div align="center">
-                <p:dataTable id="productTable" var="product" 
-                             value="#{myProducts.products}" style="margin: 20px 0">
+                <p:dataTable id="activityConceptTable" var="activity" 
+                             value="#{myActivitiesConcept.activitiesConcept}" style="margin: 20px 0">
 
                     <p:column id="idHeader" headerText="ID">
-                        <h:outputText value="#{product.id}" />
+                        <h:outputText value="#{activity.id}" />
                     </p:column>
 
-                    <p:column id="nameHeader" headerText="Name Product">
-                        <h:outputText value="#{product.productName}" />
+                    <p:column id="nameHeader" headerText="Name Activity">
+                        <h:outputText value="#{activity.activityName}" />
                     </p:column>
                     
                     <p:column id="descriptionHeader" headerText="Description">
-                        <h:outputText value="#{product.description}" />
+                        <h:outputText value="#{activity.description}" />
                     </p:column>
                     
                 </p:dataTable>

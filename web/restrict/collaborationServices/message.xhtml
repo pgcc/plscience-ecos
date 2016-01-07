@@ -1,0 +1,46 @@
+<ui:composition template="/WEB-INF/templates/layoutCollab.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">msg</h2>
+
+        <h:form>
+
+            <h:panelGrid columns="1" cellpadding="5">
+                <p:commandButton value="Carla" type="button" onclick="PF('dlg1').show();" />
+
+               
+            </h:panelGrid>
+            
+            <p:dialog header="To: Carla"  widgetVar="dlg1" minHeight="50" width="355" height="120"  resizable="False">
+
+                <h:panelGrid columns="2" cellpadding="2" >
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:inputTextarea readonly="True"   value="hahaahh   "/>
+                        </p:column>
+                         
+                        <p:column colspan="5">
+                           <p:inputText/>
+                           <h:outputText value="&#160;" />
+                           <h:outputText value="&#160;" />
+                           <p:commandButton style="width: auto; font-size:100%"  value="Send" type="button" onclick="PF('dlg1').close;" />  
+                        </p:column>
+                        
+                       
+                    </p:row>
+
+                </h:panelGrid>
+
+
+
+            </p:dialog>
+
+            
+
+        </h:form>
+    </ui:define>
+</ui:composition>

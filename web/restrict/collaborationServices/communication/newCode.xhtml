@@ -5,34 +5,25 @@
      xmlns:ui="http://java.sun.com/jsf/facelets"
      xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        <h2 class="page-header">Register Role</h2>
+        <h2 class="page-header">Register Code</h2>
         
-        <h:form id="newRoleForm">
+        <h:form id="newCodeForm">
             <p:growl id="growl" />
-            <p:panel header="Role Data" style="margin: 10px 0;">
+            <p:panel header="Code Data" style="margin: 10px 0;">
                 <h:panelGrid columns="3" cellpadding="5">
-                    <h:outputLabel for="roleName" value="Name:* " />
-                    <p:inputText id="roleName" 
-                                 value="#{newRoler.roler.roleName}" 
+                    <h:outputLabel for="codeName" value="Name:* " />
+                    <p:inputText id="codeName" 
+                                 value="#{newCode.code.codeName}" 
                                  required="true" 
-                                 label="RoleName"
+                                 label="CodeName"
                                  size="50">
                         <f:validateLength minimum="5" />
                     </p:inputText>
-                    <p:message for="roleName" />
-                    
-                    <h:outputLabel for="hierarchyLevel" value="Hierarchy Level: " />
-                    <p:inputText id="hierarchyLevel" 
-                                 value="#{newRoler.roler.hierarchyLevel}" 
-                                 label="HierarchyLevel"
-                                 size="50">
-                        <f:validateDoubleRange minimum="0" maximum="10" />
-                    </p:inputText>
-                    <p:message for="hierarchyLevel" />
+                    <p:message for="codeName" />
                     
                     <h:outputLabel for="description" value="Description: " />
                     <p:inputTextarea id="description"
-                                     value="#{newRoler.roler.description}"
+                                     value="#{newCode.code.description}"
                                      rows="6" 
                                      cols="51" 
                                      counter="display" 
@@ -42,7 +33,7 @@
                     <h:outputText id="display" />
                 </h:panelGrid>
                                 
-                <p:commandButton id="saveBtn" value="Register" icon="ui-icon-check" style="margin:0" actionListener="#{newRoler.save()}" />
+                <p:commandButton id="saveBtn" value="Register" icon="ui-icon-check" style="margin:0" actionListener="#{newCode.save()}" />
                 
             </p:panel>
         </h:form>

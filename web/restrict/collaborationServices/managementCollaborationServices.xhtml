@@ -8,46 +8,86 @@
         <h2 class="page-header">Collaboration Services</h2>
         
         <h:form>
-            <h:panelGrid columns="3" cellpadding="5">
-                <h3>General</h3><p:outputLabel value=" " /><p:outputLabel value=" " />
-                <h:outputText value="Collaboration Service Type" style="font-weight: bold" />
-                <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/newCollaborativeServiceType.xhtml?faces-redirect=true" ajax="false" />
-                <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/myCollaborativeServiceTypes.xhtml?faces-redirect=true" ajax="false" />
-                <h:outputText value="Steps Scientific Experimentation" style="font-weight: bold" />
-                <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/newStepScientificExperimentation.xhtml?faces-redirect=true" ajax="false" />
-                <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/myStepsScientificExperimentation.xhtml?faces-redirect=true" ajax="false" />
+            <p:accordionPanel>
                 
-                <p:separator /><p:outputLabel value=" " /><p:outputLabel value=" " />
+                <p:tab title="General">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputText value="Collaboration Service Type" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/newCollaborativeServiceType.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/myCollaborativeServiceTypes.xhtml?faces-redirect=true" ajax="false" />
+                        
+                        <h:outputText value="Steps Scientific Experimentation" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/newStepScientificExperimentation.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/myStepsScientificExperimentation.xhtml?faces-redirect=true" ajax="false" />
+                    
+                    </h:panelGrid>        
+                </p:tab>
                 
-                <h3>Coordination Features</h3><p:outputLabel value=" " /><p:outputLabel value=" " />                         
-                <h:outputText value="Role" style="font-weight: bold" />
-                <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/coordination/newRoler.xhtml?faces-redirect=true" ajax="false" />
-                <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/coordination/myRolers.xhtml?faces-redirect=true" ajax="false" />
-                
-                <p:separator /><p:outputLabel value=" " /><p:outputLabel value=" " />
-                
-                <h3>Cooperation Features</h3><p:outputLabel value=" " /><p:outputLabel value=" " />
-                <h:outputText value="Product" style="font-weight: bold" />
-                <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/cooperation/newProduct.xhtml?faces-redirect=true" ajax="false" />
-                <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/cooperation/myProducts.xhtml?faces-redirect=true" ajax="false" />
+                <p:tab title="Coordination Concepts">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputText value="Role" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/coordination/newRoler.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/coordination/myRolers.xhtml?faces-redirect=true" ajax="false" />
+                    
+                        <h:outputText value="Status" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/coordination/newStatus.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/coordination/myStatus.xhtml?faces-redirect=true" ajax="false" />
 
-                <p:separator /><p:outputLabel value=" " /><p:outputLabel value=" " />
+                    </h:panelGrid>        
+                </p:tab>
                 
-                <h3>Communication Features</h3><p:outputLabel value=" " /><p:outputLabel value=" " />
-                <h:outputText value="Communication Protocol" style="font-weight: bold" />
-                <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/communication/newCommunicationProtocol.xhtml?faces-redirect=true" ajax="false" />
-                <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/communication/myCommunicationProtocols.xhtml?faces-redirect=true" ajax="false" />
+                <p:tab title="Cooperation Concepts">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputText value="Activity" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/cooperation/newActivityConcept.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/cooperation/myActivitiesConcept.xhtml?faces-redirect=true" ajax="false" />
 
-                <p:separator /><p:outputLabel value=" " /><p:outputLabel value=" " />
+                        <h:outputText value="Artifact" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/cooperation/newArtifact.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/cooperation/myArtifacts.xhtml?faces-redirect=true" ajax="false" />
+
+                        <h:outputText value="Product" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/cooperation/newProduct.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/cooperation/myProducts.xhtml?faces-redirect=true" ajax="false" />
+
+                        <h:outputText value="Task" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/cooperation/newTaskConcept.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/cooperation/myTasksConcept.xhtml?faces-redirect=true" ajax="false" />
+
+                    </h:panelGrid>        
+                </p:tab>
                 
-                <h3>Group Formation Features</h3><p:outputLabel value=" " /><p:outputLabel value=" " />
-                <h:outputText value="Competence" style="font-weight: bold" />
-                <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/groupFormation/newCompetence.xhtml?faces-redirect=true" ajax="false" />
-                <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/groupFormation/myCompetences.xhtml?faces-redirect=true" ajax="false" />
+                <p:tab title="Communication Concepts">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputText value="Code" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/communication/newCode.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/communication/myCodes.xhtml?faces-redirect=true" ajax="false" />
+                        
+                        <h:outputText value="Common Sense" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/communication/newCommonSense.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/communication/myCommonSenses.xhtml?faces-redirect=true" ajax="false" />
+
+                        <h:outputText value="Communication Protocol" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/communication/newCommunicationProtocol.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/communication/myCommunicationProtocols.xhtml?faces-redirect=true" ajax="false" />
+
+                        <h:outputText value="Compromise" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/communication/newCompromise.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/communication/myCompromises.xhtml?faces-redirect=true" ajax="false" />
+
+                    </h:panelGrid>        
+                </p:tab>
                 
-                <p:separator /><p:outputLabel value=" " /><p:outputLabel value=" " />
+                <p:tab title="Group Formation Concepts">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputText value="Competence" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/groupFormation/newCompetence.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/groupFormation/myCompetences.xhtml?faces-redirect=true" ajax="false" />
                 
-            </h:panelGrid>
+                    </h:panelGrid>        
+                </p:tab>
+                
+            </p:accordionPanel>
         </h:form>
 
     </ui:define>
