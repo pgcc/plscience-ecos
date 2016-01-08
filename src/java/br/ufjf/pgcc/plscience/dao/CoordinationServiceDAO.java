@@ -7,6 +7,7 @@ package br.ufjf.pgcc.plscience.dao;
 
 import br.ufjf.pgcc.plscience.model.CoordinationService;
 import br.ufjf.pgcc.plscience.model.Roler;
+import br.ufjf.pgcc.plscience.model.Status;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,15 +82,60 @@ public class CoordinationServiceDAO extends GenericDAO {
         
         List<Long> rolesIdList = getListIdRolers(coordinationServiceID);
         
-        for(Long i : rolesIdList){
-            Roler r = new RolerDAO().getRoleById(i);
-            if(r != null) {
-                roles.add(r);
-            }               
-        }        
+        if(rolesIdList != null && rolesIdList.size() > 0) {
+            for(Long i : rolesIdList){
+               Roler r = new RolerDAO().getRoleById(i);
+               if(r != null) {
+                   roles.add(r);
+               }               
+            }     
+        }
         
         if (roles != null && roles.size() > 0) {
             return roles;
+        }
+        return null;
+    }
+    
+    public List<Long> getListIdStatus(Long coordinationServiceID) {
+        
+        String q = "SELECT DISTINCT scs.status_id FROM status_coordination_service AS scs, coordination_service AS cs " +
+                    "WHERE scs.coordination_service_id  = " + coordinationServiceID;
+        
+        Query query = getEntityManager().createNativeQuery(q);
+
+        List<Long> status = query.getResultList();
+        finish();
+        if (status != null && status.size() > 0) {
+            
+            List<Long> statusID = new ArrayList<Long>();
+            
+            for(Long bi : status){
+                statusID.add(bi);
+            }
+            
+            return statusID;
+        }
+        return null;
+    }
+    
+    public List<Status> getListStatus(Long coordinationServiceID) {
+       
+        List<Status> status = new ArrayList<Status>();
+        
+        List<Long> statusIdList = getListIdRolers(coordinationServiceID);
+        
+        if(statusIdList != null && statusIdList.size() > 0) {
+            for(Long i : statusIdList){
+               Status s = new StatusDAO().getStatusById(i);
+               if(s != null) {
+                   status.add(s);
+               }               
+            }     
+        }
+        
+        if (status != null && status.size() > 0) {
+            return status;
         }
         return null;
     }

@@ -81,12 +81,14 @@ public class GroupServiceDAO extends GenericDAO {
         
         List<Long> competencesIdList = getListIdCompetences(groupServiceID);
         
-        for(Long i : competencesIdList){
-            Competence c = new CompetenceDAO().getCompetenceById(i);
-            if(c != null) {
-                competences.add(c);
-            }               
-        }        
+        if(competencesIdList != null && competencesIdList.size() > 0) {
+            for(Long i : competencesIdList){
+                Competence c = new CompetenceDAO().getCompetenceById(i);
+                if(c != null) {
+                    competences.add(c);
+                }               
+            }    
+        }
         
         if (competences != null && competences.size() > 0) {
             return competences;

@@ -25,11 +25,22 @@ package br.ufjf.pgcc.plscience.bean.collaborationServices;
 
 import br.ufjf.pgcc.plscience.bean.collaborationServices.*;
 import br.ufjf.pgcc.plscience.dao.CollaborationServiceDAO;
+import br.ufjf.pgcc.plscience.dao.CommunicationServiceDAO;
+import br.ufjf.pgcc.plscience.dao.CooperationServiceDAO;
 import br.ufjf.pgcc.plscience.dao.CoordinationServiceDAO;
 import br.ufjf.pgcc.plscience.dao.GroupServiceDAO;
+import br.ufjf.pgcc.plscience.model.ActivityConcept;
+import br.ufjf.pgcc.plscience.model.Artifact;
+import br.ufjf.pgcc.plscience.model.Code;
 import br.ufjf.pgcc.plscience.model.CollaborationService;
+import br.ufjf.pgcc.plscience.model.CommonSense;
+import br.ufjf.pgcc.plscience.model.CommunicationProtocol;
 import br.ufjf.pgcc.plscience.model.Competence;
+import br.ufjf.pgcc.plscience.model.Compromise;
+import br.ufjf.pgcc.plscience.model.Product;
 import br.ufjf.pgcc.plscience.model.Roler;
+import br.ufjf.pgcc.plscience.model.Status;
+import br.ufjf.pgcc.plscience.model.TaskConcept;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,7 +66,20 @@ public class WorkspaceCollabService implements Serializable {
     
     //Características de Coordenação
     private List<Roler> rolerList;
+    private List<Status> statusList;
     
+    //Características de Cooperação
+    private List<ActivityConcept> activityConceptList;
+    private List<Artifact> artifactList;
+    private List<Product> productList;
+    private List<TaskConcept> taskConceptList;
+    
+    //Características de Comunicação
+    private List<Code> codeList;
+    private List<CommonSense> commonSenseList;
+    private List<CommunicationProtocol> communicationProtocolList;
+    private List<Compromise> compromiseList;
+
     //Características de Formação de Grupo
     private List<Competence> competenceList;
     
@@ -77,26 +101,80 @@ public class WorkspaceCollabService implements Serializable {
     
     public void recoverFeatures() {
         
-        rolerList.clear();
+        //Coordenação
+        rolerList.clear();               
+        statusList.clear();
         rolerList = new CoordinationServiceDAO().getListRolers(collaborationService.getId());
+        statusList = new CoordinationServiceDAO().getListStatus(collaborationService.getId());
         
+        //Cooperação
+        activityConceptList.clear();        
+        artifactList.clear();
+        productList.clear();
+        taskConceptList.clear();
+        activityConceptList = new CooperationServiceDAO().getListActivityConcept(collaborationService.getId());
+        artifactList = new CooperationServiceDAO().getListArtifact(collaborationService.getId());
+        productList = new CooperationServiceDAO().getListProduct(collaborationService.getId());
+        taskConceptList = new CooperationServiceDAO().getListTaskConcept(collaborationService.getId());
+                
+        //Comunicação
+        codeList.clear();
+        commonSenseList.clear();
+        communicationProtocolList.clear();
+        compromiseList.clear();
+        codeList = new CommunicationServiceDAO().getListCode(collaborationService.getId());
+        commonSenseList = new CommunicationServiceDAO().getListCommonSense(collaborationService.getId());
+        communicationProtocolList = new CommunicationServiceDAO().getListCommunicationProtocol(collaborationService.getId());
+        compromiseList = new CommunicationServiceDAO().getListCompromise(collaborationService.getId());
+                
+        //Formação de Grupos
         competenceList.clear();
         competenceList = new GroupServiceDAO().getListCompetences(collaborationService.getId());
         
         
     }
     
-    public boolean checkRole() {
-        if(rolerList != null && !rolerList.isEmpty()) {
-            rolerList.clear();
-        }        
+    public boolean checkRole() {       
         return collaborationService.getCoordinationServiceId().getRole();
     }
     
+    public boolean checkStatus() {       
+        return collaborationService.getCoordinationServiceId().getStatus();
+    }
+    
+    public boolean checkActivityConcept() {       
+        return collaborationService.getCooperationServiceId().getActivity();
+    }
+    
+    public boolean checkArtifact() {       
+        return collaborationService.getCooperationServiceId().getArtifact();
+    }
+    
+    public boolean checkProduct() {       
+        return collaborationService.getCooperationServiceId().getProduct();
+    }
+    
+    public boolean checkTaskConcept() {       
+        return collaborationService.getCooperationServiceId().getTask();
+    }
+    
+    public boolean checkCode() {       
+        return collaborationService.getCommunicationServiceId().getCode();
+    }
+    
+    public boolean checkCommonSense() {       
+        return collaborationService.getCommunicationServiceId().getCommonSense();
+    }
+    
+    public boolean checkCommunicationProtocol() {       
+        return collaborationService.getCommunicationServiceId().getCommunicationProtocol();
+    }
+    
+    public boolean checkCompromise() {       
+        return collaborationService.getCommunicationServiceId().getCompromise();
+    }
+    
     public boolean checkCompetence() {
-        if(competenceList != null && !competenceList.isEmpty()) {
-            competenceList.clear();
-        }
         return collaborationService.getGroupServiceId().getCompetence();
     }
     
@@ -129,6 +207,134 @@ public class WorkspaceCollabService implements Serializable {
     }
 
     /**
+     * @return the statusList
+     */
+    public List<Status> getStatusList() {
+        return statusList;
+    }
+
+    /**
+     * @param statusList the statusList to set
+     */
+    public void setStatusList(List<Status> statusList) {
+        this.statusList = statusList;
+    }
+    
+    /**
+     * @return the activituConceptList
+     */
+    public List<ActivityConcept> getActivityConceptList() {
+        return activityConceptList;
+    }
+
+    /**
+     * @param activityConceptList the activituConceptList to set
+     */
+    public void setActivityConceptList(List<ActivityConcept> activityConceptList) {
+        this.activityConceptList = activityConceptList;
+    }
+
+    /**
+     * @return the artifactList
+     */
+    public List<Artifact> getArtifactList() {
+        return artifactList;
+    }
+
+    /**
+     * @param artifactList the artifactList to set
+     */
+    public void setArtifactList(List<Artifact> artifactList) {
+        this.artifactList = artifactList;
+    }
+
+    /**
+     * @return the productList
+     */
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    /**
+     * @param productList the productList to set
+     */
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    /**
+     * @return the taskConceptList
+     */
+    public List<TaskConcept> getTaskConceptList() {
+        return taskConceptList;
+    }
+
+    /**
+     * @param taskConceptList the taskConceptList to set
+     */
+    public void setTaskConceptList(List<TaskConcept> taskConceptList) {
+        this.taskConceptList = taskConceptList;
+    }
+    
+    /**
+     * @return the codeList
+     */
+    public List<Code> getCodeList() {
+        return codeList;
+    }
+
+    /**
+     * @param codeList the codeList to set
+     */
+    public void setCodeList(List<Code> codeList) {
+        this.codeList = codeList;
+    }
+
+    /**
+     * @return the commonSenseList
+     */
+    public List<CommonSense> getCommonSenseList() {
+        return commonSenseList;
+    }
+
+    /**
+     * @param commonSenseList the commonSenseList to set
+     */
+    public void setCommonSenseList(List<CommonSense> commonSenseList) {
+        this.commonSenseList = commonSenseList;
+    }
+
+    /**
+     * @return the communicationProtocolList
+     */
+    public List<CommunicationProtocol> getCommunicationProtocolList() {
+        return communicationProtocolList;
+    }
+
+    /**
+     * @param communicationProtocolList the communicationProtocolList to set
+     */
+    public void setCommunicationProtocolList(List<CommunicationProtocol> communicationProtocolList) {
+        this.communicationProtocolList = communicationProtocolList;
+    }
+
+    /**
+     * @return the compromiseList
+     */
+    public List<Compromise> getCompromiseList() {
+        return compromiseList;
+    }
+
+    /**
+     * @param compromiseList the compromiseList to set
+     */
+    public void setCompromiseList(List<Compromise> compromiseList) {
+        this.compromiseList = compromiseList;
+    }
+
+    
+    
+    /**
      * @return the competenceList
      */
     public List<Competence> getCompetenceList() {
@@ -141,8 +347,5 @@ public class WorkspaceCollabService implements Serializable {
      */
     public void setCompetenceList(List<Competence> competenceList) {
         this.competenceList = competenceList;
-    }
-    
-    
-    
+    }  
 }

@@ -9,67 +9,250 @@
         
         <h:form id="collaborationServiceAddFeatureForm">
             <p:growl id="growl" />
-            <h:panelGrid columns="3" cellpadding="5">
+            <h:panelGrid columns="2" cellpadding="3">
                 <h:outputText value="Id:" />
                 <h:inputText value="#{workspaceCollabService.collaborationService.id}" 
                              disabled="true" size="50" />
-                <h:outputText value=" " />
                 
                 <h:outputText value="Service Name:" />
                 <h:inputText value="#{workspaceCollabService.collaborationService.collabServiceName}" 
                              disabled="true"  size="50" />
-                <h:outputText value=" " />
                 
                 <h:outputText value="Description:" />
                 <h:inputTextarea value="#{workspaceCollabService.collaborationService.description}" 
                                  disabled="true" 
                                  rows="6" 
                                  cols="51" />
-                <h:outputText value=" " />
                 
-                <h:outputText value=" " /><h:outputText value=" " /><h:outputText value=" " />
+            </h:panelGrid>
+                       
+            <p:tabView>
+                <p:tab title="Coodination">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="roler" value="Roles: " rendered="#{workspaceCollabService.checkRole()}" />
+                        <p:selectCheckboxMenu id="roler" value="#{workspaceCollabService.rolerList}" 
+                                              converter="rolerConverter" label="-- Select at least one role --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkRole()}" >
+                            <f:selectItems value="#{rolerBean.rolers}" var="roler"
+                                           itemLabel="#{roler.roleName} (Level #{roler.hierarchyLevel})" itemValue="#{roler}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Role" update="displayRolers" rendered="#{workspaceCollabService.checkRole()}" />
+                        <p:outputPanel id="displayRolers" style="width:350px" rendered="#{workspaceCollabService.checkRole()}" >
+                            <p:dataList value="#{workspaceCollabService.rolerList}" 
+                                        var="roler" emptyMessage="No roles">
+                                #{roler.roleName} (Level #{roler.hierarchyLevel})
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayRolers" rendered="#{workspaceCollabService.checkRole()}" />                                               
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="status" value="Status: " rendered="#{workspaceCollabService.checkStatus()}" />
+                        <p:selectCheckboxMenu id="status" value="#{workspaceCollabService.statusList}" 
+                                              converter="statusConverter" label="-- Select at least one status --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkStatus()}" >
+                            <f:selectItems value="#{statusBean.statuss}" var="status"
+                                           itemLabel="#{status.statusName}" itemValue="#{status}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Status" update="displayStatuss" rendered="#{workspaceCollabService.checkStatus()}" />
+                        <p:outputPanel id="displayStatuss" style="width:350px" rendered="#{workspaceCollabService.checkStatus()}" >
+                            <p:dataList value="#{workspaceCollabService.statusList}" 
+                                        var="status" emptyMessage="No status">
+                                #{status.statusName}
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayStatuss" rendered="#{workspaceCollabService.checkStatus()}" />                                              
+                    </h:panelGrid>
+                    
+                </p:tab>
                 
-                <h:outputLabel for="roler" value="Roles: " rendered="#{workspaceCollabService.checkRole()}" />
-                <p:selectCheckboxMenu id="roler" value="#{workspaceCollabService.rolerList}" 
-                                      converter="rolerConverter" label="-- Select at least one role --"
-                                      filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkRole()}" >
-                    <f:selectItems value="#{rolerBean.rolers}" var="roler"
-                                   itemLabel="#{roler.roleName} (Level #{roler.hierarchyLevel})" itemValue="#{roler}" />                      
-                </p:selectCheckboxMenu>
-                <p:commandLink value="Link Role" update="displayRolers" rendered="#{workspaceCollabService.checkRole()}" />
-                <p:outputPanel id="displayRolers" style="width:350px" rendered="#{workspaceCollabService.checkRole()}" >
-                    <p:dataList value="#{workspaceCollabService.rolerList}" 
-                                var="roler" emptyMessage="No roles">
-                        #{roler.roleName} (Level #{roler.hierarchyLevel})
-                    </p:dataList>
-                </p:outputPanel>
-                <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
-                               update="displayRolers" rendered="#{workspaceCollabService.checkRole()}" />
-                <h:outputText value=" " rendered="#{workspaceCollabService.checkRole()}" />
+                <p:tab title="Cooperation">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="activityConcept" value="Activity: " rendered="#{workspaceCollabService.checkActivityConcept()}" />
+                        <p:selectCheckboxMenu id="activityConcept" value="#{workspaceCollabService.activityConceptList}" 
+                                              converter="activityConceptConverter" label="-- Select at least one activity --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkActivityConcept()}" >
+                            <f:selectItems value="#{activityConceptBean.activityConcepts}" var="activity"
+                                           itemLabel="#{activity.activityName}" itemValue="#{activity}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Activity" update="displayActivities" rendered="#{workspaceCollabService.checkActivityConcept()}" />
+                        <p:outputPanel id="displayActivities" style="width:350px" rendered="#{workspaceCollabService.checkActivityConcept()}" >
+                            <p:dataList value="#{workspaceCollabService.activityConceptList}" 
+                                        var="activity" emptyMessage="No activities">
+                                #{activity.activityName}
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayActivities" rendered="#{workspaceCollabService.checkActivityConcept()}" />                                              
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="artifact" value="Artifact: " rendered="#{workspaceCollabService.checkArtifact()}" />
+                        <p:selectCheckboxMenu id="activity" value="#{workspaceCollabService.artifactList}" 
+                                              converter="artifactConverter" label="-- Select at least one artifact --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkArtifact()}" >
+                            <f:selectItems value="#{artifactBean.artifacts}" var="artifact"
+                                           itemLabel="#{artifact.artifactName}" itemValue="#{artifact}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Artifact" update="displayArtifacts" rendered="#{workspaceCollabService.checkArtifact()}" />
+                        <p:outputPanel id="displayArtifacts" style="width:350px" rendered="#{workspaceCollabService.checkArtifact()}" >
+                            <p:dataList value="#{workspaceCollabService.artifactList}" 
+                                        var="artifact" emptyMessage="No artifacts">
+                                #{artifact.artifactName}
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayArtifacts" rendered="#{workspaceCollabService.checkArtifact()}" />                                              
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="product" value="Product: " rendered="#{workspaceCollabService.checkProduct()}" />
+                        <p:selectCheckboxMenu id="product" value="#{workspaceCollabService.productList}" 
+                                              converter="productConverter" label="-- Select at least one product --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkProduct()}" >
+                            <f:selectItems value="#{productBean.products}" var="product"
+                                           itemLabel="#{product.productName}" itemValue="#{product}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Product" update="displayProducts" rendered="#{workspaceCollabService.checkProduct()}" />
+                        <p:outputPanel id="displayProducts" style="width:350px" rendered="#{workspaceCollabService.checkProduct()}" >
+                            <p:dataList value="#{workspaceCollabService.productList}" 
+                                        var="product" emptyMessage="No products">
+                                #{product.productName}
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayProducts" rendered="#{workspaceCollabService.checkProduct()}" />                                            
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="taskConcept" value="Task: " rendered="#{workspaceCollabService.checkTaskConcept()}" />
+                        <p:selectCheckboxMenu id="taskConcept" value="#{workspaceCollabService.taskConceptList}" 
+                                              converter="taskConceptConverter" label="-- Select at least one task --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkTaskConcept()}" >
+                            <f:selectItems value="#{taskConceptBean.taskConcepts}" var="task"
+                                           itemLabel="#{task.taskName}" itemValue="#{task}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Task" update="displayTasks" rendered="#{workspaceCollabService.checkTaskConcept()}" />
+                        <p:outputPanel id="displayTasks" style="width:350px" rendered="#{workspaceCollabService.checkTaskConcept()}" >
+                            <p:dataList value="#{workspaceCollabService.taskConceptList}" 
+                                        var="task" emptyMessage="No tasks">
+                                #{task.taskName}
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayTasks" rendered="#{workspaceCollabService.checkTaskConcept()}" />                                            
+                    </h:panelGrid>
+                    
+                </p:tab>
                 
-                <h:outputText value=" " /><h:outputText value=" " /><h:outputText value=" " />
+                <p:tab title="Communication">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="code" value="Code: " rendered="#{workspaceCollabService.checkCode()}" />
+                        <p:selectCheckboxMenu id="code" value="#{workspaceCollabService.codeList}" 
+                                              converter="codeConverter" label="-- Select at least one code --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkCode()}" >
+                            <f:selectItems value="#{codeBean.codes}" var="code"
+                                           itemLabel="#{code.codeName}" itemValue="#{code}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Code" update="displayCodes" rendered="#{workspaceCollabService.checkCode()}" />
+                        <p:outputPanel id="displayCodes" style="width:350px" rendered="#{workspaceCollabService.checkCode()}" >
+                            <p:dataList value="#{workspaceCollabService.codeList}" 
+                                        var="code" emptyMessage="No codes">
+                                #{code.codeName}
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayCodes" rendered="#{workspaceCollabService.checkCode()}" />                                            
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="commonSense" value="Common Sense: " rendered="#{workspaceCollabService.checkCommonSense()}" />
+                        <p:selectCheckboxMenu id="commonSense" value="#{workspaceCollabService.commonSenseList}" 
+                                              converter="commonSenseConverter" label="-- Select at least one common sense --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkCommonSense()}" >
+                            <f:selectItems value="#{commonSenseBean.commonSenses}" var="commonSense"
+                                           itemLabel="#{commonSense.commonSenseName}" itemValue="#{commonSense}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Common Sense" update="displayCommonSenses" rendered="#{workspaceCollabService.checkCommonSense()}" />
+                        <p:outputPanel id="displayCommonSenses" style="width:350px" rendered="#{workspaceCollabService.checkCommonSense()}" >
+                            <p:dataList value="#{workspaceCollabService.commonSenseList}" 
+                                        var="commonSense" emptyMessage="No common senses">
+                                #{commonSense.commonSenseName}
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayCommonSenses" rendered="#{workspaceCollabService.checkCommonSense()}" />                                            
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="communicationProtocol" value="Communication Protocol: " rendered="#{workspaceCollabService.checkCommunicationProtocol()}" />
+                        <p:selectCheckboxMenu id="communicationProtocol" value="#{workspaceCollabService.communicationProtocolList}" 
+                                              converter="communicationProtocolConverter" label="-- Select at least one communication protocol --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkCommunicationProtocol()}" >
+                            <f:selectItems value="#{communicationProtocolBean.communicationProtocols}" var="communicationProtocol"
+                                           itemLabel="#{communicationProtocol.communicationProtocolName}" itemValue="#{communicationProtocol}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Communication Protocol" update="displayCommunicationProtocols" rendered="#{workspaceCollabService.checkCommunicationProtocol()}" />
+                        <p:outputPanel id="displayCommunicationProtocols" style="width:350px" rendered="#{workspaceCollabService.checkCommunicationProtocol()}" >
+                            <p:dataList value="#{workspaceCollabService.communicationProtocolList}" 
+                                        var="communicationProtocol" emptyMessage="No communication protocols">
+                                #{communicationProtocol.communicationProtocolName}
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayCommunicationProtocols" rendered="#{workspaceCollabService.checkCommunicationProtocol()}" />                                            
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="compromise" value="Compromise: " rendered="#{workspaceCollabService.checkCompromise()}" />
+                        <p:selectCheckboxMenu id="task" value="#{workspaceCollabService.compromiseList}" 
+                                              converter="compromiseConverter" label="-- Select at least one compromise --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkCompromise()}" >
+                            <f:selectItems value="#{compromiseBean.compromises}" var="compromise"
+                                           itemLabel="#{compromise.compromiseName}" itemValue="#{compromise}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Compromise" update="displayCompromises" rendered="#{workspaceCollabService.checkCompromise()}" />
+                        <p:outputPanel id="displayCompromises" style="width:350px" rendered="#{workspaceCollabService.checkCompromise()}" >
+                            <p:dataList value="#{workspaceCollabService.compromiseList}" 
+                                        var="compromise" emptyMessage="No compromises">
+                                #{compromise.compromiseName}
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayCompromises" rendered="#{workspaceCollabService.checkCompromise()}" />                                            
+                    </h:panelGrid>
+                    
+                </p:tab>
                 
-                <h:outputLabel for="competence" value="Competences: " rendered="#{workspaceCollabService.checkCompetence()}" />
-                <p:selectCheckboxMenu id="competence" value="#{workspaceCollabService.competenceList}" 
-                                      converter="competenceConverter" label="-- Select at least one competence --"
-                                      filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkCompetence()}" >
-                    <f:selectItems value="#{competenceBean.competences}" var="competence"
-                                   itemLabel="#{competence.competenceName}" itemValue="#{competence}" />                      
-                </p:selectCheckboxMenu>
-                <p:commandLink value="Link Competence" update="displayCompetences" rendered="#{workspaceCollabService.checkCompetence()}" />
-                <p:outputPanel id="displayCompetences" style="width:350px" rendered="#{workspaceCollabService.checkCompetence()}" >
-                    <p:dataList value="#{workspaceCollabService.competenceList}" var="competence" emptyMessage="No competences">
-                        #{competence.competenceName}
-                    </p:dataList>
-                </p:outputPanel>
-                <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
-                               update="displayCompetences" rendered="#{workspaceCollabService.checkCompetence()}" />
-                <h:outputText value=" " rendered="#{workspaceCollabService.checkCompetence()}" />
+                <p:tab title="Group Formation">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="competence" value="Competences: " rendered="#{workspaceCollabService.checkCompetence()}" />
+                        <p:selectCheckboxMenu id="competence" value="#{workspaceCollabService.competenceList}" 
+                                              converter="competenceConverter" label="-- Select at least one competence --"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:350px" rendered="#{workspaceCollabService.checkCompetence()}" >
+                            <f:selectItems value="#{competenceBean.competences}" var="competence"
+                                           itemLabel="#{competence.competenceName}" itemValue="#{competence}" />                      
+                        </p:selectCheckboxMenu>
+                        <p:commandLink value="Link Competence" update="displayCompetences" rendered="#{workspaceCollabService.checkCompetence()}" />
+                        <p:outputPanel id="displayCompetences" style="width:350px" rendered="#{workspaceCollabService.checkCompetence()}" >
+                            <p:dataList value="#{workspaceCollabService.competenceList}" var="competence" emptyMessage="No competences">
+                                #{competence.competenceName}
+                            </p:dataList>
+                        </p:outputPanel>
+                        <p:commandLink value="Get Associated" actionListener="#{workspaceCollabService.recoverFeatures}"
+                                       update="displayCompetences" rendered="#{workspaceCollabService.checkCompetence()}" />                     
+                    </h:panelGrid>
+                    
+                </p:tab>
                 
-                <h:outputText value=" " /><h:outputText value=" " /><h:outputText value=" " />
-                
+            </p:tabView>
+            
+            <h:panelGrid columns="1" cellpadding="5">    
                 <p:commandButton id="saveBtn" value="Add Features" icon="ui-icon-check" style="margin:0" actionListener="#{workspaceCollabService.updateCollaborationService()}" update="growl"/>
             </h:panelGrid>
+                
         </h:form>
         
     </ui:define>

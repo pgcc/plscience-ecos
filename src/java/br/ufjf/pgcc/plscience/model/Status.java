@@ -21,29 +21,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Guilherme
+ * @author Guilherme Martins
  */
 @Entity
 @Table(name = "status")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Status.findAll", query = "SELECT s FROM Status s"),
-    @NamedQuery(name = "Status.findById", query = "SELECT s FROM Status s WHERE s.id = :id"),
-    @NamedQuery(name = "Status.findByStatusName", query = "SELECT s FROM Status s WHERE s.statusName = :statusName"),
-    @NamedQuery(name = "Status.findByDescription", query = "SELECT s FROM Status s WHERE s.description = :description")})
 public class Status implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
     private Long id;
+    
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "status_name")
     private String statusName;
-    @Size(max = 255)
+    
     @Column(name = "description")
     private String description;
 
