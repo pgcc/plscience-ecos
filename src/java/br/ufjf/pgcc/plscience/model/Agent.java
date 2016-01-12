@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Agent.findByEmail", query = "SELECT a FROM Agent a WHERE a.email = :email"),
     @NamedQuery(name = "Agent.findByPassword", query = "SELECT a FROM Agent a WHERE a.password = :password"),
     @NamedQuery(name = "Agent.findByName", query = "SELECT a FROM Agent a WHERE a.name = :name"),
-    @NamedQuery(name = "Agent.findByFunction", query = "SELECT a FROM Agent a WHERE a.function = :function"),
+    @NamedQuery(name = "Agent.findByRoleName", query = "SELECT a FROM Agent a WHERE a.role.roleName = :role"),
     @NamedQuery(name = "Agent.findByDescription", query = "SELECT a FROM Agent a WHERE a.description = :description")})
 public class Agent implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -58,8 +58,7 @@ public class Agent implements Serializable {
     @Basic(optional = false)
     @Column(name = "Name")
     private String name;
-    @Column(name = "Function")
-    private String function;
+
     @Column(name = "Description")
     private String description;
     @JoinColumn(name = "Institution", referencedColumnName = "idEntity")
@@ -74,6 +73,18 @@ public class Agent implements Serializable {
     @OneToMany(mappedBy = "agentidAgentchef")
     private List<ResearchGroup> researchGroupList;
 
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private br.ufjf.pgcc.plscience.model.Roler role;
+    
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private br.ufjf.pgcc.plscience.model.Status status;
+    
+    @JoinColumn(name = "competence_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private br.ufjf.pgcc.plscience.model.Competence competence;
+    
     public Agent() {
     }
 
@@ -129,14 +140,6 @@ public class Agent implements Serializable {
         this.name = name;
     }
 
-    public String getFunction() {
-        return function;
-    }
-
-    public void setFunction(String function) {
-        this.function = function;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -153,6 +156,48 @@ public class Agent implements Serializable {
         this.institution = institution;
     }
 
+    /**
+     * @return the role
+     */
+    public br.ufjf.pgcc.plscience.model.Roler getRole() {
+        return role;
+    }
+
+    /**
+     * @param role the role to set
+     */
+    public void setRole(br.ufjf.pgcc.plscience.model.Roler role) {
+        this.role = role;
+    }
+
+    /**
+     * @return the status
+     */
+    public br.ufjf.pgcc.plscience.model.Status getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(br.ufjf.pgcc.plscience.model.Status status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the competence
+     */
+    public br.ufjf.pgcc.plscience.model.Competence getCompetence() {
+        return competence;
+    }
+
+    /**
+     * @param competence the competence to set
+     */
+    public void setCompetence(br.ufjf.pgcc.plscience.model.Competence competence) {
+        this.competence = competence;
+    }
+    
     @XmlTransient
     public List<Experiment> getExperimentList() {
         return experimentList;

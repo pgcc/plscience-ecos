@@ -11,7 +11,7 @@ import javax.jws.WebParam;
 
 /**
  *
- * @author Guilherme
+ * @author Guilherme Martins
  */
 @WebService(serviceName = "WsList")
 public class WsList {
@@ -23,33 +23,5 @@ public class WsList {
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
-
-    /**
-     * Operação de Web service
-     */
-    @WebMethod(operationName = "allUsers")
-    public String allUsers() {
-        //TODO write your implementation code here:
-        return null;
-    }
-
-    /**
-     * Operação de Web service
-     */
-    @WebMethod(operationName = "usersByCompetence")
-    public String usersByCompetence() {
-        //TODO write your implementation code here:
-        return null;
-    }
-
-    /**
-     * Operação de Web service
-     */
-    @WebMethod(operationName = "usersByRole")
-    public String usersByRole() {
-        //TODO write your implementation code here:
-        return null;
-    }
-    
     
 }

@@ -29,8 +29,24 @@
                             <f:selectItems value="#{entityBean.entitys}" var="entityname" itemLabel="#{entityname.acronym}" itemValue="#{entityname}" />
                         </p:selectOneMenu>
 
-                        Function:
-                        <p:inputText value="#{agentBean.agent.function}" />
+                        Competence:
+                        <p:selectOneMenu id="car" value="#{agentBean.agent.competence}">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{competenceBean.competences}" var="competence" itemLabel="#{competence.competenceName}" itemValue="#{competence}" />
+                        </p:selectOneMenu>
+                        
+                        Role:
+                        <p:selectOneMenu id="car" value="#{agentBean.agent.role}">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{rolerBean.rolers}" var="role" itemLabel="#{role.roleName}" itemValue="#{role}" />
+                        </p:selectOneMenu>
+                        
+                        Initial Status:
+                        <p:selectOneMenu id="car" value="#{agentBean.agent.status}">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{statusBean.statuss}" var="status" itemLabel="#{status.statusName}" itemValue="#{status}" />
+                        </p:selectOneMenu>
+                        
                         Description:
                         <p:inputText value="#{agentBean.agent.description}" />
                         <p:commandButton value="Clear" type="reset" />  

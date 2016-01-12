@@ -17,6 +17,11 @@
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>WsList</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -39,6 +44,10 @@
     <servlet-mapping>
         <servlet-name>WsProVersion</servlet-name>
         <url-pattern>/WsProVersion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WsList</servlet-name>
+        <url-pattern>/WsList</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
