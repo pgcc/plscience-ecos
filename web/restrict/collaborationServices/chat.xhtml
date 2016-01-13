@@ -1,0 +1,28 @@
+<ui:composition template="/WEB-INF/templates/layoutCollab.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Testing only</h2>
+        <h:form>
+            <p:commandButton style="width: auto; font-size:100%"  value="Start"  actionListener="#{chat.connect()}" />  
+          
+           <p:growl>
+                
+                
+                <h:panelGrid columns="1" cellpadding="4">
+                    
+       <p:commandButton style="width: auto; font-size:100%"  value="END" actionListener="#{chat.send()}" />
+       <p:commandButton style="width: auto; font-size:100%"  value="Online Users" type="button" />  
+        <p:commandButton style="width: auto; font-size:100%"  value="Clear" type="button" />  
+       
+                <p:inputTextarea readonly="False" rows="15" cols="51" value="#{chat.message}"  />
+      </h:panelGrid>
+                </p:growl>
+       
+     </h:form>
+   
+    </ui:define>
+</ui:composition>
