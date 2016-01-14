@@ -1,11 +1,15 @@
 package br.ufjf.pgcc.plscience.dao;
 
+import br.ufjf.pgcc.plscience.controller.UserLoginBean;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import br.ufjf.pgcc.plscience.model.Agent;
 import br.ufjf.pgcc.plscience.util.EncryptPasswordUtil;
 import br.ufjf.pgcc.plscience.util.PersistenceUtil;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,6 +42,23 @@ public class AgentDAO extends PersistenceUtil {
     public List<Agent> buscarTodas() {
         EntityManager em = PersistenceUtil.getEntityManager();
         Query query = em.createQuery("from Agent As a");
+        return query.getResultList();
+    }
+    
+    public List<Agent> buscarTodasMenosLogada() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();  
+        HttpSession session = (HttpSession) externalContext.getSession(true);  
+        UserLoginBean userLoginBean = (UserLoginBean) session.getAttribute("userLoginBean");
+        
+        int id = 0;
+        if(userLoginBean.getAgentLog() != null) {
+            id = userLoginBean.getAgentLog().getIdAgent();
+        }
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("select a from Agent As a where a.idAgent != :id");
+        query.setParameter("id", id);
+        
         return query.getResultList();
     }
 

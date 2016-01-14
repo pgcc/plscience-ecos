@@ -26,8 +26,14 @@
                     <p:column headerText="Institution" sortBy="#{lista.institution}" filterBy="#{lista.institution}">
                         <h:outputText value="#{lista.institution.acronym}" />
                     </p:column>
-                    <p:column headerText="Function" sortBy="#{lista.function}" filterBy="#{lista.function}">
-                        <h:outputText value="#{lista.function}" />
+                    <p:column headerText="Role" sortBy="#{lista.role}" filterBy="#{lista.role}">
+                        <h:outputText value="#{lista.role.roleName}" />
+                    </p:column>
+                    <p:column headerText="Competence" sortBy="#{lista.competence}" filterBy="#{lista.competence}">
+                        <h:outputText value="#{lista.competence.competenceName}" />
+                    </p:column>
+                    <p:column headerText="Competence" sortBy="#{lista.status}" filterBy="#{lista.status}">
+                        <h:outputText value="#{lista.status.statusName}" />
                     </p:column>
                     <p:column headerText="Description" sortBy="#{lista.description}" filterBy="#{lista.description}">
                         <h:outputText value="#{lista.description}" />

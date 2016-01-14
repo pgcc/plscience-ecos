@@ -5,6 +5,9 @@
  */
 package br.ufjf.pgcc.plscience.webservice;
 
+import br.ufjf.pgcc.plscience.dao.AgentDAO;
+import br.ufjf.pgcc.plscience.model.Agent;
+import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -24,4 +27,8 @@ public class WsList {
         return "Hello " + txt + " !";
     }
     
+    @WebMethod(operationName = "getUserList")
+    public List<Agent> getUserList() {
+        return new AgentDAO().buscarTodas();
+    }
 }

@@ -5,25 +5,39 @@
                 xmlns:p="http://primefaces.org/ui">
     <h:form>
         
-        <p:dataList var="lista" value="#{agentBean.agents}" type="definition" style="alignment-baseline: middle"> 
+        <p:dataList var="agent" value="#{agentBean.agentsLog}" type="definition" style="alignment-baseline: middle"> 
             <h:panelGrid columns="2" cellpadding="1" >
                 <h:panelGrid columns="1" cellpadding="1" >
-                    <p:commandLink id="message" onclick="PF('dlg1').show();" >
+                    <p:commandLink onclick="PF('Msg').show();" >
                         <h:graphicImage name="/images/icon/messageIcon40.png" />
+                        <f:setPropertyActionListener target="#{agentBean.agent}"
+                                                     value="#{agent}" />
                     </p:commandLink>
                 </h:panelGrid>
                 <h:panelGrid columns="1" cellpadding="2" >
-                    <h:outputText value="Online" />
-                    <h:outputText value="#{lista.name}" />                 
+                    <h:outputText value="#{agent.status.statusName}" />
+                    <h:outputText value="#{agent.name}" />
+                    <h:outputText value="#{agent.role.roleName}" />
                 </h:panelGrid>
             </h:panelGrid>
         </p:dataList> 
             
-        <p:dialog header="To: Tassio"  widgetVar="dlg1" minHeight="50" width="355" height="120"  resizable="False">
+        <p:dialog header="To: #{agentBean.agent.name}"  
+                  widgetVar="Msg" 
+                  minHeight="50" 
+                  width="355" 
+                  height="120"  
+                  resizable="False" 
+                  id="Msg">
             <h:panelGrid columns="2" cellpadding="2" >
                 <p:row>
                     <p:column colspan="2">
-                        <p:inputTextarea readonly="True"   value="hahaahh   "/>
+                        <h:outputText value="#{agent.name}" />
+                        <h:outputText value="#{agentBean.agent.name}" />
+                    </p:column>
+                    
+                    <p:column colspan="2">
+                        <p:inputTextarea readonly="True"   value=" "/>
                     </p:column>
 
                     <p:column colspan="5">
@@ -34,8 +48,7 @@
                     </p:column>
 
                 </p:row>
-            </h:panelGrid>
-    
+            </h:panelGrid>    
         </p:dialog>
 
         

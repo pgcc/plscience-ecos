@@ -67,14 +67,41 @@
                     </p:selectOneMenu>
                     <p:message for="institution" />
                     
-                    <h:outputLabel for="function" value="Function: " />
-                    <p:inputText id="function" 
-                                 value="#{agentBean.agent.function}" 
-                                 required="false" 
-                                 label="Function"
-                                 size="50">
-                    </p:inputText>
-                    <p:message for="function" />
+                    <h:outputLabel for="role" value="Role: " />
+                    <p:selectOneMenu id="role" value="#{agentBean.agent.role}" converter="rolerConverter" panelStyle="width:400px"
+                                                     effect="fade" var="r" style="width:442px" filter="true" filterMatchMode="startsWith">
+                        <f:selectItems value="#{rolerBean.rolers}" var="role" itemLabel="#{role.roleName}" itemValue="#{role}" />
+
+                            <p:column>
+                                    <h:outputText value="#{r.roleName}" />
+                            </p:column>
+                        
+                    </p:selectOneMenu>
+                    <p:message for="role" />
+                    
+                    <h:outputLabel for="competence" value="Competence: " />
+                    <p:selectOneMenu id="competence" value="#{agentBean.agent.competence}" converter="competenceConverter" panelStyle="width:400px"
+                                                     effect="fade" var="c" style="width:442px" filter="true" filterMatchMode="startsWith">
+                        <f:selectItems value="#{competenceBean.competences}" var="competence" itemLabel="#{competence.competenceName}" itemValue="#{competence}" />
+
+                            <p:column>
+                                    <h:outputText value="#{c.competenceName}" />
+                            </p:column>
+                        
+                    </p:selectOneMenu>
+                    <p:message for="competence" />
+                    
+                    <h:outputLabel for="status" value="Initial Status: " />
+                    <p:selectOneMenu id="status" value="#{agentBean.agent.status}" converter="statusConverter" panelStyle="width:400px"
+                                                     effect="fade" var="s" style="width:442px" filter="true" filterMatchMode="startsWith">
+                        <f:selectItems value="#{statusBean.statuss}" var="status" itemLabel="#{status.statusName}" itemValue="#{status}" />
+
+                            <p:column>
+                                    <h:outputText value="#{s.statusName}" />
+                            </p:column>
+                        
+                    </p:selectOneMenu>
+                    <p:message for="status" />
                     
                     <h:outputLabel for="description" value="Description: " />
                     <p:inputTextarea id="description" 

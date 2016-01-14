@@ -7,7 +7,9 @@ package br.ufjf.pgcc.plscience.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,6 +46,9 @@ public class Competence implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "competence")
+    private List<Agent> agentList;
+    
     public Competence() {
     }
 
