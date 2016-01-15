@@ -24,6 +24,7 @@
 package br.ufjf.pgcc.plscience.controller;
 
 import br.ufjf.pgcc.plscience.dao.AgentDAO;
+import br.ufjf.pgcc.plscience.dao.StatusDAO;
 import br.ufjf.pgcc.plscience.model.Agent;
 import java.io.IOException;
 import java.io.Serializable;
@@ -73,6 +74,12 @@ public class UserLoginBean implements Serializable {
             //usuarioLogado. Depois de tudo, mandamos o usuário 
             //para a página index.xhtml 
             setIsLogin(true); 
+            
+            //passa o status do usuário para online
+            while(a.getStatus().getStatusName().equals("Offline")) {
+                a.setStatus(new StatusDAO().getStatusByName("Online"));
+                agentDAO.persistir(a);
+            }
             setAgentLog(a); 
             return "restrict/index.xhtml?faces-redirect=true"; 
         } 
@@ -81,6 +88,12 @@ public class UserLoginBean implements Serializable {
     //Realiza o logout do usuário logado 
     public String logout() throws IOException{ 
     
+        //passa o status do usuário para online
+        while(agentLog.getStatus().getStatusName().equals("Online")) {
+            agentLog.setStatus(new StatusDAO().getStatusByName("Offline"));
+            new AgentDAO().persistir(agentLog);
+        }        
+        
         //Setamos a variável usuarioLogado como nulo, ou seja, limpamos 
         //os dados do usuário que estava logado e depois setamos a variável 
         //loggedIn como false para sinalizar que o usuário não está mais logado

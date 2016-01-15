@@ -47,6 +47,11 @@ public class AgentBean implements Serializable {
         agent = new Agent();
     }
 
+    public void uptadeAgentsLog() {
+        agentsLog.clear();
+        agentsLog = new AgentDAO().buscarTodasMenosLogada();
+    }
+    
     public void record(ActionEvent actionEvent) {
         new AgentDAO().persistir(agent);
         agents = new AgentDAO().buscarTodas();

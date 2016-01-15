@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui">
     <h:form>
         
-        <p:dataList var="agent" value="#{agentBean.agentsLog}" type="definition" style="alignment-baseline: middle"> 
+        <p:dataList  id="dataListAgentLog" var="agent" value="#{agentBean.agentsLog}" type="definition" style="alignment-baseline: middle"> 
             <h:panelGrid columns="2" cellpadding="1" >
                 <h:panelGrid columns="1" cellpadding="1" >
                     <p:commandLink onclick="PF('Msg').show();" >
@@ -15,12 +15,16 @@
                     </p:commandLink>
                 </h:panelGrid>
                 <h:panelGrid columns="1" cellpadding="2" >
-                    <h:outputText value="#{agent.status.statusName}" />
+                    <h:outputText value="#{agent.status.statusName}" style="font-weight:bold; color:green" rendered="#{agent.status.id == 1}" />
+                    <h:outputText value="#{agent.status.statusName}" style="font-weight:bold; color:red" rendered="#{agent.status.id == 2}" />
                     <h:outputText value="#{agent.name}" />
                     <h:outputText value="#{agent.role.roleName}" />
                 </h:panelGrid>
             </h:panelGrid>
         </p:dataList> 
+        <ui:remove>
+            <p:poll interval="30" listener="#{agentBean.uptadeAgentsLog}" update="dataListAgentLog" async="true" />
+        </ui:remove>
             
         <p:dialog header="To: #{agentBean.agent.name}"  
                   widgetVar="Msg" 

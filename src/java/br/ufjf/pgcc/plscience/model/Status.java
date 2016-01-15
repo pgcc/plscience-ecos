@@ -42,7 +42,7 @@ public class Status implements Serializable {
     @Column(name = "description")
     private String description;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "status")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "status")
     private List<Agent> agentList;
 
     public Status() {
