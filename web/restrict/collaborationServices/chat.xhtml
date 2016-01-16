@@ -7,20 +7,27 @@
     <ui:define name="content">
         <h2 class="page-header">Testing only</h2>
         <h:form>
-            <p:commandButton style="width: auto; font-size:100%"  value="Start"  actionListener="#{chat.connect()}" />  
-          
+            <p:commandButton style="width: auto; font-size:100%"  value="Start"  actionListener="#{chat.connect()}" update="conversation" />  
+             
            <p:growl>
                 
-                
-                <h:panelGrid columns="1" cellpadding="4">
+               
+               <h:panelGrid columns="1" cellpadding="4">
                     
        <p:commandButton style="width: auto; font-size:100%"  value="END" actionListener="#{chat.send()}" />
-       <p:commandButton style="width: auto; font-size:100%"  value="Online Users" type="button" />  
-        <p:commandButton style="width: auto; font-size:100%"  value="Clear" type="button" />  
        
-                <p:inputTextarea readonly="False" rows="15" cols="51" value="#{chat.message}"  />
-      </h:panelGrid>
-                </p:growl>
+       <p:commandButton style="width: auto; font-size:100%"  value="Online Users" actionListener="#{chat.updateConversation()}" />  
+        <p:commandButton style="width: auto; font-size:100%"  value="Clear" update="conversation" />  
+        <p:poll interval="5" update="conversation" ignoreAutoUpdate="True" partialSubmit="true" process="@this"/> 
+       
+        <p:inputTextarea id="conversation" readonly="True" rows="15" cols="51"   value="#{chat.recieveMessage}"/>
+        <p:inputText value="#{chat.sendMessage}"/>
+       
+        
+     
+                </h:panelGrid>
+
+           </p:growl>
        
      </h:form>
    
