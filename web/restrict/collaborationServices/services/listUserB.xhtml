@@ -8,7 +8,7 @@
         <p:dataList var="lista" value="#{agentBean.agents}" type="definition" style="alignment-baseline: middle"> 
             <h:panelGrid columns="2" cellpadding="1" >
                 <h:panelGrid columns="1" cellpadding="1" >
-                    <p:commandLink id="message" onclick="PF('dlg1').show();" >
+                    <p:commandLink id="message" actionListener="#{listUserB.connect()}" onclick="PF('dlg1').show();" >
                         <h:graphicImage name="/images/icon/messageIcon40.png" />
                     </p:commandLink>
                 </h:panelGrid>
@@ -23,14 +23,14 @@
             <h:panelGrid columns="2" cellpadding="2" >
                 <p:row>
                     <p:column colspan="2">
-                        <p:inputTextarea readonly="True"   value="hahaahh   "/>
+                        <p:inputTextarea id="chatOutput" cols="30" style="" readonly="True"   value="#{listUserB.recieveMessage}"/>
                     </p:column>
-
+                         <p:poll interval="5" update="chatOutput" ignoreAutoUpdate="True" partialSubmit="true" process="@this"/> 
                     <p:column colspan="5">
-                       <p:inputText/>
+                       <p:inputText value="#{listUserB.sendMessage}"/>
                        <h:outputText value="&#160;" />
                        <h:outputText value="&#160;" />
-                       <p:commandButton style="width: auto; font-size:100%"  value="Send" type="button" onclick="PF('dlg1').close;" />  
+                       <p:commandButton style="width: auto; font-size:100%" actionListener="#{listUserB.send()}" value="Send"  onclick="PF('dlg1').close;" />  
                     </p:column>
 
                 </p:row>

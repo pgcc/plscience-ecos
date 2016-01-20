@@ -7,21 +7,22 @@
     <ui:define name="content">
         <h2 class="page-header">Testing only</h2>
         <h:form>
-            <p:commandButton style="width: auto; font-size:100%"  value="Start"  actionListener="#{chat.connect()}" update="conversation" />  
+            
              
            <p:growl>
                 
                
-               <h:panelGrid columns="1" cellpadding="4">
+               <h:panelGrid columns="2" cellpadding="1">
                     
-       <p:commandButton style="width: auto; font-size:100%"  value="END" actionListener="#{chat.send()}" />
        
-       <p:commandButton style="width: auto; font-size:100%"  value="Online Users" actionListener="#{chat.updateConversation()}" />  
-        <p:commandButton style="width: auto; font-size:100%"  value="Clear" update="conversation" />  
+       <p:commandButton style="width: auto; font-size:100%"  value="Connect"  actionListener="#{chat.connect()}" update="conversation" />  
+       
         <p:poll interval="5" update="conversation" ignoreAutoUpdate="True" partialSubmit="true" process="@this"/> 
        
-        <p:inputTextarea id="conversation" readonly="True" rows="15" cols="51"   value="#{chat.recieveMessage}"/>
+        <p:inputTextarea id="conversation" readonly="True" rows="15" cols="51"   value="Tássio: Oi Guilherme, tudo bom?"/>
+        <p:column></p:column>
         <p:inputText value="#{chat.sendMessage}"/>
+        <p:commandButton style="width: auto; font-size:100%"  value="Send" actionListener="#{chat.send()}" />
        
         
      
