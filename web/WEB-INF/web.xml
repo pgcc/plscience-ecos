@@ -55,7 +55,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/restrict/index.xhtml</welcome-file>
+        <welcome-file>faces/login.xhtml</welcome-file>
     </welcome-file-list>
     <!--
     <filter>

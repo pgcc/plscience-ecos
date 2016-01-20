@@ -37,12 +37,21 @@ public class AgentBean implements Serializable {
     Agent agent = new Agent();
 
     List agents = new ArrayList();
+    
+    //Armazena todas as pessoas cadastradas menos a pessoa logada.
+    private List agentsLog = new ArrayList();
 
     public AgentBean() {
         agents = new AgentDAO().buscarTodas();
+        agentsLog = new AgentDAO().buscarTodasMenosLogada();
         agent = new Agent();
     }
 
+    public void uptadeAgentsLog() {
+        agentsLog.clear();
+        agentsLog = new AgentDAO().buscarTodasMenosLogada();
+    }
+    
     public void record(ActionEvent actionEvent) {
         new AgentDAO().persistir(agent);
         agents = new AgentDAO().buscarTodas();
@@ -83,6 +92,20 @@ public class AgentBean implements Serializable {
         this.agents = agents;
     }
 
+    /**
+     * @return the agentsLog
+     */
+    public List getAgentsLog() {
+        return agentsLog;
+    }
+
+    /**
+     * @param agentsLog the agentsLog to set
+     */
+    public void setAgentsLog(List agentsLog) {
+        this.agentsLog = agentsLog;
+    }
+    
     public void postProcessXLS(Object document) {
         HSSFWorkbook wb = (HSSFWorkbook) document;
         HSSFSheet sheet = wb.getSheetAt(0);

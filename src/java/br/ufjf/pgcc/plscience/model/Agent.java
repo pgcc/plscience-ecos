@@ -78,7 +78,7 @@ public class Agent implements Serializable {
     private br.ufjf.pgcc.plscience.model.Roler role;
     
     @JoinColumn(name = "status_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne()
     private br.ufjf.pgcc.plscience.model.Status status;
     
     @JoinColumn(name = "competence_id", referencedColumnName = "id")
