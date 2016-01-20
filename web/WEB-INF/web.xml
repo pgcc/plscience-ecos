@@ -18,7 +18,12 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
-        <servlet-name>WsList</servlet-name>
+        <servlet-name>WsUserList</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>WsMessage</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -46,8 +51,12 @@
         <url-pattern>/WsProVersion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>WsList</servlet-name>
-        <url-pattern>/WsList</url-pattern>
+        <servlet-name>WsUserList</servlet-name>
+        <url-pattern>/WsUserList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WsMessage</servlet-name>
+        <url-pattern>/WsMessage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

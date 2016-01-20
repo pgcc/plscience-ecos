@@ -107,4 +107,68 @@ public class AgentDAO extends PersistenceUtil {
         return null;
     }
 
+    public List<Agent> findByStatusName(String statusName) {
+         
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT a FROM Agent AS a WHERE a.status.statusName = :statusName");
+        query.setParameter("statusName", statusName);
+        
+        return query.getResultList();
+    }
+    
+    public List<Agent> findByStatusID(int statusID) {
+         
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT a FROM Agent AS a WHERE a.status.id = :statusID");
+        query.setParameter("statusID", statusID);
+        
+        return query.getResultList();
+    }
+    
+    public List<Agent> findByRoleName(String roleName) {
+         
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT a FROM Agent AS a WHERE a.role.roleName = :roleName");
+        query.setParameter("roleName", roleName);
+        
+        return query.getResultList();
+    }
+    
+    public List<Agent> findByRoleID(int roleID) {
+         
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT a FROM Agent AS a WHERE a.role.id = :roleID");
+        query.setParameter("roleID", roleID);
+        
+        return query.getResultList();
+    }
+    
+    public List<Agent> findByCompetenceName(String competenceName) {
+         
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT a FROM Agent AS a WHERE a.competence.competenceName = :competenceName");
+        query.setParameter("competenceName", competenceName);
+        
+        return query.getResultList();
+    }
+    
+    public List<Agent> findByCompetenceID(int competenceID) {
+         
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT a FROM Agent AS a WHERE a.competence.id = :competenceID");
+        query.setParameter("competenceID", competenceID);
+        
+        return query.getResultList();
+    }
+    
+    public List<Agent> findByCompetenceAndRole(String competenceName, String roleName) {
+         
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT a FROM Agent AS a WHERE a.competence.competenceName = :competenceName AND a.role.roleName = :roleName");
+        query.setParameter("competenceName", competenceName);
+        query.setParameter("roleName", roleName);
+        
+        return query.getResultList();
+    }
+    
 }

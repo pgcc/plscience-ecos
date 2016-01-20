@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -6,19 +5,26 @@
                 xmlns:p="http://primefaces.org/ui">
     <h:form>
         
-        <p:dataList var="lista" value="#{agentBean.agents}" type="definition" style="alignment-baseline: middle"> 
+        <p:dataList  id="dataListAgentLog" var="agent" value="#{agentBean.agentsLog}" type="definition" style="alignment-baseline: middle"> 
             <h:panelGrid columns="2" cellpadding="1" >
                 <h:panelGrid columns="1" cellpadding="1" >
-                    <p:commandLink id="message" actionListener="#{listUserB.connect()}" onclick="PF('dlg1').show();" >
+                    <p:commandLink id="message" actionListener="#{listUserB.connect()}" onclick="PF('dlg1').show();" >                    
                         <h:graphicImage name="/images/icon/messageIcon40.png" />
+                        <f:setPropertyActionListener target="#{agentBean.agent}"
+                                                     value="#{agent}" />
                     </p:commandLink>
                 </h:panelGrid>
                 <h:panelGrid columns="1" cellpadding="2" >
-                    <h:outputText value="Online" />
-                    <h:outputText value="#{lista.name}" />                 
+                    <h:outputText value="#{agent.status.statusName}" style="font-weight:bold; color:green" rendered="#{agent.status.id == 1}" />
+                    <h:outputText value="#{agent.status.statusName}" style="font-weight:bold; color:red" rendered="#{agent.status.id == 2}" />
+                    <h:outputText value="#{agent.name}" />
+                    <h:outputText value="#{agent.role.roleName}" />
                 </h:panelGrid>
             </h:panelGrid>
         </p:dataList> 
+        <ui:remove>
+            <p:poll interval="30" listener="#{agentBean.uptadeAgentsLog}" update="dataListAgentLog" async="true" />
+        </ui:remove>
             
         <p:dialog header="To: Tassio"  widgetVar="dlg1" minHeight="50" width="355" height="120"  resizable="False">
             <h:panelGrid columns="2" cellpadding="2" >
@@ -41,65 +47,4 @@
 
         
     </h:form>
-=======
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
-    <h:form>
-        
-        <p:dataList  id="dataListAgentLog" var="agent" value="#{agentBean.agentsLog}" type="definition" style="alignment-baseline: middle"> 
-            <h:panelGrid columns="2" cellpadding="1" >
-                <h:panelGrid columns="1" cellpadding="1" >
-                    <p:commandLink onclick="PF('Msg').show();" >
-                        <h:graphicImage name="/images/icon/messageIcon40.png" />
-                        <f:setPropertyActionListener target="#{agentBean.agent}"
-                                                     value="#{agent}" />
-                    </p:commandLink>
-                </h:panelGrid>
-                <h:panelGrid columns="1" cellpadding="2" >
-                    <h:outputText value="#{agent.status.statusName}" style="font-weight:bold; color:green" rendered="#{agent.status.id == 1}" />
-                    <h:outputText value="#{agent.status.statusName}" style="font-weight:bold; color:red" rendered="#{agent.status.id == 2}" />
-                    <h:outputText value="#{agent.name}" />
-                    <h:outputText value="#{agent.role.roleName}" />
-                </h:panelGrid>
-            </h:panelGrid>
-        </p:dataList> 
-        <ui:remove>
-            <p:poll interval="30" listener="#{agentBean.uptadeAgentsLog}" update="dataListAgentLog" async="true" />
-        </ui:remove>
-            
-        <p:dialog header="To: #{agentBean.agent.name}"  
-                  widgetVar="Msg" 
-                  minHeight="50" 
-                  width="355" 
-                  height="120"  
-                  resizable="False" 
-                  id="Msg">
-            <h:panelGrid columns="2" cellpadding="2" >
-                <p:row>
-                    <p:column colspan="2">
-                        <h:outputText value="#{agent.name}" />
-                        <h:outputText value="#{agentBean.agent.name}" />
-                    </p:column>
-                    
-                    <p:column colspan="2">
-                        <p:inputTextarea readonly="True"   value=" "/>
-                    </p:column>
-
-                    <p:column colspan="5">
-                       <p:inputText/>
-                       <h:outputText value="&#160;" />
-                       <h:outputText value="&#160;" />
-                       <p:commandButton style="width: auto; font-size:100%"  value="Send" type="button" onclick="PF('dlg1').close;" />  
-                    </p:column>
-
-                </p:row>
-            </h:panelGrid>    
-        </p:dialog>
-
-        
-    </h:form>
->>>>>>> 7da00201adc444d91904e80cb48df32c9fbe1dbd
 </ui:composition>
