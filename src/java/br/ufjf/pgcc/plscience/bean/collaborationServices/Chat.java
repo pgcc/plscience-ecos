@@ -17,6 +17,8 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.push.PushContext;
 import org.primefaces.push.PushContextFactory;
 
+@ManagedBean(name = "listUserB")
+//@ManagedBean(name = "chat")
 @ViewScoped
 public class Chat implements Serializable {
 
