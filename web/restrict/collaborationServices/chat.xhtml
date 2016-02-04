@@ -14,8 +14,8 @@
                
                <h:panelGrid columns="2" cellpadding="1">
                     
-       
-       <p:commandButton style="width: auto; font-size:100%"  value="Connect"  actionListener="#{chat.connect()}" update="conversation" />  
+                   <ui:remove>
+       <p:commandButton style="width: auto; font-size:100%"  value="Connect"   update="conversation" />  
        
         <p:poll interval="5" update="conversation" ignoreAutoUpdate="True" partialSubmit="true" process="@this"/> 
        
@@ -24,7 +24,7 @@
         <p:inputText value="#{chat.sendMessage}"/>
         <p:commandButton style="width: auto; font-size:100%"  value="Send" actionListener="#{chat.send()}" />
        
-        
+        </ui:remove>
      
                 </h:panelGrid>
 
