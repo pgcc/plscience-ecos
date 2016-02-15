@@ -89,6 +89,20 @@ public class Roler implements Serializable {
         this.description = description;
     }
 
+    /**
+     * @return the agentList
+     */
+    public List<Agent> getAgentList() {
+        return agentList;
+    }
+
+    /**
+     * @param agentList the agentList to set
+     */
+    public void setAgentList(List<Agent> agentList) {
+        this.agentList = agentList;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

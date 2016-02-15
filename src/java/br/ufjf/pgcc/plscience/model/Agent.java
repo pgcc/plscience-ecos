@@ -85,6 +85,9 @@ public class Agent implements Serializable {
     @ManyToOne(optional = false)
     private br.ufjf.pgcc.plscience.model.Competence competence;
     
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    private List<GroupUser> groupUserList;
+    
     public Agent() {
     }
 
@@ -234,6 +237,20 @@ public class Agent implements Serializable {
         this.researchGroupList = researchGroupList;
     }
 
+    /**
+     * @return the groupUserList
+     */
+    public List<GroupUser> getGroupUserList() {
+        return groupUserList;
+    }
+
+    /**
+     * @param groupUserList the groupUserList to set
+     */
+    public void setGroupUserList(List<GroupUser> groupUserList) {
+        this.groupUserList = groupUserList;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
