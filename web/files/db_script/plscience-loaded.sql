@@ -758,32 +758,6 @@ INSERT INTO `experiment_services` VALUES (451,'Teste 1',1,'2015-12-29',3),(501,'
 UNLOCK TABLES;
 
 --
--- Table structure for table `group_participant`
---
-
-DROP TABLE IF EXISTS `group_participant`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `group_participant` (
-  `participant_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
-  PRIMARY KEY (`participant_id`,`group_id`),
-  KEY `group_id_fkb_idx` (`group_id`),
-  CONSTRAINT `group_id_fkb` FOREIGN KEY (`group_id`) REFERENCES `group_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `participant_id_group_fka` FOREIGN KEY (`participant_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `group_participant`
---
-
-LOCK TABLES `group_participant` WRITE;
-/*!40000 ALTER TABLE `group_participant` DISABLE KEYS */;
-/*!40000 ALTER TABLE `group_participant` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `group_service`
 --
 
@@ -811,33 +785,6 @@ LOCK TABLES `group_service` WRITE;
 /*!40000 ALTER TABLE `group_service` DISABLE KEYS */;
 INSERT INTO `group_service` VALUES (1,1,0,0,0,1,1,0),(2,1,0,0,0,1,1,0),(3,1,0,0,0,0,0,1);
 /*!40000 ALTER TABLE `group_service` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `group_user`
---
-
-DROP TABLE IF EXISTS `group_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `group_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_name` varchar(45) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `owner_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `owner_agent_fka_idx` (`owner_id`),
-  CONSTRAINT `owner_agent_fka` FOREIGN KEY (`owner_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `group_user`
---
-
-LOCK TABLES `group_user` WRITE;
-/*!40000 ALTER TABLE `group_user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `group_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1830,4 +1777,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-16 16:22:57
+-- Dump completed on 2016-02-16 17:12:56

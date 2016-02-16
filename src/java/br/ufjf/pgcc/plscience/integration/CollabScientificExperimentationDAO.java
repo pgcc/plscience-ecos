@@ -5,15 +5,27 @@
  */
 package br.ufjf.pgcc.plscience.integration;
 
+import br.ufjf.pgcc.plscience.dao.ActivityConceptDAO;
+import br.ufjf.pgcc.plscience.dao.CodeDAO;
 import br.ufjf.pgcc.plscience.dao.CollaborationServiceDAO;
 import br.ufjf.pgcc.plscience.dao.CollaborativeServiceTypeDAO;
+import br.ufjf.pgcc.plscience.dao.CommonSenseDAO;
+import br.ufjf.pgcc.plscience.dao.CommunicationProtocolDAO;
 import br.ufjf.pgcc.plscience.dao.CompetenceDAO;
+import br.ufjf.pgcc.plscience.dao.CompromiseDAO;
 import br.ufjf.pgcc.plscience.dao.RolerDAO;
+import br.ufjf.pgcc.plscience.dao.StatusDAO;
 import br.ufjf.pgcc.plscience.dao.StepsScientificExperimentationDAO;
+import br.ufjf.pgcc.plscience.model.ActivityConcept;
+import br.ufjf.pgcc.plscience.model.Code;
 import br.ufjf.pgcc.plscience.model.CollaborationService;
 import br.ufjf.pgcc.plscience.model.CollaborativeServiceType;
+import br.ufjf.pgcc.plscience.model.CommonSense;
+import br.ufjf.pgcc.plscience.model.CommunicationProtocol;
 import br.ufjf.pgcc.plscience.model.Competence;
+import br.ufjf.pgcc.plscience.model.Compromise;
 import br.ufjf.pgcc.plscience.model.Roler;
+import br.ufjf.pgcc.plscience.model.Status;
 import br.ufjf.pgcc.plscience.model.StepsScientificExperimentation;
 import static com.hp.hpl.jena.assembler.Assembler.ontModel;
 import static com.hp.hpl.jena.assembler.JA.reasoner;
@@ -171,6 +183,7 @@ public class CollabScientificExperimentationDAO {
         ObjectProperty workPlanSetsTask = ontModel.createObjectProperty(baseURI + "workPlanSetsTask");
         ObjectProperty workPlanAllocatesResource = ontModel.createObjectProperty(baseURI + "workPlanAllocatesResource");
         ObjectProperty workPlanOrganizesActivity = ontModel.createObjectProperty(baseURI + "workPlanOrganizesActivity");
+        ObjectProperty statusParticipant = ontModel.createObjectProperty(baseURI + "statusParticipant");
         ObjectProperty statusTask = ontModel.createObjectProperty(baseURI + "statusTask");
         ObjectProperty deadlineTask = ontModel.createObjectProperty(baseURI + "deadlineTask");
         ObjectProperty couplingActivity = ontModel.createObjectProperty(baseURI + "couplingActivity");
@@ -253,6 +266,48 @@ public class CollabScientificExperimentationDAO {
         //Carrega Indivíduos na Ontologia
         //-----------------------------------------------------------------------
         
+        //Carrega os Code (Communication) na ontologia apartir do banco de dados
+        Resource resourcecode = model.getResource(baseURI + "Code");
+        Code code = new Code();
+        List codes = new ArrayList();
+        codes = new CodeDAO().getAll();
+        for (Object c : codes) {
+            code = (Code) c;
+            model.createIndividual(baseURI + code.getId() + "." + code.getCodeName().replace(" ", "."), resourcecode);
+        }
+
+        //Carrega os CommonSense (Communication) na ontologia apartir do banco de dados
+        Resource resourcecommonsense = model.getResource(baseURI + "CommonSense");
+        CommonSense commonSense = new CommonSense();
+        List commonSenses = new ArrayList();
+        codes = new CommonSenseDAO().getAll();
+        for (Object c : commonSenses) {
+            commonSense = (CommonSense) c;
+            model.createIndividual(baseURI + commonSense.getId() + "." + commonSense.getCommonSenseName().replace(" ", "."), resourcecommonsense);
+        }
+
+        //Carrega os CommunicationProtocol (Communication) na ontologia apartir do banco de dados
+        Resource resourcecommunicationprotocol = model.getResource(baseURI + "CommunicationProtocol");
+        CommunicationProtocol communicationProtocol = new CommunicationProtocol();
+        List communicationProtocols = new ArrayList();
+        communicationProtocols = new CommunicationProtocolDAO().getAll();
+        for (Object c : communicationProtocols) {
+            communicationProtocol = (CommunicationProtocol) c;
+            model.createIndividual(baseURI + communicationProtocol.getId() + "." + communicationProtocol.getCommunicationProtocolName().replace(" ", "."), resourcecommunicationprotocol);
+        }
+        
+        //Carrega os Compromise (Communication) na ontologia apartir do banco de dados
+        Resource resourcecompromise = model.getResource(baseURI + "Compromise");
+        Compromise compromise = new Compromise();
+        List compromises = new ArrayList();
+        compromises = new CompromiseDAO().getAll();
+        for (Object c : compromises) {
+            compromise = (Compromise) c;
+            model.createIndividual(baseURI + compromise.getId() + "." + compromise.getCompromiseName().replace(" ", "."), resourcecompromise);
+        }
+        
+        
+        
         //Carrega os Role (Coordination) na ontologia apartir do banco de dados
         Resource resourceroler = model.getResource(baseURI + "Role");
         Roler roler = new Roler();
@@ -263,7 +318,29 @@ public class CollabScientificExperimentationDAO {
             model.createIndividual(baseURI + roler.getId() + "." + roler.getRoleName().replace(" ", "."), resourceroler);
         }
         
-        //Carrega os Role (Coordination) na ontologia apartir do banco de dados
+        //Carrega os Status (Coordination) na ontologia apartir do banco de dados
+        Resource resourcestatus = model.getResource(baseURI + "Status");
+        Status status = new Status();
+        List statuss = new ArrayList();
+        statuss = new StatusDAO().getAll();
+        for (Object s : statuss) {
+            status = (Status) s;
+            model.createIndividual(baseURI + status.getId() + "." + status.getStatusName().replace(" ", "."), resourcestatus);
+        }
+        
+        
+        //Carrega os Activity (Cooperation) na ontologia apartir do banco de dados
+        Resource resourceactivity = model.getResource(baseURI + "Activity");
+        ActivityConcept activity = new ActivityConcept();
+        List activities = new ArrayList();
+        activities = new ActivityConceptDAO().getAll();
+        for (Object a : activities) {
+            activity = (ActivityConcept) a;
+            model.createIndividual(baseURI + activity.getId() + "." + activity.getActivityName().replace(" ", "."), resourceactivity);
+        }
+        
+        
+        //Carrega os Competence (GroupFormation) na ontologia apartir do banco de dados
         Resource resourcecompetence = model.getResource(baseURI + "Competence");
         Competence competence = new Competence();
         List competences = new ArrayList();

@@ -264,15 +264,6 @@ INSERT INTO `experiment_services` VALUES (451,'Teste 1',1,'2015-12-29',3),(501,'
 UNLOCK TABLES;
 
 --
--- Dumping data for table `group_participant`
---
-
-LOCK TABLES `group_participant` WRITE;
-/*!40000 ALTER TABLE `group_participant` DISABLE KEYS */;
-/*!40000 ALTER TABLE `group_participant` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `group_service`
 --
 
@@ -280,15 +271,6 @@ LOCK TABLES `group_service` WRITE;
 /*!40000 ALTER TABLE `group_service` DISABLE KEYS */;
 INSERT INTO `group_service` VALUES (1,1,0,0,0,1,1,0),(2,1,0,0,0,1,1,0),(3,1,0,0,0,0,0,1);
 /*!40000 ALTER TABLE `group_service` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `group_user`
---
-
-LOCK TABLES `group_user` WRITE;
-/*!40000 ALTER TABLE `group_user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `group_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -637,4 +619,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-16 16:24:10
+-- Dump completed on 2016-02-16 17:13:44

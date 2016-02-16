@@ -510,23 +510,6 @@ CREATE TABLE `experiment_services` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `group_participant`
---
-
-DROP TABLE IF EXISTS `group_participant`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `group_participant` (
-  `participant_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
-  PRIMARY KEY (`participant_id`,`group_id`),
-  KEY `group_id_fkb_idx` (`group_id`),
-  CONSTRAINT `group_id_fkb` FOREIGN KEY (`group_id`) REFERENCES `group_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `participant_id_group_fka` FOREIGN KEY (`participant_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `group_service`
 --
 
@@ -544,24 +527,6 @@ CREATE TABLE `group_service` (
   `goal` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `group_user`
---
-
-DROP TABLE IF EXISTS `group_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `group_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_name` varchar(45) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `owner_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `owner_agent_fka_idx` (`owner_id`),
-  CONSTRAINT `owner_agent_fka` FOREIGN KEY (`owner_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1217,4 +1182,4 @@ CREATE TABLE `workflow` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-16 16:23:42
+-- Dump completed on 2016-02-16 17:13:24
