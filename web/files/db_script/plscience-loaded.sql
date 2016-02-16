@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: plscience
 -- ------------------------------------------------------
--- Server version	5.6.27-log
+-- Server version	5.7.10-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -56,9 +56,9 @@ DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity` (
   `idActivity` int(11) NOT NULL AUTO_INCREMENT,
   `Entity_idEntity` int(11) NOT NULL,
-  `Name` varchar(45) COLLATE utf8_swedish_ci NOT NULL,
-  `Function` varchar(45) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `Function` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idActivity`),
   KEY `fk_Activity_Entity1_idx` (`Entity_idEntity`),
   CONSTRAINT `fk_Activity_Entity1` FOREIGN KEY (`Entity_idEntity`) REFERENCES `entity` (`idEntity`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -134,19 +134,27 @@ DROP TABLE IF EXISTS `agent`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `agent` (
   `idAgent` int(11) NOT NULL AUTO_INCREMENT,
-  `Login` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Email` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Password` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Name` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
+  `Login` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Email` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Password` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `Institution` int(11) NOT NULL,
-  `Function` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `role_id` bigint(20) NOT NULL,
+  `status_id` bigint(20) NOT NULL,
+  `competence_id` bigint(20) NOT NULL,
   PRIMARY KEY (`idAgent`),
   UNIQUE KEY `Login_UNIQUE` (`Login`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
   KEY `fk_Agent_Entity1_idx` (`Institution`),
-  CONSTRAINT `fk_Agent_Entity1` FOREIGN KEY (`Institution`) REFERENCES `entity` (`idEntity`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+  KEY `fk_Status_Agent_idx` (`status_id`),
+  KEY `fk_competence_agent_idx` (`competence_id`),
+  KEY `fk_role_agent_idx` (`role_id`),
+  CONSTRAINT `fk_Agent_Entity1` FOREIGN KEY (`Institution`) REFERENCES `entity` (`idEntity`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_competence_agent` FOREIGN KEY (`competence_id`) REFERENCES `competence` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_role_agent` FOREIGN KEY (`role_id`) REFERENCES `roler` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_status_agent` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +163,7 @@ CREATE TABLE `agent` (
 
 LOCK TABLES `agent` WRITE;
 /*!40000 ALTER TABLE `agent` DISABLE KEYS */;
-INSERT INTO `agent` VALUES (1,'tassio','tassio.sirqueira@ice.ufjf.br','f10354719639a6e97c1ccc7ed0c5f2d3','Tassio Ferenzini M. Sirqueira',1,'Pesquisador','Aluno de Pós-graduação'),(2,'regina','regina@acessa.com','221182760f5b980c97c7a74a94d57364','Regina Braga',1,'Pesquisadora','Professora de Pós-graduação'),(3,'humberto','humbertodalpra@gmail.com','8767bbc52e71900d1f3a50b53196d0e2','Humberto Dalpra',1,'Pesquisador','Aluno de Pós-Graduação'),(4,'marco','maraujo@acessa.com','f5888d0bb58d611107e11f7cbc41c97a','Marco Antônio Pereira Araújo',1,'Pesquisador','Professor de Pós-graduação');
+INSERT INTO `agent` VALUES (1,'tassio','tassio.sirqueira@ice.ufjf.br','f10354719639a6e97c1ccc7ed0c5f2d3','Tassio Ferenzini M. Sirqueira',1,'Aluno de Pós-graduação',3,2,4),(2,'regina','regina@acessa.com','221182760f5b980c97c7a74a94d57364','Regina Braga',1,'Professora de Pós-graduação',1,2,4),(3,'humberto','humbertodalpra@gmail.com','8767bbc52e71900d1f3a50b53196d0e2','Humberto Dalpra',1,'Aluno de Pós-Graduação',3,2,4),(4,'marco','maraujo@acessa.com','f5888d0bb58d611107e11f7cbc41c97a','Marco Antônio Pereira Araújo',1,'Professor de Pós-graduação',1,2,4),(5,'admin','admin@ecos.ufjf.br','21232f297a57a5a743894a0e4a801fc3','Admin System',1,'Admin System',1,1,1),(6,'guilherme','guilherme@ice.ufjf.br','192309aaddc500140db28668e1bbd8b5','Guilherme Martins',1,'Master Student.',2,1,4);
 /*!40000 ALTER TABLE `agent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,7 +295,7 @@ CREATE TABLE `collaboration_service` (
   CONSTRAINT `cooperation_service_id_fka` FOREIGN KEY (`cooperation_service_id`) REFERENCES `cooperation_service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `coordination_service_id_fka` FOREIGN KEY (`coordination_service_id`) REFERENCES `coordination_service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `group_service_id_fka` FOREIGN KEY (`group_service_id`) REFERENCES `group_service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,7 +304,7 @@ CREATE TABLE `collaboration_service` (
 
 LOCK TABLES `collaboration_service` WRITE;
 /*!40000 ALTER TABLE `collaboration_service` DISABLE KEYS */;
-INSERT INTO `collaboration_service` VALUES (1,1,1,1,1,1,'User List UFJF','User List UFJF members.',0),(2,2,2,2,2,1,'User List USP','User List USP.',0);
+INSERT INTO `collaboration_service` VALUES (1,1,1,1,1,1,'User List UFJF','User List UFJF members.',0),(2,2,2,2,2,1,'User List USP','User List USP.',0),(3,3,3,3,3,1,'Teste','Teste de cadastro de serviço.',0);
 /*!40000 ALTER TABLE `collaboration_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -447,7 +455,7 @@ CREATE TABLE `communication_service` (
   `mode` tinyint(1) NOT NULL DEFAULT '0',
   `interpretation` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -456,7 +464,7 @@ CREATE TABLE `communication_service` (
 
 LOCK TABLES `communication_service` WRITE;
 /*!40000 ALTER TABLE `communication_service` DISABLE KEYS */;
-INSERT INTO `communication_service` VALUES (1,0,0,0,0,0,0,0,0,0,0,0,0),(2,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO `communication_service` VALUES (1,0,0,0,0,0,0,0,0,0,0,0,0),(2,0,0,0,0,0,0,0,0,0,0,0,0),(3,0,0,0,0,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `communication_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -582,7 +590,7 @@ CREATE TABLE `concept_xml` (
   PRIMARY KEY (`id_concept_xml`),
   KEY `id_struct_xml_fka_idx` (`id_struct_xml`),
   CONSTRAINT `id_struct_xml_fka` FOREIGN KEY (`id_struct_xml`) REFERENCES `interoperability_struct_xml` (`id_struct_xml`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -591,7 +599,7 @@ CREATE TABLE `concept_xml` (
 
 LOCK TABLES `concept_xml` WRITE;
 /*!40000 ALTER TABLE `concept_xml` DISABLE KEYS */;
-INSERT INTO `concept_xml` VALUES (1,'Group Service','Group',NULL,0,0,NULL,NULL,1),(2,'Group Service','Participant',NULL,0,0,NULL,NULL,1),(3,'Coordination Service','Role',100,1,0,'Manager','Manager',1),(4,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',1),(5,'Coordination Service','Status',NULL,0,0,NULL,NULL,1),(6,'Group Service','Group',NULL,0,1,NULL,NULL,2),(7,'Group Service','Participant',NULL,0,0,NULL,NULL,2),(8,'Coordination Service','Role',100,1,0,'Manager','Manager',2),(9,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',2),(10,'Coordination Service','Status',NULL,0,0,NULL,NULL,2),(11,'Group Service','Group',NULL,0,0,NULL,NULL,3),(12,'Group Service','Participant',NULL,0,0,NULL,NULL,3),(13,'Coordination Service','Role',100,1,0,'Manager','Manager',3),(14,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',3),(15,'Coordination Service','Status',NULL,0,0,NULL,NULL,3),(16,'Group Service','Group',NULL,0,1,NULL,NULL,4),(17,'Group Service','Participant',NULL,0,0,NULL,NULL,4),(18,'Coordination Service','Role',100,1,0,'Manager','Manager',4),(19,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',4),(20,'Coordination Service','Status',NULL,0,0,NULL,NULL,4);
+INSERT INTO `concept_xml` VALUES (1,'Group Service','Group',NULL,0,0,NULL,NULL,1),(2,'Group Service','Participant',NULL,0,0,NULL,NULL,1),(3,'Coordination Service','Role',100,1,0,'Manager','Manager',1),(4,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',1),(5,'Coordination Service','Status',NULL,0,0,NULL,NULL,1),(6,'Group Service','Group',NULL,0,1,NULL,NULL,2),(7,'Group Service','Participant',NULL,0,0,NULL,NULL,2),(8,'Coordination Service','Role',100,1,0,'Manager','Manager',2),(9,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',2),(10,'Coordination Service','Status',NULL,0,0,NULL,NULL,2),(11,'Group Service','Group',NULL,0,0,NULL,NULL,3),(12,'Group Service','Participant',NULL,0,0,NULL,NULL,3),(13,'Coordination Service','Role',100,1,0,'Manager','Manager',3),(14,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',3),(15,'Coordination Service','Status',NULL,0,0,NULL,NULL,3),(16,'Group Service','Group',NULL,0,1,NULL,NULL,4),(17,'Group Service','Participant',NULL,0,0,NULL,NULL,4),(18,'Coordination Service','Role',100,1,0,'Manager','Manager',4),(19,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',4),(20,'Coordination Service','Status',NULL,0,0,NULL,NULL,4),(21,'Group Service','Group',NULL,0,0,NULL,NULL,5),(22,'Group Service','Participant',NULL,0,0,NULL,NULL,5),(23,'Coordination Service','Role',76.32,1,1,'Scientist','Researcher',5),(24,'Coordination Service','Status',NULL,0,0,NULL,NULL,5),(25,'Group Service','Group',NULL,0,0,NULL,NULL,6),(26,'Group Service','Participant',NULL,0,0,NULL,NULL,6),(27,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',6),(28,'Coordination Service','Status',NULL,0,0,NULL,NULL,6);
 /*!40000 ALTER TABLE `concept_xml` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -612,7 +620,7 @@ CREATE TABLE `cooperation_service` (
   `resource` tinyint(1) NOT NULL DEFAULT '0',
   `share` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -621,7 +629,7 @@ CREATE TABLE `cooperation_service` (
 
 LOCK TABLES `cooperation_service` WRITE;
 /*!40000 ALTER TABLE `cooperation_service` DISABLE KEYS */;
-INSERT INTO `cooperation_service` VALUES (1,0,0,0,0,0,0,0),(2,0,0,0,0,0,0,0);
+INSERT INTO `cooperation_service` VALUES (1,0,0,0,0,0,0,0),(2,0,0,0,0,0,0,0),(3,0,0,0,1,0,0,0);
 /*!40000 ALTER TABLE `cooperation_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -642,7 +650,7 @@ CREATE TABLE `coordination_service` (
   `monitoring` tinyint(1) NOT NULL DEFAULT '0',
   `coupling` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -651,7 +659,7 @@ CREATE TABLE `coordination_service` (
 
 LOCK TABLES `coordination_service` WRITE;
 /*!40000 ALTER TABLE `coordination_service` DISABLE KEYS */;
-INSERT INTO `coordination_service` VALUES (1,0,0,1,1,0,0,0),(2,0,0,1,1,0,0,0);
+INSERT INTO `coordination_service` VALUES (1,0,0,1,1,0,0,0),(2,0,0,1,1,0,0,0),(3,0,1,1,1,0,0,0);
 /*!40000 ALTER TABLE `coordination_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -664,9 +672,9 @@ DROP TABLE IF EXISTS `entity`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `entity` (
   `idEntity` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Acronym` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Acronym` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idEntity`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -693,11 +701,11 @@ CREATE TABLE `experiment` (
   `Entity_idEntity` int(11) DEFAULT NULL,
   `Activity_idActivity` int(11) DEFAULT NULL,
   `idAgent` int(11) DEFAULT NULL,
-  `Name` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `DateStarted` date DEFAULT NULL,
   `DateEnded` date DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Version` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Version` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `number_stages` int(11) DEFAULT NULL,
   `parsifal_review` int(11) DEFAULT NULL,
   PRIMARY KEY (`idExperiment`),
@@ -750,6 +758,32 @@ INSERT INTO `experiment_services` VALUES (451,'Teste 1',1,'2015-12-29',3),(501,'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `group_participant`
+--
+
+DROP TABLE IF EXISTS `group_participant`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_participant` (
+  `participant_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`participant_id`,`group_id`),
+  KEY `group_id_fkb_idx` (`group_id`),
+  CONSTRAINT `group_id_fkb` FOREIGN KEY (`group_id`) REFERENCES `group_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `participant_id_group_fka` FOREIGN KEY (`participant_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_participant`
+--
+
+LOCK TABLES `group_participant` WRITE;
+/*!40000 ALTER TABLE `group_participant` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_participant` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `group_service`
 --
 
@@ -766,7 +800,7 @@ CREATE TABLE `group_service` (
   `competence` tinyint(1) NOT NULL DEFAULT '0',
   `goal` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -775,8 +809,35 @@ CREATE TABLE `group_service` (
 
 LOCK TABLES `group_service` WRITE;
 /*!40000 ALTER TABLE `group_service` DISABLE KEYS */;
-INSERT INTO `group_service` VALUES (1,1,0,0,0,1,1,0),(2,1,0,0,0,1,1,0);
+INSERT INTO `group_service` VALUES (1,1,0,0,0,1,1,0),(2,1,0,0,0,1,1,0),(3,1,0,0,0,0,0,1);
 /*!40000 ALTER TABLE `group_service` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_user`
+--
+
+DROP TABLE IF EXISTS `group_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_name` varchar(45) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `owner_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `owner_agent_fka_idx` (`owner_id`),
+  CONSTRAINT `owner_agent_fka` FOREIGN KEY (`owner_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_user`
+--
+
+LOCK TABLES `group_user` WRITE;
+/*!40000 ALTER TABLE `group_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -825,7 +886,7 @@ CREATE TABLE `interoperability_struct_xml` (
   `first_type_service` varchar(45) NOT NULL,
   `second_type_service` varchar(45) NOT NULL,
   PRIMARY KEY (`id_struct_xml`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -834,7 +895,7 @@ CREATE TABLE `interoperability_struct_xml` (
 
 LOCK TABLES `interoperability_struct_xml` WRITE;
 /*!40000 ALTER TABLE `interoperability_struct_xml` DISABLE KEYS */;
-INSERT INTO `interoperability_struct_xml` VALUES (1,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(2,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(3,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(4,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List');
+INSERT INTO `interoperability_struct_xml` VALUES (1,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(2,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(3,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(4,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(5,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(6,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List');
 /*!40000 ALTER TABLE `interoperability_struct_xml` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -849,7 +910,7 @@ CREATE TABLE `ispartof` (
   `idIsPartOf` int(11) NOT NULL AUTO_INCREMENT,
   `Agent_idAgent` int(11) DEFAULT NULL,
   `ResearchGroup_idResearchGroup` int(11) DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idIsPartOf`),
   KEY `fk_Agent_has_ResearchGroup_ResearchGroup1_idx` (`ResearchGroup_idResearchGroup`),
   KEY `fk_Agent_has_ResearchGroup_Agent1_idx` (`Agent_idAgent`),
@@ -866,6 +927,36 @@ LOCK TABLES `ispartof` WRITE;
 /*!40000 ALTER TABLE `ispartof` DISABLE KEYS */;
 INSERT INTO `ispartof` VALUES (1,2,1,'Professora de Pós-graduação'),(2,1,1,'Aluno de Pós-graduação'),(3,3,1,'Aluno de Pós-graduação'),(4,4,1,'Professor de Pós-graduação');
 /*!40000 ALTER TABLE `ispartof` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `message_service`
+--
+
+DROP TABLE IF EXISTS `message_service`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `message_service` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `message` varchar(255) NOT NULL,
+  `date_message` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `issuer_id` int(11) NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `issuer_id_agent_fkc_idx` (`issuer_id`),
+  KEY `receiver_id_agent_fkc_idx` (`receiver_id`),
+  CONSTRAINT `issuer_id_agent_fkc` FOREIGN KEY (`issuer_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `receiver_id_agent_fkc` FOREIGN KEY (`receiver_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `message_service`
+--
+
+LOCK TABLES `message_service` WRITE;
+/*!40000 ALTER TABLE `message_service` DISABLE KEYS */;
+/*!40000 ALTER TABLE `message_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -958,8 +1049,8 @@ DROP TABLE IF EXISTS `researchgroup`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `researchgroup` (
   `idResearchGroup` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `Agent_idAgent_chef` int(11) DEFAULT NULL,
   PRIMARY KEY (`idResearchGroup`),
   KEY `fk_Agent_has_Expiriment_Agent1_idx` (`Agent_idAgent_chef`),
@@ -1000,7 +1091,7 @@ CREATE TABLE `role_coordination_service` (
 
 LOCK TABLES `role_coordination_service` WRITE;
 /*!40000 ALTER TABLE `role_coordination_service` DISABLE KEYS */;
-INSERT INTO `role_coordination_service` VALUES (1,1),(2,1),(1,2),(2,3);
+INSERT INTO `role_coordination_service` VALUES (2,1),(3,1),(1,2),(3,2),(2,3),(1,4);
 /*!40000 ALTER TABLE `role_coordination_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1091,7 +1182,7 @@ CREATE TABLE `status` (
   `status_name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1100,6 +1191,7 @@ CREATE TABLE `status` (
 
 LOCK TABLES `status` WRITE;
 /*!40000 ALTER TABLE `status` DISABLE KEYS */;
+INSERT INTO `status` VALUES (1,'Online','Status of a person that is using the system.'),(2,'Offline','Status of a person that is not using the system.');
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1179,7 +1271,7 @@ CREATE TABLE `steps_service` (
 
 LOCK TABLES `steps_service` WRITE;
 /*!40000 ALTER TABLE `steps_service` DISABLE KEYS */;
-INSERT INTO `steps_service` VALUES (1,201),(2,201),(2,251),(2,301),(2,351);
+INSERT INTO `steps_service` VALUES (1,201),(2,201),(2,251),(2,301),(2,351),(3,201),(3,251),(3,301),(3,351);
 /*!40000 ALTER TABLE `steps_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1192,9 +1284,9 @@ DROP TABLE IF EXISTS `task`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `task` (
   `idTask` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Type` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Type` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idTask`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1380,7 +1472,7 @@ CREATE TABLE `used` (
   `idUsed` int(11) NOT NULL AUTO_INCREMENT,
   `Task_idTask` int(11) NOT NULL,
   `Workflow_idWorkflow` int(11) NOT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idUsed`),
   KEY `fk_WasStartedBy_Task1_idx` (`Task_idTask`),
   KEY `fk_Used_Workflow1_idx` (`Workflow_idWorkflow`),
@@ -1410,7 +1502,7 @@ CREATE TABLE `wasassociatedwith` (
   `idWasAssociatedWith` int(11) NOT NULL AUTO_INCREMENT,
   `Workflow_idWorkflow` int(11) DEFAULT NULL,
   `Experiment_Experiment` int(11) DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idWasAssociatedWith`),
   KEY `fk_Workflow_has_Expiriment_Expiriment1_idx` (`Experiment_Experiment`),
   KEY `fk_Workflow_has_Expiriment_Workflow1_idx` (`Workflow_idWorkflow`),
@@ -1438,7 +1530,7 @@ DROP TABLE IF EXISTS `wascontroledby`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wascontroledby` (
   `idWasControledBy` int(11) NOT NULL AUTO_INCREMENT,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `Activity_idActivity` int(11) NOT NULL,
   `Agent_idAgent` int(11) NOT NULL,
   PRIMARY KEY (`idWasControledBy`),
@@ -1469,7 +1561,7 @@ CREATE TABLE `wasderivedfrom` (
   `idWasDerivedFrom` int(11) NOT NULL AUTO_INCREMENT,
   `DerivedOf` int(11) NOT NULL,
   `DerivedTo` int(11) NOT NULL,
-  `Type` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
+  `Type` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`idWasDerivedFrom`),
   KEY `fk_WasDerivedFrom_Workflow1_idx` (`DerivedOf`),
   KEY `fk_WasDerivedFrom_Workflow2_idx` (`DerivedTo`),
@@ -1500,7 +1592,7 @@ CREATE TABLE `wasendedby` (
   `Task_idTask` int(11) NOT NULL,
   `Activity_idActivity` int(11) NOT NULL,
   `DateEnded` datetime DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idWasEndedBy`),
   KEY `fk_WasStartedBy_Task1_idx` (`Task_idTask`),
   KEY `fk_WasEndedBy_Activity1_idx` (`Activity_idActivity`),
@@ -1559,7 +1651,7 @@ CREATE TABLE `wasgeneratedby` (
   `idWasGeneratedBy` int(11) NOT NULL AUTO_INCREMENT,
   `Experiment_Experiment` int(11) NOT NULL,
   `ResearchGroup_idResearchGroup` int(11) NOT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idWasGeneratedBy`),
   KEY `fk_Experiment_has_ResearchGroup_ResearchGroup1_idx` (`ResearchGroup_idResearchGroup`),
   KEY `fk_Experiment_has_ResearchGroup_Experiment1_idx` (`Experiment_Experiment`),
@@ -1586,7 +1678,7 @@ DROP TABLE IF EXISTS `wasinformedby`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wasinformedby` (
   `idWasInformedBy` int(11) NOT NULL AUTO_INCREMENT,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `Task_idTask` int(11) NOT NULL,
   `Activity_idActivity` int(11) NOT NULL,
   PRIMARY KEY (`idWasInformedBy`),
@@ -1618,7 +1710,7 @@ CREATE TABLE `wasrevisionof` (
   `idWasRevisionOf` int(11) NOT NULL AUTO_INCREMENT,
   `RevisionOf` int(11) NOT NULL,
   `RevisionTo` int(11) NOT NULL,
-  `Type` varchar(255) COLLATE utf8_swedish_ci DEFAULT 'Corrective',
+  `Type` varchar(255) CHARACTER SET utf8 DEFAULT 'Corrective',
   PRIMARY KEY (`idWasRevisionOf`),
   KEY `fk_WasDerivedFrom_Workflow1_idx` (`RevisionOf`),
   KEY `fk_WasDerivedFrom_Workflow2_idx` (`RevisionTo`),
@@ -1649,7 +1741,7 @@ CREATE TABLE `wasstartedby` (
   `Task_idTask` int(11) NOT NULL,
   `Activity_idActivity` int(11) NOT NULL,
   `DateStarted` datetime DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idWasStartedBy`),
   KEY `fk_WasStartedBy_Task1_idx` (`Task_idTask`),
   KEY `fk_WasStartedBy_Activity1_idx` (`Activity_idActivity`),
@@ -1706,12 +1798,12 @@ DROP TABLE IF EXISTS `workflow`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `workflow` (
   `idWorkflow` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Version` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Version` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `DateVersion` date DEFAULT NULL,
   `NumberStage` int(11) DEFAULT NULL,
-  `link` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `link` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `SGWfC_idSGWfC` int(11) DEFAULT NULL,
   PRIMARY KEY (`idWorkflow`),
   KEY `fk_Workflow_SGWfC1_idx` (`SGWfC_idSGWfC`),
@@ -1738,4 +1830,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-05 11:02:04
+-- Dump completed on 2016-02-16 16:22:57

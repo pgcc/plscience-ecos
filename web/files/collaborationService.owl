@@ -1103,6 +1103,16 @@
     
 
 
+    <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#statusParticipant -->
+
+    <owl:ObjectProperty rdf:about="&collaborationService;statusParticipant">
+        <rdfs:range rdf:resource="&collaborationService;Participant"/>
+        <rdfs:domain rdf:resource="&collaborationService;Status"/>
+        <rdfs:subPropertyOf rdf:resource="&collaborationService;collaborationProperties"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.nenc.ufjf.br/ontologies/collaboration/collaborationService#statusTask -->
 
     <owl:ObjectProperty rdf:about="&collaborationService;statusTask">
@@ -2033,23 +2043,17 @@
      -->
 
     <rdf:Description>
-        <rdf:type rdf:resource="&owl;AllDifferent"/>
-        <owl:distinctMembers rdf:parseType="Collection">
-            <rdf:Description rdf:about="&collaborationService;coupling_001"/>
-            <rdf:Description rdf:about="&collaborationService;coupling_002"/>
-            <rdf:Description rdf:about="&collaborationService;coupling_003"/>
-        </owl:distinctMembers>
-    </rdf:Description>
-    <rdf:Description>
         <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="&collaborationService;Activity"/>
-            <rdf:Description rdf:about="&collaborationService;Artifact"/>
-            <rdf:Description rdf:about="&collaborationService;Product"/>
-            <rdf:Description rdf:about="&collaborationService;Resource"/>
-            <rdf:Description rdf:about="&collaborationService;Share"/>
-            <rdf:Description rdf:about="&collaborationService;SharedSpace"/>
-            <rdf:Description rdf:about="&collaborationService;Task"/>
+            <rdf:Description rdf:about="&collaborationService;ApplicationDomain"/>
+            <rdf:Description rdf:about="&collaborationService;CollaborativeService"/>
+            <rdf:Description rdf:about="&collaborationService;CollaborativeServiceType"/>
+            <rdf:Description rdf:about="&collaborationService;Communication"/>
+            <rdf:Description rdf:about="&collaborationService;Cooperation"/>
+            <rdf:Description rdf:about="&collaborationService;Coordination"/>
+            <rdf:Description rdf:about="&collaborationService;GroupFormation"/>
+            <rdf:Description rdf:about="&collaborationService;LifeCycleStage"/>
+            <rdf:Description rdf:about="&collaborationService;Perception"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
@@ -2064,6 +2068,18 @@
     <rdf:Description>
         <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;Belief"/>
+            <rdf:Description rdf:about="&collaborationService;Competence"/>
+            <rdf:Description rdf:about="&collaborationService;Confidence"/>
+            <rdf:Description rdf:about="&collaborationService;Goal"/>
+            <rdf:Description rdf:about="&collaborationService;Group"/>
+            <rdf:Description rdf:about="&collaborationService;Motivation"/>
+            <rdf:Description rdf:about="&collaborationService;Participant"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
             <rdf:Description rdf:about="&collaborationService;Coupling"/>
             <rdf:Description rdf:about="&collaborationService;Deadline"/>
             <rdf:Description rdf:about="&collaborationService;Monitoring"/>
@@ -2074,15 +2090,46 @@
         </owl:members>
     </rdf:Description>
     <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;policy_001"/>
+            <rdf:Description rdf:about="&collaborationService;policy_002"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
         <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="&collaborationService;Belief"/>
-            <rdf:Description rdf:about="&collaborationService;Competence"/>
-            <rdf:Description rdf:about="&collaborationService;Confidence"/>
-            <rdf:Description rdf:about="&collaborationService;Goal"/>
-            <rdf:Description rdf:about="&collaborationService;Group"/>
-            <rdf:Description rdf:about="&collaborationService;Motivation"/>
-            <rdf:Description rdf:about="&collaborationService;Participant"/>
+            <rdf:Description rdf:about="&collaborationService;How"/>
+            <rdf:Description rdf:about="&collaborationService;What"/>
+            <rdf:Description rdf:about="&collaborationService;When"/>
+            <rdf:Description rdf:about="&collaborationService;Where"/>
+            <rdf:Description rdf:about="&collaborationService;Who"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;ApplicationSubDomain"/>
+            <rdf:Description rdf:about="&collaborationService;CollaborativeService"/>
+            <rdf:Description rdf:about="&collaborationService;CollaborativeServiceType"/>
+            <rdf:Description rdf:about="&collaborationService;Communication"/>
+            <rdf:Description rdf:about="&collaborationService;Cooperation"/>
+            <rdf:Description rdf:about="&collaborationService;Coordination"/>
+            <rdf:Description rdf:about="&collaborationService;GroupFormation"/>
+            <rdf:Description rdf:about="&collaborationService;LifeCycleStage"/>
+            <rdf:Description rdf:about="&collaborationService;Perception"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&collaborationService;Activity"/>
+            <rdf:Description rdf:about="&collaborationService;Artifact"/>
+            <rdf:Description rdf:about="&collaborationService;Product"/>
+            <rdf:Description rdf:about="&collaborationService;Resource"/>
+            <rdf:Description rdf:about="&collaborationService;Share"/>
+            <rdf:Description rdf:about="&collaborationService;SharedSpace"/>
+            <rdf:Description rdf:about="&collaborationService;Task"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
@@ -2105,47 +2152,10 @@
     <rdf:Description>
         <rdf:type rdf:resource="&owl;AllDifferent"/>
         <owl:distinctMembers rdf:parseType="Collection">
-            <rdf:Description rdf:about="&collaborationService;policy_001"/>
-            <rdf:Description rdf:about="&collaborationService;policy_002"/>
+            <rdf:Description rdf:about="&collaborationService;coupling_001"/>
+            <rdf:Description rdf:about="&collaborationService;coupling_002"/>
+            <rdf:Description rdf:about="&collaborationService;coupling_003"/>
         </owl:distinctMembers>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="&collaborationService;ApplicationDomain"/>
-            <rdf:Description rdf:about="&collaborationService;CollaborativeService"/>
-            <rdf:Description rdf:about="&collaborationService;CollaborativeServiceType"/>
-            <rdf:Description rdf:about="&collaborationService;Communication"/>
-            <rdf:Description rdf:about="&collaborationService;Cooperation"/>
-            <rdf:Description rdf:about="&collaborationService;Coordination"/>
-            <rdf:Description rdf:about="&collaborationService;GroupFormation"/>
-            <rdf:Description rdf:about="&collaborationService;LifeCycleStage"/>
-            <rdf:Description rdf:about="&collaborationService;Perception"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="&collaborationService;ApplicationSubDomain"/>
-            <rdf:Description rdf:about="&collaborationService;CollaborativeService"/>
-            <rdf:Description rdf:about="&collaborationService;CollaborativeServiceType"/>
-            <rdf:Description rdf:about="&collaborationService;Communication"/>
-            <rdf:Description rdf:about="&collaborationService;Cooperation"/>
-            <rdf:Description rdf:about="&collaborationService;Coordination"/>
-            <rdf:Description rdf:about="&collaborationService;GroupFormation"/>
-            <rdf:Description rdf:about="&collaborationService;LifeCycleStage"/>
-            <rdf:Description rdf:about="&collaborationService;Perception"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="&collaborationService;How"/>
-            <rdf:Description rdf:about="&collaborationService;What"/>
-            <rdf:Description rdf:about="&collaborationService;When"/>
-            <rdf:Description rdf:about="&collaborationService;Where"/>
-            <rdf:Description rdf:about="&collaborationService;Who"/>
-        </owl:members>
     </rdf:Description>
 </rdf:RDF>
 

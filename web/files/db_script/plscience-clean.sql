@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: plscience
 -- ------------------------------------------------------
--- Server version	5.6.27-log
+-- Server version	5.7.10-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -46,9 +46,9 @@ DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity` (
   `idActivity` int(11) NOT NULL AUTO_INCREMENT,
   `Entity_idEntity` int(11) NOT NULL,
-  `Name` varchar(45) COLLATE utf8_swedish_ci NOT NULL,
-  `Function` varchar(45) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `Function` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idActivity`),
   KEY `fk_Activity_Entity1_idx` (`Entity_idEntity`),
   CONSTRAINT `fk_Activity_Entity1` FOREIGN KEY (`Entity_idEntity`) REFERENCES `entity` (`idEntity`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -96,19 +96,27 @@ DROP TABLE IF EXISTS `agent`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `agent` (
   `idAgent` int(11) NOT NULL AUTO_INCREMENT,
-  `Login` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Email` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Password` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Name` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
+  `Login` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Email` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Password` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `Institution` int(11) NOT NULL,
-  `Function` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `role_id` bigint(20) NOT NULL,
+  `status_id` bigint(20) NOT NULL,
+  `competence_id` bigint(20) NOT NULL,
   PRIMARY KEY (`idAgent`),
   UNIQUE KEY `Login_UNIQUE` (`Login`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
   KEY `fk_Agent_Entity1_idx` (`Institution`),
-  CONSTRAINT `fk_Agent_Entity1` FOREIGN KEY (`Institution`) REFERENCES `entity` (`idEntity`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+  KEY `fk_Status_Agent_idx` (`status_id`),
+  KEY `fk_competence_agent_idx` (`competence_id`),
+  KEY `fk_role_agent_idx` (`role_id`),
+  CONSTRAINT `fk_Agent_Entity1` FOREIGN KEY (`Institution`) REFERENCES `entity` (`idEntity`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_competence_agent` FOREIGN KEY (`competence_id`) REFERENCES `competence` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_role_agent` FOREIGN KEY (`role_id`) REFERENCES `roler` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_status_agent` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +211,7 @@ CREATE TABLE `collaboration_service` (
   CONSTRAINT `cooperation_service_id_fka` FOREIGN KEY (`cooperation_service_id`) REFERENCES `cooperation_service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `coordination_service_id_fka` FOREIGN KEY (`coordination_service_id`) REFERENCES `coordination_service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `group_service_id_fka` FOREIGN KEY (`group_service_id`) REFERENCES `group_service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,7 +315,7 @@ CREATE TABLE `communication_service` (
   `mode` tinyint(1) NOT NULL DEFAULT '0',
   `interpretation` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -394,7 +402,7 @@ CREATE TABLE `concept_xml` (
   PRIMARY KEY (`id_concept_xml`),
   KEY `id_struct_xml_fka_idx` (`id_struct_xml`),
   CONSTRAINT `id_struct_xml_fka` FOREIGN KEY (`id_struct_xml`) REFERENCES `interoperability_struct_xml` (`id_struct_xml`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -414,7 +422,7 @@ CREATE TABLE `cooperation_service` (
   `resource` tinyint(1) NOT NULL DEFAULT '0',
   `share` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -434,7 +442,7 @@ CREATE TABLE `coordination_service` (
   `monitoring` tinyint(1) NOT NULL DEFAULT '0',
   `coupling` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -446,9 +454,9 @@ DROP TABLE IF EXISTS `entity`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `entity` (
   `idEntity` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Acronym` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Acronym` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idEntity`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -465,11 +473,11 @@ CREATE TABLE `experiment` (
   `Entity_idEntity` int(11) DEFAULT NULL,
   `Activity_idActivity` int(11) DEFAULT NULL,
   `idAgent` int(11) DEFAULT NULL,
-  `Name` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `DateStarted` date DEFAULT NULL,
   `DateEnded` date DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Version` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Version` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `number_stages` int(11) DEFAULT NULL,
   `parsifal_review` int(11) DEFAULT NULL,
   PRIMARY KEY (`idExperiment`),
@@ -502,6 +510,23 @@ CREATE TABLE `experiment_services` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `group_participant`
+--
+
+DROP TABLE IF EXISTS `group_participant`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_participant` (
+  `participant_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`participant_id`,`group_id`),
+  KEY `group_id_fkb_idx` (`group_id`),
+  CONSTRAINT `group_id_fkb` FOREIGN KEY (`group_id`) REFERENCES `group_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `participant_id_group_fka` FOREIGN KEY (`participant_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `group_service`
 --
 
@@ -518,7 +543,25 @@ CREATE TABLE `group_service` (
   `competence` tinyint(1) NOT NULL DEFAULT '0',
   `goal` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `group_user`
+--
+
+DROP TABLE IF EXISTS `group_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_name` varchar(45) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `owner_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `owner_agent_fka_idx` (`owner_id`),
+  CONSTRAINT `owner_agent_fka` FOREIGN KEY (`owner_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -557,7 +600,7 @@ CREATE TABLE `interoperability_struct_xml` (
   `first_type_service` varchar(45) NOT NULL,
   `second_type_service` varchar(45) NOT NULL,
   PRIMARY KEY (`id_struct_xml`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -571,13 +614,34 @@ CREATE TABLE `ispartof` (
   `idIsPartOf` int(11) NOT NULL AUTO_INCREMENT,
   `Agent_idAgent` int(11) DEFAULT NULL,
   `ResearchGroup_idResearchGroup` int(11) DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idIsPartOf`),
   KEY `fk_Agent_has_ResearchGroup_ResearchGroup1_idx` (`ResearchGroup_idResearchGroup`),
   KEY `fk_Agent_has_ResearchGroup_Agent1_idx` (`Agent_idAgent`),
   CONSTRAINT `fk_Agent_has_ResearchGroup_Agent1` FOREIGN KEY (`Agent_idAgent`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Agent_has_ResearchGroup_ResearchGroup1` FOREIGN KEY (`ResearchGroup_idResearchGroup`) REFERENCES `researchgroup` (`idResearchGroup`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `message_service`
+--
+
+DROP TABLE IF EXISTS `message_service`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `message_service` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `message` varchar(255) NOT NULL,
+  `date_message` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `issuer_id` int(11) NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `issuer_id_agent_fkc_idx` (`issuer_id`),
+  KEY `receiver_id_agent_fkc_idx` (`receiver_id`),
+  CONSTRAINT `issuer_id_agent_fkc` FOREIGN KEY (`issuer_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `receiver_id_agent_fkc` FOREIGN KEY (`receiver_id`) REFERENCES `agent` (`idAgent`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -641,8 +705,8 @@ DROP TABLE IF EXISTS `researchgroup`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `researchgroup` (
   `idResearchGroup` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `Agent_idAgent_chef` int(11) DEFAULT NULL,
   PRIMARY KEY (`idResearchGroup`),
   KEY `fk_Agent_has_Expiriment_Agent1_idx` (`Agent_idAgent_chef`),
@@ -724,7 +788,7 @@ CREATE TABLE `status` (
   `status_name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -787,9 +851,9 @@ DROP TABLE IF EXISTS `task`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `task` (
   `idTask` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Type` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Type` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idTask`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -911,7 +975,7 @@ CREATE TABLE `used` (
   `idUsed` int(11) NOT NULL AUTO_INCREMENT,
   `Task_idTask` int(11) NOT NULL,
   `Workflow_idWorkflow` int(11) NOT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idUsed`),
   KEY `fk_WasStartedBy_Task1_idx` (`Task_idTask`),
   KEY `fk_Used_Workflow1_idx` (`Workflow_idWorkflow`),
@@ -931,7 +995,7 @@ CREATE TABLE `wasassociatedwith` (
   `idWasAssociatedWith` int(11) NOT NULL AUTO_INCREMENT,
   `Workflow_idWorkflow` int(11) DEFAULT NULL,
   `Experiment_Experiment` int(11) DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idWasAssociatedWith`),
   KEY `fk_Workflow_has_Expiriment_Expiriment1_idx` (`Experiment_Experiment`),
   KEY `fk_Workflow_has_Expiriment_Workflow1_idx` (`Workflow_idWorkflow`),
@@ -949,7 +1013,7 @@ DROP TABLE IF EXISTS `wascontroledby`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wascontroledby` (
   `idWasControledBy` int(11) NOT NULL AUTO_INCREMENT,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `Activity_idActivity` int(11) NOT NULL,
   `Agent_idAgent` int(11) NOT NULL,
   PRIMARY KEY (`idWasControledBy`),
@@ -971,7 +1035,7 @@ CREATE TABLE `wasderivedfrom` (
   `idWasDerivedFrom` int(11) NOT NULL AUTO_INCREMENT,
   `DerivedOf` int(11) NOT NULL,
   `DerivedTo` int(11) NOT NULL,
-  `Type` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
+  `Type` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`idWasDerivedFrom`),
   KEY `fk_WasDerivedFrom_Workflow1_idx` (`DerivedOf`),
   KEY `fk_WasDerivedFrom_Workflow2_idx` (`DerivedTo`),
@@ -992,7 +1056,7 @@ CREATE TABLE `wasendedby` (
   `Task_idTask` int(11) NOT NULL,
   `Activity_idActivity` int(11) NOT NULL,
   `DateEnded` datetime DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idWasEndedBy`),
   KEY `fk_WasStartedBy_Task1_idx` (`Task_idTask`),
   KEY `fk_WasEndedBy_Activity1_idx` (`Activity_idActivity`),
@@ -1032,7 +1096,7 @@ CREATE TABLE `wasgeneratedby` (
   `idWasGeneratedBy` int(11) NOT NULL AUTO_INCREMENT,
   `Experiment_Experiment` int(11) NOT NULL,
   `ResearchGroup_idResearchGroup` int(11) NOT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idWasGeneratedBy`),
   KEY `fk_Experiment_has_ResearchGroup_ResearchGroup1_idx` (`ResearchGroup_idResearchGroup`),
   KEY `fk_Experiment_has_ResearchGroup_Experiment1_idx` (`Experiment_Experiment`),
@@ -1050,7 +1114,7 @@ DROP TABLE IF EXISTS `wasinformedby`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wasinformedby` (
   `idWasInformedBy` int(11) NOT NULL AUTO_INCREMENT,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `Task_idTask` int(11) NOT NULL,
   `Activity_idActivity` int(11) NOT NULL,
   PRIMARY KEY (`idWasInformedBy`),
@@ -1072,7 +1136,7 @@ CREATE TABLE `wasrevisionof` (
   `idWasRevisionOf` int(11) NOT NULL AUTO_INCREMENT,
   `RevisionOf` int(11) NOT NULL,
   `RevisionTo` int(11) NOT NULL,
-  `Type` varchar(255) COLLATE utf8_swedish_ci DEFAULT 'Corrective',
+  `Type` varchar(255) CHARACTER SET utf8 DEFAULT 'Corrective',
   PRIMARY KEY (`idWasRevisionOf`),
   KEY `fk_WasDerivedFrom_Workflow1_idx` (`RevisionOf`),
   KEY `fk_WasDerivedFrom_Workflow2_idx` (`RevisionTo`),
@@ -1093,7 +1157,7 @@ CREATE TABLE `wasstartedby` (
   `Task_idTask` int(11) NOT NULL,
   `Activity_idActivity` int(11) NOT NULL,
   `DateStarted` datetime DEFAULT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`idWasStartedBy`),
   KEY `fk_WasStartedBy_Task1_idx` (`Task_idTask`),
   KEY `fk_WasStartedBy_Activity1_idx` (`Activity_idActivity`),
@@ -1131,12 +1195,12 @@ DROP TABLE IF EXISTS `workflow`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `workflow` (
   `idWorkflow` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) COLLATE utf8_swedish_ci NOT NULL,
-  `Description` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `Version` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Description` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Version` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `DateVersion` date DEFAULT NULL,
   `NumberStage` int(11) DEFAULT NULL,
-  `link` varchar(255) COLLATE utf8_swedish_ci DEFAULT NULL,
+  `link` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `SGWfC_idSGWfC` int(11) DEFAULT NULL,
   PRIMARY KEY (`idWorkflow`),
   KEY `fk_Workflow_SGWfC1_idx` (`SGWfC_idSGWfC`),
@@ -1153,4 +1217,4 @@ CREATE TABLE `workflow` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-05 11:03:00
+-- Dump completed on 2016-02-16 16:23:42

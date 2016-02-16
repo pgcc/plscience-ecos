@@ -841,6 +841,106 @@
 	
 	
 <!-- new individuals -->
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_WsUserList02">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>UserList</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://www.ufrj.br/ecos-plscience/WSDL/WsUserList</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_WsUserList02">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>User List</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>User List</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>User List</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Listar usuarios de acordo com os parametros: funcao e grupo.</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_WsUserList02">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I5</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>2048</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>16</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_WsUserList02">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>4</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>23-11-2015</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Usuarios da instacia do PL-Science da UFRJ</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Este servico retorna uma UserList. Produzido por pesquisadores do Nucleo de Engenharia do Conhecimento da UFJF e complementado pelo grupo de pesquisa da UFRJ. Possui licenca publica. A partir de um parametro que descreve o tipo de lista a ser retornada, esse servico produz uma lista com os usuarios que estao utilizando o ECOS PL-Science. Ambiente de teste: maquina com processador Core I5, 16 GB RAM, 2048 GB ROM e SO Linux. Publicado em 23-11-2015.</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Lista de Usuarios</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Listar usuarios de acordo com os parametros: funcao e grupo.</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFRJ</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Servico de Colaboracao</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_WsUserList02">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Escalabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_WsUserList02"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_WsUserList02"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_WsUserList02">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_WsUserList02"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_WsUserList02"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_WsUserList02"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_WsUserList01">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
+<PLScienceServiceDescription:hasReturn>UserList</PLScienceServiceDescription:hasReturn>
+<PLScienceServiceDescription:hasName>http://www.nenc.ufjf.br/plscience/WSDL/WsUserList</PLScienceServiceDescription:hasName>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Semantic_WsUserList01">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Semantic"/>
+<PLScienceServiceDescription:hasSemanticReception>User List</PLScienceServiceDescription:hasSemanticReception>
+<PLScienceServiceDescription:hasSemanticReturn>User List</PLScienceServiceDescription:hasSemanticReturn>
+<PLScienceServiceDescription:hasSemanticRepresentation>User List</PLScienceServiceDescription:hasSemanticRepresentation>
+ <PLScienceServiceDescription:hasFunctionalRequirements>Listar usuarios de acordo com os parametros: status e funcao.</PLScienceServiceDescription:hasFunctionalRequirements>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Hardware_WsUserList01">
+ <rdf:type rdf:resource="&PLScienceServiceDescription;Hardware"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasCPU>I7</PLScienceServiceDescription:hasCPU>
+<PLScienceServiceDescription:hasROM>1024</PLScienceServiceDescription:hasROM>
+<PLScienceServiceDescription:hasRAM>24</PLScienceServiceDescription:hasRAM>
+<PLScienceServiceDescription:hasOperationalSystem>Linux</PLScienceServiceDescription:hasOperationalSystem>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Context_WsUserList01">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Context"/>
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasLicense>Public</PLScienceServiceDescription:hasLicense>
+ <PLScienceServiceDescription:hasReputation>5</PLScienceServiceDescription:hasReputation>
+<PLScienceServiceDescription:when>16-03-2015</PLScienceServiceDescription:when>
+<PLScienceServiceDescription:hasRestriction>Usuarios da instacia do PL-Science da UFJF</PLScienceServiceDescription:hasRestriction>
+<PLScienceServiceDescription:hasComments>Este servico retorna uma UserList. Produzido por pesquisadores do Nucleo de Engenharia do Conhecimento da UFJF, possui licenca publica. A partir de um parametro que descreve o tipo de lista a ser retornada, esse servico produz uma lista com os usuarios que estao utilizando o ECOS PL-Science. Ambiente de teste: maquina com processador Core I7, 24 GB RAM, 1024 GB ROM e SO Linux. Publicado em 16-03-2015.</PLScienceServiceDescription:hasComments>
+<PLScienceServiceDescription:what>null</PLScienceServiceDescription:what>
+<PLScienceServiceDescription:hasArtifact>Lista de Usuarios</PLScienceServiceDescription:hasArtifact>
+<PLScienceServiceDescription:how>Listar usuarios de acordo com os parametros: status e funcao.</PLScienceServiceDescription:how>
+<PLScienceServiceDescription:where>UFJF</PLScienceServiceDescription:where>
+ <PLScienceServiceDescription:hasDomain>Servico de Colaboracao</PLScienceServiceDescription:hasDomain>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Pragmatic_WsUserList01">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Pragmatic"/>
+<PLScienceServiceDescription:hasNonFunctionalRequirement>Escalabilidade</PLScienceServiceDescription:hasNonFunctionalRequirement>
+<PLScienceServiceDescription:includesContext rdf:resource="&PLScienceServiceDescription;Context_WsUserList01"/><PLScienceServiceDescription:includesHardware rdf:resource="&PLScienceServiceDescription;Hardware_WsUserList01"/></owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Service_WsUserList01">
+<rdf:type rdf:resource="&PLScienceServiceDescription;Service"/>
+<PLScienceServiceDescription:includesPragmatic rdf:resource="&PLScienceServiceDescription;Pragmatic_WsUserList01"/>
+<PLScienceServiceDescription:includesSemantic rdf:resource="&PLScienceServiceDescription;Semantic_WsUserList01"/>
+<PLScienceServiceDescription:includesSyntactic rdf:resource="&PLScienceServiceDescription;Syntatic_WsUserList01"/>
+</owl:NamedIndividual>
+
 <owl:NamedIndividual rdf:about="&PLScienceServiceDescription;Syntatic_bloodOTPService">
 <rdf:type rdf:resource="&PLScienceServiceDescription;Syntactic"/>
 <PLScienceServiceDescription:hasReturn>stringtype</PLScienceServiceDescription:hasReturn>

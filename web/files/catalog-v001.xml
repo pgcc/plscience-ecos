@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1455642920416" name="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl" uri="CollaborativePL-ScienceOntology.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1455642920416" name="http://plscience.superdignus.com/SequenceAligningOntology" uri="SequenceAligningOntologyv1b.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1455642920416" name="http://www.nenc.ufjf.br/ontologies/collaborationOntology" uri="collaborationService.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1455642920416" name="http://www.semanticweb.org/fran/ontologies/2014/11/untitled-ontology-27" uri="ServiceDescriptionInf.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1455642920416" name="http://www.w3.org/ns/prov" uri="prov-oext.owl"/>
+    </group>
+</catalog>
