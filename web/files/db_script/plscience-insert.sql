@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost    Database: plscience
+-- Host: 127.0.0.1    Database: plscience
 -- ------------------------------------------------------
--- Server version	5.7.10-log
+-- Server version	5.5.47
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -59,7 +59,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `agent` WRITE;
 /*!40000 ALTER TABLE `agent` DISABLE KEYS */;
-INSERT INTO `agent` VALUES (1,'tassio','tassio.sirqueira@ice.ufjf.br','f10354719639a6e97c1ccc7ed0c5f2d3','Tassio Ferenzini M. Sirqueira',1,'Aluno de Pós-graduação',3,2,4),(2,'regina','regina@acessa.com','221182760f5b980c97c7a74a94d57364','Regina Braga',1,'Professora de Pós-graduação',1,2,4),(3,'humberto','humbertodalpra@gmail.com','8767bbc52e71900d1f3a50b53196d0e2','Humberto Dalpra',1,'Aluno de Pós-Graduação',3,2,4),(4,'marco','maraujo@acessa.com','f5888d0bb58d611107e11f7cbc41c97a','Marco Antônio Pereira Araújo',1,'Professor de Pós-graduação',1,2,4),(5,'admin','admin@ecos.ufjf.br','21232f297a57a5a743894a0e4a801fc3','Admin System',1,'Admin System',1,1,1),(6,'guilherme','guilherme@ice.ufjf.br','192309aaddc500140db28668e1bbd8b5','Guilherme Martins',1,'Master Student.',2,1,4);
+INSERT INTO `agent` VALUES (1,'tassio','tassio.sirqueira@ice.ufjf.br','f10354719639a6e97c1ccc7ed0c5f2d3','Tassio',1,'Aluno de Pós-graduação',1,1,1),(2,'regina','regina@acessa.com','221182760f5b980c97c7a74a94d57364','Regina Braga',1,'Professora de Pós-graduação',1,2,1),(3,'humberto','humbertodalpra@gmail.com','8767bbc52e71900d1f3a50b53196d0e2','Humberto Dalpra',1,'Aluno de Pós-Graduação',1,2,1),(4,'marco','maraujo@acessa.com','f5888d0bb58d611107e11f7cbc41c97a','Marco Antônio Pereira Araújo',1,'Professor de Pós-graduação',1,1,1),(5,'phillipe','phillipe.marques@gmail.com','e10adc3949ba59abbe56e057f20f883e','Phillipe',1,'Teste',1,1,1),(21,'joao','joao@mail.com','e10adc3949ba59abbe56e057f20f883e','João',1,'Teste',1,1,3),(22,'maria','maria@mail.com','e10adc3949ba59abbe56e057f20f883e','Maria',1,'Teste',2,2,3),(23,'miguel','miguel@mail.com','e10adc3949ba59abbe56e057f20f883e','Miguel',1,'Teste',2,1,3),(24,'alice','alice@mail.com','e10adc3949ba59abbe56e057f20f883e','Alice',1,'Teste',2,2,1),(25,'paula','paula@mail.com','e10adc3949ba59abbe56e057f20f883e','Paula',1,'Teste',1,1,2);
 /*!40000 ALTER TABLE `agent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +105,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `collaboration_service` WRITE;
 /*!40000 ALTER TABLE `collaboration_service` DISABLE KEYS */;
-INSERT INTO `collaboration_service` VALUES (1,1,1,1,1,1,'User List UFJF','User List UFJF members.',0),(2,2,2,2,2,1,'User List USP','User List USP.',0),(3,3,3,3,3,1,'Teste','Teste de cadastro de serviço.',0);
+INSERT INTO `collaboration_service` VALUES (1,1,1,1,1,1,'User List UFJF','User List UFJF members.',0),(2,2,2,2,2,1,'User List USP','User List USP.',0);
 /*!40000 ALTER TABLE `collaboration_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +161,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `communication_service` WRITE;
 /*!40000 ALTER TABLE `communication_service` DISABLE KEYS */;
-INSERT INTO `communication_service` VALUES (1,0,0,0,0,0,0,0,0,0,0,0,0),(2,0,0,0,0,0,0,0,0,0,0,0,0),(3,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO `communication_service` VALUES (1,0,0,0,0,0,0,0,0,0,0,0,0),(2,0,0,0,0,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `communication_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +209,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `concept_xml` WRITE;
 /*!40000 ALTER TABLE `concept_xml` DISABLE KEYS */;
-INSERT INTO `concept_xml` VALUES (1,'Group Service','Group',NULL,0,0,NULL,NULL,1),(2,'Group Service','Participant',NULL,0,0,NULL,NULL,1),(3,'Coordination Service','Role',100,1,0,'Manager','Manager',1),(4,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',1),(5,'Coordination Service','Status',NULL,0,0,NULL,NULL,1),(6,'Group Service','Group',NULL,0,1,NULL,NULL,2),(7,'Group Service','Participant',NULL,0,0,NULL,NULL,2),(8,'Coordination Service','Role',100,1,0,'Manager','Manager',2),(9,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',2),(10,'Coordination Service','Status',NULL,0,0,NULL,NULL,2),(11,'Group Service','Group',NULL,0,0,NULL,NULL,3),(12,'Group Service','Participant',NULL,0,0,NULL,NULL,3),(13,'Coordination Service','Role',100,1,0,'Manager','Manager',3),(14,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',3),(15,'Coordination Service','Status',NULL,0,0,NULL,NULL,3),(16,'Group Service','Group',NULL,0,1,NULL,NULL,4),(17,'Group Service','Participant',NULL,0,0,NULL,NULL,4),(18,'Coordination Service','Role',100,1,0,'Manager','Manager',4),(19,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',4),(20,'Coordination Service','Status',NULL,0,0,NULL,NULL,4),(21,'Group Service','Group',NULL,0,0,NULL,NULL,5),(22,'Group Service','Participant',NULL,0,0,NULL,NULL,5),(23,'Coordination Service','Role',76.32,1,1,'Scientist','Researcher',5),(24,'Coordination Service','Status',NULL,0,0,NULL,NULL,5),(25,'Group Service','Group',NULL,0,0,NULL,NULL,6),(26,'Group Service','Participant',NULL,0,0,NULL,NULL,6),(27,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',6),(28,'Coordination Service','Status',NULL,0,0,NULL,NULL,6);
+INSERT INTO `concept_xml` VALUES (1,'Group Service','Group',NULL,0,0,NULL,NULL,1),(2,'Group Service','Participant',NULL,0,0,NULL,NULL,1),(3,'Coordination Service','Role',100,1,0,'Manager','Manager',1),(4,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',1),(5,'Coordination Service','Status',NULL,0,0,NULL,NULL,1),(6,'Group Service','Group',NULL,0,1,NULL,NULL,2),(7,'Group Service','Participant',NULL,0,0,NULL,NULL,2),(8,'Coordination Service','Role',100,1,0,'Manager','Manager',2),(9,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',2),(10,'Coordination Service','Status',NULL,0,0,NULL,NULL,2),(11,'Group Service','Group',NULL,0,0,NULL,NULL,3),(12,'Group Service','Participant',NULL,0,0,NULL,NULL,3),(13,'Coordination Service','Role',100,1,0,'Manager','Manager',3),(14,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',3),(15,'Coordination Service','Status',NULL,0,0,NULL,NULL,3),(16,'Group Service','Group',NULL,0,1,NULL,NULL,4),(17,'Group Service','Participant',NULL,0,0,NULL,NULL,4),(18,'Coordination Service','Role',100,1,0,'Manager','Manager',4),(19,'Coordination Service','Role',76.32,1,0,'Scientist','Researcher',4),(20,'Coordination Service','Status',NULL,0,0,NULL,NULL,4);
 /*!40000 ALTER TABLE `concept_xml` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +219,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `cooperation_service` WRITE;
 /*!40000 ALTER TABLE `cooperation_service` DISABLE KEYS */;
-INSERT INTO `cooperation_service` VALUES (1,0,0,0,0,0,0,0),(2,0,0,0,0,0,0,0),(3,0,0,0,1,0,0,0);
+INSERT INTO `cooperation_service` VALUES (1,0,0,0,0,0,0,0),(2,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `cooperation_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,7 +229,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `coordination_service` WRITE;
 /*!40000 ALTER TABLE `coordination_service` DISABLE KEYS */;
-INSERT INTO `coordination_service` VALUES (1,0,0,1,1,0,0,0),(2,0,0,1,1,0,0,0),(3,0,1,1,1,0,0,0);
+INSERT INTO `coordination_service` VALUES (1,0,0,1,1,0,0,0),(2,0,0,1,1,0,0,0);
 /*!40000 ALTER TABLE `coordination_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +269,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `group_service` WRITE;
 /*!40000 ALTER TABLE `group_service` DISABLE KEYS */;
-INSERT INTO `group_service` VALUES (1,1,0,0,0,1,1,0),(2,1,0,0,0,1,1,0),(3,1,0,0,0,0,0,1);
+INSERT INTO `group_service` VALUES (1,1,0,0,0,1,1,0),(2,1,0,0,0,1,1,0);
 /*!40000 ALTER TABLE `group_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -289,7 +289,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `interoperability_struct_xml` WRITE;
 /*!40000 ALTER TABLE `interoperability_struct_xml` DISABLE KEYS */;
-INSERT INTO `interoperability_struct_xml` VALUES (1,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(2,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(3,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(4,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(5,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(6,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List');
+INSERT INTO `interoperability_struct_xml` VALUES (1,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(2,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(3,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List'),(4,'1-User List UFJF-2-User List USP-100',1,2,100,'User List','User List');
 /*!40000 ALTER TABLE `interoperability_struct_xml` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +299,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `ispartof` WRITE;
 /*!40000 ALTER TABLE `ispartof` DISABLE KEYS */;
-INSERT INTO `ispartof` VALUES (1,2,1,'Professora de Pós-graduação'),(2,1,1,'Aluno de Pós-graduação'),(3,3,1,'Aluno de Pós-graduação'),(4,4,1,'Professor de Pós-graduação');
+INSERT INTO `ispartof` VALUES (1,5,4,'Aluno'),(2,1,1,'Aluno de Pós-graduação'),(3,3,1,'Aluno de Pós-graduação'),(4,4,1,'Professor de Pós-graduação'),(7,21,4,''),(8,22,4,''),(9,23,5,''),(10,24,5,''),(11,24,6,''),(12,5,6,'Aluno'),(15,5,5,''),(16,25,4,'');
 /*!40000 ALTER TABLE `ispartof` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -347,7 +347,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `researchgroup` WRITE;
 /*!40000 ALTER TABLE `researchgroup` DISABLE KEYS */;
-INSERT INTO `researchgroup` VALUES (1,'NEnC','Núcleo de Engenharia do Conhecimento',2);
+INSERT INTO `researchgroup` VALUES (1,'NEnC','Núcleo de Engenharia do Conhecimento',2),(4,'Amigos','Meus Amigos',5),(5,'Teste de Software','Pessoas que trabalham com Teste de Software',3),(6,'Parceiros UFRJ','Parceiros de pesquisa da UFRJ',1);
 /*!40000 ALTER TABLE `researchgroup` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,7 +357,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `role_coordination_service` WRITE;
 /*!40000 ALTER TABLE `role_coordination_service` DISABLE KEYS */;
-INSERT INTO `role_coordination_service` VALUES (2,1),(3,1),(1,2),(3,2),(2,3),(1,4);
+INSERT INTO `role_coordination_service` VALUES (1,1),(2,1),(1,2),(2,3);
 /*!40000 ALTER TABLE `role_coordination_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -397,7 +397,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `status` WRITE;
 /*!40000 ALTER TABLE `status` DISABLE KEYS */;
-INSERT INTO `status` VALUES (1,'Online','Status of a person that is using the system.'),(2,'Offline','Status of a person that is not using the system.');
+INSERT INTO `status` VALUES (1,'Online','Online'),(2,'Offline','Offline');
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,7 +426,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `steps_service` WRITE;
 /*!40000 ALTER TABLE `steps_service` DISABLE KEYS */;
-INSERT INTO `steps_service` VALUES (1,201),(2,201),(2,251),(2,301),(2,351),(3,201),(3,251),(3,301),(3,351);
+INSERT INTO `steps_service` VALUES (1,201),(2,201),(2,251),(2,301),(2,351);
 /*!40000 ALTER TABLE `steps_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -619,4 +619,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-16 17:13:44
+-- Dump completed on 2016-02-18 16:03:54
