@@ -51,6 +51,15 @@ header h1 {
     font-weight: bold;
 }
 
+/*Remove borders in panelGrid*/
+.outerpanelgrid>tbody>tr{
+    border: none !important;
+}
+
+.outerpanelgrid>tbody>tr>td{
+    border: none !important;
+}
+
 #main {
     margin-bottom: 20px;
 }
@@ -64,4 +73,28 @@ header h1 {
   -webkit-box-sizing: content-box;
      -moz-box-sizing: content-box;
           box-sizing: content-box;
+}
+
+/*Prime Face - to remove border in p:datalist*/
+.datalist-noborder .ui-datalist-content {
+    border: 0px !important;
+    border: none !important;
+}
+
+.datalist-noborder .ui-widget-content {
+    border: 0px !important;
+    border: none !important;
+}
+
+.accordionMenu .ui-menu {
+ width:100% !important; 
+ 
+}
+.accordionMenu .ui-accordion-content {
+ padding:0 !important;
+ overflow:inherit !important;
+}
+
+.accordionMenu .ui-helper-clearfix:after {
+ height:inherit !important;
 }

@@ -1,10 +1,16 @@
 package br.ufjf.pgcc.plscience.dao;
 
+import br.ufjf.pgcc.plscience.controller.UserLoginBean;
+import br.ufjf.pgcc.plscience.model.Agent;
 import br.ufjf.pgcc.plscience.model.IsPartOf;
 import br.ufjf.pgcc.plscience.util.PersistenceUtil;
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -71,4 +77,49 @@ public class IsPartOfDAO extends PersistenceUtil{
         return sGWfC;
     }
 
+    public List<Integer> buscarGruposUsuario() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext(); 
+        HttpSession session = (HttpSession) externalContext.getSession(true);
+        UserLoginBean userLoginBean = (UserLoginBean) session.getAttribute("userLoginBean");
+        
+        int idLog = 0;
+        
+        if(userLoginBean.getAgentLog() != null) {
+            idLog = userLoginBean.getAgentLog().getIdAgent();
+        }        
+       
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT i FROM IsPartOf AS i WHERE i.agentidAgent.idAgent = :idLog");        
+        query.setParameter("idLog", idLog);
+
+        List<IsPartOf> isList = query.getResultList();
+        List<Integer> idGroupList = new ArrayList<>();
+        
+        if(isList != null) {
+            for(IsPartOf is : isList) {
+                idGroupList.add(is.getResearchGroupidResearchGroup().getIdResearchGroup());
+            }
+        }
+        
+        return idGroupList;
+    }
+    
+    public List<IsPartOf> listarPessoasPorIdGrupo(Integer idGroup) {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext(); 
+        HttpSession session = (HttpSession) externalContext.getSession(true);
+        UserLoginBean userLoginBean = (UserLoginBean) session.getAttribute("userLoginBean");
+        
+        int idLog = 0;
+        
+        if(userLoginBean.getAgentLog() != null) {
+            idLog = userLoginBean.getAgentLog().getIdAgent();
+        }        
+       
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT i FROM IsPartOf AS i WHERE i.researchGroupidResearchGroup.idResearchGroup = :idGroup AND i.agentidAgent.idAgent != :idLog");        
+        query.setParameter("idLog", idLog);
+        query.setParameter("idGroup", idGroup);        
+       
+        return query.getResultList();
+    }
 }

@@ -25,8 +25,11 @@ public class ServiceControllerListUserBean implements Serializable {
     private static final long serialVersionUID = 1L;
     
     //Serviços de Lista de Usuário
-    private boolean listUserA = false;
-    private boolean listUserB = true;
+    //private boolean listUserA = false;
+    //private boolean listUserB = true;
+    
+    private boolean listUserA = true;
+    private boolean listUserB = false;
     
     /**
      * @return the listUserA

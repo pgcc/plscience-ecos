@@ -1,6 +1,7 @@
 package br.ufjf.pgcc.plscience.controller;
 
 import br.ufjf.pgcc.plscience.dao.AgentDAO;
+import br.ufjf.pgcc.plscience.dao.IsPartOfDAO;
 import br.ufjf.pgcc.plscience.model.Agent;
 import br.ufjf.pgcc.plscience.util.EncryptPasswordUtil;
 import java.util.ArrayList;
@@ -37,21 +38,39 @@ public class AgentBean implements Serializable {
     Agent agent = new Agent();
 
     List agents = new ArrayList();
-    
+
     //Armazena todas as pessoas cadastradas menos a pessoa logada.
     private List agentsLog = new ArrayList();
+    private List agentsGroup = new ArrayList();
+    private List agentsIdGroup = new ArrayList();
+    private List agentsOfGroup = new ArrayList();
+    //private 
 
     public AgentBean() {
         agents = new AgentDAO().buscarTodas();
-        agentsLog = new AgentDAO().buscarTodasMenosLogada();
         agent = new Agent();
+        
+        agentsLog = new AgentDAO().buscarTodasMenosLogada();
+        agentsGroup = new AgentDAO().buscarTodasPorIdGrupo();
+        agentsIdGroup = new IsPartOfDAO().buscarGruposUsuario();
+        
+        if(agentsIdGroup != null) {
+            for (Object i : agentsIdGroup) {
+                agentsOfGroup.add(new IsPartOfDAO().listarPessoasPorIdGrupo((Integer) i));
+            }
+        }
     }
 
     public void uptadeAgentsLog() {
         agentsLog.clear();
         agentsLog = new AgentDAO().buscarTodasMenosLogada();
     }
-    
+
+    public void updateAgentsGroup() {
+        getAgentsGroup().clear();
+        setAgentsGroup(new AgentDAO().buscarTodasPorIdGrupo());
+    }
+
     public void record(ActionEvent actionEvent) {
         new AgentDAO().persistir(agent);
         agents = new AgentDAO().buscarTodas();
@@ -66,10 +85,10 @@ public class AgentBean implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/plscience/faces/login.xhtml");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Scientist registered with success!"));
         } catch (HibernateException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
         }
     }
-    
+
     public void exclude(ActionEvent actionEvent) {
         new AgentDAO().remover(agent);
         agents = new AgentDAO().buscarTodas();
@@ -105,6 +124,20 @@ public class AgentBean implements Serializable {
     public void setAgentsLog(List agentsLog) {
         this.agentsLog = agentsLog;
     }
+
+    /**
+     * @return the agentsGroup
+     */
+    public List getAgentsGroup() {
+        return agentsGroup;
+    }
+
+    /**
+     * @param agentsGroup the agentsGroup to set
+     */
+    public void setAgentsGroup(List agentsGroup) {
+        this.agentsGroup = agentsGroup;
+    }
     
     public void postProcessXLS(Object document) {
         HSSFWorkbook wb = (HSSFWorkbook) document;
@@ -130,6 +163,34 @@ public class AgentBean implements Serializable {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         //String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "demo" + File.separator + "images" + File.separator + "prime_logo.png";
 
-       // pdf.add(Image.getInstance(logo));
+        // pdf.add(Image.getInstance(logo));
+    }
+
+    /**
+     * @return the agentsIdGroup
+     */
+    public List getAgentsIdGroup() {
+        return agentsIdGroup;
+    }
+
+    /**
+     * @param agentsIdGroup the agentsIdGroup to set
+     */
+    public void setAgentsIdGroup(List agentsIdGroup) {
+        this.agentsIdGroup = agentsIdGroup;
+    }
+
+    /**
+     * @return the agentsOfGroup
+     */
+    public List getAgentsOfGroup() {
+        return agentsOfGroup;
+    }
+
+    /**
+     * @param agentsOfGroup the agentsOfGroup to set
+     */
+    public void setAgentsOfGroup(List agentsOfGroup) {
+        this.agentsOfGroup = agentsOfGroup;
     }
 }

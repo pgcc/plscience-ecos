@@ -3,21 +3,90 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-    <h:form>
-        <p:dataTable var="lista" value="#{agentBean.agents}"
-                             id="tabelaAgent" emptyMessage="No records found"
-                             paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             paginator="true" rows="10" rowsPerPageTemplate="10,25,50,100,9999" style="width:100%">
+    <h:form id="form">     
+        <p:accordionPanel styleClass="accordionMenu">
+        <p:tab title="All">
+        <p:dataList  id="dataListAgentLog" var="agent" value="#{agentBean.agentsLog}" type="definition" style="alignment-baseline: middle" styleClass="datalist-noborder"> 
+            
+            <h:panelGrid columns="2" cellpadding="0" >
+                <h:panelGrid columns="1" cellpadding="1" >
+                    <p:commandLink id="message" actionListener="#{chat.connect(agent.name,agentBean.agentLogged.name
+                                                                  )}" update=":form:wd" oncomplete="PF('window').show()" >                    
+                       
+                        <h:graphicImage name="/images/icon/messageIcon40.png" />
+                        <f:setPropertyActionListener target="#{agentBean.agent}"
+                                                     value="#{agent}" />
+                    </p:commandLink>
+                </h:panelGrid>
+                <h:panelGrid columns="1" cellpadding="2" >
+                    <h:outputText value="#{agent.status.statusName}" style="font-weight:bold; color:green" rendered="#{agent.status.id == 1}" />
+                    <h:outputText value="#{agent.status.statusName}" style="font-weight:bold; color:red" rendered="#{agent.status.id == 2}" />
+                    <h:outputText value="#{agent.name}" />
+                    <h:outputText value="#{agent.role.roleName}" binding="#{name}" />
+                </h:panelGrid>
+            </h:panelGrid>           
+        </p:dataList>
+        </p:tab>
+        </p:accordionPanel>
+        
+        <p:dataList  id="dataListGroup" var="groups" value="#{agentBean.agentsOfGroup}" type="definition" style="alignment-baseline: middle"> 
+            <p:accordionPanel styleClass="accordionMenu">
+                <p:tab title="GROUP: #{groups.get(0).researchGroupidResearchGroup.name}">
+                    <p:dataList  id="dataListAgent" var="agents" value="#{groups}" type="definition" style="alignment-baseline: middle" styleClass="datalist-noborder">
+                        <h:panelGrid columns="2" cellpadding="1" styleClass="outerpanelgrid">
+                            <h:panelGrid columns="1" cellpadding="0" styleClass="outerpanelgrid">
+                                <p:commandLink id="message2" actionListener="#{chat.connect(agent.name,agentBean.agentLogged.name
+                                                                              )}" update=":form:wd" oncomplete="PF('window').show()" >                    
 
-            <p:column headerText="Action" >
-                <h:outputText value="Message" />
-            </p:column>
-            <p:column headerText="Name" sortBy="#{lista.name}" >
-                <h:outputText value="#{lista.name}" />
-            </p:column>            
-            <p:column headerText="Institution" sortBy="#{lista.institution}" >
-                <h:outputText value="#{lista.institution.acronym}" />
-            </p:column>
-        </p:dataTable>
+                                    <h:graphicImage name="/images/icon/messageIcon40.png" />
+                                    <f:setPropertyActionListener target="#{agentBean.agent}"
+                                                                 value="#{agent}" />
+                                </p:commandLink>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="0"  border="0" styleClass="outerpanelgrid">
+                                <h:outputText value="#{agents.agentidAgent.status.statusName}" style="font-weight:bold; color:green" rendered="#{agents.agentidAgent.status.id == 1}" />
+                                <h:outputText value="#{agents.agentidAgent.status.statusName}" style="font-weight:bold; color:red" rendered="#{agents.agentidAgent.status.id == 2}" />
+                                <h:outputText value="#{agents.agentidAgent.name}" />
+                                <h:outputText value="#{agents.agentidAgent.role.roleName}" binding="#{name}" />
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:dataList>
+                </p:tab>
+            </p:accordionPanel>
+        </p:dataList>
+        
+        <ui:remove>
+            <p:poll interval="30" listener="#{agentBean.uptadeAgentsLog}" update="dataListAgentLog" async="true" />
+        </ui:remove>
+            
+        <p:dialog header="#{chat.receiver}" id="wd"  widgetVar="window" minHeight="50" width="355" height="120"  resizable="False" >
+            <p:ajax event="close" listener="#{chat.disconect()}"/>
+            
+            <h:panelGrid columns="2" cellpadding="2" >
+                <p:row>
+                    <p:column colspan="2">
+                        <p:inputTextarea id="chatOutput"  rows="4" cols="30"   autoResize="False" readonly="True"   value="#{chat.recieveMessage}"/>
+                    </p:column>
+                    <p:poll interval="3" update="chatOutput" oncomplete="scrollFunction();" ignoreAutoUpdate="True" partialSubmit="true" process="@this"/> 
+                    <p:column colspan="5">
+                       <p:inputText id="input" value="#{chat.sendMessage}"/>
+                       <h:outputText value="&#160;" />
+                       <h:outputText value="&#160;" />
+                       <p:commandButton style="width: auto; font-size:100%" oncomplete="scrollFunction();" actionListener="#{chat.send()}" update="input chatOutput" value="Send"  onclick="PF('dlg1').close;" />  
+                    </p:column>
+                    <script type="text/javascript">
+                            function scrollFunction() {
+                            var textarea = document.getElementById("form:chatOutput");
+                            textarea.scrollTop = textarea.scrollHeight; // Scrolls to bottom.
+                                
+                            }
+                    </script>
+
+                </p:row>
+            </h:panelGrid>
+    
+        </p:dialog>
+
+        
     </h:form>
 </ui:composition>

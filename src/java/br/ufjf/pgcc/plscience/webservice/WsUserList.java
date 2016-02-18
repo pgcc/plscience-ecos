@@ -6,7 +6,10 @@
 package br.ufjf.pgcc.plscience.webservice;
 
 import br.ufjf.pgcc.plscience.dao.AgentDAO;
+import br.ufjf.pgcc.plscience.dao.IsPartOfDAO;
 import br.ufjf.pgcc.plscience.model.Agent;
+import br.ufjf.pgcc.plscience.model.IsPartOf;
+import java.util.ArrayList;
 import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -58,5 +61,22 @@ public class WsUserList {
     public List<Agent> getUserListByCompetenceAndRole(@WebParam(name = "competenceName") String competenceName,
             @WebParam(name = "roleName") String roleName) {
         return new AgentDAO().findByCompetenceAndRole(competenceName, roleName);
+    }
+
+    /**
+     * Operação de Web service
+     */
+    @WebMethod(operationName = "getUserListByGroupID")
+    public List<Agent> getUserListByGroupID(@WebParam(name = "groupID") int groupID) {
+        
+        List<Agent> agentList = new ArrayList<>();        
+        List<IsPartOf> isList = new IsPartOfDAO().listarPessoasPorIdGrupo(groupID);
+        
+        if(isList != null) {
+            for(IsPartOf is : isList) {
+                agentList.add(is.getAgentidAgent());
+            }            
+        }       
+        return agentList;
     }
 }

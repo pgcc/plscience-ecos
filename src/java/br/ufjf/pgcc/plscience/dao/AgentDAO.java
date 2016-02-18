@@ -61,6 +61,30 @@ public class AgentDAO extends PersistenceUtil {
         
         return query.getResultList();
     }
+    
+    public List<Agent> buscarTodasPorIdGrupo() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext(); 
+        HttpSession session = (HttpSession) externalContext.getSession(true);
+        UserLoginBean userLoginBean = (UserLoginBean) session.getAttribute("userLoginBean");
+        
+        int id = 0;
+        int idGroup = 5;
+        if(userLoginBean.getAgentLog() != null) {
+            id = userLoginBean.getAgentLog().getIdAgent();
+        }        
+       
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("select a from Agent As a"
+        + " join IsPartOf ipo"
+        + " join ResearchGroup rg"                
+        + " where a.idAgent = ipo.agentidAgent.idAgent and"
+        + " rg.idResearchGroup = ipo.researchGroupidResearchGroup.idResearchGroup and"
+        + " rg.idResearchGroup = :idGroup and a.idAgent != :id");        
+        query.setParameter("id", id);
+        query.setParameter("idGroup", idGroup);        
+       
+        return query.getResultList();
+    }    
 
     public void remover(Agent agent) {
         EntityManager em = PersistenceUtil.getEntityManager();

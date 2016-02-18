@@ -6,6 +6,34 @@
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
         <h2 class="page-header">Users Group</h2>
-        
+        <br/>        
+        <h:form id="form">        
+
+            
+                <p:dataList  id="dataListGroup" var="groups" value="#{agentBean.agentsOfGroup}" type="definition" style="alignment-baseline: middle"> 
+                    <p:accordionPanel>
+                        <p:tab title="#{groups.get(0).researchGroupidResearchGroup.name}">
+
+                            <p:dataList  id="dataListAgent" var="agents" value="#{groups}" type="definition" style="alignment-baseline: middle" styleClass="datalist-noborder">
+                            <h:panelGrid columns="2" cellpadding="1">
+
+                                <h:panelGrid columns="1" cellpadding="2">
+                                    <h:outputText value="#{agents.agentidAgent.name}" />
+                                    <h:outputText value="" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </p:dataList>
+
+                    </p:tab>
+                    </p:accordionPanel>
+
+                </p:dataList>
+            
+
+
+        </h:form>
+
+
+
     </ui:define>
 </ui:composition>
