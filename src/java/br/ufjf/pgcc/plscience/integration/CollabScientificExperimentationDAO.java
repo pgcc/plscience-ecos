@@ -6,6 +6,7 @@
 package br.ufjf.pgcc.plscience.integration;
 
 import br.ufjf.pgcc.plscience.dao.ActivityConceptDAO;
+import br.ufjf.pgcc.plscience.dao.ArtifactDAO;
 import br.ufjf.pgcc.plscience.dao.CodeDAO;
 import br.ufjf.pgcc.plscience.dao.CollaborationServiceDAO;
 import br.ufjf.pgcc.plscience.dao.CollaborativeServiceTypeDAO;
@@ -13,10 +14,13 @@ import br.ufjf.pgcc.plscience.dao.CommonSenseDAO;
 import br.ufjf.pgcc.plscience.dao.CommunicationProtocolDAO;
 import br.ufjf.pgcc.plscience.dao.CompetenceDAO;
 import br.ufjf.pgcc.plscience.dao.CompromiseDAO;
+import br.ufjf.pgcc.plscience.dao.ProductDAO;
 import br.ufjf.pgcc.plscience.dao.RolerDAO;
 import br.ufjf.pgcc.plscience.dao.StatusDAO;
 import br.ufjf.pgcc.plscience.dao.StepsScientificExperimentationDAO;
+import br.ufjf.pgcc.plscience.dao.TaskConceptDAO;
 import br.ufjf.pgcc.plscience.model.ActivityConcept;
+import br.ufjf.pgcc.plscience.model.Artifact;
 import br.ufjf.pgcc.plscience.model.Code;
 import br.ufjf.pgcc.plscience.model.CollaborationService;
 import br.ufjf.pgcc.plscience.model.CollaborativeServiceType;
@@ -24,9 +28,11 @@ import br.ufjf.pgcc.plscience.model.CommonSense;
 import br.ufjf.pgcc.plscience.model.CommunicationProtocol;
 import br.ufjf.pgcc.plscience.model.Competence;
 import br.ufjf.pgcc.plscience.model.Compromise;
+import br.ufjf.pgcc.plscience.model.Product;
 import br.ufjf.pgcc.plscience.model.Roler;
 import br.ufjf.pgcc.plscience.model.Status;
 import br.ufjf.pgcc.plscience.model.StepsScientificExperimentation;
+import br.ufjf.pgcc.plscience.model.TaskConcept;
 import static com.hp.hpl.jena.assembler.Assembler.ontModel;
 import static com.hp.hpl.jena.assembler.JA.reasoner;
 import com.hp.hpl.jena.ontology.Individual;
@@ -329,6 +335,7 @@ public class CollabScientificExperimentationDAO {
         }
         
         
+        
         //Carrega os Activity (Cooperation) na ontologia apartir do banco de dados
         Resource resourceactivity = model.getResource(baseURI + "Activity");
         ActivityConcept activity = new ActivityConcept();
@@ -338,6 +345,39 @@ public class CollabScientificExperimentationDAO {
             activity = (ActivityConcept) a;
             model.createIndividual(baseURI + activity.getId() + "." + activity.getActivityName().replace(" ", "."), resourceactivity);
         }
+        
+        //Carrega os Artifact (Cooperation) na ontologia apartir do banco de dados
+        Resource resourceartifact = model.getResource(baseURI + "Artifact");
+        Artifact artifact = new Artifact();
+        List artifacts = new ArrayList();
+        artifacts = new ArtifactDAO().getAll();
+        for (Object a : artifacts) {
+            artifact = (Artifact) a;
+            model.createIndividual(baseURI + artifact.getId() + "." + artifact.getArtifactName().replace(" ", "."), resourceartifact);
+        }
+        
+        //Carrega os Product (Cooperation) na ontologia apartir do banco de dados
+        Resource resourceproduct = model.getResource(baseURI + "Product");
+        Product product = new Product();
+        List products = new ArrayList();
+        products = new ProductDAO().getAll();
+        for (Object p : products) {
+            product = (Product) p;
+            model.createIndividual(baseURI + product.getId() + "." + product.getProductName().replace(" ", "."), resourceproduct);
+        }
+        
+        //Carrega os Task (Cooperation) na ontologia apartir do banco de dados
+        Resource resourcetask = model.getResource(baseURI + "Task");
+        TaskConcept task = new TaskConcept();
+        List tasks = new ArrayList();
+        tasks = new TaskConceptDAO().getAll();
+        for (Object t : tasks) {
+            task = (TaskConcept) t;
+            model.createIndividual(baseURI + task.getId() + "." + task.getTaskName().replace(" ", "."), resourcetask);
+        }
+        
+        
+        
         
         
         //Carrega os Competence (GroupFormation) na ontologia apartir do banco de dados

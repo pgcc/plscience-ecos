@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="4">
+		<struct>
+			<and abstract="true" mandatory="true" name="MessageExchange">
+				<feature mandatory="true" name="Issuer"/>
+				<feature mandatory="true" name="Receiver"/>
+				<and mandatory="true" name="Message">
+					<feature mandatory="true" name="Text"/>
+					<feature name="Image"/>
+				</and>
+				<or abstract="true" mandatory="true" name="Synchronism">
+					<feature mandatory="true" name="Synchronous"/>
+					<feature mandatory="true" name="Asynchronous"/>
+				</or>
+			</and>
+		</struct>
+		<constraints/>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

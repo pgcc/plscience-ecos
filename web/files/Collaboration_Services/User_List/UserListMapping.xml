@@ -1,0 +1,22 @@
+<mappingStruct mapName="UserLisMapping" ontology="collaborationService.owl" featureModel="UserList.xml">
+	<mapping id="1" relation="concept">
+		<className>Participant</className>
+		<featureName>User</featureName>
+	</mapping>
+	<mapping id="2" relation="concept">
+		<className>Status</className>
+		<featureName>Status</featureName>
+	</mapping>
+	<mapping id="3" relation="concept">
+		<className>Competence</className>
+		<featureName>Competence</featureName>
+	</mapping>
+	<mapping id="4" relation="concept">
+		<className>Role</className>
+		<featureName>Function</featureName>
+	</mapping>
+	<mapping id="5" relation="concept">
+		<className>Group</className>
+		<featureName>Group</featureName>
+	</mapping>
+</mappingStruct>

@@ -1,0 +1,30 @@
+<mappingStruct mapName="MessageExchangeMapping" ontology="collaborationService.owl" featureModel="MessageExhange.xml">
+	<mapping id="1" relation="concept">
+		<className>Issuer</className>
+		<featureName>Issuer</featureName>
+	</mapping>
+	<mapping id="2" relation="concept">
+		<className>Receiver</className>
+		<featureName>Receiver</featureName>
+	</mapping>
+	<mapping id="3" relation="concept">
+		<className>Message</className>
+		<featureName>Message</featureName>
+	</mapping>
+	<mapping id="4" relation="subject">
+		<className>Mode</className>
+		<featureName>Text</featureName>
+	</mapping>
+	<mapping id="5" relation="subject">
+		<className>Mode</className>
+		<featureName>Image</featureName>
+	</mapping>
+	<mapping id="6" relation="subject">
+		<className>Synchronism</className>
+		<featureName>Synchronous</featureName>
+	</mapping>
+	<mapping id="7" relation="subject">
+		<className>Synchronism</className>
+		<featureName>Asynchronous</featureName>
+	</mapping>
+</mappingStruct>
