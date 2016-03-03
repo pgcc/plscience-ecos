@@ -15,17 +15,28 @@ import static br.ufjf.pgcc.plscience.integration.InteroperabilityManipulationXML
 import br.ufjf.pgcc.plscience.integration.InteroperabilityServices;
 import br.ufjf.pgcc.plscience.integration.InteroperabilityStructXMLDAO;
 import br.ufjf.pgcc.plscience.interoperability.LevenshteinDistance;
+import br.ufjf.pgcc.plscience.interoperability.ServiceRecovery;
+import br.ufjf.pgcc.plscience.interoperability.SimilarityCalculation1;
 import br.ufjf.pgcc.plscience.interoperability.WordNetHandler;
 import br.ufjf.pgcc.plscience.model.CollaborationService;
 import br.ufjf.pgcc.plscience.model.Competence;
+import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.model.Roler;
 import br.ufjf.pgcc.plscience.model.StepsScientificExperimentation;
 import br.ufjf.pgcc.plscience.util.DecimalUtil;
 import static br.ufjf.pgcc.plscience.util.StringUtil.removeList;
+import br.ufjf.pgcc.plscience.vo.ContextVO;
+import br.ufjf.pgcc.plscience.vo.HardwareVO;
+import br.ufjf.pgcc.plscience.vo.PragmaticVO;
+import br.ufjf.pgcc.plscience.vo.RankingVO;
+import br.ufjf.pgcc.plscience.vo.SemanticVO;
+import br.ufjf.pgcc.plscience.vo.ServiceDescriptionVO;
+import br.ufjf.pgcc.plscience.vo.SyntacticVO;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -44,6 +55,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
+    //SAVE
     private String statusCompare;
      
     private List<CollaborationService> collaborationServiceList;
@@ -54,10 +66,34 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
     
     private ConceptXML conceptXML;
     
+    //PRIME
+    private ServiceDescriptionVO serviceDescriptionVO;
+    private List<ServiceDescriptionVO> services;
+    private String serviceName;
+    private String equivalencesResult;
+    
     public AnalyzeCollaborationServiceBean(){
+        
+        //SAVE
         collaborationServiceList = new CollaborationServiceDAO().getAllCollaborationService();
         interoperabilityServices = new InteroperabilityServices();
         conceptXML = new ConceptXML();
+        
+        //PRIME
+        serviceDescriptionVO = new ServiceDescriptionVO();
+        SyntacticVO sync = new SyntacticVO();
+        serviceDescriptionVO.setIncludesSyntactic(sync);
+        SemanticVO sem = new SemanticVO();
+        serviceDescriptionVO.setIncludesSemantic(sem);
+        PragmaticVO prag = new PragmaticVO();
+        serviceDescriptionVO.setIncludesPragmatic(prag);
+        ArrayList<String> funcs = new ArrayList();
+        serviceDescriptionVO.getIncludesSemantic().setHasFunctionalRequirements(funcs);
+        ContextVO con = new ContextVO();
+        serviceDescriptionVO.getIncludesPragmatic().setIncludesContext(con);
+        HardwareVO hard = new HardwareVO();
+        serviceDescriptionVO.getIncludesPragmatic().setIncludesHardware(hard);
+        services = new ArrayList<ServiceDescriptionVO>();
     }
     
     public String test() {
@@ -1696,5 +1732,120 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
      */
     public void setConceptXML(ConceptXML conceptXML) {
         this.conceptXML = conceptXML;
+    }
+
+    /**
+     * @return the serviceDescriptionVO
+     */
+    public ServiceDescriptionVO getServiceDescriptionVO() {
+        return serviceDescriptionVO;
+    }
+
+    /**
+     * @param serviceDescriptionVO the serviceDescriptionVO to set
+     */
+    public void setServiceDescriptionVO(ServiceDescriptionVO serviceDescriptionVO) {
+        this.serviceDescriptionVO = serviceDescriptionVO;
+    }
+
+    /**
+     * @return the services
+     */
+    public List<ServiceDescriptionVO> getServices() {
+        return services;
+    }
+
+    /**
+     * @param services the services to set
+     */
+    public void setServices(List<ServiceDescriptionVO> services) {
+        this.services = services;
+    }
+
+    /**
+     * @return the serviceName
+     */
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    /**
+     * @param serviceName the serviceName to set
+     */
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    /**
+     * @return the equivalencesResult
+     */
+    public String getEquivalencesResult() {
+        return equivalencesResult;
+    }
+
+    /**
+     * @param equivalencesResult the equivalencesResult to set
+     */
+    public void setEquivalencesResult(String equivalencesResult) {
+        this.equivalencesResult = equivalencesResult;
+    }
+    
+    public void searchServices(){
+        
+        System.out.println(serviceDescriptionVO.getIncludesSyntactic().getHasAddress());
+        System.out.println(serviceDescriptionVO.getIncludesSyntactic().getHasReturn());
+        System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasSemanticReturn());
+        System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasSemanticReception());
+        System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasSemanticRepresentation());
+        System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasFunctionalRequirement());
+        ArrayList<String> s = new ArrayList();
+        s.add(serviceDescriptionVO.getIncludesSemantic().getHasFunctionalRequirement());
+        serviceDescriptionVO.getIncludesSemantic().setHasFunctionalRequirements(s);
+        System.out.println(serviceDescriptionVO.getIncludesSemantic().getHasFunctionalRequirements().get(0));
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getHasNonFunctionalReq());
+        ArrayList<String> s2 = new ArrayList();
+        s2.add(serviceDescriptionVO.getIncludesPragmatic().getHasNonFunctionalReq());
+        serviceDescriptionVO.getIncludesPragmatic().setHasNonFunctionalRequirement(s2);
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getHasNonFunctionalRequirement().get(0));
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasArtifact());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasComments());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasDomain());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasLicense());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasReputation());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHasRestriction());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getHow());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getWhen());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getWhere());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesContext().getWho());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasCPU());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasOperationalSystem());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasOperationalSystem());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasRAM());
+        System.out.println(serviceDescriptionVO.getIncludesPragmatic().getIncludesHardware().getHasROM());
+        
+        ServiceRecovery sr = new ServiceRecovery();
+        List<ServiceDescriptionVO> servicesRecovery;
+        List<ServiceDescriptionVO> servicesRankingSorted = new ArrayList<ServiceDescriptionVO>();
+        servicesRecovery = sr.Recovery();
+        SimilarityCalculation1 sc1 = new SimilarityCalculation1();
+        ArrayList<RankingVO> rankingServices = new ArrayList<RankingVO>();
+        
+        for(ServiceDescriptionVO sVo: servicesRecovery){
+            RankingVO rVo = new RankingVO();
+            rVo.setServiceRecovery(sVo);
+            rVo.setServiceComparison(serviceDescriptionVO);
+            
+            rVo.setSimilarity(sc1.calculate(serviceDescriptionVO, sVo, 1, 1, 1));
+            rankingServices.add(rVo);
+        }
+        Collections.sort(rankingServices);
+        
+        for(RankingVO rank: rankingServices){
+            servicesRankingSorted.add(rank.getServiceRecovery());
+            System.out.println("Nome Serv: " + rank.getServiceRecovery().getName() +" Simil: " + rank.getSimilarity());
+        }
+        //setServices(sr.Recovery());
+        setServices(servicesRankingSorted);
+                       
     }
 }

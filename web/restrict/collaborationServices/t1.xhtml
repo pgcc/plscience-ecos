@@ -1,0 +1,275 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Analyze Collaboration Services</h2>
+        
+        <p:tabView>
+            <p:tab title="Step 1 - PRIME">
+            <h:form id="searchPage">
+                <h:outputLabel value="Service Discovery" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+
+                <h:outputLabel value="Syntactic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                    <h:outputLabel for="hasAddress" value="Address" />
+                    <h:inputText id="hasAddress" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSyntactic.hasAddress}" />
+                    <h:outputLabel for="hasReturn" value="Return:" />
+                    <h:inputText id="hasReturn" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSyntactic.hasReturn}" />
+                </h:panelGrid>
+                
+                <h:outputLabel value="Semantic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                    <h:outputLabel for="hasSemanticReturn" value="Semantic Return" />
+                    <h:inputText id="hasSemanticReturn" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSemantic.hasSemanticReturn}" />             
+                    <h:outputLabel for="hasSemanticReception" value="Semantic Reception" />
+                    <h:inputText id="hasSemanticReception" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSemantic.hasSemanticReception}" />
+                    <h:outputLabel for="hasSemanticRepresentation" value="Semantic Representation" />
+                    <h:inputText id="hasSemanticRepresentation" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSemantic.hasSemanticRepresentation}" />
+                    <h:outputLabel for="hasFunctionalRequirement" value="Functional Requirement" />
+                    <h:inputText id="hasFunctionalRequirement" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSemantic.hasFunctionalRequirement}" />
+                </h:panelGrid>
+
+                <h:outputLabel value="Pragmatic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                    <h:outputLabel for="hasNonFunctionalReq" value="Non Functional Requirement" />
+                    <h:inputText id="hasNonFunctionalReq" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.hasNonFunctionalReq}" />
+                    <h:outputLabel value="Context" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                    <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                    <h:outputLabel for="hasArtifact" value="Artifact" />
+                    <h:inputText id="hasArtifact" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesContext.hasArtifact}" />
+                    <h:outputLabel for="hasDomain" value="Domain" />
+                    <h:inputText id="hasDomain" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesContext.hasDomain}" />
+                    <h:outputLabel for="hasLicense" value="License" />
+                    <h:inputText id="hasLicense" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesContext.hasLicense}" />
+                    <h:outputLabel for="hasComments" value="Comments" />
+                    <h:inputText id="hasComments" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesContext.hasComments}" />
+
+                    <h:outputLabel for="how" value="Purpose" />
+                    <h:inputText id="how" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesContext.how}" />
+                    <h:outputLabel for="where" value="Provider" />
+                    <h:inputText id="where" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesContext.where}" />
+                    <h:outputLabel for="when" value="Publication Data" />
+                    <h:inputText id="when" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesContext.when}" />
+                    <h:outputLabel for="who" value="Scientist Name" />
+                    <h:inputText id="who" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesContext.who}" />
+                    <h:outputLabel for="hasRestriction" value="Restriction" />
+                    <h:inputText id="hasRestriction" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesContext.hasRestriction}" />
+                    <h:outputLabel value="Hardware" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                    <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                    <h:outputLabel for="hasCPU" value="CPU" />
+                    <h:inputText id="hasCPU" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesHardware.hasCPU}" />
+                    <h:outputLabel for="hasOperationalSystem" value="Operational System" />
+                    <h:inputText id="hasOperationalSystem" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasOperationalSystem}" />
+                    <h:outputLabel for="hasRAM" value="RAM (GB)" />
+                    <h:inputText id="hasRAM" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesHardware.hasRAM}">
+                        <f:validateRegex pattern="[0-9]+"/>
+                    </h:inputText>
+                    <h:outputLabel for="hasROM" value="ROM (GB)" />
+                    <h:inputText id="hasROM" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesHardware.hasROM}">
+                       <f:validateRegex pattern="[0-9]+"/>
+                    </h:inputText>    
+                </h:panelGrid>
+
+                <h:commandButton id="btnE" value="Send" type="submit" action="#{analyzeCollaborationServiceBean.searchServices()}"/> 
+
+                <p:dataTable var="service" value="#{analyzeCollaborationServiceBean.services}" id="servicesResult" style="margin-top: 20px">
+                    <p:column headerText="Services Ranking">
+                        <h:outputText value="#{service.name}" />
+                    </p:column>
+                    <p:column>
+                    <p:commandButton value="View Details" id="viewDetails"/>
+                        <p:overlayPanel id="viewDetailsPanel" for="viewDetails" hideEffect="fade" dynamic="true" style="width:600px">
+                            <h:form id="viewDetailsForm">
+                                <h:outputLabel value="Service Details" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                                    <h:outputLabel for="hasAddress" value="Address" />
+                                    <h:outputText id="hasAddress" value="#{service.includesSyntactic.hasAddress}" />
+                                    <h:outputLabel for="hasReturn" value="Return" />
+                                    <h:outputText id="hasReturn" value="#{service.includesSyntactic.hasReturn}" />
+                                    <h:outputLabel for="hasComments" value="Description" />
+                                    <h:outputText id="hasComments" value="#{service.includesPragmatic.includesContext.hasComments}" />
+                                </h:panelGrid>
+                            </h:form>
+                        </p:overlayPanel>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Choice Service" id="serviceUsed"  />
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>                   
+            </p:tab>
+            
+            <p:tab title="Step 2 - SAVE">        
+            <h:form id="newCollaborationServiceForm">
+                <p:growl id="growl" />
+                <p:panel header="Analyze" style="margin: 10px 0;">
+                    <p:messages id="messages" />                    
+
+                    <h:panelGrid columns="2" cellpadding="4">
+                        <h:outputLabel for="collabService1" value="First Collaborative Service: " />
+                        <h:inputText id="collabService1" value="#{analyzeCollaborationServiceBean.collaborationService1.id} - #{analyzeCollaborationServiceBean.collaborationService1.collabServiceName}" />
+                        <ui:remove>
+                        <p:selectOneMenu id="collabService1" value="#{analyzeCollaborationServiceBean.collaborationService1}" 
+                                         converter="collabServiceConverter" 
+                                         panelStyle="width:200px"
+                                         effect="fade" var="c" style="width:450px" filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{analyzeCollaborationServiceBean.collaborationServiceList}" var="collaborationService" 
+                                           itemLabel="#{collaborationService.collabServiceName}" itemValue="#{collaborationService}" />
+
+                            <p:column>
+                                <h:outputText value="#{c.id}" />
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value="#{c.collabServiceName}" />
+                            </p:column>
+
+                        </p:selectOneMenu>
+                        </ui:remove>
+
+                        <h:outputLabel for="collabService2" value="Second Collaborative Service: " />
+                        <p:selectOneMenu id="collabService2" value="#{analyzeCollaborationServiceBean.collaborationService2}" 
+                                         converter="collabServiceConverter" 
+                                         panelStyle="width:200px"
+                                         effect="fade" var="d" style="width:450px" filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{analyzeCollaborationServiceBean.collaborationServiceList}" var="collaborationService" 
+                                           itemLabel="#{collaborationService.collabServiceName}" itemValue="#{collaborationService}" />
+
+                            <p:column>
+                                <h:outputText value="#{d.id}" />
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value="#{d.collabServiceName}" />
+                            </p:column>
+
+                        </p:selectOneMenu>
+
+                        <p:commandButton id="analizeBtn" value="Analize" icon="ui-icon-check" style="margin:0" 
+                                         actionListener="#{analyzeCollaborationServiceBean.analyzeCollabServices()}" 
+                                         update="displayAnalyze" />
+                    </h:panelGrid>
+
+                    <p:outputPanel id="displayAnalyze">
+
+                        <h3>SINTATIC RESULTS</h3>
+                        <h:outputText value="#{analyzeCollaborationServiceBean.statusCompare}" escape="false" />
+
+                    </p:outputPanel>
+
+                    <BR/><BR/>
+                    <ui:remove>
+                    <p:commandLink value="Update Analyze" update="displayAnalyze" />                
+                    <p:commandButton id="saveBtn" value="Save Matching" icon="ui-icon-check" style="margin:0" 
+                                     actionListener="#{analyzeCollaborationServiceBean.saveCollabServices()}" />
+
+                    <BR/><BR/>
+                    <p:separator/>                      
+
+                    </ui:remove>
+
+                </p:panel>
+
+                <p:panel header="Concepts Matching" style="margin: 10px 0;">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <h3>SEMANTIC RESULTS</h3>
+                </h:panelGrid>
+                <p:dataTable id="tabConcepts"
+                             var="con" 
+                             value="#{analyzeCollaborationServiceBean.interoperabilityServices.interoperabilityStructXML.concepts}"
+                             emptyMessage="No concepts found.">
+                    <f:facet name="header">Concepts Matching Table</f:facet>
+                    <p:column headerText="ID"> 
+                        <h:outputText value="#{con.idConceptXml}" />
+                    </p:column>
+                    <p:column headerText="Service"> 
+                        <h:outputText value="#{con.service}" />
+                    </p:column>
+                    <p:column headerText="Concept Service"> 
+                        <h:outputText value="#{con.conceptService}" />
+                    </p:column>
+                    <p:column headerText="Element Service 1"> 
+                        <h:outputText value="#{con.conceptService1}" />
+                    </p:column>
+                    <p:column headerText="Element Service 2"> 
+                        <h:outputText value="#{con.conceptService2}" />
+                    </p:column>
+                    <p:column headerText="Ratio"> 
+                        <h:outputText value="#{con.ratio}" />
+                    </p:column>
+                    <p:column headerText="Has Concept?"> 
+                        <h:outputText value="#{con.hasConcept}" />
+                    </p:column>
+                    <p:column headerText="Validity?"> 
+                        <h:outputText value="#{con.validity}" />
+                    </p:column>
+                    <p:column headerText="Action">
+                        <center>
+                        <p:commandButton icon="ui-icon-pencil" value="Validity" onclick="PF('Edit').show();"> 
+                            <f:setPropertyActionListener target="#{analyzeCollaborationServiceBean.conceptXML}"
+                                                         value="#{con}" />
+                        </p:commandButton>
+                        </center>
+                    </p:column> 
+                </p:dataTable>
+
+                <h:panelGrid columns="1" cellpadding="4">
+                    <BR/>
+                    <p:commandLink value="Update Matching Table" update="tabConcepts" />
+                    <BR/>
+                    <p:commandButton id="saveBtn" value="Finish" icon="ui-icon-check" style="margin:0" actionListener="#{analyzeCollaborationServiceBean.finish()}" />
+                </h:panelGrid>
+
+                <p:dialog header="Validity" widgetVar="Edit" modal="false" 
+                    id="Edit">
+                    <p:panelGrid id="panelAlterar" columns="2">
+                        <ui:remove>
+                        <h:outputText value="ID: " />
+                        <p:inputText value="#{c.idConceptXml}" disabled="true" />
+                        <h:outputText value="Service: " />
+                        <p:inputText value="#{c.service}" disabled="true" />
+                        <h:outputText value="Concept Service: " />
+                        <p:inputText value="#{analyzeCollaborationServiceBean.conceptXML.conceptService}" disabled="true" />
+                        <h:outputText value="Element Service 1: " />
+                        <p:inputText value="#{analyzeCollaborationServiceBean.conceptXML.conceptService1}" disabled="true" />
+                        <h:outputText value="Element Service 2: " />
+                        <p:inputText value="#{analyzeCollaborationServiceBean.conceptXML.conceptService2}" disabled="true" />
+                        <h:outputText value="Ratio: " />
+                        <p:inputText value="#{analyzeCollaborationServiceBean.conceptXML.ratio}" disabled="true" />
+                        <p:outputLabel for="hasConcept" value="Has Concept? " />
+                        <p:selectOneRadio id="hasConcept" value="#{analyzeCollaborationServiceBean.conceptXML.hasConcept}" disabled="true" >
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+                        </ui:remove>
+                        <p:outputLabel for="validity" value="Validity? " />
+                        <p:selectBooleanButton id="validity" value="#{analyzeCollaborationServiceBean.conceptXML.validity}" 
+                                               onLabel="Yes" offLabel="No" style="width:60px" />
+                        <ui:remove>
+                        <p:selectOneRadio id="validity" value="#{analyzeCollaborationServiceBean.conceptXML.validity}">
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio> 
+                        </ui:remove>
+                    </p:panelGrid>
+                    <BR/>
+                    <center>
+                    <p:commandButton value="Save"  
+                                     actionListener="#{analyzeCollaborationServiceBean.editConcept}" 
+                                     onclick="Edit.hide()" 
+                                     alt="Edit"
+                                     update="tabConcepts" />
+                    </center>
+                </p:dialog>
+                </p:panel>
+            </h:form>
+            </p:tab>
+        </p:tabView>
+
+    
+    </ui:define>
+</ui:composition>
