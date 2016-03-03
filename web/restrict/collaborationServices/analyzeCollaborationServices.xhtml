@@ -1,0 +1,59 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Alignment Process</h2>
+        
+         <h:form id="newCollaborationServiceForm">
+            <p:growl id="growl" />
+            <p:panel header="Steps Description" style="margin: 10px 0;">
+                <h:panelGrid columns="1" cellpadding="5">
+                <p:outputLabel value="O processo de alinhamento entre dois serviços de colaboração foi 
+                    criado para possibilitar a interoperabilidade entre dois serviços de colaboração, sendo 
+                    um dos serviços pertencentes à instância que utiliza o processo, e o outro, um serviço 
+                    encontrado em alguma outra instância de E-SECO." />                     
+                <p:outputLabel value="O processo de alinhamento possui duas etapas que serão descritas 
+                    brevemente abaixo." />
+                
+                <p:outputLabel value=" " />
+                <p:outputLabel value="Etapa 1"  style="font-weight:bold"/>
+                <p:outputLabel value="Utilização do PRIME (PRagmatic Interoperability to MEaningful collaboration) 
+                    para buscar o serviço com o qual deseja-se interoperar. 
+                    A busca considera parâmetros sintáticos, semânticos e pragmáticos  para 
+                    encontrar os serviços. A partir desses parâmetros, PRIME exibe uma lista com os serviços 
+                    encontrados em diversas instâncias do E-SECO, raqueada do mais para menos indicado para 
+                    interoperar. De posse dessa lista, deve-se escolher o serviço de colaboração com o qual 
+                    deseja-se interoperar." /> 
+                <p:outputLabel value="É importante lembrar que PRIME somente indica a possibilidade 
+                    de interoperabilidade segundo os parâmetros de busca, ou seja, ele não apoia a troca 
+                    de informações entre os serviços." />
+                <p:outputLabel value="Para apoiar a troca de informações entre os serviços de colaboração, 
+                    necessita-se de realizar um alinhamento entre os conceitos " />
+                
+                <p:outputLabel value=" " />
+                <p:outputLabel value="Etapa 2"  style="font-weight:bold"/>
+                <p:outputLabel value="Utilização do SAVE (Semi-Automatic Validation Environment) para a 
+                    validação semi-automática do alinhamento entre dois 
+                    serviços de colaboração que desejam interoperar. Para realizar o alinhamento, 
+                    SAVE considera as informações contidas nos arquivos de mapeamente entre o 
+                    Modelo de Features e a Ontologia de Colaboração de ambos os serviços. Além disso, 
+                    Ele considera as informações transferidas para a ontologia de colaboração." />                
+                <p:outputLabel value="A partir daí, ele alinha as informações considerando aspectos sintáticos 
+                    e semânticos atribuindo um grau de alinhamento para cada par encontrado. De posse da lista de 
+                    pares alinhados, deve-se analisá-los e validá-los de acordo com o conhecimento de domínio do 
+                    validador." />
+                <p:outputLabel value="Após a validação do alinhamento, gera-se um arquivo XML que poderá ser 
+                    utilizado para mediar a interoperabilidade entre os dois serviços alinhados." />
+                
+                <p:commandButton value="Go - Step 1" icon="ui-icon-circle-arrow-e" style="width:250px"
+                    action="/faces/restrict/collaborationServices/analyzeCollaborationServicesStep_1.xhtml?faces-redirect=true" ajax="false" />
+                <p:outputLabel value=" " />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    
+    </ui:define>
+</ui:composition>
