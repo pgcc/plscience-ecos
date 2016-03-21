@@ -63,8 +63,9 @@ public class SearchBioCatalogue implements Serializable {
             if (result != null) {
                 results = result.getResults();
             }
-            
+            IntegrationModule.midPointModel();
             IntegrationModule.setResults(results);
+            
         } catch (Exception e) {
         }
     }

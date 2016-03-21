@@ -195,6 +195,24 @@ public class ExperimentDAO extends GenericDAO {
         }
         
         
+        public List getServicesRatings(){
+            String consult = "SELECT COUNT(service_name) FROM plscience.experiment_services GROUP BY service_name ORDER BY COUNT(*);";
+            Query query = getEntityManager().createNativeQuery(consult);
+            List servicesRatings = query.getResultList();
+            
+            finish();
+            return servicesRatings;
+        }
+        
+        public List getServicesNames(){
+            String consult = "SELECT DISTINCT(service_name) FROM plscience.experiment_services WHERE service_name <> \"\"";
+            Query query = getEntityManager().createNativeQuery(consult);
+            
+            List servicesNames = query.getResultList();
+            finish();
+            return servicesNames;
+        }
+        
         public List getLatestTimeUsed(String service_name){
             String consult = "SELECT latestTime_used FROM experiment_services WHERE service_name LIKE ?service_name ORDER BY latestTime_used DESC LIMIT 1" ;
             Query query = getEntityManager().createNativeQuery(consult);

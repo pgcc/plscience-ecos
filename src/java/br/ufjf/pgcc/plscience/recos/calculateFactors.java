@@ -6,6 +6,8 @@
 
 package br.ufjf.pgcc.plscience.recos;
 
+import br.ufjf.biocatalogue.model.Result;
+import br.ufjf.myexperiment.model.Workflow;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
@@ -21,6 +23,8 @@ import java.util.List;
 public class calculateFactors {
     
     private static List<RecosService> servicesList;
+    private static List<Workflow> workflowsList;
+    private static List<Result> bioList;
     private static int total;
     
     
@@ -29,6 +33,18 @@ public class calculateFactors {
         total = totalService;
     }
     
+    public static void setList(List<RecosService> list,List<Workflow> workflows ,int totalService){
+        setList(list, totalService);
+        workflowsList = workflows;
+    }
+    
+    public static void setListBio(List<RecosService> list,List<Result> workflows ,int totalService){
+        setList(list, totalService);
+        bioList = workflows;
+    }
+    
+    
+    
     public static void calculator(){
         for(int i = 0 ; i < servicesList.size() ; i ++){
             ratingCalculator(servicesList.get(i));
@@ -36,6 +52,8 @@ public class calculateFactors {
         }
     }
     
+    
+
     
     private static void ratingCalculator(RecosService service){
         double rating = ((double) service.getFrequencyService() / (double) total);
@@ -61,6 +79,9 @@ public class calculateFactors {
         long lifeTime = ChronoUnit.DAYS.between(today, createdAt);
         long updateTime =  ChronoUnit.DAYS.between(updatedAt, createdAt);
         
+        if(updateTime == lifeTime)
+            updateTime = 0;
+        
         long biasTime = 0;
         if(latestUsed == null)
             biasTime = 0;
@@ -77,5 +98,5 @@ public class calculateFactors {
         
     }
     
-
+    
 }

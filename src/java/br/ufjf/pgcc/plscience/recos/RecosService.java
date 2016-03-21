@@ -1,18 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package br.ufjf.pgcc.plscience.recos;
 
+import java.util.Comparator;
 import static jdk.nashorn.internal.objects.NativeMath.round;
 
 /**
  * 
  * @author lesimoes
  */
-public class RecosService {
+public class RecosService{
 
     private int id;
     private String resource;
@@ -23,6 +20,7 @@ public class RecosService {
     private int frequencyService;
     private double rating;
     private double time;
+    private double ranking;
     
     /**
      * @return the id
@@ -152,6 +150,18 @@ public class RecosService {
     public void setTime(double time) {
         this.time = time;
     }
+
+    public double getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(double ranking) {
+        this.ranking = ranking;
+    }
+
+
+
+
     
     
 }

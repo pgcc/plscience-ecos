@@ -6,11 +6,16 @@
 
 package br.ufjf.pgcc.plscience.recos;
 
+import br.ufjf.biocatalogue.exception.BioCatalogueException;
 import br.ufjf.biocatalogue.model.Result;
+import br.ufjf.myexperiment.exception.MyExperimentException;
 import br.ufjf.myexperiment.model.Workflow;
 import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.model.ExperimentServices;
+import com.hp.hpl.jena.vocabulary.DCTypes;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -22,11 +27,23 @@ public class IntegrationModule {
     private static List<RecosService> servicesList;
     private static ExperimentServices expService;
     private static int totalService;
+    private static MidPoint midPoint;
+    private static List<Workflow> myExpWorkflows;
+    private static List<Result> bioWorkflows;
+    
+    public static void midPointModel() throws MyExperimentException, BioCatalogueException{
+        midPoint = new MidPoint();
+        showMidPoint();
+    }
+    
+    public static void showMidPoint(){
+        System.out.println("Ponto médio: " + midPoint.toString());
+    }
     
     //myExperiment search
     public static void setWorkflows(List<Workflow> workflowList){
         servicesList = new ArrayList<RecosService>();
-       
+        myExpWorkflows = workflowList;
         
         
         for(int i = 0 ; i < workflowList.size() ; i ++){
@@ -52,11 +69,12 @@ public class IntegrationModule {
            
            servicesList.add(i, recosService);
            
-
+           
         }
         
         setTotalService();
         calculateFactors(servicesList, totalService);
+        saveFactors(servicesList, workflowList);
         showRecos(servicesList);
         
     }
@@ -66,6 +84,7 @@ public class IntegrationModule {
         
         servicesList = new ArrayList<RecosService>();
         
+        //Please, put the iterator here...
         for(int i = 0 ; i < resultsList.size() ; i ++){
             RecosService recosService = new RecosService();
             
@@ -88,27 +107,225 @@ public class IntegrationModule {
         }
         
         setTotalService();
-        System.out.println("Total " + totalService + " Service " + servicesList.size());
         calculateFactors(servicesList, totalService);
+        saveFactorsBio(servicesList, resultsList);
         showRecos(servicesList);
     }
     
     
     public static void showRecos(List<RecosService> list){
+        
         for(int i = 0 ; i < list.size() ; i ++){
+            
             System.out.println("Id: " + list.get(i).getId()+" - Title: " + list.get(i).getTitle() + "\nCreated At: " + list.get(i).getCreated_At()+
                    "\nUpdated At: " + list.get(i).getUpdated_At() + "\nLatest Time Used: " + list.get(i).getLatestTime_used() +
                "\nFrequency: " + list.get(i).getFrequencyService() + "\nTotal Services:" + totalService + 
-                    "\nRating: " + list.get(i).getRating() + "\nTime: " + list.get(i).getTime() + " \n-----------------------------");
+                    "\nRating: " + list.get(i).getRating() + "\nTime: " + list.get(i).getTime() + 
+                    "\nDistance: "  + list.get(i).getRanking() + " \n-----------------------------");
         
         }
         
        
     }
     
-    private static void calculateFactors(List<RecosService> list, int totalService){
+    private static void calculateFactors(List<RecosService> list , int totalService){
         calculateFactors.setList(list, totalService);
         calculateFactors.calculator();
+    }
+    
+    private static void saveFactors(List<RecosService> list, List<Workflow> workflowList){
+        recommenderModule.setMidPoint(midPoint);
+        for(int i = 0 ; i < list.size() ; i ++){
+            workflowList.get(i).setRating(list.get(i).getRating());
+            workflowList.get(i).setTime(list.get(i).getTime());
+            recommenderModule.setPoint(list.get(i));
+            double distance = recommenderModule.calculateDistance();
+            list.get(i).setRanking(distance);
+            workflowList.get(i).setRanking(distance);
+        }
+        
+        orderRanking(list, workflowList);
+    }
+    
+      private static void saveFactorsBio(List<RecosService> list, List<Result> bioList){
+        recommenderModule.setMidPoint(midPoint);
+        for(int i = 0 ; i < list.size() ; i ++){
+            bioList.get(i).setRating(list.get(i).getRating());
+            bioList.get(i).setTime(list.get(i).getTime());
+            recommenderModule.setPoint(list.get(i));
+            double distance = recommenderModule.calculateDistance();
+
+            list.get(i).setRanking(distance);
+            bioList.get(i).setRanking(distance);
+        }
+        
+        orderRankingBio(list, bioList);
+    }
+    
+    private static void orderRanking(List<RecosService> list, List<Workflow> workflowList){
+        Collections.sort(list, new Comparator<RecosService>(){
+
+            @Override
+            public int compare(RecosService o1, RecosService o2) {
+              
+              if(o1.getRanking() > o2.getRanking())
+                  return 1;
+              if(o1.getRanking() < o2.getRanking())
+                  return -1;
+              if(o1.getRanking() == o2.getRanking()){
+                  if(o1.getTime() > o2.getTime())
+                      return -1;
+                  if(o1.getTime() < o2.getTime())
+                      return 1;
+                      }
+              return 0;
+              
+            }
+        
+    });
+        
+        Collections.sort(list, new Comparator<RecosService>() {
+
+            @Override
+            public int compare(RecosService o1, RecosService o2) {
+                double time = o1.getTime();
+                double rating = o1.getRating();
+             
+                if((time > midPoint.getTime()) && (rating > midPoint.getRating()) ){
+                    if(o1.getTime()> o2.getTime()){
+                        return 1;
+                    }
+                    return -1;
+                } 
+                    
+               if(rating > midPoint.getRating())
+                        return -1;
+               return 0;
+            }
+        });
+        
+        Collections.sort(workflowList, new Comparator<Workflow>(){
+            
+            
+            @Override
+            public int compare(Workflow o1, Workflow o2) {
+              if(o1.getRanking() > o2.getRanking())
+                  return 1;
+              if(o1.getRanking() < o2.getRanking())
+                  return -1;
+              if(o1.getRanking() == o2.getRanking()){
+                  if(o1.getTime() > o2.getTime())
+                      return -1;
+                  if(o1.getTime() < o2.getTime())
+                      return 1;
+                      }
+              return 0;
+              
+            }
+        });
+        
+        Collections.sort(workflowList, new Comparator<Workflow>() {
+
+            @Override
+            public int compare(Workflow o1, Workflow o2) {
+                double time = o1.getTime();
+                double rating = o1.getRating();
+             
+                if((time > midPoint.getTime()) && (rating > midPoint.getRating()) ){
+                    if(o1.getRanking() > o2.getRanking()){
+                        
+                        return -1;
+                    }
+                    return 0;
+                }
+                    
+                return 0;
+            }
+        });
+    }
+        
+        
+       private static void orderRankingBio(List<RecosService> list, List<Result> bioList){
+        Collections.sort(list, new Comparator<RecosService>(){
+
+            @Override
+            public int compare(RecosService o1, RecosService o2) {
+              if(o1.getRanking() > o2.getRanking())
+                  return 1;
+              if(o1.getRanking() < o2.getRanking())
+                  return -1;
+              if(o1.getRanking() == o2.getRanking()){
+                  if(o1.getTime() > o2.getTime())
+                      return -1;
+                  if(o1.getTime() < o2.getTime())
+                      return 1;
+                      }
+              return 0;
+              
+            }
+        
+    });
+        
+        Collections.sort(list, new Comparator<RecosService>() {
+
+            @Override
+            public int compare(RecosService o1, RecosService o2) {
+                double time = o1.getTime();
+                double rating = o1.getRating();
+             
+                if((time > midPoint.getTime()) && (rating > midPoint.getRating()) ){
+                    if(o1.getRanking() > o2.getRanking()){
+                        return 1;
+                    }
+                    
+                }
+                    
+               if(rating > midPoint.getRating())
+                        return -1;
+               return 0;
+            }
+        });
+        
+        Collections.sort(bioList, new Comparator<Result>(){
+            
+            
+            @Override
+            public int compare(Result o1, Result o2) {
+              if(o1.getRanking() > o2.getRanking())
+                  return 1;
+              if(o1.getRanking() < o2.getRanking())
+                  return -1;
+              if(o1.getRanking() == o2.getRanking()){
+                  if(o1.getTime() > o2.getTime())
+                      return -1;
+                  if(o1.getTime() < o2.getTime())
+                      return 1;
+                      }
+              return 0;
+              
+            }
+        });
+        
+        Collections.sort(bioList, new Comparator<Result>() {
+
+            @Override
+            public int compare(Result o1, Result o2) {
+                double time = o1.getTime();
+                double rating = o1.getRating();
+             
+                if((time > midPoint.getTime()) && (rating > midPoint.getRating()) ){
+                    if(o1.getRanking() > o2.getRanking()){
+                        
+                        return -1;
+                    }
+                    return 0;
+                }
+                    
+                return 0;
+            }
+        });
+        
+        
     }
     
     public static void setTotalService(){
@@ -119,5 +336,12 @@ public class IntegrationModule {
     public static int getTotalService(){
         return totalService;
     }
+    
+    public static List getWorkflows(){
+        return myExpWorkflows;
+    }
+    
+    
+
     
 }

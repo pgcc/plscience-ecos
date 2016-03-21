@@ -35,6 +35,7 @@ import br.ufjf.pgcc.plscience.dao.ExperimentDAO;
 import br.ufjf.pgcc.plscience.dao.UsedDAO;
 import br.ufjf.pgcc.plscience.model.Used;
 import br.ufjf.pgcc.plscience.recos.IntegrationModule;
+import br.ufjf.pgcc.plscience.recos.MidPoint;
 import br.ufjf.pgcc.plscience.recos.calculateFactors;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -82,6 +83,8 @@ public class SearchMyExperiment implements Serializable {
 
 //            List experiments = new ArrayList();
 //            experiments = new ExperimentDAO().getFrequencyService("protein_protein_interactions.xml");
+
+            IntegrationModule.midPointModel();
             IntegrationModule.setWorkflows(workflows);
 
         } catch (Exception e) {
