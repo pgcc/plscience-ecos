@@ -8,20 +8,19 @@
         <h2 class="page-header">Analyze Collaboration Services</h2>
         
         <p:tabView>
-            <p:tab title="Step 1 - PRIME">
+            <p:tab id="tabStep1" title="Step 1 - PRIME">
             <h:form id="searchPage">
-                <h:outputLabel value="Service Discovery" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
-
-                <h:outputLabel value="Syntactic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                
                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                    <h:outputLabel value="Syntactic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                    <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                     <h:outputLabel for="hasAddress" value="Address" />
                     <h:inputText id="hasAddress" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSyntactic.hasAddress}" />
                     <h:outputLabel for="hasReturn" value="Return:" />
                     <h:inputText id="hasReturn" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSyntactic.hasReturn}" />
-                </h:panelGrid>
-                
-                <h:outputLabel value="Semantic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+
+                    <h:outputLabel value="Semantic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                    <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                     <h:outputLabel for="hasSemanticReturn" value="Semantic Return" />
                     <h:inputText id="hasSemanticReturn" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSemantic.hasSemanticReturn}" />             
                     <h:outputLabel for="hasSemanticReception" value="Semantic Reception" />
@@ -30,10 +29,9 @@
                     <h:inputText id="hasSemanticRepresentation" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSemantic.hasSemanticRepresentation}" />
                     <h:outputLabel for="hasFunctionalRequirement" value="Functional Requirement" />
                     <h:inputText id="hasFunctionalRequirement" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesSemantic.hasFunctionalRequirement}" />
-                </h:panelGrid>
 
-                <h:outputLabel value="Pragmatic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                    <h:outputLabel value="Pragmatic" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                    <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                     <h:outputLabel for="hasNonFunctionalReq" value="Non Functional Requirement" />
                     <h:inputText id="hasNonFunctionalReq" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.hasNonFunctionalReq}" />
                     <h:outputLabel value="Context" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
@@ -65,19 +63,19 @@
                     <h:inputText id="hasOperationalSystem" value="#{experimentPrototyping.serviceDescriptionVO.includesPragmatic.includesHardware.hasOperationalSystem}" />
                     <h:outputLabel for="hasRAM" value="RAM (GB)" />
                     <h:inputText id="hasRAM" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesHardware.hasRAM}">
-                        <f:validateRegex pattern="[0-9]+"/>
+                        <f:validateRegex pattern="[0-9]*"/>
                     </h:inputText>
                     <h:outputLabel for="hasROM" value="ROM (GB)" />
                     <h:inputText id="hasROM" value="#{analyzeCollaborationServiceBean.serviceDescriptionVO.includesPragmatic.includesHardware.hasROM}">
-                       <f:validateRegex pattern="[0-9]+"/>
+                       <f:validateRegex pattern="[0-9]*"/>
                     </h:inputText>    
                 </h:panelGrid>
 
-                <h:commandButton id="btnE" value="Send" type="submit" action="#{analyzeCollaborationServiceBean.searchServices()}"/> 
+                <h:commandButton id="btnE" value="Find" type="submit" action="#{analyzeCollaborationServiceBean.searchServices()}"/> 
 
-                <p:dataTable var="service" value="#{analyzeCollaborationServiceBean.services}" id="servicesResult" style="margin-top: 20px">
+                <p:dataTable var="serviceUsed" value="#{analyzeCollaborationServiceBean.services}" id="servicesResult" style="margin-top: 20px" >
                     <p:column headerText="Services Ranking">
-                        <h:outputText value="#{service.name}" />
+                        <h:outputText value="#{serviceUsed.name}" />
                     </p:column>
                     <p:column>
                     <p:commandButton value="View Details" id="viewDetails"/>
@@ -86,24 +84,38 @@
                                 <h:outputLabel value="Service Details" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                                     <h:outputLabel for="hasAddress" value="Address" />
-                                    <h:outputText id="hasAddress" value="#{service.includesSyntactic.hasAddress}" />
+                                    <h:outputText id="hasAddress" value="#{serviceUsed.includesSyntactic.hasAddress}" />
                                     <h:outputLabel for="hasReturn" value="Return" />
-                                    <h:outputText id="hasReturn" value="#{service.includesSyntactic.hasReturn}" />
+                                    <h:outputText id="hasReturn" value="#{serviceUsed.includesSyntactic.hasReturn}" />
                                     <h:outputLabel for="hasComments" value="Description" />
-                                    <h:outputText id="hasComments" value="#{service.includesPragmatic.includesContext.hasComments}" />
+                                    <h:outputText id="hasComments" value="#{serviceUsed.includesPragmatic.includesContext.hasComments}" />
                                 </h:panelGrid>
                             </h:form>
                         </p:overlayPanel>
                     </p:column>
                     <p:column>
-                        <p:commandButton value="Choice Service" id="serviceUsed"  />
+                        <p:commandButton title="select Service" 
+                                         value="Select Service" >
+                            <f:setPropertyActionListener value="#{serviceUsed}" target="#{analyzeCollaborationServiceBean.serviceUsed}" for="collabService1" />
+                            <p:confirm header="Select Service" message="Select Service: #{serviceUsed.name} ?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Yes" 
+                                             type="button" 
+                                             styleClass="ui-confirmdialog-yes" 
+                                             icon="ui-icon-check" 
+                                             actionListener="#{analyzeCollaborationServiceBean.chooseService}" 
+                                             update="collabService1"  />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </p:column>
                 </p:dataTable>
 
             </h:form>                   
             </p:tab>
             
-            <p:tab title="Step 2 - SAVE">        
+            <p:tab id="tabStep2" title="Step 2 - SAVE">        
             <h:form id="newCollaborationServiceForm">
                 <p:growl id="growl" />
                 <p:panel header="Analyze" style="margin: 10px 0;">
@@ -111,7 +123,10 @@
 
                     <h:panelGrid columns="2" cellpadding="4">
                         <h:outputLabel for="collabService1" value="First Collaborative Service: " />
-                        <h:inputText id="collabService1" value="#{analyzeCollaborationServiceBean.collaborationService1.id} - #{analyzeCollaborationServiceBean.collaborationService1.collabServiceName}" />
+                        <h:inputText id="collabService1" value="#{analyzeCollaborationServiceBean.collaborationService1.collabServiceName}" disabled="true" />
+                        <p:commandLink id="chooseBT" value="Selected Link" 
+                                       actionListener="#{analyzeCollaborationServiceBean.chooseService}" update="collabService1" />
+                        <h:outputLabel value="" />
                         <ui:remove>
                         <p:selectOneMenu id="collabService1" value="#{analyzeCollaborationServiceBean.collaborationService1}" 
                                          converter="collabServiceConverter" 
@@ -151,7 +166,7 @@
 
                         <p:commandButton id="analizeBtn" value="Analize" icon="ui-icon-check" style="margin:0" 
                                          actionListener="#{analyzeCollaborationServiceBean.analyzeCollabServices()}" 
-                                         update="displayAnalyze" />
+                                         type="submit" update="displayAnalyze" />
                     </h:panelGrid>
 
                     <p:outputPanel id="displayAnalyze">
@@ -172,9 +187,6 @@
 
                     </ui:remove>
 
-                </p:panel>
-
-                <p:panel header="Concepts Matching" style="margin: 10px 0;">
                 <h:panelGrid columns="1" cellpadding="4">
                     <h3>SEMANTIC RESULTS</h3>
                 </h:panelGrid>

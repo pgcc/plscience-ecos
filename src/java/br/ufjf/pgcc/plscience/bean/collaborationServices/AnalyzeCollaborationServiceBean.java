@@ -67,6 +67,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
     private ConceptXML conceptXML;
     
     //PRIME
+    private ServiceDescriptionVO serviceUsed;
     private ServiceDescriptionVO serviceDescriptionVO;
     private List<ServiceDescriptionVO> services;
     private String serviceName;
@@ -1845,7 +1846,24 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
             System.out.println("Nome Serv: " + rank.getServiceRecovery().getName() +" Simil: " + rank.getSimilarity());
         }
         //setServices(sr.Recovery());
-        setServices(servicesRankingSorted);
-                       
+        setServices(servicesRankingSorted);                      
+    }
+    
+    public void chooseService() {
+        collaborationService1 = new CollaborationServiceDAO().getCollaborationServiceByName(serviceUsed.getName());
+    }
+
+    /**
+     * @return the serviceUsed
+     */
+    public ServiceDescriptionVO getServiceUsed() {
+        return serviceUsed;
+    }
+
+    /**
+     * @param serviceUsed the serviceUsed to set
+     */
+    public void setServiceUsed(ServiceDescriptionVO serviceUsed) {
+        this.serviceUsed = serviceUsed;
     }
 }
