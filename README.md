@@ -5,7 +5,7 @@ Utilização do banco de dados do E-SECO. Etapas:
 
 1- Ter o MySQL Workbench instalado. Ele é importante para abrir o modelo do Banco de Dados (o arquivo .mwb).
 
-2- Criar o Bando de Dados com o nome "plscience".
+2- Criar o Banco de Dados com o nome "plscience".
 
 3- Abrir o modelo do Banco de Dados (plscienceprov.mwb) no MySQL Workbench.
 
