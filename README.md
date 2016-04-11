@@ -4,14 +4,19 @@ Criação do projeto
 
 Clonar ecospl-science no netbeans: Equipe -> Git -> Clonar OU Equipe -> Remoto -> Clonar
 
+URL:  https://github.com/pgcc/plscience-ecos.git
+
 ==============
 Adicionar o projeto no netbeans:
 
 Novo-> Projeto Web com códigos-fontes existentes
 
 Selecionar localização do projeto e colocar plscience-ecos como nome do projeto
+
 Clicar em próximo
+
 Selecionar servidor TomCat -> Próximo
+
 Clicar em finalizar
 
 Projeto é criado, mas aparece erro por falta de bibliotecas
