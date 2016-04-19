@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
@@ -17,15 +19,23 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.push.PushContext;
 import org.primefaces.push.PushContextFactory;
 
-@ManagedBean(name = "listUserB")
-//@ManagedBean(name = "chat")
+
+@ManagedBean(name = "chat")
 @ViewScoped
 public class Chat implements Serializable {
 
-    String  recieveMessage="",sendMessage,username, address = "localhost";
+    String  recieveMessage="",sendMessage,receiver,username, address = "localhost";
     ArrayList<String> users = new ArrayList();
     int port = 2222;
     Boolean isConnected = false;
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
 
     Socket sock;
     BufferedReader reader;
@@ -35,6 +45,15 @@ public class Chat implements Serializable {
             RequestContext instance2;
              UIViewRoot viewRoot; 
             UIComponent component;
+
+   
+            public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     
     
     
@@ -45,7 +64,7 @@ public class Chat implements Serializable {
         
         
         
-        System.out.println("Mae to no print");
+        System.out.println("mae");
 
         //ta_chat.append("Server started...\n");
     }
@@ -88,6 +107,32 @@ public class Chat implements Serializable {
         Thread IncomingReader = new Thread(new IncomingReader());
         IncomingReader.start();
     }
+    public void sendDisconnect() 
+    {
+        String bye = (username + ": :Disconnect");
+        try
+        {
+            writer.println(bye); 
+            writer.flush(); 
+        } catch (Exception e) 
+        {
+           System.out.println(e);
+        }
+    }
+    
+    public void disconect() {
+        sendDisconnect();
+        isConnected = false;
+        try {
+            sock.close();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
      public void send() {                                       
         
          
@@ -98,6 +143,7 @@ public class Chat implements Serializable {
             try {
                writer.println(username + ":" + sendMessage + ":" + "Chat");
                writer.flush(); // flushes the buffer
+               sendMessage = "";
             } catch (Exception ex) {
                 //ta_chat.append("Message was not sent. \n");
             }
@@ -143,15 +189,19 @@ public class Chat implements Serializable {
     }
 
     //--------------------------//
-    public void connect() {
+    public void connect(String receiver,String user) {
         
         if (isConnected == false) {
+            recieveMessage = "";
             String anon = "anon";
             Random generator = new Random();
             int i = generator.nextInt(999) + 1;
             String is = String.valueOf(i);
             anon = anon.concat(is);
-            username = "Marcio";
+            this.receiver = receiver;
+            this.username = user;
+            
+            
 
            // tf_username.setText(anon);
             //tf_username.setEditable(false);
