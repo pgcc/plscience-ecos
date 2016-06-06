@@ -10,14 +10,6 @@
         <h:form>  
             <p:menubar>
                 <p:menuitem value="Home" icon="ui-icon-home" url="/faces/restrict/index.xhtml" />
-                <ui:remove>
-                    //não foi implementado a linha de produto ainda - mais informações na dissertação do anrafel
-                    <p:submenu label="Product Line" icon="ui-icon-copy">
-                        <p:menuitem value="Products"/>
-                        <p:menuitem value="Core Artifact"/>
-                        <p:menuitem value="Domain Engineering"/>
-                    </p:submenu>
-                </ui:remove>
                 <p:submenu label="Experiments" icon="ui-icon-lightbulb">
                     <p:menuitem icon="ui-icon-document" value="Experiments" url="/faces/restrict/experiments.xhtml"/>
                     <p:menuitem icon="ui-icon-folder-open" value="My Experiments" url="/faces/restrict/experiments/myExperiments.xhtml"/>
@@ -53,6 +45,16 @@
                         <ui:remove></ui:remove>
                     </p:submenu>
                 </p:submenu>
+                <p:submenu label="Product Line" icon="ui-icon-copy">
+                        <p:menuitem value="Application Engineering" url="/faces/restrict/productLine/applicationEngineering.xhtml"/>
+                        <p:menuitem value="Domain Engineering" url="/faces/restrict/productLine/domainEngineering.xhtml"/>
+                        <p:menuitem value="Management" url="/faces/restrict/productLine/splManagement.xhtml"/>
+                        <p:menuitem value="Components Retrieval" url="/faces/restrict/productLine/componentsRetrieval.xhtml"/>
+                </p:submenu>
+                <p:submenu label="Search" icon="ui-icon-search">
+                        <p:menuitem value="Search Components" url="/faces/restrict/search/searchComponents.xhtml"/>
+                </p:submenu>                
+                
                 <f:facet name="options">
                     <p:commandButton icon="ui-icon-power" value="Exit" action="#{userLoginBean.logout}" />
                 </f:facet>

@@ -1,0 +1,127 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Search Services</h2>
+
+        <h:form id="searchComponentsForm">
+            <p:growl id="growl" />
+            <p:panel header="Search in Repositories" style="margin: 10px 0;">
+                <p:messages id="messages" />
+                <h:panelGrid columns="3" cellpadding="4">
+                    <h:outputLabel for="searchTerm" value="Enter your search term: " />
+                    <p:inputText id="searchTerm" 
+                                 value="#{searchComponents.searchQuery}" 
+                                 required="true" 
+                                 label="SearchTerm"
+                                 size="50">
+                        <f:validateLength minimum="4" />
+                    </p:inputText>
+                    <p:message for="searchTerm" />    
+                </h:panelGrid>
+
+                <p:accordionPanel>                
+                    <p:tab title="Prime Search - Syntactic">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="hasAddress" value="Address: " />
+                            <h:inputText 
+                                id="hasAddress" />                        
+                            <h:outputLabel for="hasReturn" value="Return:" />
+                            <h:inputText 
+                                id="hasReturn" />                  
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Prime Search - Semantic">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="hasSemanticReturn" value="Semantic Return" />
+                            <h:inputText id="hasSemanticReturn" />             
+                            <h:outputLabel for="hasSemanticReception" value="Semantic Reception" />
+                            <h:inputText id="hasSemanticReception"/>
+                            <h:outputLabel for="hasSemanticRepresentation" value="Semantic Representation" />
+                            <h:inputText id="hasSemanticRepresentation"/>
+                            <h:outputLabel for="hasFunctionalRequirement" value="Functional Requirement" />
+                            <h:inputText id="hasFunctionalRequirement"/>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Prime Search - Pragmatic">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="hasNonFunctionalReq" value="Non Functional Requirement" />
+                            <h:inputText id="hasNonFunctionalReq" />
+                            <h:outputLabel value="Context" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel for="hasArtifact" value="Artifact" />
+                            <h:inputText id="hasArtifact" />
+                            <h:outputLabel for="hasDomain" value="Domain" />
+                            <h:inputText id="hasDomain" />
+                            <h:outputLabel for="hasLicense" value="License" />
+                            <h:inputText id="hasLicense" />
+                            <h:outputLabel for="hasComments" value="Comments" />
+                            <h:inputText id="hasComments" />
+                            <h:outputLabel for="how" value="Purpose" />
+                            <h:inputText id="how"/>
+                            <h:outputLabel for="where" value="Provider" />
+                            <h:inputText id="where"/>
+                            <h:outputLabel for="when" value="Publication Data" />
+                            <h:inputText id="when"/>
+                            <h:outputLabel for="who" value="Scientist Name" />
+                            <h:inputText id="who"/>
+                            <h:outputLabel for="hasRestriction" value="Restriction" />
+                            <h:inputText id="hasRestriction"/>
+                            <h:outputLabel value="Hardware" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel for="hasCPU" value="CPU" />
+                            <h:inputText id="hasCPU"/>
+                            <h:outputLabel for="hasOperationalSystem" value="Operational System" />
+                            <h:inputText id="hasOperationalSystem"/>
+                            <h:outputLabel for="hasRAM" value="RAM (GB)" />
+                            <h:inputText id="hasRAM">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <h:outputLabel for="hasROM" value="ROM (GB)" />
+                            <h:inputText id="hasROM">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>    
+                        </h:panelGrid>
+                    </p:tab>
+
+                </p:accordionPanel>
+
+                <p:commandButton value="Search" icon="ui-icon-search" 
+                                 actionListener="#{searchComponents.search()}" 
+                                 update="searchResults"    />
+            </p:panel>
+            <p:panel header="Results" style="margin: 10px 0;">
+                <p:dataTable var="result" value="#{searchComponents.results}" 
+                             id="searchResults" emptyMessage="No records found"
+                             paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="5" rowsPerPageTemplate="5,10,25,50,100,9999"
+                             style="margin-top: 20px">
+                    <p:column headerText="Component Name" sortBy="#{result.name}" filterBy="#{result.name}">
+                        <h:outputText value="#{result.name}" />
+                    </p:column>
+                    <p:column headerText="Repository Name">
+                        <h:outputText value="BioCatalogue" />
+                    </p:column>
+                    <p:column headerText="Component Type">
+                        <h:outputText value="Service" />
+                    </p:column>                    
+                    <p:column headerText="Description" sortBy="#{result.description}" filterBy="#{result.description}">
+                        <h:outputText value="#{result.description.length() gt 100 ? result.description.substring(0,97).concat('...') : result.description}" title="#{result.description}"/>
+                    </p:column>
+                    <p:column headerText="Owner">
+                        <a href="#{result.submitter}" target="_blank">#{result.submitter}</a>
+                    </p:column>
+                    <p:column headerText="Select">
+                        <p:selectManyCheckbox id="basic" value="components">
+                            <f:selectItem itemLabel=" " itemValue="#{result.name}" />
+                        </p:selectManyCheckbox>
+                    </p:column>                    
+                </p:dataTable>
+            </p:panel>
+            <p:commandButton value="Download" icon="ui-icon-circle-arrow-s"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

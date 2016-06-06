@@ -1,0 +1,25 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Domain Engineering - Artifacts Core Development</h2>
+        
+        <h:form>
+            <p:accordionPanel>
+                
+                <p:tab title="General">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputText value="Artifacts" style="font-weight: bold" />
+                        <p:commandButton value="Register" icon="ui-icon-plusthick" action="/faces/restrict/collaborationServices/newCollaborativeServiceType.xhtml?faces-redirect=true" ajax="false" />
+                        <p:commandButton value="List" icon="ui-icon-print" action="/faces/restrict/collaborationServices/myCollaborativeServiceTypes.xhtml?faces-redirect=true" ajax="false" />
+                        
+                    </h:panelGrid>        
+                </p:tab>
+            </p:accordionPanel>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>
