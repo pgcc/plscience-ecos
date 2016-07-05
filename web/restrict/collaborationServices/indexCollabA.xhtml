@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/templates/layoutCollab.xhtml"
+<ui:composition template="/WEB-INF/templates/layoutCollabA.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -9,10 +9,10 @@
         
         <h:form>
             <h:panelGrid columns="1" cellpadding="5"> 
-                <p:commandButton value="Users List - Layout A" icon="ui-icon-circle-arrow-e" style="width:250px"
-                    action="/faces/restrict/collaborationServices/indexCollabA.xhtml?faces-redirect=true" ajax="false" />
+                <p:commandButton value="Users List - Layout Default" icon="ui-icon-circle-arrow-e" style="width:250px"
+                    action="/faces/restrict/collaborationServices/indexCollab.xhtml?faces-redirect=true" ajax="false" />
 
-                <p:commandButton value="Users List- Layout B" icon="ui-icon-circle-arrow-e" style="width:250px"
+                <p:commandButton value="Users List - Layout B" icon="ui-icon-circle-arrow-e" style="width:250px"
                     action="/faces/restrict/collaborationServices/indexCollabB.xhtml?faces-redirect=true" ajax="false" />
             </h:panelGrid>
         </h:form>

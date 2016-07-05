@@ -31,8 +31,10 @@
                 </p:submenu>
                 <p:submenu label="Collaboration" icon="ui-icon-comment">
                     <p:menuitem value="Collaboration Layout" url="/faces/restrict/collaborationServices/indexCollab.xhtml" />
-                    <p:menuitem value="Collaboration Feature" url="/faces/restrict/collaborationServices/services/selectListUser.xhtml" />
-                    <p:menuitem value="Msg" url="/faces/restrict/collaborationServices/message.xhtml" />
+                    <ui:remove> 
+                        <p:menuitem value="Collaboration Feature" url="/faces/restrict/collaborationServices/services/selectListUser.xhtml" />                    
+                        <p:menuitem value="Msg" url="/faces/restrict/collaborationServices/message.xhtml" />
+                    </ui:remove>
                 </p:submenu>
                 <p:submenu label="Settings" icon="ui-icon-wrench">
                     <p:menuitem value="Manager Institute" icon="ui-icon-bookmark" url="/faces/restrict/institute.xhtml" />
