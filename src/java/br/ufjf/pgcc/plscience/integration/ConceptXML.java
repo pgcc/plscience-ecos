@@ -38,8 +38,8 @@ public class ConceptXML implements Serializable {
     private Long idConceptXml;
     
     @Basic(optional = false)
-    @Column(name = "service")
-    private String service;
+    @Column(name = "group_concept")
+    private String groupConcept;
     
     @Basic(optional = false)
     @Column(name = "concept_service")
@@ -49,8 +49,8 @@ public class ConceptXML implements Serializable {
     private Double ratio;
     
     @Basic(optional = false)
-    @Column(name = "has_concept")
-    private boolean hasConcept;
+    @Column(name = "has_element")
+    private boolean hasElement;
     
     @Basic(optional = false)
     @Column(name = "validity")
@@ -78,15 +78,15 @@ public class ConceptXML implements Serializable {
      * @return the service
      */
     @XmlAttribute
-    public String getService() {
-        return service;
+    public String getGroupConcept() {
+        return groupConcept;
     }
 
     /**
-     * @param service the service to set
+     * @param groupConcept the service to set
      */
-    public void setService(String service) {
-        this.service = service;
+    public void setGroupConcept(String groupConcept) {
+        this.groupConcept = groupConcept;
     }
 
     /**
@@ -120,18 +120,18 @@ public class ConceptXML implements Serializable {
     }
 
     /**
-     * @return the hasConcept
+     * @return the hasElement
      */
     @XmlAttribute
-    public boolean isHasConcept() {
-        return hasConcept;
+    public boolean isHasElement() {
+        return hasElement;
     }
 
     /**
-     * @param hasConcept the hasConcept to set
+     * @param hasElement the hasConcept to set
      */
-    public void setHasConcept(boolean hasConcept) {
-        this.hasConcept = hasConcept;
+    public void setHasElement(boolean hasElement) {
+        this.hasElement = hasElement;
     }
 
     /**

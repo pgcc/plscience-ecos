@@ -73,6 +73,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
     private String serviceName;
     private String equivalencesResult;
     
+    //Rederização de Componentes
+    private boolean show; 
+    
     public AnalyzeCollaborationServiceBean(){
         
         //SAVE
@@ -95,6 +98,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         HardwareVO hard = new HardwareVO();
         serviceDescriptionVO.getIncludesPragmatic().setIncludesHardware(hard);
         services = new ArrayList<ServiceDescriptionVO>();
+        
+        //Componentes
+        show = true;
     }
     
     public String test() {
@@ -117,6 +123,8 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         interoperabilityServices.getInteroperabilityStructXML().setSecondTypeService(getCollaborationService2().getCollaborativeServiceType().getNameServiceType());
         interoperabilityServices.getInteroperabilityStructXML().setAgentID(100L); //MUDAR PARA O ID DA PESSOA LOGADA
         
+        setShow(false);
+        
         //Inicia a comparação
         compareService(); 
         
@@ -127,11 +135,17 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         String same = "\n";
         
         //Dados introdutórios sobre os serviços analizados.
+        /*
         same = same + "Compare: \n" +
                         interoperabilityServices.getCollabService1().getId() + " - " +
                         interoperabilityServices.getCollabService1().getCollabServiceName() + "\n" +
                         interoperabilityServices.getCollabService2().getId() + " - " +
                         interoperabilityServices.getCollabService2().getCollabServiceName() + "\n\n";
+        */
+        same = same + "<b>Compared Services:</b> \n" +
+                        "<b>" + interoperabilityServices.getCollabService1().getCollabServiceName() + "</b>" +
+                        " with " +
+                        "<b>" + interoperabilityServices.getCollabService2().getCollabServiceName() + "</b>\n\n";
                   
         //Cálculo da porcentagem de similaridade entre os conceitos existentes.
         double d = ((double)interoperabilityServices.getSameConcept().size()/
@@ -141,23 +155,27 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         
         interoperabilityServices.setConceptRatio(d);
         
-        same = same + "Concepts Ratio: " + interoperabilityServices.getConceptRatio() + "%" + "\n\n";
+        same = same + "<b>Similarity Rate Among Concepts: </b>" + interoperabilityServices.getConceptRatio() + "%" + "\n\n";
         
         //Recupera os conceitos iguais.
-        same = same + "Same Concept:" + "\n";        
+        /*
+        same = same + "<b>Same Concept:</b>" + "\n";        
         if(interoperabilityServices.getSameConcept() != null && !interoperabilityServices.getSameConcept().isEmpty()) {
             for(String s : interoperabilityServices.getSameConcept()){
                 same = same + s + "\n";
             }
         }
+        */
         
         //Recupera os conceitos diferentes.
-        same = same + "\n\n" + "Different Concept:" + "\n";
+        /*
+        same = same + "\n\n" + "<b>Different Concept:</b>" + "\n";
         if(interoperabilityServices.getDifferentConcept() != null && !interoperabilityServices.getDifferentConcept().isEmpty()) {
             for(String s : interoperabilityServices.getDifferentConcept()){
                 same = same + s + "\n";
             }
         }
+        */
          
         //Acrescenta informsações da conparação.
         //same = same + "\n" + showScreen(interoperabilityServices.getInteroperabilityStructXML());
@@ -275,9 +293,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Group Service");
+                    concept.setGroupConcept("Group");
                     concept.setConceptService("Belief");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -323,7 +341,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                             
                             //Criação de um ConceptXML.
                             ConceptXML concept = new ConceptXML();
-                            concept.setService("Group Service");
+                            concept.setGroupConcept("Group");
                             concept.setConceptService("Competence");
                             
                             for(int k = 0; k < wc1.getListaSinonimos().size(); k++) {
@@ -334,7 +352,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                         sameConcept = true;
                                         
                                         //Acrescenta informações à variável "concept".
-                                        concept.setHasConcept(true);
+                                        concept.setHasElement(true);
                                         concept.setConceptService1(competence1.get(i).getCompetenceName());
                                         concept.setConceptService2(competence2.get(j).getCompetenceName());
                                         concept.setValidity(false);
@@ -361,7 +379,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                                 sameConcept = true;
 
                                                 //Acrescenta informações à variável "concept".
-                                                concept.setHasConcept(true);
+                                                concept.setHasElement(true);
                                                 concept.setConceptService1(competence1.get(i).getCompetenceName());
                                                 concept.setConceptService2(competence2.get(j).getCompetenceName());
                                                 concept.setValidity(false);
@@ -390,7 +408,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                                 sameConcept = true;
 
                                                 //Acrescenta informações à variável "concept".
-                                                concept.setHasConcept(true);
+                                                concept.setHasElement(true);
                                                 concept.setConceptService1(competence1.get(i).getCompetenceName());
                                                 concept.setConceptService2(competence2.get(j).getCompetenceName());
                                                 concept.setValidity(false);
@@ -417,9 +435,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Group Service");
+                    concept.setGroupConcept("Group");
                     concept.setConceptService("Competence");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -448,9 +466,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Group Service");
+                    concept.setGroupConcept("Group");
                     concept.setConceptService("Confidence");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -479,9 +497,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Group Service");
+                    concept.setGroupConcept("Group");
                     concept.setConceptService("Goal");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -510,9 +528,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Group Service");
+                    concept.setGroupConcept("Group");
                     concept.setConceptService("Group");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -541,9 +559,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Group Service");
+                    concept.setGroupConcept("Group");
                     concept.setConceptService("Motivation");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -572,9 +590,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Group Service");
+                    concept.setGroupConcept("Group");
                     concept.setConceptService("Participant");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -603,9 +621,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication Service");
                     concept.setConceptService("Code");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -634,9 +652,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Common Sense");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -665,9 +683,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Communication Protocol");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -696,9 +714,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Compromise");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -727,9 +745,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Interpretation");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -758,9 +776,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Issuer");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -789,9 +807,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Message");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -820,9 +838,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Mode");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -851,9 +869,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Negotiation");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -882,9 +900,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Receiver");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -913,9 +931,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Synchronism");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -944,9 +962,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Communication Service");
+                    concept.setGroupConcept("Communication");
                     concept.setConceptService("Transmission Mode");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -975,9 +993,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Cooperation Service");
+                    concept.setGroupConcept("Cooperation");
                     concept.setConceptService("Activity");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1006,9 +1024,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Cooperation Service");
+                    concept.setGroupConcept("Cooperation");
                     concept.setConceptService("Artifact");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1037,9 +1055,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Cooperation Service");
+                    concept.setGroupConcept("Cooperation");
                     concept.setConceptService("Product");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1068,9 +1086,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Cooperation Service");
+                    concept.setGroupConcept("Cooperation");
                     concept.setConceptService("Resource");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1099,9 +1117,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Cooperation Service");
+                    concept.setGroupConcept("Cooperation");
                     concept.setConceptService("Share");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1130,9 +1148,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Cooperation Service");
+                    concept.setGroupConcept("Cooperation");
                     concept.setConceptService("Share Space");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1161,9 +1179,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Cooperation Service");
+                    concept.setGroupConcept("Cooperation");
                     concept.setConceptService("Task");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1192,9 +1210,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Coordination Service");
+                    concept.setGroupConcept("Coordination");
                     concept.setConceptService("Coupling");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1223,9 +1241,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Coordination Service");
+                    concept.setGroupConcept("Coordination");
                     concept.setConceptService("Deadline");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1254,9 +1272,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Coordination Service");
+                    concept.setGroupConcept("Coordination");
                     concept.setConceptService("Monitoring");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1285,9 +1303,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Coordination Service");
+                    concept.setGroupConcept("Coordination");
                     concept.setConceptService("Policy");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1333,7 +1351,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                             
                             //Criação de um ConceptXML.
                             ConceptXML concept = new ConceptXML();
-                            concept.setService("Coordination Service");
+                            concept.setGroupConcept("Coordination");
                             concept.setConceptService("Role");
                             
                             for(int k = 0; k < wc1.getListaSinonimos().size(); k++) {
@@ -1344,7 +1362,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                         sameConcept = true;
                                         
                                         //Acrescenta informações à variável "concept".
-                                        concept.setHasConcept(true);
+                                        concept.setHasElement(true);
                                         concept.setConceptService1(role1.get(i).getRoleName());
                                         concept.setConceptService2(role2.get(j).getRoleName());
                                         concept.setValidity(false);
@@ -1371,7 +1389,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                                 sameConcept = true;
 
                                                 //Acrescenta informações à variável "concept".
-                                                concept.setHasConcept(true);
+                                                concept.setHasElement(true);
                                                 concept.setConceptService1(role1.get(i).getRoleName());
                                                 concept.setConceptService2(role2.get(j).getRoleName());
                                                 concept.setValidity(false);
@@ -1400,7 +1418,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                                 sameConcept = true;
 
                                                 //Acrescenta informações à variável "concept".
-                                                concept.setHasConcept(true);
+                                                concept.setHasElement(true);
                                                 concept.setConceptService1(role1.get(i).getRoleName());
                                                 concept.setConceptService2(role2.get(j).getRoleName());
                                                 concept.setValidity(false);
@@ -1427,9 +1445,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Coordination Service");
+                    concept.setGroupConcept("Coordination");
                     concept.setConceptService("Role");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1458,9 +1476,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Coordination Service");
+                    concept.setGroupConcept("Coordination");
                     concept.setConceptService("Status");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1489,9 +1507,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
-                    concept.setService("Coordination Service");
+                    concept.setGroupConcept("Coordination");
                     concept.setConceptService("Work Plan");                  
-                    concept.setHasConcept(false);
+                    concept.setHasElement(false);
                     //concept.setRatio(100.00);
                     concept.setValidity(false);
                     
@@ -1554,7 +1572,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         int count = 0;
         
         for(ConceptXML cxml : interoperabilityServices.getInteroperabilityStructXML().getConcepts()){
-            if(cxml.isHasConcept()){
+            if(cxml.isHasElement()){
                 if(cxml.isValidity()) {
                     d = d + cxml.getRatio();
                 }            
@@ -1745,7 +1763,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
     /**
      * @param serviceDescriptionVO the serviceDescriptionVO to set
      */
-    public void setServiceDescriptionVO(ServiceDescriptionVO serviceDescriptionVO) {
+    public void setGroupConceptDescriptionVO(ServiceDescriptionVO serviceDescriptionVO) {
         this.serviceDescriptionVO = serviceDescriptionVO;
     }
 
@@ -1827,6 +1845,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         ServiceRecovery sr = new ServiceRecovery();
         List<ServiceDescriptionVO> servicesRecovery;
         List<ServiceDescriptionVO> servicesRankingSorted = new ArrayList<ServiceDescriptionVO>();
+        List<ServiceDescriptionVO> servicesCollabSorted = new ArrayList<ServiceDescriptionVO>();
         servicesRecovery = sr.Recovery();
         SimilarityCalculation1 sc1 = new SimilarityCalculation1();
         ArrayList<RankingVO> rankingServices = new ArrayList<RankingVO>();
@@ -1846,7 +1865,16 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
             System.out.println("Nome Serv: " + rank.getServiceRecovery().getName() +" Simil: " + rank.getSimilarity());
         }
         //setServices(sr.Recovery());
-        setServices(servicesRankingSorted);                      
+        
+        for(ServiceDescriptionVO serviceCollab: servicesRankingSorted) {
+            if(serviceCollab.getIncludesPragmatic().getIncludesContext().getHasDomain().equalsIgnoreCase("Servico de Colaboracao") ||
+            serviceCollab.getIncludesPragmatic().getIncludesContext().getHasDomain().equalsIgnoreCase("Collaborative Service") ||
+            serviceCollab.getIncludesPragmatic().getIncludesContext().getHasDomain().equalsIgnoreCase("Collaboration Service")) {
+                servicesCollabSorted.add(serviceCollab);
+            }            
+        }
+        
+        setServices(servicesCollabSorted);                      
     }
     
     public void chooseService() {
@@ -1865,5 +1893,19 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
      */
     public void setServiceUsed(ServiceDescriptionVO serviceUsed) {
         this.serviceUsed = serviceUsed;
+    }
+
+    /**
+     * @return the show
+     */
+    public boolean isShow() {
+        return show;
+    }
+
+    /**
+     * @param show the show to set
+     */
+    public void setShow(boolean show) {
+        this.show = show;
     }
 }

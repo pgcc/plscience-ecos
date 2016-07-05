@@ -83,12 +83,12 @@ public class InteroperabilityManipulationXML {
             same = same + "Concepts Analyze:" + "\n\n";
             
             for(ConceptXML c : interoperabilityStructXML.getConcepts()) {
-                same = same + " Service: " + c.getService() + 
+                same = same + " Service: " + c.getGroupConcept() + 
                         " || Concept Service: " + c.getConceptService() +
                         " || Ratio Similarity: " + c.getRatio() + "%" +
-                        " || Has Element? " + c.isHasConcept();
+                        " || Has Element? " + c.isHasElement();
                 
-                if(c.isHasConcept()) {
+                if(c.isHasElement()) {
                     same = same + 
                             " || Element Service 1: " + c.getConceptService1() +
                             " || Element Service 2: " + c.getConceptService2();
@@ -109,28 +109,28 @@ public class InteroperabilityManipulationXML {
         
         //Criando dois ConceptXML
         ConceptXML c1 = new ConceptXML();
-        c1.setService("coordination");
+        c1.setGroupConcept("coordination");
         c1.setConceptService("Role");
         c1.setRatio(100.00);
-        c1.setHasConcept(true);
+        c1.setHasElement(true);
         c1.setValidity(true);
         c1.setConceptService1("Scientist");
         c1.setConceptService2("Researcher");
         
         ConceptXML c2 = new ConceptXML();
-        c2.setService("group");
+        c2.setGroupConcept("group");
         c2.setConceptService("Competence");
         c2.setRatio(0.00);
-        c2.setHasConcept(true);
+        c2.setHasElement(true);
         c2.setValidity(false);
         c2.setConceptService1("Competence Alpha");
         c2.setConceptService2("Competence Beta");
         
         ConceptXML c3 = new ConceptXML();
-        c3.setService("group");
+        c3.setGroupConcept("group");
         c3.setConceptService("Group");
         c3.setRatio(100.00);
-        c3.setHasConcept(false);
+        c3.setHasElement(false);
         c3.setValidity(true);
         
         t1.getConcepts().add(c1);
