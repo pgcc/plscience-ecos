@@ -59,8 +59,14 @@ public class ConceptXML implements Serializable {
     @Column(name = "conceptService1")
     private String conceptService1;
     
+    @Column(name = "descriptionService1")
+    private String descriptionService1;
+    
     @Column(name = "conceptService2")
     private String conceptService2;
+    
+    @Column(name = "descriptionService2")
+    private String descriptionService2;
 
     @JoinColumn(name = "id_struct_xml", referencedColumnName = "id_struct_xml")
     @ManyToOne(cascade = CascadeType.ALL)
@@ -210,5 +216,33 @@ public class ConceptXML implements Serializable {
     @Override
     public String toString() {
         return "br.ufjf.pgcc.plscience.integration.ConceptXML[ idConceptXml=" + idConceptXml + " ]";
+    }
+
+    /**
+     * @return the descriptionService1
+     */
+    public String getDescriptionService1() {
+        return descriptionService1;
+    }
+
+    /**
+     * @param descriptionService1 the descriptionService1 to set
+     */
+    public void setDescriptionService1(String descriptionService1) {
+        this.descriptionService1 = descriptionService1;
+    }
+
+    /**
+     * @return the descriptionService2
+     */
+    public String getDescriptionService2() {
+        return descriptionService2;
+    }
+
+    /**
+     * @param descriptionService2 the descriptionService2 to set
+     */
+    public void setDescriptionService2(String descriptionService2) {
+        this.descriptionService2 = descriptionService2;
     }
 }

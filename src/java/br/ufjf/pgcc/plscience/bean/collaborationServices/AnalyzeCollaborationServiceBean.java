@@ -22,6 +22,7 @@ import br.ufjf.pgcc.plscience.model.CollaborationService;
 import br.ufjf.pgcc.plscience.model.Competence;
 import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.model.Roler;
+import br.ufjf.pgcc.plscience.model.Status;
 import br.ufjf.pgcc.plscience.model.StepsScientificExperimentation;
 import br.ufjf.pgcc.plscience.util.DecimalUtil;
 import static br.ufjf.pgcc.plscience.util.StringUtil.removeList;
@@ -79,7 +80,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
     public AnalyzeCollaborationServiceBean(){
         
         //SAVE
-        collaborationServiceList = new CollaborationServiceDAO().getAllCollaborationService();
+        collaborationServiceList = new CollaborationServiceDAO().getAllDevelopedCollaborationService();
         interoperabilityServices = new InteroperabilityServices();
         conceptXML = new ConceptXML();
         
@@ -156,29 +157,6 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         interoperabilityServices.setConceptRatio(d);
         
         same = same + "<b>Similarity Rate Among Concepts: </b>" + interoperabilityServices.getConceptRatio() + "%" + "\n\n";
-        
-        //Recupera os conceitos iguais.
-        /*
-        same = same + "<b>Same Concept:</b>" + "\n";        
-        if(interoperabilityServices.getSameConcept() != null && !interoperabilityServices.getSameConcept().isEmpty()) {
-            for(String s : interoperabilityServices.getSameConcept()){
-                same = same + s + "\n";
-            }
-        }
-        */
-        
-        //Recupera os conceitos diferentes.
-        /*
-        same = same + "\n\n" + "<b>Different Concept:</b>" + "\n";
-        if(interoperabilityServices.getDifferentConcept() != null && !interoperabilityServices.getDifferentConcept().isEmpty()) {
-            for(String s : interoperabilityServices.getDifferentConcept()){
-                same = same + s + "\n";
-            }
-        }
-        */
-         
-        //Acrescenta informsações da conparação.
-        //same = same + "\n" + showScreen(interoperabilityServices.getInteroperabilityStructXML());
         
         //Salva a comparação no banco de dados.
         String name;
@@ -354,7 +332,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                         //Acrescenta informações à variável "concept".
                                         concept.setHasElement(true);
                                         concept.setConceptService1(competence1.get(i).getCompetenceName());
+                                        concept.setDescriptionService1(competence1.get(i).getDescription());
                                         concept.setConceptService2(competence2.get(j).getCompetenceName());
+                                        concept.setDescriptionService2(competence2.get(j).getDescription());
                                         concept.setValidity(false);
                                         
                                         //Calculo da similaridade com a partir da descrição do conceito.
@@ -381,7 +361,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                                 //Acrescenta informações à variável "concept".
                                                 concept.setHasElement(true);
                                                 concept.setConceptService1(competence1.get(i).getCompetenceName());
+                                                concept.setDescriptionService1(competence1.get(i).getDescription());
                                                 concept.setConceptService2(competence2.get(j).getCompetenceName());
+                                                concept.setDescriptionService2(competence2.get(j).getDescription());
                                                 concept.setValidity(false);
 
                                                 //Calculo da similaridade com a partir da descrição do conceito.
@@ -410,7 +392,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                                 //Acrescenta informações à variável "concept".
                                                 concept.setHasElement(true);
                                                 concept.setConceptService1(competence1.get(i).getCompetenceName());
+                                                concept.setDescriptionService1(competence1.get(i).getDescription());
                                                 concept.setConceptService2(competence2.get(j).getCompetenceName());
+                                                concept.setDescriptionService2(competence2.get(j).getDescription());
                                                 concept.setValidity(false);
 
                                                 //Calculo da similaridade com a partir da descrição do conceito.
@@ -1364,7 +1348,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                         //Acrescenta informações à variável "concept".
                                         concept.setHasElement(true);
                                         concept.setConceptService1(role1.get(i).getRoleName());
+                                        concept.setDescriptionService1(role1.get(i).getDescription());
                                         concept.setConceptService2(role2.get(j).getRoleName());
+                                        concept.setDescriptionService2(role2.get(j).getDescription());
                                         concept.setValidity(false);
                                         
                                         //Calculo da similaridade com a partir da descrição do conceito.
@@ -1391,7 +1377,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                                 //Acrescenta informações à variável "concept".
                                                 concept.setHasElement(true);
                                                 concept.setConceptService1(role1.get(i).getRoleName());
+                                                concept.setDescriptionService1(role1.get(i).getDescription());
                                                 concept.setConceptService2(role2.get(j).getRoleName());
+                                                concept.setDescriptionService2(role2.get(j).getDescription());
                                                 concept.setValidity(false);
 
                                                 //Calculo da similaridade com a partir da descrição do conceito.
@@ -1420,7 +1408,9 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                                                 //Acrescenta informações à variável "concept".
                                                 concept.setHasElement(true);
                                                 concept.setConceptService1(role1.get(i).getRoleName());
+                                                concept.setDescriptionService1(role1.get(i).getDescription());
                                                 concept.setConceptService2(role2.get(j).getRoleName());
+                                                concept.setDescriptionService2(role2.get(j).getDescription());
                                                 concept.setValidity(false);
 
                                                 //Calculo da similaridade com a partir da descrição do conceito.
@@ -1467,12 +1457,129 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 interoperabilityServices.getSameConcept().add("(Coordination) Status");
                 
                 //Analiza as competencias associadas aos serviços.
-                //FALTA!
+                List<Status> status1 = new 
+                    CoordinationServiceDAO().getListStatus(interoperabilityServices.getCollabService1().getCoordinationServiceId().getId());
+                List<Status> status2 = new 
+                    CoordinationServiceDAO().getListStatus(interoperabilityServices.getCollabService2().getCoordinationServiceId().getId());
                 
                 boolean sameConcept;
                 
-                if(false) { //FALTA!
-                    //FALTA!
+                if(status1 != null && status2 != null) { 
+                    for(int i = 0; i < status1.size(); i++) {
+                        for(int j = 0; j < status2.size(); j++) {
+                            WordNetHandler wc1 = new WordNetHandler();
+                            WordNetHandler wc2 = new WordNetHandler();
+                            
+                            wc1.handleWordNetConcepts(wc1.getWordNetConceptsNoun(status1.get(i).getStatusName()));
+                            wc2.handleWordNetConcepts(wc2.getWordNetConceptsNoun(status2.get(j).getStatusName()));
+
+                            sameConcept = false;
+                            
+                            //Remove sinônimos e hiperônimos desnecessários.
+                            removeList(wc1.getListaSinonimos());
+                            removeList(wc2.getListaSinonimos());
+                            removeList(wc1.getListaHiperonimos());
+                            removeList(wc2.getListaHiperonimos());
+                            
+                            //Criação de um ConceptXML.
+                            ConceptXML concept = new ConceptXML();
+                            concept.setGroupConcept("Group");
+                            concept.setConceptService("Competence");
+                            
+                            for(int k = 0; k < wc1.getListaSinonimos().size(); k++) {
+                                for(int l = 0; l < wc2.getListaSinonimos().size(); l++) {
+                                    if(wc1.getListaSinonimos().get(k).equalsIgnoreCase(wc2.getListaSinonimos().get(l))){
+                                        
+                                        //Conceito igual encontrado.
+                                        sameConcept = true;
+                                        
+                                        //Acrescenta informações à variável "concept".
+                                        concept.setHasElement(true);
+                                        concept.setConceptService1(status1.get(i).getStatusName());
+                                        concept.setDescriptionService1(status1.get(i).getDescription());
+                                        concept.setConceptService2(status2.get(j).getStatusName());
+                                        concept.setDescriptionService2(status2.get(j).getDescription());
+                                        concept.setValidity(false);
+                                        
+                                        //Calculo da similaridade com a partir da descrição do conceito.
+                                        double dist = analyseLevenshteinDistance(status1.get(i).getDescription(), status2.get(j).getDescription());                 
+                                        concept.setRatio(dist);
+                                        
+                                        //Adição do conceito à list de conceitos.
+                                        interoperabilityServices.getInteroperabilityStructXML().getConcepts().add(concept);
+                                    }
+                                    if(sameConcept) {
+                                        break;
+                                    }
+                                }
+                                if(sameConcept) {
+                                    break;
+                                } else {
+                                    for(int x = 0; x < wc1.getListaSinonimos().size(); x++) {
+                                        for(int y = 0; y < wc2.getListaHiperonimos().size(); y++) {
+                                            if(wc1.getListaSinonimos().get(x).equalsIgnoreCase(wc2.getListaHiperonimos().get(y))){
+
+                                                //Conceito igual encontrado.
+                                                sameConcept = true;
+
+                                                //Acrescenta informações à variável "concept".
+                                                concept.setHasElement(true);
+                                                concept.setConceptService1(status1.get(i).getStatusName());
+                                                concept.setDescriptionService1(status1.get(i).getDescription());
+                                                concept.setConceptService2(status2.get(j).getStatusName());
+                                                concept.setDescriptionService2(status2.get(j).getDescription());
+                                                concept.setValidity(false);
+
+                                                //Calculo da similaridade com a partir da descrição do conceito.
+                                                double dist = analyseLevenshteinDistance(status1.get(i).getDescription(), status2.get(j).getDescription());                 
+                                                concept.setRatio(dist);
+                                                
+                                                //Adição do conceito à list de conceitos.
+                                                interoperabilityServices.getInteroperabilityStructXML().getConcepts().add(concept);
+                                            }
+                                            if(sameConcept) {
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                if(sameConcept) {
+                                    break;
+                                } else {
+                                    for(int w = 0; w < wc1.getListaHiperonimos().size(); w++) {
+                                        for(int v = 0; v < wc2.getListaSinonimos().size(); v++) {
+                                            if(wc1.getListaHiperonimos().get(w).equalsIgnoreCase(wc2.getListaSinonimos().get(v))){
+
+                                                //Conceito igual encontrado.
+                                                sameConcept = true;
+
+                                                //Acrescenta informações à variável "concept".
+                                                concept.setHasElement(true);
+                                                concept.setConceptService1(status1.get(i).getStatusName());
+                                                concept.setDescriptionService1(status1.get(i).getDescription());
+                                                concept.setConceptService2(status2.get(j).getStatusName());
+                                                concept.setDescriptionService2(status2.get(j).getDescription());
+                                                concept.setValidity(false);
+
+                                                //Calculo da similaridade com a partir da descrição do conceito.
+                                                double dist = analyseLevenshteinDistance(status1.get(i).getDescription(), status2.get(j).getDescription());                 
+                                                concept.setRatio(dist);
+                                                
+                                                //Adição do conceito à list de conceitos.
+                                                interoperabilityServices.getInteroperabilityStructXML().getConcepts().add(concept);
+                                            }
+                                            if(sameConcept) {
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }  
+                                if(sameConcept) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 } else {
                     //Criação de um ConceptXML.
                     ConceptXML concept = new ConceptXML();
@@ -1658,8 +1765,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         new InteroperabilityStructXMLDAO().update(interoperabilityServices.getInteroperabilityStructXML());
         
         try { 
-            //Atualiza o "InteroperabilityStructXML" no banco de dados.
-            
+            //Atualiza o "InteroperabilityStructXML" no banco de dados.            
             interoperabilityServices.getInteroperabilityStructXML().getConcepts().clear();
             
             new InteroperabilityStructXMLDAO().update(interoperabilityServices.getInteroperabilityStructXML()); 
@@ -1846,6 +1952,8 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         List<ServiceDescriptionVO> servicesRecovery;
         List<ServiceDescriptionVO> servicesRankingSorted = new ArrayList<ServiceDescriptionVO>();
         List<ServiceDescriptionVO> servicesCollabSorted = new ArrayList<ServiceDescriptionVO>();
+        List<ServiceDescriptionVO> servicesCollabIntanceSorted = new ArrayList<ServiceDescriptionVO>();
+        List<CollaborationService> collaborationServiceList = new CollaborationServiceDAO().getAllDevelopedCollaborationService();
         servicesRecovery = sr.Recovery();
         SimilarityCalculation1 sc1 = new SimilarityCalculation1();
         ArrayList<RankingVO> rankingServices = new ArrayList<RankingVO>();
@@ -1864,8 +1972,8 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
             servicesRankingSorted.add(rank.getServiceRecovery());
             System.out.println("Nome Serv: " + rank.getServiceRecovery().getName() +" Simil: " + rank.getSimilarity());
         }
-        //setServices(sr.Recovery());
         
+        //Recupera os Serviços de Colaboração.
         for(ServiceDescriptionVO serviceCollab: servicesRankingSorted) {
             if(serviceCollab.getIncludesPragmatic().getIncludesContext().getHasDomain().equalsIgnoreCase("Servico de Colaboracao") ||
             serviceCollab.getIncludesPragmatic().getIncludesContext().getHasDomain().equalsIgnoreCase("Collaborative Service") ||
@@ -1873,7 +1981,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                 servicesCollabSorted.add(serviceCollab);
             }            
         }
-        
+
         setServices(servicesCollabSorted);                      
     }
     

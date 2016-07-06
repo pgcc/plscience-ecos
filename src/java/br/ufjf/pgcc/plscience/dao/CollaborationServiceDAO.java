@@ -68,6 +68,10 @@ public class CollaborationServiceDAO extends GenericDAO {
         finish();
     }
     
+    /**
+     * Recupera todos os serviços encontrados.
+     * @return collaborationServices
+     */
     public List<CollaborationService> getAllCollaborationService() {
         
         Query query = getEntityManager().createQuery("select c from CollaborationService As c");
@@ -75,7 +79,20 @@ public class CollaborationServiceDAO extends GenericDAO {
         finish();
         return collaborationServices;
     }
+    
+    /**
+     * Recupera todos os serviços "desenvolvidos". 
+     * Atualmente indica os serviços que pertencem à instancia.
+     * @return collaborationServices
+     */
+    public List<CollaborationService> getAllDevelopedCollaborationService() {
         
+        Query query = getEntityManager().createQuery("select c from CollaborationService As c where c.developed = true ");
+        List<CollaborationService> collaborationServices = query.getResultList();
+        finish();
+        return collaborationServices;
+    }
+    
     /**
      *
      * @param id
