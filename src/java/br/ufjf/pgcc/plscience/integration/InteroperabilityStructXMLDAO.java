@@ -31,6 +31,14 @@ public class InteroperabilityStructXMLDAO extends GenericDAO {
         finish();
     }
     
+    public void remove(InteroperabilityStructXML interoperabilityStructXML) {
+        interoperabilityStructXML = getEntityManager().contains(interoperabilityStructXML) ? interoperabilityStructXML : getEntityManager().merge(interoperabilityStructXML);
+        getEntityManager().getTransaction().begin();
+        getEntityManager().remove(interoperabilityStructXML);
+        getEntityManager().getTransaction().commit();
+        finish();        
+    }
+    
     public List<InteroperabilityStructXML> getAll() {
         Query query = getEntityManager().createQuery("SELECT i FROM InteroperabilityStructXML i");
         List<InteroperabilityStructXML> interoperabilityStructXMLs = query.getResultList();

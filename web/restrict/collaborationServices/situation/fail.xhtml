@@ -1,0 +1,20 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header"><b><font color="red">Alignment is Unsuccessful</font></b></h2>
+        
+        <h:form>
+            <h:panelGrid columns="1" cellpadding="5"> 
+                <p:outputLabel value="If the problem persists contact the administrator." style="font-weight:bold; color:red" />
+                
+                <p:commandButton value="Try Again" icon="ui-icon-circle-arrow-e" style="width:250px"
+                    action="/faces/restrict/collaborationServices/analyzeCollaborationServices.xhtml?faces-redirect=true" ajax="false" />
+            </h:panelGrid>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>

@@ -24,6 +24,7 @@ import br.ufjf.pgcc.plscience.model.Experiment;
 import br.ufjf.pgcc.plscience.model.Roler;
 import br.ufjf.pgcc.plscience.model.Status;
 import br.ufjf.pgcc.plscience.model.StepsScientificExperimentation;
+import br.ufjf.pgcc.plscience.util.BeanUtil;
 import br.ufjf.pgcc.plscience.util.DecimalUtil;
 import static br.ufjf.pgcc.plscience.util.StringUtil.removeList;
 import br.ufjf.pgcc.plscience.vo.ContextVO;
@@ -122,7 +123,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         interoperabilityServices.getInteroperabilityStructXML().setFirstTypeService(getCollaborationService1().getCollaborativeServiceType().getNameServiceType());
         interoperabilityServices.getInteroperabilityStructXML().setSecondServiceID(getCollaborationService2().getId());
         interoperabilityServices.getInteroperabilityStructXML().setSecondTypeService(getCollaborationService2().getCollaborativeServiceType().getNameServiceType());
-        interoperabilityServices.getInteroperabilityStructXML().setAgentID(100L); //MUDAR PARA O ID DA PESSOA LOGADA
+        interoperabilityServices.getInteroperabilityStructXML().setAgentID(BeanUtil.getUserLogin().getIdAgent().longValue()); //MUDAR PARA O ID DA PESSOA LOGADA
         
         setShow(false);
         
@@ -1483,8 +1484,8 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
                             
                             //Criação de um ConceptXML.
                             ConceptXML concept = new ConceptXML();
-                            concept.setGroupConcept("Group");
-                            concept.setConceptService("Competence");
+                            concept.setGroupConcept("Coordination");
+                            concept.setConceptService("Status");
                             
                             for(int k = 0; k < wc1.getListaSinonimos().size(); k++) {
                                 for(int l = 0; l < wc2.getListaSinonimos().size(); l++) {
@@ -1733,11 +1734,7 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         for(ConceptXML cxml : interoperabilityServices.getInteroperabilityStructXML().getConcepts()) {
             cxml.setIdStructXml(interoperabilityServices.getInteroperabilityStructXML());
         }
-        new InteroperabilityStructXMLDAO().update(interoperabilityServices.getInteroperabilityStructXML());
-        
-        
-        //Cria o arquivo XML com as correspondências.
-        //createFileInteroperability("name", interoperabilityServices.getInteroperabilityStructXML());
+        new InteroperabilityStructXMLDAO().update(interoperabilityServices.getInteroperabilityStructXML());        
     }
     
     public void editConcept(ActionEvent actionEvent) {
@@ -1760,18 +1757,44 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         conceptXML = new ConceptXML();
     }
     
-    public void finish() {
+    public void finish() throws IOException {
         //Atualiza o "InteroperabilityStructXML" no banco de dados.
         new InteroperabilityStructXMLDAO().update(interoperabilityServices.getInteroperabilityStructXML());
         
         try { 
             //Atualiza o "InteroperabilityStructXML" no banco de dados.            
+            interoperabilityServices.getInteroperabilityStructXML().getConcepts().clear();            
+            new InteroperabilityStructXMLDAO().update(interoperabilityServices.getInteroperabilityStructXML()); 
+            
+            //Recupera conceitos do "InteroperabilityStructXML" no banco de dados.            
+            Long idStructXML = interoperabilityServices.getInteroperabilityStructXML().getIdStructXml();
+            List<ConceptXML> conceptList = new ConceptXMLDAO().getConceptXMLByIdStructXML(idStructXML);
+            interoperabilityServices.getInteroperabilityStructXML().setConcepts(conceptList);
+            
+            //Cria o arquivo XML com as correspondências.
+            createFileInteroperability(interoperabilityServices.getInteroperabilityStructXML().getInteroperabilityName(), interoperabilityServices.getInteroperabilityStructXML());
+            
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful: ", "Competence saved with success!")); 
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/plscience-ecos/faces/restrict/collaborationServices/situation/success.xhtml");
+            
+        } catch (HibernateException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/plscience-ecos/faces/restrict/collaborationServices/situation/fail.xhtml");
+        }
+    }
+    
+    public void cancel() throws IOException {
+        try { 
+            for(ConceptXML c : interoperabilityServices.getInteroperabilityStructXML().getConcepts()) {
+                new ConceptXMLDAO().remove(c);
+            }
             interoperabilityServices.getInteroperabilityStructXML().getConcepts().clear();
             
-            new InteroperabilityStructXMLDAO().update(interoperabilityServices.getInteroperabilityStructXML()); 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful: ", "Competence saved with success!"));   
+            new InteroperabilityStructXMLDAO().remove(interoperabilityServices.getInteroperabilityStructXML());
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/plscience-ecos/faces/restrict/collaborationServices/collaborationServices.xhtml");
+            
         } catch (HibernateException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));   
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
         }
     }
     

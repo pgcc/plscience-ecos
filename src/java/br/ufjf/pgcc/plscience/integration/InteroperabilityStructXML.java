@@ -66,10 +66,19 @@ public class InteroperabilityStructXML implements Serializable {
     @Column(name = "second_type_service")
     private String secondTypeService;
  
+    /**
+     *
+     * @return
+     */
+    @XmlAttribute
     public Long getIdStructXml() {
         return idStructXml;
     }
 
+    /**
+     *
+     * @param idStructXml
+     */
     public void setIdStructXml(Long idStructXml) {
         this.idStructXml = idStructXml;
     }
@@ -92,6 +101,7 @@ public class InteroperabilityStructXML implements Serializable {
     /**
      * @return the name
      */
+    @XmlAttribute
     public String getInteroperabilityName() {
         return interoperabilityName;
     }

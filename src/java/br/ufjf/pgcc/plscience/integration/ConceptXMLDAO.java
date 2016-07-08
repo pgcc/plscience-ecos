@@ -33,6 +33,14 @@ public class ConceptXMLDAO extends GenericDAO {
         finish();
     }
     
+    public void remove(ConceptXML conceptXML) {
+        conceptXML = getEntityManager().contains(conceptXML) ? conceptXML : getEntityManager().merge(conceptXML);
+        getEntityManager().getTransaction().begin();
+        getEntityManager().remove(conceptXML);
+        getEntityManager().getTransaction().commit();
+        finish();        
+    }
+    
     public List<ConceptXML> getAll() {
         Query query = getEntityManager().createQuery("SELECT c FROM ConceptXML c");
         List<ConceptXML> conceptXMLs = query.getResultList();

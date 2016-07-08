@@ -30,6 +30,8 @@ public class InteroperabilityManipulationXML {
             //CAMINHO SERVIDOR
             //File file = new File("");
             
+            normalizeStructure(interoperabilityStructXML);
+            
             JAXBContext jaxbContext = JAXBContext.newInstance(InteroperabilityStructXML.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
@@ -97,10 +99,17 @@ public class InteroperabilityManipulationXML {
                 same = same + " || Validity? " + c.isValidity() + "\n";
             }
         }
-        
-        
-        
+  
         return same;
+    }
+    
+    public static void normalizeStructure(InteroperabilityStructXML interoperabilityStructXML) {
+        
+        interoperabilityStructXML.setIdStructXml(null);
+        for (ConceptXML c: interoperabilityStructXML.getConcepts()) {
+            c.setIdStructXml(null);
+            c.setIdConceptXml(null);
+        }
     }
     
     public static void main(String[] args) throws IOException {

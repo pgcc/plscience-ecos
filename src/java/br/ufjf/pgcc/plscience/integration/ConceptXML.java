@@ -171,6 +171,21 @@ public class ConceptXML implements Serializable {
     }
 
     /**
+     * @return the descriptionService1
+     */
+    @XmlElement
+    public String getDescriptionService1() {
+        return descriptionService1;
+    }
+
+    /**
+     * @param descriptionService1 the descriptionService1 to set
+     */
+    public void setDescriptionService1(String descriptionService1) {
+        this.descriptionService1 = descriptionService1;
+    }
+    
+    /**
      * @return the conceptService2
      */
     @XmlElement
@@ -183,6 +198,21 @@ public class ConceptXML implements Serializable {
      */
     public void setConceptService2(String conceptService2) {
         this.conceptService2 = conceptService2;
+    }
+    
+    /**
+     * @return the descriptionService2
+     */
+    @XmlElement
+    public String getDescriptionService2() {
+        return descriptionService2;
+    }
+
+    /**
+     * @param descriptionService2 the descriptionService2 to set
+     */
+    public void setDescriptionService2(String descriptionService2) {
+        this.descriptionService2 = descriptionService2;
     }
     
     public InteroperabilityStructXML getIdStructXml() {
@@ -216,33 +246,5 @@ public class ConceptXML implements Serializable {
     @Override
     public String toString() {
         return "br.ufjf.pgcc.plscience.integration.ConceptXML[ idConceptXml=" + idConceptXml + " ]";
-    }
-
-    /**
-     * @return the descriptionService1
-     */
-    public String getDescriptionService1() {
-        return descriptionService1;
-    }
-
-    /**
-     * @param descriptionService1 the descriptionService1 to set
-     */
-    public void setDescriptionService1(String descriptionService1) {
-        this.descriptionService1 = descriptionService1;
-    }
-
-    /**
-     * @return the descriptionService2
-     */
-    public String getDescriptionService2() {
-        return descriptionService2;
-    }
-
-    /**
-     * @param descriptionService2 the descriptionService2 to set
-     */
-    public void setDescriptionService2(String descriptionService2) {
-        this.descriptionService2 = descriptionService2;
-    }
+    }    
 }

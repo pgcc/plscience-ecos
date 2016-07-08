@@ -55,7 +55,7 @@ public class UserLoginBean implements Serializable {
     private Agent agentLog;
     
     //Realiza o login caso de tudo certo 
-    public String login() throws IOException{
+    public String login() throws IOException {
 
         //Verifica se o usuário e senha existem e se o usuario pode logar 
         AgentDAO agentDAO = new AgentDAO(); 

@@ -23,8 +23,12 @@
  */
 package br.ufjf.pgcc.plscience.util;
 
+import br.ufjf.pgcc.plscience.controller.UserLoginBean;
+import br.ufjf.pgcc.plscience.model.Agent;
 import javax.el.ELContext;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,4 +42,11 @@ public class BeanUtil {
         return object;
     }
     
+    public static Agent getUserLogin() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();  
+        HttpSession session = (HttpSession) externalContext.getSession(true);  
+        UserLoginBean userLoginBean = (UserLoginBean) session.getAttribute("userLoginBean");
+        
+        return userLoginBean.getAgentLog();
+    }
 }

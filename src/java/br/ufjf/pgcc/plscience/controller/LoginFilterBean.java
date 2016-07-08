@@ -38,8 +38,7 @@ public class LoginFilterBean implements Filter {
         // o usuário não está logado 
         if (userLogin == null || !userLogin.isLogin()) { 
             String contextPath = ((HttpServletRequest) request) .getContextPath();
-            //Redirecionamos o usuário imediatamente 
-            //para a página de login.xhtml 
+            //Redirecionamos o usuário imediatamente para a página de login.xhtml 
             ((HttpServletResponse) response).sendRedirect(contextPath + "/faces/login.xhtml");
         } else { 
             //Caso ele esteja logado, apenas deixamos 

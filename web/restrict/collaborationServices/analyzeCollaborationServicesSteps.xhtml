@@ -318,9 +318,10 @@
                             <p:separator/>                      
                         </ui:remove>              
 
-                        <h:panelGrid columns="1" cellpadding="4" rendered="#{!analyzeCollaborationServiceBean.isShow()}" >
-                            <BR/>
-                            <p:commandButton id="saveBtn" value="Finish" icon="ui-icon-check" style="margin:0" actionListener="#{analyzeCollaborationServiceBean.finish()}" />
+                        <BR/>
+                        <h:panelGrid columns="2" cellpadding="4" >
+                            <p:commandButton id="saveBtn" value="Finish" icon="ui-icon-check" style="margin:0" actionListener="#{analyzeCollaborationServiceBean.finish()}" rendered="#{!analyzeCollaborationServiceBean.isShow()}" />
+                            <p:commandButton id="cancelBtn" value="Cancel" icon="ui-icon-cancel" style="margin:0" actionListener="#{analyzeCollaborationServiceBean.cancel()}" />
                         </h:panelGrid>
 
                     </p:panel>
