@@ -25,6 +25,9 @@ package br.ufjf.pgcc.plscience.util;
 
 import br.ufjf.pgcc.plscience.controller.UserLoginBean;
 import br.ufjf.pgcc.plscience.model.Agent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.el.ELContext;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -48,5 +51,11 @@ public class BeanUtil {
         UserLoginBean userLoginBean = (UserLoginBean) session.getAttribute("userLoginBean");
         
         return userLoginBean.getAgentLog();
+    }
+    
+    public static String getDateTime() {
+	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	Date date = new Date();
+	return dateFormat.format(date);
     }
 }

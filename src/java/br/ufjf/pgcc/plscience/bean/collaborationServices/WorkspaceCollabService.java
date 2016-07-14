@@ -23,7 +23,6 @@
  */
 package br.ufjf.pgcc.plscience.bean.collaborationServices;
 
-import br.ufjf.pgcc.plscience.bean.collaborationServices.*;
 import br.ufjf.pgcc.plscience.dao.CollaborationServiceDAO;
 import br.ufjf.pgcc.plscience.dao.CommunicationServiceDAO;
 import br.ufjf.pgcc.plscience.dao.CooperationServiceDAO;
@@ -42,19 +41,15 @@ import br.ufjf.pgcc.plscience.model.Roler;
 import br.ufjf.pgcc.plscience.model.Status;
 import br.ufjf.pgcc.plscience.model.TaskConcept;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.hibernate.HibernateException;
 
 /**
  *
- * @author vitorfs
+ * @author Guilherme Martins
  */
 @ManagedBean()
 @SessionScoped

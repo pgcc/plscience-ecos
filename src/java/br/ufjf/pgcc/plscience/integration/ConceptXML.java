@@ -67,6 +67,9 @@ public class ConceptXML implements Serializable {
     
     @Column(name = "descriptionService2")
     private String descriptionService2;
+    
+    @Column(name = "note")
+    private String note;
 
     @JoinColumn(name = "id_struct_xml", referencedColumnName = "id_struct_xml")
     @ManyToOne(cascade = CascadeType.ALL)
@@ -213,6 +216,21 @@ public class ConceptXML implements Serializable {
      */
     public void setDescriptionService2(String descriptionService2) {
         this.descriptionService2 = descriptionService2;
+    }
+    
+    /**
+     * @return the note
+     */
+    @XmlElement
+    public String getNote() {
+        return note;
+    }
+
+    /**
+     * @param note the note to set
+     */
+    public void setNote(String note) {
+        this.note = note;
     }
     
     public InteroperabilityStructXML getIdStructXml() {

@@ -9,9 +9,8 @@
 
             <h:panelGrid columns="2" cellpadding="0" >
                 <h:panelGrid columns="1" cellpadding="1" >
-                    <p:commandLink id="message" actionListener="#{chat.connect(agent.name,agentBean.agentLogged.name
-                                                                  )}" update=":form:wd" oncomplete="PF('window').show()" >                    
-
+                    <p:commandLink id="message" actionListener="#{chat.connect(agent.name)}" 
+                                   update=":form:wd" oncomplete="PF('window').show()" >                    
                         <h:graphicImage name="/images/icon/messageIcon40.png" />
                         <f:setPropertyActionListener target="#{agentBean.agent}"
                                                      value="#{agent}" />

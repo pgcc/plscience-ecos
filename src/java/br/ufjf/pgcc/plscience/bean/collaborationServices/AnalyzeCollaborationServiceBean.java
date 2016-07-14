@@ -25,6 +25,7 @@ import br.ufjf.pgcc.plscience.model.Roler;
 import br.ufjf.pgcc.plscience.model.Status;
 import br.ufjf.pgcc.plscience.model.StepsScientificExperimentation;
 import br.ufjf.pgcc.plscience.util.BeanUtil;
+import static br.ufjf.pgcc.plscience.util.BeanUtil.getDateTime;
 import br.ufjf.pgcc.plscience.util.DecimalUtil;
 import static br.ufjf.pgcc.plscience.util.StringUtil.removeList;
 import br.ufjf.pgcc.plscience.vo.ContextVO;
@@ -37,6 +38,7 @@ import br.ufjf.pgcc.plscience.vo.SyntacticVO;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -160,12 +162,13 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         same = same + "<b>Similarity Rate Among Concepts: </b>" + interoperabilityServices.getConceptRatio() + "%" + "\n\n";
         
         //Salva a comparação no banco de dados.
-        String name;
-        name = interoperabilityServices.getCollabService1().getId() + "-" +
-                        interoperabilityServices.getCollabService1().getCollabServiceName() + "-" +
-                        interoperabilityServices.getCollabService2().getId() + "-" +
-                        interoperabilityServices.getCollabService2().getCollabServiceName() + "-" + 
-                        interoperabilityServices.getInteroperabilityStructXML().getAgentID();
+        String name;        
+
+        name = getDateTime().replaceAll("/", ".").replaceAll(":", ".") + " (" +
+                interoperabilityServices.getCollabService1().getId() + ")" +
+                interoperabilityServices.getCollabService1().getCollabServiceName() + " (" +
+                interoperabilityServices.getCollabService2().getId() + ")" +
+                interoperabilityServices.getCollabService2().getCollabServiceName();
         
         interoperabilityServices.getInteroperabilityStructXML().setInteroperabilityName(name);
         

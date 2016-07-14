@@ -20,12 +20,12 @@ public class InteroperabilityManipulationXML {
     
     public static String createFileInteroperability(String nameXML, InteroperabilityStructXML interoperabilityStructXML){
                   
-        String result = "Fail Interoperability File Create!";
+        String result = "Fail Alignment File Create!";
                 
         try {
             
             //CAMINHO LOCAL
-            File file = new File("D:/Files/"+nameXML+".xml");
+            File file = new File("D:/Files/AlignmentFiles"+nameXML+".xml");
             
             //CAMINHO SERVIDOR
             //File file = new File("");
@@ -41,7 +41,7 @@ public class InteroperabilityManipulationXML {
             jaxbMarshaller.marshal(interoperabilityStructXML, file);
             jaxbMarshaller.marshal(interoperabilityStructXML, System.out);
             
-            result = "Interoperability File Create!";
+            result = "Alignment File Create!";
 
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -109,6 +109,9 @@ public class InteroperabilityManipulationXML {
         for (ConceptXML c: interoperabilityStructXML.getConcepts()) {
             c.setIdStructXml(null);
             c.setIdConceptXml(null);
+            if(c.getNote().length() == 0 && c.getNote() != null) {
+                c.setNote(null);
+            }
         }
     }
     

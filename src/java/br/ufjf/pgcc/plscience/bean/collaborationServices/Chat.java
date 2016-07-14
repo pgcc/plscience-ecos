@@ -1,5 +1,6 @@
 package br.ufjf.pgcc.plscience.bean.collaborationServices;
 
+import static br.ufjf.pgcc.plscience.util.BeanUtil.getUserLogin;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,7 +25,7 @@ import org.primefaces.push.PushContextFactory;
 @ViewScoped
 public class Chat implements Serializable {
 
-    String  recieveMessage="",sendMessage,receiver,username, address = "localhost";
+    String  recieveMessage="", sendMessage, receiver, username, address = "localhost";
     ArrayList<String> users = new ArrayList();
     int port = 2222;
     Boolean isConnected = false;
@@ -41,13 +42,13 @@ public class Chat implements Serializable {
     BufferedReader reader;
     PrintWriter writer;
     
-     FacesContext instance;
-            RequestContext instance2;
-             UIViewRoot viewRoot; 
-            UIComponent component;
+    FacesContext instance;
+    RequestContext instance2;
+    UIViewRoot viewRoot; 
+    UIComponent component;
 
-   
-            public String getUsername() {
+
+    public String getUsername() {
         return username;
     }
 
@@ -86,18 +87,14 @@ public class Chat implements Serializable {
     }
     
     public void updateConversation(){
-            PushContext pushContext = PushContextFactory.getDefault().getPushContext();
-            pushContext.push("/update", "Pressed"); 
-           instance.getPartialViewContext().getRenderIds().add(component.getClientId());
-            instance2.update(component.getClientId());
-            instance2.getAttributes();
-          // RequestContext.getCurrentInstance().update("j_idt49:conversation");
-                      
-            
-            
-           
-            
-//context.update("inputTextarea:conversation");
+        PushContext pushContext = PushContextFactory.getDefault().getPushContext();
+        pushContext.push("/update", "Pressed"); 
+        instance.getPartialViewContext().getRenderIds().add(component.getClientId());
+        instance2.update(component.getClientId());
+        instance2.getAttributes();
+        // RequestContext.getCurrentInstance().update("j_idt49:conversation");
+
+        //context.update("inputTextarea:conversation");
         
     }
     
@@ -189,7 +186,7 @@ public class Chat implements Serializable {
     }
 
     //--------------------------//
-    public void connect(String receiver,String user) {
+    public void connect(String receiver) {
         
         if (isConnected == false) {
             recieveMessage = "";
@@ -199,7 +196,7 @@ public class Chat implements Serializable {
             String is = String.valueOf(i);
             anon = anon.concat(is);
             this.receiver = receiver;
-            this.username = user;
+            this.username = getUserLogin().getName();
             
             
 
