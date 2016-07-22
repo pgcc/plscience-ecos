@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <ui:include src="/WEB-INF/templates/head.xhtml" />
+    </h:head>
+    <h:body>
+        <ui:include src="/WEB-INF/templates/header.xhtml" />
+        
+        <p:layout>
+            <p:layoutUnit position="center" resizable="true" > 
+                <div class="container-fluid" id="main">
+                    <ui:insert name="content" ></ui:insert>           
+                </div>
+            </p:layoutUnit>
+            <p:layoutUnit position="east" size="25%" header="Users List" resizable="true" closable="true" collapsible="true" effect="drop">
+                <ui:include src="/restrict/collaborationServices/services/listUserExternal.xhtml" />
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

@@ -62,6 +62,40 @@ public class AgentDAO extends PersistenceUtil {
         return query.getResultList();
     }
     
+    public List<Agent> buscarTodasInternos() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();  
+        HttpSession session = (HttpSession) externalContext.getSession(true);  
+        UserLoginBean userLoginBean = (UserLoginBean) session.getAttribute("userLoginBean");
+        
+        int id = 0;
+        if(userLoginBean.getAgentLog() != null) {
+            id = userLoginBean.getAgentLog().getIdAgent();
+        }
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("select a from Agent As a where a.idAgent != :id and a.local = true");
+        query.setParameter("id", id);
+        
+        return query.getResultList();
+    }
+    
+    public List<Agent> buscarTodasExternos() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();  
+        HttpSession session = (HttpSession) externalContext.getSession(true);  
+        UserLoginBean userLoginBean = (UserLoginBean) session.getAttribute("userLoginBean");
+        
+        int id = 0;
+        if(userLoginBean.getAgentLog() != null) {
+            id = userLoginBean.getAgentLog().getIdAgent();
+        }
+        
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("select a from Agent As a where a.idAgent != :id and a.local = false");
+        query.setParameter("id", id);
+        
+        return query.getResultList();
+    }
+    
     public List<Agent> buscarTodasPorIdGrupo() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext(); 
         HttpSession session = (HttpSession) externalContext.getSession(true);
