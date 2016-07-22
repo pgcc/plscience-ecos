@@ -94,25 +94,25 @@
                                  update="searchResults"    />
             </p:panel>
             <p:panel header="Results" style="margin: 10px 0;">
-                <p:dataTable var="result" value="#{searchComponents.results}" 
+                <p:dataTable var="result" value="#{searchComponents.patternResults}" 
                              id="searchResults" emptyMessage="No records found"
                              paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             paginator="true" rows="5" rowsPerPageTemplate="5,10,25,50,100,9999"
+                             paginator="true" rows="3" rowsPerPageTemplate="5,10,25,50,100,9999"
                              style="margin-top: 20px">
                     <p:column headerText="Component Name" sortBy="#{result.name}" filterBy="#{result.name}">
                         <h:outputText value="#{result.name}" />
                     </p:column>
                     <p:column headerText="Repository Name">
-                        <h:outputText value="BioCatalogue" />
+                        <h:outputText value="#{result.repositoryName}" />
                     </p:column>
                     <p:column headerText="Component Type">
-                        <h:outputText value="Service" />
+                        <h:outputText value="#{result.componentType}" />
                     </p:column>                    
                     <p:column headerText="Description" sortBy="#{result.description}" filterBy="#{result.description}">
                         <h:outputText value="#{result.description.length() gt 100 ? result.description.substring(0,97).concat('...') : result.description}" title="#{result.description}"/>
                     </p:column>
                     <p:column headerText="Owner">
-                        <a href="#{result.submitter}" target="_blank">#{result.submitter}</a>
+                        <a href="#{result.owner}" target="_blank">#{result.owner}</a>
                     </p:column>
                     <p:column headerText="Select">
                         <p:selectManyCheckbox id="basic" value="components">

@@ -27,7 +27,7 @@ import br.ufjf.biocatalogue.core.BioCatalogueClient;
 import br.ufjf.biocatalogue.model.Result;
 import br.ufjf.biocatalogue.model.Search;
 import br.ufjf.pgcc.plscience.recos.IntegrationModule;
-import br.ufjf.pgcc.plscience.string.BioCatalogueString;
+import br.ufjf.pgcc.plscience.string.ExternalRepositoriesString;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
@@ -83,7 +83,7 @@ public class SearchBioCatalogue implements Serializable {
     BioCatalogueClient client) {
         try {
             String query = searchQuery;
-            query = BioCatalogueString.formatSearchTerm(searchQuery);
+            query = ExternalRepositoriesString.formatSearchTerm(searchQuery);
             if (scope != null && !scope.isEmpty()) {
                 query += "&scope=" + scope;
             }

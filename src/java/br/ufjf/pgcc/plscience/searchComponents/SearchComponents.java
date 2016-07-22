@@ -29,10 +29,11 @@ public class SearchComponents implements Serializable{
     private String searchQuery;
     private String scope;
     private ArrayList<Result> results;
+    private ArrayList<ResultsPatternFormat> patternResults;
     private Result selectedResult;
-    private String repositoryName;
     
     public SearchComponents() {
+        patternResults = new ArrayList<>();
         bioClient = new BioCatalogueClient();
         bioClient.setBaseUri("https://www.biocatalogue.org");
     }
@@ -43,10 +44,31 @@ public class SearchComponents implements Serializable{
     }
     
     public void bioSearch(){
-        repositoryName = "BioCatalogue";
         scope = "services";
         SearchBioCatalogue searchBio = new SearchBioCatalogue();
         results = searchBio.search(searchQuery, scope, results, bioClient);
+        
+        for(Result result:results){
+            ResultsPatternFormat rpf = new ResultsPatternFormat();
+            if(result.getName() != null){
+                rpf.setName(result.getName());
+            }else{
+                rpf.setName("---");
+            }                
+            if(result.getDescription() != null){
+                rpf.setDescription(result.getDescription());
+            }else{
+                rpf.setName("---");
+            }
+            if(result.getSubmitter() != null){
+                rpf.setOwner(result.getSubmitter());
+            }else{
+                rpf.setOwner("---");
+            }
+            rpf.setComponentType("Service");
+            rpf.setRepositoryName("BioCatalogue");
+            getPatternResults().add(rpf);
+        }
     }
 
         /**
@@ -134,17 +156,18 @@ public class SearchComponents implements Serializable{
     }
 
     /**
-     * @return the repositoryName
+     * @return the patternResults
      */
-    public String getRepositoryName() {
-        return repositoryName;
+    public ArrayList<ResultsPatternFormat> getPatternResults() {
+        return patternResults;
     }
 
     /**
-     * @param repositoryName the repositoryName to set
+     * @param patternResults the patternResults to set
      */
-    public void setRepositoryName(String repositoryName) {
-        this.repositoryName = repositoryName;
+    public void setPatternResults(ArrayList<ResultsPatternFormat> patternResults) {
+        this.patternResults = patternResults;
     }
+
     
 }

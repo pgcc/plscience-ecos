@@ -5,17 +5,15 @@
  */
 package br.ufjf.pgcc.plscience.string;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
 /**
  *
  * @author phillipe
  */
-public class BioCatalogueString {
+public class ExternalRepositoriesString {
     
     /**
-     * Method used to format a searchQuery to the BioCatalogue Repository API Format
+     * Method used to format a searchQuery to the BioCatalogue Repository API
+     * and myExperiment Repository API Format
      * @param searchTerm
      * @return 
      */
