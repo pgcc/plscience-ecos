@@ -25,7 +25,7 @@ public class InteroperabilityManipulationXML {
         try {
             
             //CAMINHO LOCAL
-            File file = new File("D:/Files/AlignmentFiles"+nameXML+".xml");
+            File file = new File("D:/Files/AlignmentFiles/"+nameXML+".xml");
             
             //CAMINHO SERVIDOR
             //File file = new File("");
