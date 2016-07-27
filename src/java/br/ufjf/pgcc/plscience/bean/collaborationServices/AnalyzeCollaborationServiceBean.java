@@ -139,13 +139,6 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         String same = "\n";
         
         //Dados introdutórios sobre os serviços analizados.
-        /*
-        same = same + "Compare: \n" +
-                        interoperabilityServices.getCollabService1().getId() + " - " +
-                        interoperabilityServices.getCollabService1().getCollabServiceName() + "\n" +
-                        interoperabilityServices.getCollabService2().getId() + " - " +
-                        interoperabilityServices.getCollabService2().getCollabServiceName() + "\n\n";
-        */
         same = same + "<b>Compared Services:</b> \n" +
                         "<b>" + interoperabilityServices.getCollabService1().getCollabServiceName() + "</b>" +
                         " with " +
@@ -1631,6 +1624,17 @@ public class AnalyzeCollaborationServiceBean implements Serializable {
         } else {
             interoperabilityServices.getDifferentConcept().add("(Coordination) Work Plan");
         }
+        
+        //Utilizado para remover "Conceitos" que não possuem "Elementos".
+        //Gerar esses "Conceitos" que não possuem "Elementos" não foi removido do código pois pode vir a ser útil.
+        List<ConceptXML> cList = new ArrayList<>();       
+        for(ConceptXML c: interoperabilityServices.getInteroperabilityStructXML().getConcepts()) {
+            if(c.isHasElement()) {
+                cList.add(c);
+            }
+        }
+        interoperabilityServices.getInteroperabilityStructXML().getConcepts().clear();
+        interoperabilityServices.getInteroperabilityStructXML().setConcepts(cList);
     }
 
     public boolean compareService(CollaborationService cs1, CollaborationService cs2){
