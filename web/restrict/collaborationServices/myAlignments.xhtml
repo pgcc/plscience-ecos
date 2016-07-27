@@ -9,7 +9,7 @@
 
         <h:form id="collaborationServicesMain">
             <div align="center">
-                <p:dataTable id="alignementsTable" var="interoperabilityStructXML" 
+                <p:dataTable id="collaborationServicesTable" var="interoperabilityStructXML" 
                              value="#{myAlignments.interoperabilityStructXMLs}" style="margin: 20px 0">
 
                     <p:column id="idHeader" headerText="ID">
@@ -20,13 +20,15 @@
                         <h:outputText value="#{interoperabilityStructXML.interoperabilityName}" />
                     </p:column>                                        
 
-                    <p:column>
+                    <p:column id="actionsHeader" headerText="Actions">
                         <p:commandButton title="details" 
                                          value="Details" 
                                          icon="ui-icon-plusthick" 
                                          action="/faces/restrict/collaborationServices/analyzeCollaborationServicesEdit.xhtml?faces-redirect=true"
                                          ajax="false">
+                            <ui:remove>
                             <f:setPropertyActionListener value="#{interoperabilityStructXML}" target="#{workspaceAlignment.interoperabilityStructXML}" />
+                            </ui:remove>
                         </p:commandButton>
                     </p:column>
 

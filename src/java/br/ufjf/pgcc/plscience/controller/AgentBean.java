@@ -2,8 +2,6 @@ package br.ufjf.pgcc.plscience.controller;
 
 import br.ufjf.pgcc.plscience.dao.AgentDAO;
 import br.ufjf.pgcc.plscience.dao.IsPartOfDAO;
-import br.ufjf.pgcc.plscience.integration.InteroperabilityStructXML;
-import br.ufjf.pgcc.plscience.integration.InteroperabilityStructXMLDAO;
 import br.ufjf.pgcc.plscience.model.Agent;
 import br.ufjf.pgcc.plscience.util.EncryptPasswordUtil;
 import java.util.ArrayList;
@@ -43,24 +41,18 @@ public class AgentBean implements Serializable {
 
     //Armazena todas as pessoas cadastradas menos a pessoa logada.
     private List agentsLog = new ArrayList();
-    private List agentsAll = new ArrayList();
     private List agentsGroup = new ArrayList();
     private List agentsIdGroup = new ArrayList();
     private List agentsOfGroup = new ArrayList();
-    
-    //Informações do Alinhamento usadas para auxiliar a percepção do usuario.
-    private InteroperabilityStructXML interoperabilityStructXML;
-    
+    //private 
+
     public AgentBean() {
         agents = new AgentDAO().buscarTodas();
         agent = new Agent();
         
-        agentsLog = new AgentDAO().buscarTodasInternos();
-        agentsAll = new AgentDAO().buscarTodasMenosLogada();
+        agentsLog = new AgentDAO().buscarTodasMenosLogada();
         agentsGroup = new AgentDAO().buscarTodasPorIdGrupo();
         agentsIdGroup = new IsPartOfDAO().buscarGruposUsuario();
-        
-        interoperabilityStructXML = new InteroperabilityStructXMLDAO().getInteroperabilityStructXMLById(1l);
         
         if(agentsIdGroup != null) {
             for (Object i : agentsIdGroup) {
@@ -88,10 +80,9 @@ public class AgentBean implements Serializable {
         try {
             String passwordMD5 = EncryptPasswordUtil.md5(getAgent().getPassword());
             getAgent().setPassword(passwordMD5);
-            getAgent().setLocal(true);
             new AgentDAO().persistir(getAgent());
             agents = new AgentDAO().buscarTodas();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/plscience-ecos/faces/login.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/plscience/faces/login.xhtml");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Scientist registered with success!"));
         } catch (HibernateException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
@@ -201,33 +192,5 @@ public class AgentBean implements Serializable {
      */
     public void setAgentsOfGroup(List agentsOfGroup) {
         this.agentsOfGroup = agentsOfGroup;
-    }
-
-    /**
-     * @return the agentsAll
-     */
-    public List getAgentsAll() {
-        return agentsAll;
-    }
-
-    /**
-     * @param agentsAll the agentsAll to set
-     */
-    public void setAgentsAll(List agentsAll) {
-        this.agentsAll = agentsAll;
-    }
-
-    /**
-     * @return the interoperabilityStructXML
-     */
-    public InteroperabilityStructXML getInteroperabilityStructXML() {
-        return interoperabilityStructXML;
-    }
-
-    /**
-     * @param interoperabilityStructXML the interoperabilityStructXML to set
-     */
-    public void setInteroperabilityStructXML(InteroperabilityStructXML interoperabilityStructXML) {
-        this.interoperabilityStructXML = interoperabilityStructXML;
     }
 }

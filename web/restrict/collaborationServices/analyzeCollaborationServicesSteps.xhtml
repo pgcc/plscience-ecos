@@ -218,35 +218,47 @@
                                         <h:outputText value="#{con.hasElement}" />
                                     </p:column>
                                     <p:column headerText="Element Service 1"> 
-                                        <h:outputLink id="linkS1" value="#">
-                                            <h:outputText value="#{con.conceptService1}" />   
-                                        </h:outputLink>
-                                        <p:tooltip id="trackS1" for="linkS1" value="#{con.descriptionService1}" 
-                                                   trackMouse="true" rendered="#{con.conceptService1 != null}" />
+                                        <h:outputText value="#{con.conceptService1}" />
+                                        <p:commandButton icon="ui-icon-plusthick" id="viewDetailsS1" rendered="#{con.conceptService1 != null}" style="float:right" />
+                                        <p:overlayPanel id="viewDetailsS1Panel" for="viewDetailsS1" hideEffect="fade" dynamic="true" style="width:600px">
+                                            <h:form id="viewDetailsS1Form">
+                                                <h:outputLabel value="Details" for="descriptionService1" styleClass="panelGridLabel"/>
+                                                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                                                    <h:outputLabel for="descriptionService1" value="Description: #{con.conceptService1}" />
+                                                    <h:outputText id="descriptionService1" value="#{con.descriptionService1}" />
+                                                </h:panelGrid>
+                                            </h:form>
+                                        </p:overlayPanel>
                                     </p:column>
                                     <p:column headerText="Element Service 2"> 
-                                        <h:outputLink id="linkS2" value="#">
-                                            <h:outputText value="#{con.conceptService2}" />
-                                        </h:outputLink>
-                                        <p:tooltip id="trackS2" for="linkS2" value="#{con.descriptionService2}" 
-                                                   trackMouse="true" rendered="#{con.conceptService2 != null}" /> 
+                                        <h:outputText value="#{con.conceptService2}" />
+                                        <p:commandButton icon="ui-icon-plusthick" id="viewDetailsS2" rendered="#{con.conceptService2 != null}" style="float:right" />
+                                        <p:overlayPanel id="viewDetailsS2Panel" for="viewDetailsS2" hideEffect="fade" dynamic="true" style="width:600px">
+                                            <h:form id="viewDetailsS2Form">
+                                                <h:outputLabel value="Details" for="descriptionService2" styleClass="panelGridLabel"/>
+                                                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                                                    <h:outputLabel for="descriptionService2" value="Description: #{con.conceptService2}" />
+                                                    <h:outputText id="descriptionService2" value="#{con.descriptionService2}" />
+                                                </h:panelGrid>
+                                            </h:form>
+                                        </p:overlayPanel>
                                     </p:column>
                                     <p:column headerText="Ratio"> 
                                         <h:outputText value="#{con.ratio}" style="font-weight:bold; color:green" rendered="#{con.ratio.doubleValue() ge 60}" />
                                         <h:outputText value="#{con.ratio}" style="font-weight:bold; color:red" rendered="#{con.ratio.doubleValue() lt 60}" />                                        
                                     </p:column>                                 
                                     <p:column headerText="Validity?"> 
-                                        <h:outputText value="#{con.validity}" style="font-weight:bold; color:green" 
-                                                      rendered="#{con.validity == true and (con.note == null or con.note.length() == 0)}" />
-                                        <h:outputText value="#{con.validity}" style="font-weight:bold; color:red" 
-                                                      rendered="#{con.validity == false and (con.note == null or con.note.length() == 0)}" />
-
-                                        <h:outputLink id="linkNote" value="#" rendered="#{con.note != null and con.note.length() != 0}">
-                                            <h:outputText value="#{con.validity}" style="font-weight:bold; color:green" rendered="#{con.validity == true}" />
-                                            <h:outputText value="#{con.validity}" style="font-weight:bold; color:red" rendered="#{con.validity == false}" />
-                                        </h:outputLink>
-                                        <p:tooltip id="trackNote" for="linkNote" value="#{con.note}" 
-                                                   trackMouse="true" rendered="#{con.conceptService2 != null}" />
+                                        <h:outputText value="#{con.validity}" style="font-weight:bold; color:green" rendered="#{con.validity == true}" />
+                                        <h:outputText value="#{con.validity}" style="font-weight:bold; color:red" rendered="#{con.validity == false}" />
+                                        <p:commandButton icon="ui-icon-note" id="viewNote" rendered="#{con.note != null and con.note.length() != 0}" style="float:right" />
+                                        <p:overlayPanel id="viewNotePanel" for="viewNote" hideEffect="fade" dynamic="true" style="width:600px">
+                                            <h:form id="viewNoteForm">
+                                                <h:outputLabel value="Note" for="note" styleClass="panelGridLabel"/>
+                                                <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="10">
+                                                    <h:outputText id="note" value="#{con.note}" />
+                                                </h:panelGrid>
+                                            </h:form>
+                                        </p:overlayPanel>
                                     </p:column>
                                     <p:column headerText="Action">
                                         <center>
