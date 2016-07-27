@@ -85,10 +85,6 @@ public class Agent implements Serializable {
     @ManyToOne(optional = false)
     private br.ufjf.pgcc.plscience.model.Competence competence;
     
-    @Basic(optional = false)
-    @Column(name = "local_agent",  columnDefinition = "boolean default true")
-    private boolean local;
-    
     public Agent() {
     }
 
@@ -238,20 +234,6 @@ public class Agent implements Serializable {
         this.researchGroupList = researchGroupList;
     }
     
-    /**
-     * @return the local
-     */
-    public boolean isLocal() {
-        return local;
-    }
-
-    /**
-     * @param local the local to set
-     */
-    public void setLocal(boolean local) {
-        this.local = local;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -276,4 +258,5 @@ public class Agent implements Serializable {
     public String toString() {
         return "br.ufjf.pgcc.plscience.model.Agent[ idAgent=" + idAgent + " ]";
     }
+    
 }

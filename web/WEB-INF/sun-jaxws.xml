@@ -3,5 +3,6 @@
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsProVersion" name="WsProVersion" url-pattern="/WsProVersion"/>
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsUserList" name="WsUserList" url-pattern="/WsUserList"/>
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsMessage" name="WsMessage" url-pattern="/WsMessage"/>
-  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsAlignmentServices" name="WsAlignmentServices" url-pattern="/WsAlignmentServices"/>
+  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsUserList" name="WsUserList" url-pattern="/WsUserList"/>
+  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsMessage" name="WsMessage" url-pattern="/WsMessage"/>
 </endpoints>

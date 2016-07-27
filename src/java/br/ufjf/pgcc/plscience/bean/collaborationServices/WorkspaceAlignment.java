@@ -50,7 +50,7 @@ public class WorkspaceAlignment implements Serializable {
             interoperabilityStructXML.setConcepts(new ConceptXMLDAO().getConceptXMLByIdStructXML(interoperabilityStructXML.getIdStructXml()));            
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Loaded with success!"));
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
         }  
     }
 
