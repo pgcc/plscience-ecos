@@ -44,6 +44,7 @@
     <class>br.ufjf.pgcc.plscience.model.Status</class>
     <class>br.ufjf.pgcc.plscience.model.NewEntity</class>
     <class>br.ufjf.pgcc.plscience.model.MessageService</class>
+    <class>br.ufjf.pgcc.plscience.model.Instance</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/plscience?zeroDateTimeBehavior=convertToNull"/>
