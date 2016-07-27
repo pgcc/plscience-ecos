@@ -12,11 +12,17 @@ package br.ufjf.pgcc.plscience.searchComponents;
 public class MainTestSearch {
     
     public static void main(String[] args){
+        int i = 0;
         SearchComponents sc = new SearchComponents();
         sc.setSearchQuery("Protein");
         sc.search();
-        System.out.println("Primeiro Serviço: "+sc.getResults().get(0).getName());
-        System.out.println("Segundo Serviço: "+sc.getResults().get(1).getName());
+        
+        
+        for(i=0;i<sc.getPatternResults().size();i++){
+            System.out.println("Nome do Componente: "+sc.getPatternResults().get(i).getName());
+            System.out.println("Tipo de Componente: "+sc.getPatternResults().get(i).getComponentType());
+            System.out.println("Repositorio: "+sc.getPatternResults().get(i).getRepositoryName());
+        }
     }
     
 }
