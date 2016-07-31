@@ -46,8 +46,10 @@ Utilização do banco de dados do E-SECO. Etapas:
 ==============
 Popular o banco (se necessário):
 
-plscience-ecos/web/files/db_script -> arquivo plscience-insert.sql
+* Pasta: plscience-ecos/web/files/db_script
+* Arquivo: plscience-insert.sql
+
 ==============
-Problema da fonte de dados (Pode ocorrer, mas aparentemente aparece apenas no Linux.)
+Problema da fonte de dados (Pode ocorrer)
 
 Se aparecer um alerta sobre o nome do projeto no netbeans, clicar com o botão direito -> Resolver problemas da fonte de dados...

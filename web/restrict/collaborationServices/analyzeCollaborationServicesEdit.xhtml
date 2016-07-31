@@ -25,15 +25,19 @@
                         emptyMessage="No match found."
                         rendered="#{workspaceAlignment.interoperabilityStructXML.concepts != null and workspaceAlignment.interoperabilityStructXML.concepts.size() != 0}">
                 <f:facet name="header">Matching Table</f:facet>
-                <p:column headerText="Group Concept"> 
-                    <h:outputText value="#{con.groupConcept}" />
-                </p:column>
+                <ui:remove>
+                    <p:column headerText="Group Concept"> 
+                        <h:outputText value="#{con.groupConcept}" />
+                    </p:column>
+                </ui:remove>
                 <p:column headerText="Concept"> 
                     <h:outputText value="#{con.conceptService}" />
                 </p:column>
-                <p:column headerText="Has Element?"> 
-                    <h:outputText value="#{con.hasElement}" />
-                </p:column>
+                <ui:remove>
+                    <p:column headerText="Has Element?"> 
+                        <h:outputText value="#{con.hasElement}" />
+                    </p:column>
+                </ui:remove>
                 <p:column headerText="Element Service 1"> 
                     <h:outputLink id="linkS1" value="#">
                         <h:outputText value="#{con.conceptService1}" />   

@@ -131,23 +131,23 @@
                             </h:inputText>
 
                             <ui:remove>
-                            <p:selectOneMenu id="collabService1" value="#{analyzeCollaborationServiceBean.collaborationService1}" 
-                                             converter="collabServiceConverter" 
-                                             panelStyle="width:200px"
-                                             effect="fade" var="c" style="width:450px" filter="true" filterMatchMode="startsWith"
-                                             rendered="#{analyzeCollaborationServiceBean.isShow()}">
-                                <f:selectItems value="#{analyzeCollaborationServiceBean.collaborationServiceList}" var="collaborationService" 
-                                               itemLabel="#{collaborationService.collabServiceName}" itemValue="#{collaborationService}" />
+                                <p:selectOneMenu id="collabService1" value="#{analyzeCollaborationServiceBean.collaborationService1}" 
+                                                 converter="collabServiceConverter" 
+                                                 panelStyle="width:200px"
+                                                 effect="fade" var="c" style="width:450px" filter="true" filterMatchMode="startsWith"
+                                                 rendered="#{analyzeCollaborationServiceBean.isShow()}">
+                                    <f:selectItems value="#{analyzeCollaborationServiceBean.collaborationServiceList}" var="collaborationService" 
+                                                   itemLabel="#{collaborationService.collabServiceName}" itemValue="#{collaborationService}" />
 
-                                <p:column>
-                                    <h:outputText value="#{c.id}" />
-                                </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{c.id}" />
+                                    </p:column>
 
-                                <p:column>
-                                    <h:outputText value="#{c.collabServiceName}" />
-                                </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{c.collabServiceName}" />
+                                    </p:column>
 
-                            </p:selectOneMenu>
+                                </p:selectOneMenu>
                             </ui:remove>
 
                             <h:outputLabel for="collabService2" value="Instance's Collaboration Service: " rendered="#{analyzeCollaborationServiceBean.isShow()}" />
@@ -208,15 +208,19 @@
                                             emptyMessage="No match found."
                                             rendered="#{!analyzeCollaborationServiceBean.isShow()}">
                                     <f:facet name="header">Matching Table</f:facet>
-                                    <p:column headerText="Group Concept"> 
-                                        <h:outputText value="#{con.groupConcept}" />
-                                    </p:column>
+                                    <ui:remove>
+                                        <p:column headerText="Group Concept"> 
+                                            <h:outputText value="#{con.groupConcept}" />
+                                        </p:column>
+                                    </ui:remove>
                                     <p:column headerText="Concept"> 
                                         <h:outputText value="#{con.conceptService}" />
                                     </p:column>
-                                    <p:column headerText="Has Element?"> 
-                                        <h:outputText value="#{con.hasElement}" />
-                                    </p:column>
+                                    <ui:remove>
+                                        <p:column headerText="Has Element?"> 
+                                            <h:outputText value="#{con.hasElement}" />
+                                        </p:column>
+                                    </ui:remove>
                                     <p:column headerText="Element Service 1"> 
                                         <h:outputLink id="linkS1" value="#">
                                             <h:outputText value="#{con.conceptService1}" />   
