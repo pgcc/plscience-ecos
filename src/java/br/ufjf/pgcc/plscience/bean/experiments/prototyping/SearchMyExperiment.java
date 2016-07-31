@@ -24,6 +24,7 @@
 package br.ufjf.pgcc.plscience.bean.experiments.prototyping;
 
 import br.ufjf.myexperiment.core.MyExperimentClient;
+import br.ufjf.myexperiment.exception.MyExperimentException;
 import br.ufjf.myexperiment.model.File;
 import br.ufjf.myexperiment.model.Group;
 import br.ufjf.myexperiment.model.Pack;
@@ -37,9 +38,13 @@ import br.ufjf.pgcc.plscience.model.Used;
 import br.ufjf.pgcc.plscience.recos.IntegrationModule;
 import br.ufjf.pgcc.plscience.recos.MidPoint;
 import br.ufjf.pgcc.plscience.recos.calculateFactors;
+import br.ufjf.pgcc.plscience.searchComponents.SearchComponents;
+import br.ufjf.pgcc.plscience.string.ExternalRepositoriesString;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -111,6 +116,35 @@ public class SearchMyExperiment implements Serializable {
 
         } catch (Exception e) {
         }
+    }
+    
+    /**
+     * Search All Components in the myExperiment Repository
+     * @param searchQuery
+     * @param myExpClient
+     * @return
+     * @throws MyExperimentException 
+     */
+    public static Search searchAllComponents(String searchQuery, MyExperimentClient myExpClient) throws MyExperimentException{
+        String query;
+        String scope = "workflow,file,pack,user";
+        String elements = "title,created-at,updated-at,resource,id,uri,statistics,"
+                + "uploader,description,type,preview,thumbnail,thumbnail-big,svg,license-type,content-uri,"
+                + "content-type,content,tags,filename,name,email,avatar,city,country";
+        SearchMyExperiment smy = new SearchMyExperiment();
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            smy.setSearchQuery(searchQuery);
+        }
+        query = ExternalRepositoriesString.formatSearchTerm(searchQuery);
+        if (scope != null && !scope.isEmpty()) {
+            query += "&type=" + scope + "&elements=" + elements;
+        }
+        if (scope != null && !scope.isEmpty()) {
+            smy.setType(scope);
+        }
+        
+        Search myExpResult = myExpClient.search(query);
+        return myExpResult;
     }
 
     /**

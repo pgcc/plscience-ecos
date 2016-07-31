@@ -15,9 +15,8 @@ public class MainTestSearch {
         int i = 0;
         SearchComponents sc = new SearchComponents();
         sc.setSearchQuery("Protein");
-        sc.search();
-        
-        
+        //sc.search();
+
         for(i=0;i<sc.getPatternResults().size();i++){
             System.out.println("Nome do Componente: "+sc.getPatternResults().get(i).getName());
             System.out.println("Tipo de Componente: "+sc.getPatternResults().get(i).getComponentType());

@@ -5,12 +5,18 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        <h2 class="page-header">Search Services</h2>
+        <h2 class="page-header">Search Components</h2>
 
         <h:form id="searchComponentsForm">
             <p:growl id="growl" />
             <p:panel header="Search in Repositories" style="margin: 10px 0;">
                 <p:messages id="messages" />
+                <p:selectManyCheckbox id="basic" value="#{searchComponents.selectedComponents}">
+                    <f:selectItem itemLabel="Files" itemValue="file"/>
+                    <f:selectItem itemLabel="Packs" itemValue="pack" />
+                    <f:selectItem itemLabel="Services" itemValue="service" />     
+                    <f:selectItem itemLabel="Workflows" itemValue="workflow" />
+                </p:selectManyCheckbox>                    
                 <h:panelGrid columns="3" cellpadding="4">
                     <h:outputLabel for="searchTerm" value="Enter your search term: " />
                     <p:inputText id="searchTerm" 
@@ -97,22 +103,22 @@
                 <p:dataTable var="result" value="#{searchComponents.patternResults}" 
                              id="searchResults" emptyMessage="No records found"
                              paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             paginator="true" rows="3" rowsPerPageTemplate="5,10,25,50,100,9999"
+                             paginator="true" rows="5" rowsPerPageTemplate="5,10,25,50,100,9999"
                              style="margin-top: 20px">
-                    <p:column headerText="Component Name" sortBy="#{result.name}" filterBy="#{result.name}">
+                    <p:column headerText="Component Name" sortBy="#{result.name}">
                         <h:outputText value="#{result.name}" />
                     </p:column>
-                    <p:column headerText="Repository Name">
+                    <p:column headerText="Repository Name" sortBy="#{result.repositoryName}">
                         <h:outputText value="#{result.repositoryName}" />
                     </p:column>
-                    <p:column headerText="Component Type">
+                    <p:column headerText="Component Type" sortBy="#{result.componentType}">
                         <h:outputText value="#{result.componentType}" />
                     </p:column>                    
-                    <p:column headerText="Description" sortBy="#{result.description}" filterBy="#{result.description}">
+                    <p:column headerText="Description" sortBy="#{result.description}">
                         <h:outputText value="#{result.description.length() gt 100 ? result.description.substring(0,97).concat('...') : result.description}" title="#{result.description}"/>
                     </p:column>
                     <p:column headerText="Owner">
-                        <a href="#{result.owner}" target="_blank">#{result.owner}</a>
+                        <h:outputText value="#{result.owner}" />
                     </p:column>
                     <p:column headerText="Select">
                         <p:selectManyCheckbox id="basic" value="components">
