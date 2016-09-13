@@ -8,6 +8,8 @@ package br.ufjf.pgcc.plscience.searchComponents;
 import br.ufjf.biocatalogue.core.BioCatalogueClient;
 import br.ufjf.biocatalogue.exception.BioCatalogueException;
 import br.ufjf.biocatalogue.model.Result;
+import br.ufjf.biocatalogue.model.ServiceData;
+import br.ufjf.biocatalogue.model.User;
 import br.ufjf.myexperiment.model.Search;
 import br.ufjf.myexperiment.core.MyExperimentClient;
 import br.ufjf.myexperiment.exception.MyExperimentException;
@@ -18,13 +20,22 @@ import br.ufjf.pgcc.plscience.bean.experiments.prototyping.SearchBioCatalogue;
 import br.ufjf.pgcc.plscience.bean.experiments.prototyping.SearchMyExperiment;
 import br.ufjf.pgcc.plscience.message.InfoMessage;
 import br.ufjf.pgcc.plscience.message.WarningMessage;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.json.simple.parser.ParseException;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -43,6 +54,9 @@ public class SearchComponents implements Serializable {
     private ArrayList<Result> results;
     private ArrayList<ResultsPatternFormat> patternResults;
     private Result selectedResult;
+    //private AnalyzeCollaborationServiceBean primeCollaborationServices;
+    //private ServiceRecovery primeCollaborationServicesRanked;
+    //private SearchPrime searchPrime;
 
     public SearchComponents() {
         bioClient = new BioCatalogueClient();
@@ -57,8 +71,8 @@ public class SearchComponents implements Serializable {
      * @throws BioCatalogueException
      * @throws MyExperimentException
      */
-    public void search() throws BioCatalogueException, MyExperimentException {
-        patternResults = new ArrayList<>();
+    public void search() throws BioCatalogueException, MyExperimentException, IOException, ParseException {
+        setPatternResults(new ArrayList<>());
         if (selectedComponents.length != 0) {
             if (componentWasSelected("service")) {
                 bioSearch();
@@ -67,6 +81,7 @@ public class SearchComponents implements Serializable {
                     || componentWasSelected("pack")) {
                 myExperimentSearch();
             }
+            System.out.println("Search completed!");
         } else {
             WarningMessage.warnComponentsNotSelected();
         }
@@ -77,12 +92,12 @@ public class SearchComponents implements Serializable {
      *
      * @throws br.ufjf.myexperiment.exception.MyExperimentException
      */
-    public void myExperimentSearch() throws MyExperimentException {
+    public void myExperimentSearch() throws MyExperimentException, IOException {
         Search myExpResult = SearchMyExperiment.searchAllComponents(searchQuery, myExpClient);
         List<Workflow> workflows = myExpResult.getWorkflow();
         List<File> files = myExpResult.getFile();
         List<Pack> packs = myExpResult.getPack();
-
+        System.out.println("Serching in myExperiment Repository");
         if (componentWasSelected("workflow")) {
             if (workflows == null) {
                 InfoMessage.infoWorkflowsNotFound();
@@ -103,6 +118,12 @@ public class SearchComponents implements Serializable {
                         rpf.setOwner(w.getUploader());
                     } else {
                         rpf.setOwner("---");
+                    }
+                    if (w.getContentUri() != null && !w.getContentUri().equals("")) {
+                        rpf.setFileLocation(w.getContentUri());
+                        rpf = rpf.createFileMyExperiment(rpf);
+                    }else {
+                        rpf.createGenericServiceFile();
                     }
                     rpf.setComponentType("Workflow");
                     rpf.setRepositoryName("myExperiment");
@@ -133,6 +154,12 @@ public class SearchComponents implements Serializable {
                     } else {
                         rpf.setOwner("---");
                     }
+                    if (f.getContentUri() != null && !f.getContentUri().equals("")) {
+                        rpf.setFileLocation(f.getContentUri());
+                        rpf = rpf.createFileMyExperiment(rpf);
+                    }else {
+                        rpf.createGenericServiceFile();
+                    }
                     rpf.setComponentType("File");
                     rpf.setRepositoryName("myExperiment");
                     getPatternResults().add(rpf);
@@ -162,6 +189,12 @@ public class SearchComponents implements Serializable {
                     } else {
                         rpf.setOwner("---");
                     }
+                    if (p.getContentUri() != null && !p.getContentUri().equals("")) {
+                        rpf.setFileLocation(p.getContentUri());
+                        rpf = rpf.createFileMyExperiment(rpf);
+                    }else {
+                        rpf.createGenericServiceFile();
+                    }                    
                     rpf.setComponentType("Pack");
                     rpf.setRepositoryName("myExperiment");
                     getPatternResults().add(rpf);
@@ -173,13 +206,16 @@ public class SearchComponents implements Serializable {
 
     /**
      * Search services in BioCatalogue Repository
+     *
+     * @throws br.ufjf.biocatalogue.exception.BioCatalogueException
+     * @throws java.io.IOException
      */
-    public void bioSearch() {
+    public void bioSearch() throws BioCatalogueException, IOException, ParseException {
         scope = "services";
         SearchBioCatalogue searchBio = new SearchBioCatalogue();
         results = searchBio.search(searchQuery, scope, results, bioClient);
-
-        if (results == null) {
+        System.out.println("Serching in BioCatalogue Repository");
+        if (results == null || results.isEmpty()) {
             InfoMessage.infoServicesNotFound();
         } else {
             for (Result result : results) {
@@ -194,12 +230,64 @@ public class SearchComponents implements Serializable {
                 } else {
                     rpf.setName("---");
                 }
+                if (result.getResource() != null) {
+                    String serviceAddress = result.getResource();
+                    BioCatalogueClient searchServiceDataById = new BioCatalogueClient();
+                    searchServiceDataById.setBaseUri("https://www.biocatalogue.org");
+                    String serviceId = serviceAddress.replace("https://www.biocatalogue.org/services/", "");
+                    System.out.println("Service Id: " + serviceId);
+                    ServiceData serviceData = searchServiceDataById.serviceData(serviceId);
+                    rpf.setServiceIdRepository(serviceId);
+                    rpf.setFileLocation(serviceData.getServiceVariants().getWsdlLocation());
+                    System.out.println(rpf.getFileLocation());
+                    if (rpf.getFileLocation() != null && rpf.getFileLocation().contains("http://")) {
+                        URL url = new URL(rpf.getFileLocation());
+                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        connection.setRequestMethod("GET");
+                        connection.connect();
+                        int code = connection.getResponseCode();
+                        //System.out.println("Connection Code: "+code);
+                        if (code == 200) {//it checks that the page exists and does not return error
+                            InputStream stream = url.openStream();
+                            StreamedContent file = new DefaultStreamedContent(stream, "file/wsdl", "service" + rpf.getServiceIdRepository() + ".wsdl");
+                            rpf.setFile(file);
+                        } else {
+                            rpf.createGenericServiceFile();
+                        }
+                    } else {
+                        rpf.createGenericServiceFile();
+                    }
+                }
                 if (result.getSubmitter() != null) {
-                    rpf.setOwner(result.getSubmitter());
+                    String ownerValue = result.getSubmitter();
+                    URL url = new URL(ownerValue);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.connect();
+                    int code = connection.getResponseCode();
+                    if (code == 200) {//it checks that the page exists and does not return error
+                        BioCatalogueClient searchUserDataById = new BioCatalogueClient();
+                        searchUserDataById.setBaseUri("https://www.biocatalogue.org");
+                        String id = ownerValue.replace("https://www.biocatalogue.org/users/", "");
+                        try {
+                            int b = Integer.parseInt(id);//used to verify if id is an integer
+                            User userData = searchUserDataById.userData(id);
+                            rpf.setOwner(userData.getName());
+                            rpf.setOwnerCountry(userData.getUserLocation().getCountry());
+                            rpf.setOwnerCountryFlagImage(userData.getUserLocation().getFlagImagePNG());
+                        } catch (NumberFormatException nfe) {
+                            rpf.setOwner("---");
+                        }
+                    } else {
+                        rpf.setOwner("---");
+                    }
                 } else {
                     rpf.setOwner("---");
                 }
-                rpf.setComponentType("Service");
+                if (result.getResource() != null) {
+                    rpf.setFileLocation(result.getResource());
+                }
+                rpf.setComponentType("Service - " + result.getService_technology_types().get(0));
                 rpf.setRepositoryName("BioCatalogue");
                 getPatternResults().add(rpf);
             }
@@ -346,5 +434,4 @@ public class SearchComponents implements Serializable {
     public void setSelectedComponents(String[] selectedComponents) {
         this.selectedComponents = selectedComponents;
     }
-
 }

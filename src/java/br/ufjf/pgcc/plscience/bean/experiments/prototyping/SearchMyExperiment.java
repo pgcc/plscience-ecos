@@ -143,7 +143,7 @@ public class SearchMyExperiment implements Serializable {
             smy.setType(scope);
         }
         
-        Search myExpResult = myExpClient.search(query);
+        Search myExpResult = myExpClient.searchWithoutElements(query);
         return myExpResult;
     }
 
