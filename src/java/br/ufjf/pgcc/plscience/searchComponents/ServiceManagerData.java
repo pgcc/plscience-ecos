@@ -16,55 +16,22 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean
 public class ServiceManagerData implements Serializable{
-    private ArrayList<String> operationsName;
-    private WSDLInput wsdlInput;
-    private WSDLOutput wsdlOutput;
-    
-    public ServiceManagerData(){
-        wsdlInput = new WSDLInput();
-        wsdlOutput = new WSDLOutput();
+    private ArrayList<String> servicesName;
+
+    /**
+     * @return the servicesName
+     */
+    public ArrayList<String> getServicesName() {
+        return servicesName;
     }
 
     /**
-     * @return the operationsName
+     * @param servicesName the servicesName to set
      */
-    public ArrayList<String> getOperationsName() {
-        return operationsName;
+    public void setServicesName(ArrayList<String> servicesName) {
+        this.servicesName = servicesName;
     }
 
-    /**
-     * @param operationsName the operationsName to set
-     */
-    public void setOperationsName(ArrayList<String> operationsName) {
-        this.operationsName = operationsName;
-    }
 
-    /**
-     * @return the wsdlInput
-     */
-    public WSDLInput getWsdlInput() {
-        return wsdlInput;
-    }
-
-    /**
-     * @param wsdlInput the wsdlInput to set
-     */
-    public void setWsdlInput(WSDLInput wsdlInput) {
-        this.wsdlInput = wsdlInput;
-    }
-
-    /**
-     * @return the wsdlOutput
-     */
-    public WSDLOutput getWsdlOutput() {
-        return wsdlOutput;
-    }
-
-    /**
-     * @param wsdlOutput the wsdlOutput to set
-     */
-    public void setWsdlOutput(WSDLOutput wsdlOutput) {
-        this.wsdlOutput = wsdlOutput;
-    }
     
 }

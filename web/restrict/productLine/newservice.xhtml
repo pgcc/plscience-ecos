@@ -5,45 +5,88 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        <h2 class="page-header">Register a New Service</h2>
-        <h:form id="formPrincipal">
-            <p:growl id="growl" />
-            <p:panel header="Register a New Service" style="margin: 10px 0;">            
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <h:outputLabel value="Name: " />
-                        <p:inputText id="service_name" required="true" value="#{serviceBean.service.serviceName}" />  
-                        <h:outputLabel value="Description: " />
-                        <p:inputText id="service_descriptio" required="true" value="#{serviceBean.service.serviceDescription}"/>
-                        <h:outputLabel value="File location: " />
-                        <p:inputText id="service_file_location" required="false" value="#{serviceBean.service.serviceFileLocation}"/>
-                        <h:outputLabel value="Type: " />
-                        <p:inputText id="service_type" required="false" value="#{serviceBean.service.serviceType}"/>
-                        <h:outputLabel value="Category: " />
-                        <p:inputText id="service_category" required="false" value="#{serviceBean.service.serviceCategory}"/>                        
-                        <h:outputLabel value="Documentation URL: " />
-                        <p:inputText id="service_documentation_url" required="false" value="#{serviceBean.service.serviceDocumentationUrl}"/>                        
-                        <h:outputLabel value="License Type: " />
-                        <p:inputText id="service_license_type" required="false" value="#{serviceBean.service.serviceLicenseType}"/>                        
-                        <h:outputLabel value="Cost: " />
-                        <p:inputText id="service_cost" required="false" value="#{serviceBean.service.serviceCost}"/>                        
-                        <h:outputLabel value="Usage Conditions: " />
-                        <p:inputText id="service_usage_conditions" required="false" value="#{serviceBean.service.serviceUsageConditions}"/>                        
-                        <h:outputLabel value="Contact Information (URL): " />
-                        <p:inputText id="service_contact_info_url" required="false" value="#{serviceBean.service.serviceContactInfoUrl}"/>                        
-                        <h:outputLabel value="How to cite: " />
-                        <p:inputText id="service_how_to_cite" required="false" value="#{serviceBean.service.serviceHowToCite}"/>                        
-                        <h:outputLabel value="Purpose: " />
-                        <p:inputText id="service_purpose" required="false" value="#{serviceBean.service.servicePurpose}"/>
-                        <h:outputLabel value="Agent: " />
-                        <p:selectOneMenu id="agent" value="#{serviceBean.service.agentIdAgent}" converter="agentConverter">
-                            <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItems value="#{agentBean.agents}" var="agent" itemLabel="#{agent.name}" itemValue="#{agent}" />
-                        </p:selectOneMenu>                        
-                        <p:commandButton value="Record"  
-                                         actionListener="#{serviceBean.record}" onclick="record.hide()" alt="Record"/>
-                        <p:commandButton value="Clear" type="reset" />
-                    </h:panelGrid>
-                </p:panel>
-        </h:form>
+        <h2 class="page-header">Service Repository - Software Product Line</h2>
+        <p:growl id="growl" />
+        <p:panel header="Service Data" style="margin: 10px 0;">
+            <p:accordionPanel>
+                <p:tab title="New Service">
+                    <h:form id="formService">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Name: " />
+                            <p:inputText id="service_name" required="true" value="#{serviceBean.service.serviceName}" />  
+                            <h:outputLabel value="Description: " />
+                            <p:inputText id="service_descriptio" required="true" value="#{serviceBean.service.serviceDescription}"/>
+                            <h:outputLabel value="File location: " />
+                            <p:inputText id="service_file_location" required="false" value="#{serviceBean.service.serviceFileLocation}"/>
+                            <h:outputLabel value="Type: " />
+                            <p:inputText id="service_type" required="false" value="#{serviceBean.service.serviceType}"/>
+                            <h:outputLabel value="Category: " />
+                            <p:inputText id="service_category" required="false" value="#{serviceBean.service.serviceCategory}"/>                        
+                            <h:outputLabel value="Documentation URL: " />
+                            <p:inputText id="service_documentation_url" required="false" value="#{serviceBean.service.serviceDocumentationUrl}"/>                        
+                            <h:outputLabel value="License Type: " />
+                            <p:inputText id="service_license_type" required="false" value="#{serviceBean.service.serviceLicenseType}"/>                        
+                            <h:outputLabel value="Cost: " />
+                            <p:inputText id="service_cost" required="false" value="#{serviceBean.service.serviceCost}"/>                        
+                            <h:outputLabel value="Usage Conditions: " />
+                            <p:inputText id="service_usage_conditions" required="false" value="#{serviceBean.service.serviceUsageConditions}"/>                        
+                            <h:outputLabel value="Contact Information (URL): " />
+                            <p:inputText id="service_contact_info_url" required="false" value="#{serviceBean.service.serviceContactInfoUrl}"/>                        
+                            <h:outputLabel value="How to cite: " />
+                            <p:inputText id="service_how_to_cite" required="false" value="#{serviceBean.service.serviceHowToCite}"/>                        
+                            <h:outputLabel value="Purpose: " />
+                            <p:inputText id="service_purpose" required="false" value="#{serviceBean.service.servicePurpose}"/>
+                            <h:outputLabel value="Agent: " />
+                            <p:selectOneMenu id="agent" value="#{serviceBean.service.agentIdAgent}" converter="agentConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{agentBean.agents}" var="agent" itemLabel="#{agent.name}" itemValue="#{agent}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Record"  
+                                             actionListener="#{serviceBean.record}" onclick="record.hide()" alt="Record"/>
+                            <p:commandButton value="Clear" type="reset" />
+                        </h:panelGrid>
+                    </h:form>
+                </p:tab>
+                <p:tab title="Add Hardware Configurations">
+                    <h:form id="hdConfigurations">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Select a service " />
+                            <p:selectOneMenu id="service" value="#{hardwareConfigurationsBean.hardwareConfigurations.serviceId}" converter="serviceConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{serviceBean.servicesList}" var="service" itemLabel="#{service.serviceName}" itemValue="#{service}" />
+                            </p:selectOneMenu>                            
+                            <h:outputLabel value="Hardware Configurations (CPU): " />
+                            <p:inputText id="hardware_configurations_cpu" required="false" value="#{hardwareConfigurationsBean.hardwareConfigurations.hardwareConfigurationsCPU}"/>
+                            <h:outputLabel value="Hardware Configurations (Ram - Gb): " />
+                            <p:inputText id="hardware_configurations_ram_gb" required="false" value="#{hardwareConfigurationsBean.hardwareConfigurations.hardwareConfigurationsRamGb}"/>
+                            <h:outputLabel value="Hardware Configurations (Rom - Gb): " />
+                            <p:inputText id="hardware_configurations_rom_gb" required="false" value="#{hardwareConfigurationsBean.hardwareConfigurations.hardwareConfigurationsRomGb}"/>                        
+                            <p:commandButton value="Record"  
+                                             actionListener="#{hardwareConfigurationsBean.record}" onclick="record.hide()" alt="Record"/>
+                            <p:commandButton value="Clear" type="reset" />                        
+                        </h:panelGrid>            
+                    </h:form>
+                </p:tab>
+                <p:tab title="Add Composed Services">
+                    <h:form id="composedServices">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Select a service" />
+                            <p:selectOneMenu id="service_id" value="#{serviceHasServiceBean.serviceHasService.serviceId}" converter="serviceConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{serviceBean.servicesList}" var="service" itemLabel="#{service.serviceName}" itemValue="#{service}" />
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Select a service coupled to the selected service above" />
+                            <p:selectOneMenu id="service_id1" value="#{serviceHasServiceBean.serviceHasService.serviceId1}" converter="serviceConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{serviceBean.servicesList}" var="service" itemLabel="#{service.serviceName}" itemValue="#{service}" />
+                            </p:selectOneMenu>                            
+                            <p:commandButton value="Record"  
+                                             actionListener="#{serviceHasServiceBean.record}" onclick="record.hide()" alt="Record"/>
+                        </h:panelGrid>            
+                    </h:form>
+                </p:tab>                
+            </p:accordionPanel>
+        </p:panel>
+
     </ui:define>
 </ui:composition>

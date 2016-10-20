@@ -55,7 +55,23 @@ public class ServiceDAO extends GenericDAO{
         List<Service> service = query.getResultList();
         finish();
         return service;
-    }    
+    }
+    
+    /**
+     * get the last service id
+     * @return 
+     */
+    public Integer getLastServiceId(){
+        Integer lastServiceId;
+        ServiceDAO serviceDAO = new ServiceDAO();
+        List<Service> servicesList = serviceDAO.getAll();
+        if(servicesList != null){
+            Service lastService = servicesList.get(servicesList.size()-1);
+            lastServiceId = lastService.getId();
+            return lastServiceId;
+        }
+        return null;
+    }
     
     /**
      * Get a service on the E-SECO platform repository by id

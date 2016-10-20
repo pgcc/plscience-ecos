@@ -5,6 +5,7 @@
  */
 package br.ufjf.pgcc.plscience.controller;
 
+import br.ufjf.pgcc.plscience.dao.HardwareConfigurationsDAO;
 import br.ufjf.pgcc.plscience.dao.ServiceDAO;
 import br.ufjf.pgcc.plscience.model.Service;
 import java.io.Serializable;

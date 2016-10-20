@@ -1,0 +1,103 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Components Repository - Software Product Line</h2>
+        <p:growl id="growl" />
+        <p:panel header="Component Data" style="margin: 10px 0;">
+            <p:accordionPanel>
+                <p:tab title="New Component">
+                    <h:form id="formComponent">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Name: " />
+                            <p:inputText id="component_name" required="true" value="#{componentBean.component.componentName}" />
+                            <h:outputLabel value="Description: " />
+                            <p:inputText id="component_description" required="true" value="#{componentBean.component.componentDescription}"/>
+                            <h:outputLabel value="File Location: " />
+                            <p:inputText id="component_file_location" required="false" value="#{componentBean.component.componentFileLocation}"/>
+                            <h:outputLabel value="File Extension Format: " />
+                            <p:inputText id="component_file_extension_format" required="false" value="#{componentBean.component.componentFileExtensionFormat}"/>
+                            <h:outputLabel value="Select the associated service" />
+                            <p:selectOneMenu id="service_id" value="#{componentBean.component.serviceId}" converter="serviceConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{serviceBean.servicesList}" var="service" itemLabel="#{service.serviceName}" itemValue="#{service}" />
+                            </p:selectOneMenu>                            
+                            <h:outputLabel value="Agent: " />
+                            <p:selectOneMenu id="agent" value="#{componentBean.component.agentidAgent}" converter="agentConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{agentBean.agents}" var="agent" itemLabel="#{agent.name}" itemValue="#{agent}" />
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Component Type: " />
+                            <p:selectOneMenu id="component_type_id" value="#{componentBean.component.componentTypeId}" converter="componentTypeConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{componentTypeBean.componentsTypeList}" var="compT" itemLabel="#{compT.componentTypeDescription}" itemValue="#{compT}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Record"  
+                                             actionListener="#{componentBean.record}" onclick="record.hide()" alt="Record"/>
+                            <p:commandButton value="Clear" type="reset" />
+                        </h:panelGrid>
+                    </h:form>
+                </p:tab>
+                <p:tab title="Add a Features Model">
+                    <h:form id="featuresModel">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Modelling Tool:" />
+                            <p:inputText id="features_modelling_tool" required="false" value="#{featuresModelBean.featuresModel.featuresModellingTool}" />
+                            <h:outputLabel value="Image Location:" />
+                            <p:inputText id="features_model_img_location" required="false" value="#{featuresModelBean.featuresModel.featuresModelImgLocation}" />
+                            <h:outputLabel value="Select the associated component:" />
+                            <p:selectOneMenu id="component_id" value="#{featuresModelBean.featuresModel.componentId}" converter="componentConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{componentBean.componentsList}" var="comp" itemLabel="#{comp.componentName}" itemValue="#{comp}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Record"  
+                                             actionListener="#{featuresModelBean.record}" onclick="record.hide()" alt="Record"/>
+                            <p:commandButton value="Clear" type="reset" />
+                        </h:panelGrid>            
+                    </h:form>
+                </p:tab>                
+                <p:tab title="Add a Ontology">
+                    <h:form id="ontology">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Ontology format:" />
+                            <p:inputText id="ontology_format" required="true" value="#{ontologyBeanBD.ontology.ontologyFormat}" />
+                            <h:outputLabel value="Select the associated component:" />
+                            <p:selectOneMenu id="component_id" value="#{ontologyBeanBD.ontology.componentId}" converter="componentConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{componentBean.componentsList}" var="comp" itemLabel="#{comp.componentName}" itemValue="#{comp}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Record"  
+                                             actionListener="#{ontologyBeanBD.record}" onclick="record.hide()" alt="Record"/>
+                            <p:commandButton value="Clear" type="reset" />
+                        </h:panelGrid>            
+                    </h:form>
+                </p:tab>
+                <p:tab title="Add a Mapping File">
+                    <h:form id="mapping">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Mapping File Location:" />
+                            <p:inputText id="mapping_file" required="true" value="#{mappingFileBean.mappingFile.mappingFileLocation}" />
+                            <h:outputLabel value="Select the associated features model" />
+                            <p:selectOneMenu id="features_model_id" value="#{mappingFileBean.mappingFile.featuresModelId}" converter="featuresModelConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{featuresModelBean.featuresModelList}" var="featu" itemLabel="#{featu.componentId.componentName}" itemValue="#{featu}" />
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Select the associated ontology" />
+                            <p:selectOneMenu id="ontology_id" value="#{mappingFileBean.mappingFile.ontologyId}" converter="ontologyConverter">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{ontologyBeanBD.ontologyList}" var="onto" itemLabel="#{onto.componentId.componentName}" itemValue="#{onto}" />
+                            </p:selectOneMenu>                            
+                            <p:commandButton value="Record"  
+                                             actionListener="#{mappingFileBean.record}" onclick="record.hide()" alt="Record"/>
+                            <p:commandButton value="Clear" type="reset" />
+                        </h:panelGrid>            
+                    </h:form>
+                </p:tab>                
+            </p:accordionPanel>
+        </p:panel>
+
+    </ui:define>
+</ui:composition>

@@ -9,6 +9,10 @@ import br.ufjf.biocatalogue.core.BioCatalogueClient;
 import br.ufjf.biocatalogue.exception.BioCatalogueException;
 import br.ufjf.biocatalogue.model.Result;
 import br.ufjf.biocatalogue.model.ServiceData;
+import br.ufjf.pgcc.plscience.controller.WasAssociatedWithBean;
+import br.ufjf.pgcc.plscience.dao.WorkflowDAO;
+import br.ufjf.pgcc.plscience.model.WasAssociatedWith;
+import br.ufjf.pgcc.plscience.model.Workflow;
 import static com.lowagie.text.Annotation.URL;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,9 +22,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.json.simple.parser.ParseException;
+import org.primefaces.component.datalist.DataList;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -28,7 +36,8 @@ import org.primefaces.model.StreamedContent;
  *
  * @author phillipe
  */
-@ManagedBean()
+@ManagedBean(name = "rpf")
+@ViewScoped
 public final class ResultsPatternFormat {
 
     private String name;
@@ -41,6 +50,11 @@ public final class ResultsPatternFormat {
     private String ownerCountryFlagImage;
     private String fileLocation;
     private StreamedContent file;
+    private List<String> used;
+    private List<String> wasAssociatedWith;
+    private List<String> wasInformedBy;
+    private List<String> wasEndedBy;
+    private List<String> actedBehalfOf;
 
     public ResultsPatternFormat() throws MalformedURLException, IOException {
         createGenericServiceFile();
@@ -187,6 +201,63 @@ public final class ResultsPatternFormat {
         this.serviceIdRepository = serviceIdRepository;
     }
 
+    public void viewDetails(String name, String type){
+
+        if(type.contains("Service") || type.contains("service")){
+            System.out.println("Details of "+name);
+            String u = "Task geneID was used in workflow GeneExtraction - Task Id: 10 - Workflow Id: 10";
+            String u2 = "Task geneID was used in workflow GeneExtraction2 - Task Id: 10 - Workflow Id: 11";
+            String wIB = "Task geneID was successful for activity Nuclear Protein Database - Task Id: 10 - Activity Id: 4";
+            String wAW = "Workflow GeneExtraction was attributed to experiment Gene Extraction Experiment - Workflow Id: 10 - Experiment Id: 8";
+            String aBO = "Task geneID acted on behalf of task geneIDCon";
+            
+            List<String> us = new ArrayList<>();
+            us.add(u);
+            us.add(u2);
+            
+            List<String> wib = new ArrayList<>();
+            wib.add(wIB);
+            
+            List<String> waw = new ArrayList<>();
+            waw.add(wAW);
+            
+            List<String> abo = new ArrayList<>();
+            abo.add(aBO);
+            
+            used = us;
+            wasAssociatedWith = waw;
+            wasInformedBy = wib;
+            actedBehalfOf = abo;
+            
+        }
+    }
+    
+    public void showDetails(String name, String type){
+        System.out.println("Details of "+name);
+        System.out.println("Workflow type "+type);
+//        if(type.contains("workflow") || type.contains("Workflow")){
+//            WorkflowDAO workf = new WorkflowDAO();
+//            Workflow w = workf.buscarPorNome(name);
+//            if(w != null){
+//                Integer id = w.getIdWorkflow();
+//               System.out.println("Id do workflow: "+ id);
+//               WasAssociatedWithBean wAWB = new WasAssociatedWithBean();
+//               listAssociatedExperiments =  wAWB.buscarAssociacoes(w.getIdWorkflow());
+//               if(listAssociatedExperiments == null || listAssociatedExperiments.isEmpty()){
+//                   System.out.println("Null or empty");
+//               }             
+//               if(listAssociatedExperiments.size() > 0){
+//                   System.out.println("Maior que 0");
+//                   if(!listAssociatedExperiments.get(0).getExperimentExperiment().getName().equals("")){
+//                       System.out.println(listAssociatedExperiments.get(0).getExperimentExperiment().getName());
+//                   }else{
+//                       System.out.println("name é ");
+//                   }
+//               }
+//            }
+//        }
+    }
+    
     /**
      * It creates a service file to download
      *
@@ -233,7 +304,7 @@ public final class ResultsPatternFormat {
         File file = new File("serviceDocument.txt");
         file.createNewFile();
         FileWriter writer = new FileWriter(file);
-        writer.write("Enter the text that you want to write");
+        writer.write("File can not be generated");
         writer.flush();
         writer.close();
         FileInputStream fis = new FileInputStream(file);
@@ -264,6 +335,90 @@ public final class ResultsPatternFormat {
             rpf.createGenericServiceFile();
         }
         return rpf;
+    }
+
+//    /**
+//     * @return the listAssociatedExperiments
+//     */
+//    public List getListAssociatedExperiments() {
+//        return listAssociatedExperiments;
+//    }
+//
+//    /**
+//     * @param listAssociatedExperiments the listAssociatedExperiments to set
+//     */
+//    public void setListAssociatedExperiments(List<WasAssociatedWith> listAssociatedExperiments) {
+//        this.listAssociatedExperiments = listAssociatedExperiments;
+//    }
+
+    /**
+     * @return the used
+     */
+    public List<String> getUsed() {
+        return used;
+    }
+
+    /**
+     * @param used the used to set
+     */
+    public void setUsed(List<String> used) {
+        this.used = used;
+    }
+
+    /**
+     * @return the wasAssociatedWith
+     */
+    public List<String> getWasAssociatedWith() {
+        return wasAssociatedWith;
+    }
+
+    /**
+     * @param wasAssociatedWith the wasAssociatedWith to set
+     */
+    public void setWasAssociatedWith(List<String> wasAssociatedWith) {
+        this.wasAssociatedWith = wasAssociatedWith;
+    }
+
+    /**
+     * @return the wasInformedBy
+     */
+    public List<String> getWasInformedBy() {
+        return wasInformedBy;
+    }
+
+    /**
+     * @param wasInformedBy the wasInformedBy to set
+     */
+    public void setWasInformedBy(List<String> wasInformedBy) {
+        this.wasInformedBy = wasInformedBy;
+    }
+
+    /**
+     * @return the wasEndedBy
+     */
+    public List<String> getWasEndedBy() {
+        return wasEndedBy;
+    }
+
+    /**
+     * @param wasEndedBy the wasEndedBy to set
+     */
+    public void setWasEndedBy(List<String> wasEndedBy) {
+        this.wasEndedBy = wasEndedBy;
+    }
+
+    /**
+     * @return the actedBehalfOf
+     */
+    public List<String> getActedBehalfOf() {
+        return actedBehalfOf;
+    }
+
+    /**
+     * @param actedBehalfOf the actedBehalfOf to set
+     */
+    public void setActedBehalfOf(List<String> actedBehalfOf) {
+        this.actedBehalfOf = actedBehalfOf;
     }
 
 }

@@ -36,8 +36,8 @@ public class ComponentTypeBean implements Serializable{
      * @param actionEvent 
      */
     public void record(ActionEvent actionEvent) {
-        new ComponentTypeDAO().save(getComponentType());
-        setComponentsTypeList(new ComponentTypeDAO().getAll());
+        new ComponentTypeDAO().save(componentType);
+        componentsTypeList = new ComponentTypeDAO().getAll();
     }    
     
     /**

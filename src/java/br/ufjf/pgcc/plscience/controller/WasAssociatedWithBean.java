@@ -43,6 +43,11 @@ public class WasAssociatedWithBean {
         wasAssociatedWiths = (List) new WasAssociatedWithDAO().buscar(id);
         return wasAssociatedWiths;
     }
+    
+    public List<WasAssociatedWith> buscarAssociacoes(int id) {
+        wasAssociatedWiths = (List) new WasAssociatedWithDAO().buscarAssociacoes(id);
+        return wasAssociatedWiths;
+    }
 
     public void record(ActionEvent actionEvent) {
         new WasAssociatedWithDAO().persistir(wasAssociatedWith);

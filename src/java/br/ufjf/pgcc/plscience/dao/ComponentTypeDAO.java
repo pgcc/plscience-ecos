@@ -24,6 +24,10 @@ public class ComponentTypeDAO extends GenericDAO{
         return componentTypeDAO;
     }
     
+    /**
+     * Save a component type on the E-SECO platform repository
+     * @param componentType 
+     */
     public void save(ComponentType componentType) {
         getEntityManager().getTransaction().begin();
         getEntityManager().persist(componentType);
@@ -31,6 +35,10 @@ public class ComponentTypeDAO extends GenericDAO{
         finish();
     }
     
+    /**
+     * Update a component type on the E-SECO platform repository
+     * @param componentType 
+     */
     public void update(ComponentType componentType) {
         getEntityManager().getTransaction().begin();
         getEntityManager().merge(componentType);

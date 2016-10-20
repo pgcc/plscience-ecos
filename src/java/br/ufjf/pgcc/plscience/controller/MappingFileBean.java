@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -29,6 +30,15 @@ public class MappingFileBean implements Serializable{
         mappingFile = new MappingFile();
     }
 
+    /**
+     * record a mapping file (ontology/features model)
+     * @param actionEvent 
+     */
+    public void record(ActionEvent actionEvent) {
+        new MappingFileDAO().save(mappingFile);
+        mappingFileList = new MappingFileDAO().getAll();
+    }    
+    
     /**
      * @return the mappingFile
      */

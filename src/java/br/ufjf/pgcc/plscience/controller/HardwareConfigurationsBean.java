@@ -6,7 +6,9 @@
 package br.ufjf.pgcc.plscience.controller;
 
 import br.ufjf.pgcc.plscience.dao.HardwareConfigurationsDAO;
+import br.ufjf.pgcc.plscience.dao.ServiceDAO;
 import br.ufjf.pgcc.plscience.model.HardwareConfigurations;
+import br.ufjf.pgcc.plscience.model.Service;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +32,25 @@ public class HardwareConfigurationsBean implements Serializable{
         hardwareConfigurations = new HardwareConfigurations();
     }
     
+    /**
+     * record the hardware configurations of a service
+     * @param actionEvent 
+     */
     public void record(ActionEvent actionEvent) {
         new HardwareConfigurationsDAO().save(getHardwareConfigurations());
         setHardwareConfigurationsList(new HardwareConfigurationsDAO().getAll());
+    }
+    
+    /**
+     * Used to insert a new Service Id in the Hardware Configurations table
+     * @return 
+     */
+    public Integer getHardwareConfigurationsServiceId(){
+        ServiceDAO sD = new ServiceDAO();
+        if(sD.getLastServiceId() != null){
+            return sD.getLastServiceId()+1;
+        }
+        return 1;
     }    
 
     /**

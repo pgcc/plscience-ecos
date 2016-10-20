@@ -16,8 +16,18 @@
             <p:growl id="growl" />
             <p:panel header="Service Manager" style="margin: 10px 0;">
                 <p:messages id="messages" />
-                <h:panelGrid columns="3" cellpadding="4">
-                    <h:outputLabel for="searchTerm" value="Enter your URL file: " />
+                <p:panelGrid columns="2">
+                    <h:outputLabel for="repositoryURL" value="Enter your Repository URL: " 
+                     title="Enter the URL of the repository you want to save the services (Semantic Annotation)"/>
+                    <p:inputText id="repositoryURL" 
+                                 value="#{serviceManager.repositoryURL}" 
+                                 required="true" 
+                                 label="RepositoryURL"
+                                 size="50">
+                        <f:validateLength minimum="6" />
+                    </p:inputText>
+                    <h:outputLabel for="searchTerm" value="Enter your URL file (WSDL): "
+                     title="Enter the URL of the WSDL file"/>
                     <p:inputText id="fileURL" 
                                  value="#{serviceManager.fileURL}" 
                                  required="true" 
@@ -25,29 +35,46 @@
                                  size="50">
                         <f:validateLength minimum="4" />
                     </p:inputText>
-                </h:panelGrid>
+                </p:panelGrid>
 
                 <p:commandButton value="Service Information" icon="ui-icon-document" 
                                  actionListener="#{serviceManager.generatesServiceInformation()}" 
                                  update="searchResults"    />
             </p:panel>
             <p:panel header="Results" style="margin: 10px 0;">
-                <p:dataTable var="result" value="#{serviceManager.serviceInfo}" 
+                <p:dataTable var="result" value="#{serviceManager.serviceOperations}" 
                              id="searchResults" emptyMessage="No records found"
                              style="margin-top: 20px">
-                        <p:column headerText="Service Operations">
-                            <h:outputText value="#{result.operationsName}" />
-                        </p:column>                        
-                        <p:column headerText="WSDL Input">
-                            <h:outputText value="#{result.wsdlInput.wsdlParameterInput}" />
-                            <h:outputText value="#{result.wsdlInput.wsdlTypeInput}" />                        
-                        </p:column>
-                        <p:column headerText="WSDL Output">
-                            <h:outputText value="#{result.wsdlOutput.wsdlParameterOutput}" />
-                            <h:outputText value="#{result.wsdlOutput.wsdlTypeOutput}" />
-                        </p:column>                     
+                    <p:column headerText="Service Operations" width="15%" style="text-align: center">
+                        <h:outputText value="#{result}" title="#{result}" />
+                    </p:column>                        
+                    <p:column headerText="Inputs" width="30%">
+                        <p:dataTable var="resultInputs" value="#{result.inputs}" id="inp" 
+                                 emptyMessage="No records found">
+                            <p:column headerText="WSDL Parameter" width="30%">
+                                <h:outputText value="#{serviceManager.getShortName(resultInputs)}" title="#{serviceManager.getShortName(resultInputs)}"/>
+                            </p:column> 
+                            <p:column headerText="WSDL Type" width="30%">
+                                <h:outputText value="#{serviceManager.getShortType(resultInputs)}" title="#{serviceManager.getShortType(resultInputs)}" />
+                            </p:column>                             
+                    </p:dataTable>                        
+                    </p:column>                                            
+                    <p:column headerText="Outputs" width="30%">
+                        <p:dataTable var="resultOutputs" value="#{result.outputs}" id="out" 
+                                 emptyMessage="No records found">
+                            <p:column headerText="WSDL Parameter" width="30%">
+                                <h:outputText value="#{serviceManager.getShortName(resultOutputs)}" title="#{serviceManager.getShortName(resultOutputs)}" />
+                            </p:column>
+                            <p:column headerText="WSDL Type" width="30%">
+                                <h:outputText value="#{serviceManager.getShortType(resultOutputs)}" title="#{serviceManager.getShortType(resultOutputs)}"/>
+                            </p:column>                                
+                    </p:dataTable>                        
+                    </p:column>
+                    <p:column headerText="Service Annotation" width="15%" style="text-align: center">
+                             <p:commandButton value="Generate OWL-S" action="#{serviceManager.OWLSGenerator(result)}"/>
+                    </p:column>                                    
                 </p:dataTable>
             </p:panel>
-        </h:form>
+        </h:form>            
     </ui:define>
 </ui:composition>

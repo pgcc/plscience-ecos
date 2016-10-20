@@ -97,7 +97,6 @@
                             </h:inputText>    
                         </h:panelGrid>
                     </p:tab>
-
                 </p:accordionPanel>
 
                 <p:commandButton value="Search" icon="ui-icon-search" 
@@ -125,28 +124,12 @@
                     <p:column headerText="Owner">
                         <h:outputText value="#{result.owner}"/>
                     </p:column>
+
                     <p:column headerText="Component Documentation" style="text-align: center">
-                        <p:commandButton value="More Details" onclick="PF('dlg3').show();"/>
-                        <p:dialog header="Components " widgetVar="dlg3" showEffect="explode" modal="true" height="100">
-                            <p:dataTable var="componentData" value="#{result}">
-                                <p:column headerText="Id">
-                                    <h:outputText value="1" />
-                                </p:column>
-                                <p:column headerText="Year">
-                                    <h:outputText value="#{result.owner}" />
-                                </p:column>
+                        <p:commandButton value="More Details" 
+                                         actionListener="#{result.viewDetails(result.name, result.componentType)}"
+                                         update=":searchComponentsForm:moreDetails"/>
 
-                                <p:column headerText="Brand">
-                                    <h:outputText value="1" />
-                                </p:column>
-
-                                <p:column headerText="Color">
-                                    <h:outputText value="azul" />
-                                </p:column>
-                            </p:dataTable>
-
-
-                        </p:dialog>                        
                         <p:commandButton value="Download" ajax="false" icon="ui-icon-arrowthick-1-s"
                                          action="#{result.createServiceFile(result.serviceIdRepository)}">
                             <p:fileDownload value="#{result.file}" />
@@ -154,6 +137,63 @@
                     </p:column>                    
                 </p:dataTable>
             </p:panel>
+
+            <p:panel header="Details">
+                <p:dataList 
+                    var="details" value="#{searchComponents.patternResults}"
+                    id="moreDetails" emptyMessage="No records found" >
+                    <p:tabView orientation="left">
+                        <p:tab title="Provenance Data">
+                            <p:panelGrid columns="2">
+                                <p:column>
+                                    <h:outputText value="Used" style="font-weight: bold"/>                                    
+                                </p:column>
+                                <p:column>
+                                <p:dataList 
+                                    var="usedProv" value="#{details.used}"
+                                    id="usedProvList">
+                                    <h:outputText value="#{usedProv}"/>
+                                </p:dataList>
+                                </p:column>
+                                <p:column>                                
+                                <h:outputText value="Was Informed By:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                <p:dataList 
+                                    var="wasInfProv" value="#{details.wasInformedBy}"
+                                    id="wasInfProvList">
+                                    <h:outputText value="#{wasInfProv}"/>
+                                </p:dataList>
+                                </p:column>
+                                <p:column>
+                                <h:outputText value="Was Associated With:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                <p:dataList 
+                                    var="wasAssocWith" value="#{details.wasAssociatedWith}"
+                                    id="wasAssocWithList">
+                                    <h:outputText value="#{wasAssocWith}"/>
+                                </p:dataList>
+                                </p:column>
+                                <p:column>
+                                <h:outputText value="Acted Behalf Of:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                <p:dataList 
+                                    var="actBehOf" value="#{details.actedBehalfOf}"
+                                    id="actBehOfList">
+                                    <h:outputText value="#{actBehOf}"/>
+                                </p:dataList>                                
+                                    </p:column>
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab title="Meta Data">
+
+                        </p:tab>
+                    </p:tabView>
+                </p:dataList>
+            </p:panel>            
+
         </h:form>
     </ui:define>
 </ui:composition>

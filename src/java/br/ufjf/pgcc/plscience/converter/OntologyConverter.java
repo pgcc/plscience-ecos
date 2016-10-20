@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.ufjf.pgcc.plscience.converter;
 
-import br.ufjf.pgcc.plscience.model.Service;
+import br.ufjf.pgcc.plscience.model.Ontology;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -14,31 +13,32 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 /**
- * 
- * @author lesimoes
+ *
+ * @author phillipe
  */
-@FacesConverter("serviceConverter")
+
+@FacesConverter("ontologyConverter")
 @ManagedBean
-public class ServiceConverter implements Converter{
+public class OntologyConverter implements Converter{
 
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if (value != null && !value.isEmpty()) {
-            return (Service) uic.getAttributes().get(value);
+            return (Ontology) uic.getAttributes().get(value);
         }
-        return null;
+        return null;        
     }
 
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object value) {
-        if (value instanceof Service) {
-            Service service = (Service) value;
-            if (service != null && service instanceof Service && service.getId() != null) {
-                uic.getAttributes().put( service.getId().toString(), service);
-                return service.getId().toString();
+        if (value instanceof Ontology) {
+            Ontology ontology = (Ontology) value;
+            if (ontology != null && ontology instanceof Ontology && ontology.getId()!= null) {
+                uic.getAttributes().put( ontology.getId().toString(), ontology);
+                return ontology.getId().toString();
             }
         }
-        return "";
+        return "";    
     }
-
+    
 }

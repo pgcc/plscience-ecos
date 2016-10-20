@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -27,6 +28,15 @@ public class FeaturesModelBean implements Serializable{
     public FeaturesModelBean() {
         featuresModelList = new FeaturesModelDAO().getAll();
         featuresModel = new FeaturesModel();
+    }
+    
+    /**
+     * records a features model (SPL Repository)
+     * @param actionEvent 
+     */
+    public void record(ActionEvent actionEvent) {
+        new FeaturesModelDAO().save(featuresModel);
+        featuresModelList = new FeaturesModelDAO().getAll();
     }
     
     /**

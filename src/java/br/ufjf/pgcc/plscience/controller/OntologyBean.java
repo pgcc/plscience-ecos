@@ -12,13 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 /**
  *
  * @author phillipe
  */
 
-@ManagedBean(name = "ontologyBean")
+@ManagedBean(name = "ontologyBeanBD")
 @ViewScoped
 public class OntologyBean implements Serializable{
     private Ontology ontology;
@@ -29,6 +30,15 @@ public class OntologyBean implements Serializable{
         ontology = new Ontology();
     }    
 
+    /**
+     * Record an ontology
+     * @param actionEvent 
+     */
+    public void record(ActionEvent actionEvent) {
+        new OntologyDAO().save(ontology);
+        ontologyList = new OntologyDAO().getAll();
+    }        
+    
     /**
      * @return the ontology
      */

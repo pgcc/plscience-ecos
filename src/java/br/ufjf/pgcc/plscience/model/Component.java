@@ -44,6 +44,9 @@ public class Component implements Serializable{
     @JoinColumn(name = "Agent_idAgent", referencedColumnName = "idAgent")
     @ManyToOne
     private Agent agentidAgent;    
+    @JoinColumn(name = "component_type_id", referencedColumnName = "id")
+    @ManyToOne
+    private ComponentType componentTypeId;      
 
     /**
      * @return the id
@@ -141,5 +144,19 @@ public class Component implements Serializable{
      */
     public void setAgentidAgent(Agent agentidAgent) {
         this.agentidAgent = agentidAgent;
+    }
+
+    /**
+     * @return the componentTypeId
+     */
+    public ComponentType getComponentTypeId() {
+        return componentTypeId;
+    }
+
+    /**
+     * @param componentTypeId the componentTypeId to set
+     */
+    public void setComponentTypeId(ComponentType componentTypeId) {
+        this.componentTypeId = componentTypeId;
     }
 }

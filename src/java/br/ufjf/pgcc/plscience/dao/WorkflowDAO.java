@@ -21,6 +21,21 @@ public class WorkflowDAO extends PersistenceUtil{
         return workflowDAO;
     }
 
+    public Workflow buscarPorNome(String nome) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+
+        Query query = em.createQuery("select a from Workflow as a where  a.name = :nome");
+        query.setParameter("nome", nome);
+
+        @SuppressWarnings("unchecked")
+        List<Workflow> Workflow = query.getResultList();
+        if (Workflow != null && Workflow.size() > 0) {
+            return Workflow.get(0);
+        }
+
+        return null;
+    }
+
     public Workflow buscar(int id) {
         EntityManager em = PersistenceUtil.getEntityManager();
 

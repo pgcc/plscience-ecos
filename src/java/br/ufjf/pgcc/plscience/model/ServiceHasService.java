@@ -27,15 +27,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ServiceHasService implements Serializable{
     private static long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer serviceId;    
-    @JoinColumn(name = "service_id1", referencedColumnName = "id")
-    @ManyToOne
-    private Service serviceId1;    
-
     /**
      * @return the serialVersionUID
      */
@@ -48,19 +39,45 @@ public class ServiceHasService implements Serializable{
      */
     public static void setSerialVersionUID(long aSerialVersionUID) {
         serialVersionUID = aSerialVersionUID;
-    }    
-    
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;    
+    @JoinColumn(name = "service_id", referencedColumnName = "id")
+    @ManyToOne
+    private Service serviceId;    
+    @JoinColumn(name = "service_id1", referencedColumnName = "id")
+    @ManyToOne
+    private Service serviceId1;    
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     /**
      * @return the serviceId
      */
-    public Integer getServiceId() {
+    public Service getServiceId() {
         return serviceId;
     }
 
     /**
      * @param serviceId the serviceId to set
      */
-    public void setServiceId(Integer serviceId) {
+    public void setServiceId(Service serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -77,5 +94,6 @@ public class ServiceHasService implements Serializable{
     public void setServiceId1(Service serviceId1) {
         this.serviceId1 = serviceId1;
     }
+
 
 }
