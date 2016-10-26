@@ -1,0 +1,49 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Register a New Service</h2>
+        <h:form id="formPrincipal">
+            <p:growl id="growl" />
+            <p:panel header="Register a New Service" style="margin: 10px 0;">            
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel value="Name: " />
+                        <p:inputText id="service_name" required="true" value="#{serviceBean.service.serviceName}" />  
+                        <h:outputLabel value="Description: " />
+                        <p:inputText id="service_descriptio" required="true" value="#{serviceBean.service.serviceDescription}"/>
+                        <h:outputLabel value="File location: " />
+                        <p:inputText id="service_file_location" required="false" value="#{serviceBean.service.serviceFileLocation}"/>
+                        <h:outputLabel value="Type: " />
+                        <p:inputText id="service_type" required="false" value="#{serviceBean.service.serviceType}"/>
+                        <h:outputLabel value="Category: " />
+                        <p:inputText id="service_category" required="false" value="#{serviceBean.service.serviceCategory}"/>                        
+                        <h:outputLabel value="Documentation URL: " />
+                        <p:inputText id="service_documentation_url" required="false" value="#{serviceBean.service.serviceDocumentationUrl}"/>                        
+                        <h:outputLabel value="License Type: " />
+                        <p:inputText id="service_license_type" required="false" value="#{serviceBean.service.serviceLicenseType}"/>                        
+                        <h:outputLabel value="Cost: " />
+                        <p:inputText id="service_cost" required="false" value="#{serviceBean.service.serviceCost}"/>                        
+                        <h:outputLabel value="Usage Conditions: " />
+                        <p:inputText id="service_usage_conditions" required="false" value="#{serviceBean.service.serviceUsageConditions}"/>                        
+                        <h:outputLabel value="Contact Information (URL): " />
+                        <p:inputText id="service_contact_info_url" required="false" value="#{serviceBean.service.serviceContactInfoUrl}"/>                        
+                        <h:outputLabel value="How to cite: " />
+                        <p:inputText id="service_how_to_cite" required="false" value="#{serviceBean.service.serviceHowToCite}"/>                        
+                        <h:outputLabel value="Purpose: " />
+                        <p:inputText id="service_purpose" required="false" value="#{serviceBean.service.servicePurpose}"/>
+                        <h:outputLabel value="Agent: " />
+                        <p:selectOneMenu id="agent" value="#{serviceBean.service.agentIdAgent}" converter="agentConverter">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{agentBean.agents}" var="agent" itemLabel="#{agent.name}" itemValue="#{agent}" />
+                        </p:selectOneMenu>                        
+                        <p:commandButton value="Record"  
+                                         actionListener="#{serviceBean.record}" onclick="record.hide()" alt="Record"/>
+                        <p:commandButton value="Clear" type="reset" />
+                    </h:panelGrid>
+                </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

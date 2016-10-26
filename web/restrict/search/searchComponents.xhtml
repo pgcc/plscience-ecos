@@ -7,6 +7,11 @@
     <ui:define name="content">
         <h2 class="page-header">Search Components</h2>
 
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="/images/ajax-loader.gif" />
+        </p:dialog>
+
         <h:form id="searchComponentsForm">
             <p:growl id="growl" />
             <p:panel header="Search in Repositories" style="margin: 10px 0;">
@@ -34,16 +39,16 @@
                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                             <h:outputLabel for="hasAddress" value="Address: " />
                             <h:inputText 
-                                id="hasAddress" />                        
+                                id="hasAddress"/>                        
                             <h:outputLabel for="hasReturn" value="Return:" />
                             <h:inputText 
-                                id="hasReturn" />                  
+                                id="hasReturn"/>                  
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Prime Search - Semantic">
                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                             <h:outputLabel for="hasSemanticReturn" value="Semantic Return" />
-                            <h:inputText id="hasSemanticReturn" />             
+                            <h:inputText id="hasSemanticReturn"/>             
                             <h:outputLabel for="hasSemanticReception" value="Semantic Reception" />
                             <h:inputText id="hasSemanticReception"/>
                             <h:outputLabel for="hasSemanticRepresentation" value="Semantic Representation" />
@@ -55,17 +60,17 @@
                     <p:tab title="Prime Search - Pragmatic">
                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                             <h:outputLabel for="hasNonFunctionalReq" value="Non Functional Requirement" />
-                            <h:inputText id="hasNonFunctionalReq" />
+                            <h:inputText id="hasNonFunctionalReq"/>
                             <h:outputLabel value="Context" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                             <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                             <h:outputLabel for="hasArtifact" value="Artifact" />
-                            <h:inputText id="hasArtifact" />
+                            <h:inputText id="hasArtifact"/>
                             <h:outputLabel for="hasDomain" value="Domain" />
-                            <h:inputText id="hasDomain" />
+                            <h:inputText id="hasDomain"/>
                             <h:outputLabel for="hasLicense" value="License" />
-                            <h:inputText id="hasLicense" />
+                            <h:inputText id="hasLicense"/>
                             <h:outputLabel for="hasComments" value="Comments" />
-                            <h:inputText id="hasComments" />
+                            <h:inputText id="hasComments"/>
                             <h:outputLabel for="how" value="Purpose" />
                             <h:inputText id="how"/>
                             <h:outputLabel for="where" value="Provider" />
@@ -86,8 +91,8 @@
                             <h:inputText id="hasRAM">
                                 <f:validateRegex pattern="[0-9]*"/>
                             </h:inputText>
-                            <h:outputLabel for="hasROM" value="ROM (GB)" />
-                            <h:inputText id="hasROM">
+                            <h:outputLabel for="hasROM" value="ROM (GB)"/>
+                            <h:inputText id="hasROM" >
                                 <f:validateRegex pattern="[0-9]*"/>
                             </h:inputText>    
                         </h:panelGrid>
@@ -103,7 +108,7 @@
                 <p:dataTable var="result" value="#{searchComponents.patternResults}" 
                              id="searchResults" emptyMessage="No records found"
                              paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             paginator="true" rows="5" rowsPerPageTemplate="5,10,25,50,100,9999"
+                             paginator="true" rows="3" rowsPerPageTemplate="5,10,25,50,100,9999"
                              style="margin-top: 20px">
                     <p:column headerText="Component Name" sortBy="#{result.name}">
                         <h:outputText value="#{result.name}" />
@@ -118,16 +123,37 @@
                         <h:outputText value="#{result.description.length() gt 100 ? result.description.substring(0,97).concat('...') : result.description}" title="#{result.description}"/>
                     </p:column>
                     <p:column headerText="Owner">
-                        <h:outputText value="#{result.owner}" />
+                        <h:outputText value="#{result.owner}"/>
                     </p:column>
-                    <p:column headerText="Select">
-                        <p:selectManyCheckbox id="basic" value="components">
-                            <f:selectItem itemLabel=" " itemValue="#{result.name}" />
-                        </p:selectManyCheckbox>
+                    <p:column headerText="Component Documentation" style="text-align: center">
+                        <p:commandButton value="More Details" onclick="PF('dlg3').show();"/>
+                        <p:dialog header="Components " widgetVar="dlg3" showEffect="explode" modal="true" height="100">
+                            <p:dataTable var="componentData" value="#{result}">
+                                <p:column headerText="Id">
+                                    <h:outputText value="1" />
+                                </p:column>
+                                <p:column headerText="Year">
+                                    <h:outputText value="#{result.owner}" />
+                                </p:column>
+
+                                <p:column headerText="Brand">
+                                    <h:outputText value="1" />
+                                </p:column>
+
+                                <p:column headerText="Color">
+                                    <h:outputText value="azul" />
+                                </p:column>
+                            </p:dataTable>
+
+
+                        </p:dialog>                        
+                        <p:commandButton value="Download" ajax="false" icon="ui-icon-arrowthick-1-s"
+                                         action="#{result.createServiceFile(result.serviceIdRepository)}">
+                            <p:fileDownload value="#{result.file}" />
+                        </p:commandButton>
                     </p:column>                    
                 </p:dataTable>
             </p:panel>
-            <p:commandButton value="Download" icon="ui-icon-circle-arrow-s"/>
         </h:form>
     </ui:define>
 </ui:composition>
