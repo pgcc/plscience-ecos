@@ -84,20 +84,21 @@ import javax.faces.context.FacesContext;
  */
 public class OntologyDAO {
 
+    //caminho fisico da ontology
+    private final String ontology = "../../files/ontologies/prov-oext.owl";
+    //caminho fisico da nova ontology
+    private final String loadOntology = "../../files/ontologies/prov-oextload.owl";
+
     public void loadDAO() {
 
         //variavel global
         OntModel model;
-        //uri da ontologia
+        //uri da ontology
         String baseURI = "http://www.w3.org/ns/prov#";
-        //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oext.owl";
-        //caminho fisico da nova ontologia
-        String newontology = "/home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
 
-        //inicia a maquina de inferencia e carrega a ontologia nela
+        //inicia a maquina de inferencia e carrega a ontology nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        ontModel.read(ontologia);
+        ontModel.read(ontology);
         Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
         reasoner = reasoner.bindSchema(ontModel);
         OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM_TRANS_INF;
@@ -123,7 +124,7 @@ public class OntologyDAO {
         ObjectProperty wdfop = ontModel.createObjectProperty(baseURI + "wasDerivedFrom");
         ObjectProperty wroop = ontModel.createObjectProperty(baseURI + "WasRevisionOf");
 
-        //Carrega os Entitys na ontologia apartir do banco de dados
+        //Carrega os Entitys na ontology apartir do banco de dados
         Resource resourceorg = model.getResource(baseURI + "Organization");
         Entity entity = new Entity();
         List entitys = new ArrayList();
@@ -133,7 +134,7 @@ public class OntologyDAO {
             model.createIndividual(baseURI + entity.getAcronym().replace(" ", "."), resourceorg);
         }
 
-        //Carrega os ResearchGroup na ontologia apartir do banco de dados
+        //Carrega os ResearchGroup na ontology apartir do banco de dados
         Resource resourcerg = model.getResource(baseURI + "ResearchGroup");
         ResearchGroup researchGroup = new ResearchGroup();
         List researchGroups = new ArrayList();
@@ -143,7 +144,7 @@ public class OntologyDAO {
             model.createIndividual(baseURI + researchGroup.getName().replace(" ", "."), resourcerg);
         }
 
-        //Carrega os Agents na ontologia apartir do banco de dados
+        //Carrega os Agents na ontology apartir do banco de dados
         Resource resourceperson = model.getResource(baseURI + "Person");
         Agent agent = new Agent();
         List agents = new ArrayList();
@@ -175,7 +176,7 @@ public class OntologyDAO {
             p.addProperty(Member, g);
         }
 
-        //Carrega os Experiments na ontologia apartir do banco de dados, associando aos agents e as entidades
+        //Carrega os Experiments na ontology apartir do banco de dados, associando aos agents e as entidades
         Resource resourceexp = model.getResource(baseURI + "Experiment");
         Experiment experiment = new Experiment();
         List experiments = new ArrayList();
@@ -190,7 +191,7 @@ public class OntologyDAO {
 
         }
 
-        //Carrega a associação do experimento com o grupo de pesquisa na ontologia apartir do banco de dados
+        //Carrega a associação do experimento com o grupo de pesquisa na ontology apartir do banco de dados
         WasGeneratedBy wgb = new WasGeneratedBy();
         List wgbs = new ArrayList();
         wgbs = new WasGeneratedByDAO().buscarTodas();
@@ -201,7 +202,7 @@ public class OntologyDAO {
             exp.addProperty(wgbop, rg);
         }
 
-        //Carrega os Activitys na ontologia apartir do banco de dados
+        //Carrega os Activitys na ontology apartir do banco de dados
         Resource resourceact = model.getResource(baseURI + "Activity");
         Activity activity = new Activity();
         List activitys = new ArrayList();
@@ -211,7 +212,7 @@ public class OntologyDAO {
             model.createIndividual(baseURI + activity.getName().replace(" ", "."), resourceact);
         }
 
-        //Carrega os SGWfC na ontologia apartir do banco de dados
+        //Carrega os SGWfC na ontology apartir do banco de dados
         Resource resourcesa = model.getResource(baseURI + "SoftwareAgent");
         SGWfC sGWfC = new SGWfC();
         List sGWfCs = new ArrayList();
@@ -221,7 +222,7 @@ public class OntologyDAO {
             model.createIndividual(baseURI + sGWfC.getName().replace(" ", "."), resourcesa);
         }
 
-        //Carrega os Workflow na ontologia apartir do banco de dados
+        //Carrega os Workflow na ontology apartir do banco de dados
         Resource resourcewf = model.getResource(baseURI + "Workflow");
         Workflow workflow = new Workflow();
         List workflows = new ArrayList();
@@ -233,7 +234,7 @@ public class OntologyDAO {
             wf.addProperty(wat, sg);
         }
 
-        //Carrega os Task na ontologia apartir do banco de dados
+        //Carrega os Task na ontology apartir do banco de dados
         Resource resourcetask = model.getResource(baseURI + "Task");
         Task task = new Task();
         List tasks = new ArrayList();
@@ -243,7 +244,7 @@ public class OntologyDAO {
             model.createIndividual(baseURI + task.getName().replace(" ", "."), resourcetask);
         }
 
-        //Carrega os dados do Used na ontologia apartir do banco de dados
+        //Carrega os dados do Used na ontology apartir do banco de dados
         Used used = new Used();
         List useds = new ArrayList();
         useds = new UsedDAO().buscarTodas();
@@ -254,7 +255,7 @@ public class OntologyDAO {
             w.addProperty(usedope, t);
         }
 
-        //Carrega os dados do WasStartedByWT na ontologia apartir do banco de dados
+        //Carrega os dados do WasStartedByWT na ontology apartir do banco de dados
         WasStartedByWT wsbtwt = new WasStartedByWT();
         List wsbtwts = new ArrayList();
         wsbtwts = new WasStartedByWTDAO().buscarTodas();
@@ -265,7 +266,7 @@ public class OntologyDAO {
             w.addProperty(s, t);
         }
 
-        //Carrega os dados do WasEndedByWT na ontologia apartir do banco de dados
+        //Carrega os dados do WasEndedByWT na ontology apartir do banco de dados
         WasEndedByWT webtwt = new WasEndedByWT();
         List webtwts = new ArrayList();
         webtwts = new WasEndedByWTDAO().buscarTodas();
@@ -276,7 +277,7 @@ public class OntologyDAO {
             w.addProperty(e, t);
         }
 
-        //Carrega os dados do WasStartedBy na ontologia apartir do banco de dados
+        //Carrega os dados do WasStartedBy na ontology apartir do banco de dados
         WasStartedBy wsbt = new WasStartedBy();
         List wsbts = new ArrayList();
         wsbts = new WasStartedByDAO().buscarTodas();
@@ -287,7 +288,7 @@ public class OntologyDAO {
             t.addProperty(s, a);
         }
 
-        //Carrega os dados do WasEndedBy na ontologia apartir do banco de dados
+        //Carrega os dados do WasEndedBy na ontology apartir do banco de dados
         WasEndedBy webt = new WasEndedBy();
         List webts = new ArrayList();
         webts = new WasEndedByDAO().buscarTodas();
@@ -331,7 +332,7 @@ public class OntologyDAO {
             to.addProperty(wdfop, of);
         }
 
-        //Cria as portas de comunicação do workflow na ontologia
+        //Cria as portas de comunicação do workflow na ontology
         Resource resourceip = model.getResource(baseURI + "InputPort");
         InputPort ip = new InputPort();
         List ips = new ArrayList();
@@ -364,8 +365,8 @@ public class OntologyDAO {
             o.addProperty(aoboop, i);
         }
 
-        //validar a nova ontologia a ser criada
-        //System.out.println("Validating the ontology");
+        //validar a nova ontology a ser criada
+        //System.out.println("Validating the loadOntology");
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Validating the ontology", "Ok"));
         InfModel modelInf = ModelFactory.createInfModel(reasoner, model);
         ValidityReport vrp1 = modelInf.validate();
@@ -381,11 +382,11 @@ public class OntologyDAO {
             }
         }
 
-        //Gerar o novo arquivo com os dados do banco na nova ontologia
+        //Gerar o novo arquivo com os dados do banco na nova ontology
         FileWriter arquivo = null;
         try {
-            //caminho para o novo arquivo de ontologia
-            arquivo = new FileWriter(newontology);
+            //caminho para o novo arquivo de ontology
+            arquivo = new FileWriter(loadOntology);
             //se não existir arquivo, o mesmo será criado, se não, será reescrito
         } catch (IOException ex) {
             ex.printStackTrace(); //verificando problemas
@@ -404,14 +405,12 @@ public class OntologyDAO {
     public List<String> buscartodos() {
         //variavel global
         OntModel model;
-        //uri da ontologia
+        //uri da ontology
         String baseURI = "http://www.w3.org/ns/prov#";
-        //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
 
-        //inicia a maquina de inferencia e carrega a ontologia nela
+        //inicia a maquina de inferencia e carrega a ontology nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        ontModel.read(ontologia);
+        ontModel.read(loadOntology);
         Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
         reasoner = reasoner.bindSchema(ontModel);
         OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
@@ -457,14 +456,12 @@ public class OntologyDAO {
     public List<String> buscarSPARQL(String sql) {
         //variavel global
         OntModel model;
-        //uri da ontologia
+        //uri da ontology
         String baseURI = "http://www.w3.org/ns/prov#";
-        //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
 
-        //inicia a maquina de inferencia e carrega a ontologia nela
+        //inicia a maquina de inferencia e carrega a ontology nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        ontModel.read(ontologia);
+        ontModel.read(loadOntology);
         Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
         reasoner = reasoner.bindSchema(ontModel);
         OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
@@ -499,14 +496,12 @@ public class OntologyDAO {
     public List<String> buscarEvolutionTo(String workflow) {
         //variavel global
         OntModel model;
-        //uri da ontologia
+        //uri da ontology
         String baseURI = "http://www.w3.org/ns/prov#";
-        //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
 
-        //inicia a maquina de inferencia e carrega a ontologia nela
+        //inicia a maquina de inferencia e carrega a ontology nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        ontModel.read(ontologia);
+        ontModel.read(loadOntology);
         Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
         reasoner = reasoner.bindSchema(ontModel);
         OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
@@ -538,14 +533,12 @@ public class OntologyDAO {
     public List<String> buscarEvolutionOf(String workflow) {
         //variavel global
         OntModel model;
-        //uri da ontologia
+        //uri da ontology
         String baseURI = "http://www.w3.org/ns/prov#";
-        //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
 
-        //inicia a maquina de inferencia e carrega a ontologia nela
+        //inicia a maquina de inferencia e carrega a ontology nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        ontModel.read(ontologia);
+        ontModel.read(loadOntology);
         Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
         reasoner = reasoner.bindSchema(ontModel);
         OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
@@ -577,14 +570,12 @@ public class OntologyDAO {
     public List<String> Similar(int workflow) {
         //variavel global
         OntModel model;
-        //uri da ontologia
+        //uri da ontology
         String baseURI = "http://www.w3.org/ns/prov#";
-        //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
 
-        //inicia a maquina de inferencia e carrega a ontologia nela
+        //inicia a maquina de inferencia e carrega a ontology nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        ontModel.read(ontologia);
+        ontModel.read(loadOntology);
         Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
         reasoner = reasoner.bindSchema(ontModel);
         OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
