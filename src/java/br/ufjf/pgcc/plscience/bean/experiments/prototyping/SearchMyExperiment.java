@@ -128,21 +128,24 @@ public class SearchMyExperiment implements Serializable {
     public static Search searchAllComponents(String searchQuery, MyExperimentClient myExpClient) throws MyExperimentException{
         String query;
         String scope = "workflow,file,pack,user";
-        String elements = "title,created-at,updated-at,resource,id,uri,statistics,"
-                + "uploader,description,type,preview,thumbnail,thumbnail-big,svg,license-type,content-uri,"
-                + "content-type,content,tags,filename,name,email,avatar,city,country";
+        String elements = "title,created-at,updated-at,id,uri,statistics,"
+                + "uploader,description,type,license-type,content-uri," +
+"//                +content-type,filename,name,email,avatar,city,country";
+//        String elements = "title,created-at,updated-at,resource,id,uri,statistics,"
+//                + "uploader,description,type,preview,thumbnail,thumbnail-big,svg,license-type,content-uri,"
+//                + "content-type,content,tags,filename,name,email,avatar,city,country";
         SearchMyExperiment smy = new SearchMyExperiment();
         if (searchQuery != null && !searchQuery.isEmpty()) {
             smy.setSearchQuery(searchQuery);
         }
         query = ExternalRepositoriesString.formatSearchTerm(searchQuery);
-        if (scope != null && !scope.isEmpty()) {
+        if (!scope.isEmpty()) {
             query += "&type=" + scope + "&elements=" + elements;
         }
-        if (scope != null && !scope.isEmpty()) {
+        if (!scope.isEmpty()) {
             smy.setType(scope);
         }
-        
+
         Search myExpResult = myExpClient.searchWithoutElements(query);
         return myExpResult;
     }

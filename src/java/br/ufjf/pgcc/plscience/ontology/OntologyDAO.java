@@ -84,16 +84,15 @@ import javax.faces.context.FacesContext;
  */
 public class OntologyDAO {
 
+    private final String ontologia = "../../files/ontologies/prov-oext.owl";
+    private final String newontology = "../../files/ontologies/prov-oextload.owl";
+    
     public void loadDAO() {
 
         //variavel global
         OntModel model;
         //uri da ontologia
         String baseURI = "http://www.w3.org/ns/prov#";
-        //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oext.owl";
-        //caminho fisico da nova ontologia
-        String newontology = "/home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
 
         //inicia a maquina de inferencia e carrega a ontologia nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
@@ -407,7 +406,7 @@ public class OntologyDAO {
         //uri da ontologia
         String baseURI = "http://www.w3.org/ns/prov#";
         //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
+        String ontologia = newontology;
 
         //inicia a maquina de inferencia e carrega a ontologia nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
@@ -460,7 +459,7 @@ public class OntologyDAO {
         //uri da ontologia
         String baseURI = "http://www.w3.org/ns/prov#";
         //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
+        String ontologia = newontology;
 
         //inicia a maquina de inferencia e carrega a ontologia nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
@@ -495,14 +494,14 @@ public class OntologyDAO {
 
         return resultslist;
     }
-
+    
     public List<String> buscarEvolutionTo(String workflow) {
         //variavel global
         OntModel model;
         //uri da ontologia
         String baseURI = "http://www.w3.org/ns/prov#";
         //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
+        String ontologia = newontology;
 
         //inicia a maquina de inferencia e carrega a ontologia nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
@@ -535,13 +534,58 @@ public class OntologyDAO {
         return resultslist;
     }
 
+    /**
+     * Search a Evolution To a Task
+     * 
+     * @param task
+     * @return 
+     */
+    public List<String> buscarEvolutionToTask(String task) {
+        //variavel global
+        OntModel model;
+        //uri da ontologia
+        String baseURI = "http://www.w3.org/ns/prov#";
+        //caminho fisico da ontologia
+        String ontologia = newontology;
+
+        //inicia a maquina de inferencia e carrega a ontologia nela
+        OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        ontModel.read(ontologia);
+        Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
+        reasoner = reasoner.bindSchema(ontModel);
+        OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
+        ontModelSpec.setReasoner(reasoner);
+        //ontologia carregada na máquina de inferencia
+        model = ModelFactory.createOntologyModel(ontModelSpec, ontModel);
+        String sql = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "PREFIX prov: <http://www.w3.org/ns/prov#>\n"
+                + "\n"
+                + "SELECT ?subject ?object\n"
+                + "	WHERE { ?subject prov:Activity <http://www.w3.org/ns/prov#" + task + ">}";
+
+        Query query = QueryFactory.create(sql);
+        QueryExecution qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+        List resultslist = new ArrayList();
+        while (results.hasNext()) {
+            QuerySolution next = results.next();
+            String result = null;
+            result = next.toString().replace("( ?subject = <http://www.w3.org/ns/prov#", "");
+            resultslist.add(result.replace("> )", ""));
+        }
+        return resultslist;
+    }
+
     public List<String> buscarEvolutionOf(String workflow) {
         //variavel global
         OntModel model;
         //uri da ontologia
         String baseURI = "http://www.w3.org/ns/prov#";
         //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
+        String ontologia = newontology;
 
         //inicia a maquina de inferencia e carrega a ontologia nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
@@ -580,7 +624,7 @@ public class OntologyDAO {
         //uri da ontologia
         String baseURI = "http://www.w3.org/ns/prov#";
         //caminho fisico da ontologia
-        String ontologia = "file:///home/tassio/Dropbox/UFJF/Implemetação/Ontologia/OWL/prov-oextload.owl";
+        String ontologia = newontology;
 
         //inicia a maquina de inferencia e carrega a ontologia nela
         OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);

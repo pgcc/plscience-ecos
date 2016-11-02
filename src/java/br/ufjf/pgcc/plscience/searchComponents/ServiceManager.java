@@ -48,52 +48,27 @@ public class ServiceManager implements Serializable {
 
     //Vector<WSDLParameter> inputParameters;
 
-    public void generatesServiceInformation() {
-
-        setFileURL(fileToURI(getFileURL()).replaceAll(" ", "%20"));
-
+    public List<WSDLOperation> generatesServiceInformation(String fileURL){
+        setFileURL(fileToURI(fileURL).replaceAll(" ", "%20"));
         WSDLService service;
-
         try {
             service = WSDLService.createService(URIUtils.createURI(getFileURL()));
             serviceOperations = service.getOperations();
-
-//            if (serviceOperations != null) {
-//
-//                for (int i = 0; i < serviceOperations.size(); i++) {
-//                    inputParameters = serviceOperations.get(i).getInputs();
-//
-//                    for (int j = 0; i < inputParameters.size(); j++) {
-//                        WSDLParameter parameter = inputParameters.get(j);
-//                        System.out.println("Inp Name: " + parameter.getName());
-//                        System.out.println("Inp Type: " + parameter.getType());
-//
-//                        QName paramType = (parameter.getType() == null) ? new QName(WSDLConsts.xsdURI, "any") : parameter.getType();
-//
-//                        String wsdlType = paramType.getNamespaceURI() + "#" + paramType.getLocalPart();
-//                        System.out.println("WSDL Type: " + wsdlType);
-//
-//                        String type = OWL.Thing.toString();
-//                        System.out.println("type: " + type);
-//
-//                        if (paramType.getNamespaceURI().equals(WSDLConsts.soapEnc) || (paramType.getNamespaceURI().equals(WSDLConsts.xsdURI) && (!paramType.getLocalPart().equals("any")))) {
-//                            type = XSD.ns + paramType.getLocalPart();
-//                            System.out.println("type: " + type);
-//                        }
-//
-//                        Object[] linha = {URIUtils.getLocalName(parameter.getName()),
-//                            qNames.shortForm(wsdlType),
-//                            URIUtils.getLocalName(parameter.getName()),
-//                            qNames.shortForm(type)
-//                        };
-//
-//                        System.out.println("QN wsdltype" + qNames.shortForm(wsdlType));
-//                        System.out.println("QN type" + qNames.shortForm(type));
-//
-//                    }
-//                }
-//
-//            }
+        } catch (Exception ex) {
+            Logger.getLogger(ServiceManager.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return serviceOperations;
+    }
+    
+    /**
+     * generates Service Information
+     */
+    public void generatesServiceInformation() {
+        setFileURL(fileToURI(getFileURL()).replaceAll(" ", "%20"));
+        WSDLService service;
+        try {
+            service = WSDLService.createService(URIUtils.createURI(getFileURL()));
+            serviceOperations = service.getOperations();
 
         } catch (Exception ex) {
             Logger.getLogger(ServiceManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,7 +136,8 @@ public class ServiceManager implements Serializable {
             System.out.println("ERROR");
         }
         
-        String owlsDir = File.separatorChar + "home" + File.separatorChar + "phillipe" + File.separatorChar + "Documentos";;
+        String owlsDir = File.separatorChar + "home" + File.separatorChar + "phillipe" + File.separatorChar + "Documentos"
+                +File.separatorChar+"VirtualRepository";
         if(repositoryURL != null){
             owlsDir = repositoryURL;
             owlsDir = owlsDir.replaceAll("/",Matcher.quoteReplacement(File.separator));

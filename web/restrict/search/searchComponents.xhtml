@@ -107,7 +107,7 @@
                 <p:dataTable var="result" value="#{searchComponents.patternResults}" 
                              id="searchResults" emptyMessage="No records found"
                              paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             paginator="true" rows="3" rowsPerPageTemplate="5,10,25,50,100,9999"
+                             paginator="true" rows="3" rowsPerPageTemplate="3,4,5,10,25,50,100,9999"
                              style="margin-top: 20px">
                     <p:column headerText="Component Name" sortBy="#{result.name}">
                         <h:outputText value="#{result.name}" />
@@ -127,12 +127,11 @@
 
                     <p:column headerText="Component Documentation" style="text-align: center">
                         <p:commandButton value="More Details" 
-                                         actionListener="#{result.viewDetails(result.name, result.componentType)}"
+                                         actionListener="#{searchComponents.viewDetails(result)}"
                                          update=":searchComponentsForm:moreDetails"/>
 
-                        <p:commandButton value="Download" ajax="false" icon="ui-icon-arrowthick-1-s"
-                                         action="#{result.createServiceFile(result.serviceIdRepository)}">
-                            <p:fileDownload value="#{result.file}" />
+                        <p:commandButton value="Download" ajax="false" icon="ui-icon-arrowthick-1-s">
+                            <p:fileDownload value="#{result.createComponentFile(result)}" />
                         </p:commandButton>
                     </p:column>                    
                 </p:dataTable>
@@ -140,56 +139,173 @@
 
             <p:panel header="Details">
                 <p:dataList 
-                    var="details" value="#{searchComponents.patternResults}"
+                    var="details" value="#{searchComponents.provenanceDetails}"
                     id="moreDetails" emptyMessage="No records found" >
                     <p:tabView orientation="left">
                         <p:tab title="Provenance Data">
                             <p:panelGrid columns="2">
                                 <p:column>
+                                    <h:outputText value="Component Name" style="font-weight: bold"/>                                    
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.name}" style="font-weight: bold"/>                                    
+                                </p:column>
+                                <p:column>
                                     <h:outputText value="Used" style="font-weight: bold"/>                                    
                                 </p:column>
                                 <p:column>
-                                <p:dataList 
-                                    var="usedProv" value="#{details.used}"
-                                    id="usedProvList">
-                                    <h:outputText value="#{usedProv}"/>
-                                </p:dataList>
+                                    <p:dataList 
+                                        var="usedProv" value="#{details.used}"
+                                        id="usedProvList">
+                                        <h:outputText value="#{usedProv}"/>
+                                    </p:dataList>
                                 </p:column>
                                 <p:column>                                
-                                <h:outputText value="Was Informed By:" style="font-weight: bold"/>
+                                    <h:outputText value="Was Informed By" style="font-weight: bold"/>
                                 </p:column>
                                 <p:column>
-                                <p:dataList 
-                                    var="wasInfProv" value="#{details.wasInformedBy}"
-                                    id="wasInfProvList">
-                                    <h:outputText value="#{wasInfProv}"/>
-                                </p:dataList>
+                                    <p:dataList 
+                                        var="wasInfProv" value="#{details.wasInformedBy}"
+                                        id="wasInfProvList">
+                                        <h:outputText value="#{wasInfProv}"/>
+                                    </p:dataList>
                                 </p:column>
                                 <p:column>
-                                <h:outputText value="Was Associated With:" style="font-weight: bold"/>
+                                    <h:outputText value="Was Associated With" style="font-weight: bold"/>
                                 </p:column>
                                 <p:column>
-                                <p:dataList 
-                                    var="wasAssocWith" value="#{details.wasAssociatedWith}"
-                                    id="wasAssocWithList">
-                                    <h:outputText value="#{wasAssocWith}"/>
-                                </p:dataList>
+                                    <p:dataList 
+                                        var="wasAssocWith" value="#{details.wasAssociatedWith}"
+                                        id="wasAssocWithList">
+                                        <h:outputText value="#{wasAssocWith}"/>
+                                    </p:dataList>
                                 </p:column>
                                 <p:column>
-                                <h:outputText value="Acted Behalf Of:" style="font-weight: bold"/>
+                                    <h:outputText value="Acted Behalf Of" style="font-weight: bold"/>
                                 </p:column>
                                 <p:column>
-                                <p:dataList 
-                                    var="actBehOf" value="#{details.actedBehalfOf}"
-                                    id="actBehOfList">
-                                    <h:outputText value="#{actBehOf}"/>
-                                </p:dataList>                                
-                                    </p:column>
+                                    <p:dataList 
+                                        var="actBehOf" value="#{details.actedBehalfOf}"
+                                        id="actBehOfList">
+                                        <h:outputText value="#{actBehOf}"/>
+                                    </p:dataList>                                
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Was Ended By:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <p:dataList 
+                                        var="wasEndB" value="#{details.wasEndedBy}"
+                                        id="wasEndBList">
+                                        <h:outputText value="#{wasEndB}"/>
+                                    </p:dataList>                                
+                                </p:column>
+                                <!--                                <p:column>
+                                                                <h:outputText value="Ontology Evolution Inferences (Tasks):" style="font-weight: bold"/>
+                                                                </p:column>
+                                                                <p:column>
+                                                                <p:dataList 
+                                                                    var="evolTaskOnt" value="#{details.evolutionTaskOntology}"
+                                                                    id="evolTaskOntList">
+                                                                    <h:outputText value="#{evolTaskOnt}"/>
+                                                                </p:dataList>                                
+                                                                    </p:column>                                -->
+
                             </p:panelGrid>
                         </p:tab>
                         <p:tab title="Meta Data">
-
+                            <p:panelGrid columns="2">
+                                <p:column>
+                                    <h:outputText value="Owner" style="font-weight: bold"/>                                    
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.owner} "/>
+                                    <h:graphicImage value="#{details.resPatF.ownerCountryFlagImage}" />                                    
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Owner Country" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.ownerCountry}"/>                                    
+                                </p:column>    
+                                <p:column>
+                                    <h:outputText value="Owner City" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.ownerCity}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Component Created At:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.createdAt}"/>
+                                </p:column>                                
+                                <p:column>
+                                    <h:outputText value="Component Updated At:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.updatedAt}"/>                                    
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Component Archived At:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.archivedAt}"/>                                    
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Monitoring Status:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.monitoringStatusLabel}"/>                                    
+                                </p:column> 
+                                <p:column>
+                                    <h:outputText value="Last Checked:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.monitoringStatusLastChecked}"/>                                    
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="License Type:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.licenseType}"/>                                    
+                                </p:column>
+                            </p:panelGrid>                            
                         </p:tab>
+                        <p:tab title="Service Semantic Annotation">
+                            <p:dataTable var="task" value="#{details.serviceOperations}">
+                                <p:column headerText="Name">
+                                    <h:outputText value="#{task.name}" />
+                                </p:column>
+
+                                <p:column headerText="Inputs">
+                                    <p:dataTable var="resultInputs" value="#{task.inputs}" id="inp" 
+                                                 emptyMessage="No records found">
+                                        <p:column headerText="WSDL Parameter" width="30%">
+                                            <h:outputText value="#{details.getShortNameParameter(resultInputs)}" title="#{details.getShortNameParameter(resultInputs)}"/>
+                                        </p:column> 
+                                        <p:column headerText="WSDL Type" width="30%">
+                                            <h:outputText value="#{details.getShortTypeParameter(resultInputs)}" title="#{details.getShortTypeParameter(resultInputs)}"/>
+                                        </p:column>                             
+                                    </p:dataTable>
+                                </p:column>
+
+                                <p:column headerText="Outputs">
+                                    <p:dataTable var="resultOutputs" value="#{task.outputs}" id="out" 
+                                                 emptyMessage="No records found">
+                                        <p:column headerText="WSDL Parameter" width="30%">
+                                            <h:outputText value="#{details.getShortNameParameter(resultOutputs)}" title="#{details.getShortNameParameter(resultOutputs)}"/>
+                                        </p:column> 
+                                        <p:column headerText="WSDL Type" width="30%">
+                                            <h:outputText value="#{details.getShortTypeParameter(resultOutputs)}" title="#{details.getShortTypeParameter(resultOutputs)}"/>
+                                        </p:column>                             
+                                    </p:dataTable>
+                                </p:column>                                
+                                <p:column headerText="Service Annotation">
+                                    <p:commandButton value="Generate OWL-S" action="#{details.semanticAnnotation(task)}"/>
+                                </p:column>
+                            </p:dataTable>                               
+                        </p:tab>                        
                     </p:tabView>
                 </p:dataList>
             </p:panel>            

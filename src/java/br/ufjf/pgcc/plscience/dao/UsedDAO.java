@@ -29,6 +29,18 @@ public class UsedDAO extends PersistenceUtil{
         return query.getResultList();
     }
     
+    /**
+     * search provenance data by a task id
+     * @param idTask
+     * @return 
+     */
+    public List<Used> searchTask(int idTask) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT DISTINCT u FROM Used u WHERE u.taskidTask.idTask = :id");
+        query.setParameter("id", idTask);
+        return query.getResultList();
+    }
+    
       public List<Used> buscarporexperimento(int idworkflow) {
         EntityManager em = PersistenceUtil.getEntityManager();
 

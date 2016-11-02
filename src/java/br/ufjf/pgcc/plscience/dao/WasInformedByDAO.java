@@ -28,6 +28,18 @@ public class WasInformedByDAO extends PersistenceUtil {
         query.setParameter("id", idworkflow);
         return query.getResultList();
     }
+    
+    /**
+     * search was informed by provenance data related to a task id
+     * @param idTask
+     * @return 
+     */
+    public List<WasInformedBy> searchTask(int idTask){
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT DISTINCT wib FROM WasInformedBy wib WHERE wib.taskidTask.idTask = :id");
+        query.setParameter("id", idTask);
+        return query.getResultList();
+    }
 
     public List<WasInformedBy> buscarcomproblema(int idworkflow) {
         EntityManager em = PersistenceUtil.getEntityManager();

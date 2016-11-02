@@ -7,13 +7,7 @@ package br.ufjf.pgcc.plscience.searchComponents;
 
 import br.ufjf.biocatalogue.core.BioCatalogueClient;
 import br.ufjf.biocatalogue.exception.BioCatalogueException;
-import br.ufjf.biocatalogue.model.Result;
 import br.ufjf.biocatalogue.model.ServiceData;
-import br.ufjf.pgcc.plscience.controller.WasAssociatedWithBean;
-import br.ufjf.pgcc.plscience.dao.WorkflowDAO;
-import br.ufjf.pgcc.plscience.model.WasAssociatedWith;
-import br.ufjf.pgcc.plscience.model.Workflow;
-import static com.lowagie.text.Annotation.URL;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -22,13 +16,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import org.json.simple.parser.ParseException;
-import org.primefaces.component.datalist.DataList;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -46,15 +36,16 @@ public final class ResultsPatternFormat {
     private String componentType;
     private String description;
     private String owner;
+    private String createdAt;
+    private String archivedAt;
+    private String updatedAt;
+    private String ownerCity;
     private String ownerCountry;
     private String ownerCountryFlagImage;
     private String fileLocation;
-    private StreamedContent file;
-    private List<String> used;
-    private List<String> wasAssociatedWith;
-    private List<String> wasInformedBy;
-    private List<String> wasEndedBy;
-    private List<String> actedBehalfOf;
+    private String licenseType;
+    private String monitoringStatusLabel;
+    private String monitoringStatusLastChecked;
 
     public ResultsPatternFormat() throws MalformedURLException, IOException {
         createGenericServiceFile();
@@ -174,20 +165,6 @@ public final class ResultsPatternFormat {
     }
 
     /**
-     * @return the file
-     */
-    public StreamedContent getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(StreamedContent file) {
-        this.file = file;
-    }
-
-    /**
      * @return the serviceIdRepository
      */
     public String getServiceIdRepository() {
@@ -201,37 +178,6 @@ public final class ResultsPatternFormat {
         this.serviceIdRepository = serviceIdRepository;
     }
 
-    public void viewDetails(String name, String type){
-
-        if(type.contains("Service") || type.contains("service")){
-            System.out.println("Details of "+name);
-            String u = "Task geneID was used in workflow GeneExtraction - Task Id: 10 - Workflow Id: 10";
-            String u2 = "Task geneID was used in workflow GeneExtraction2 - Task Id: 10 - Workflow Id: 11";
-            String wIB = "Task geneID was successful for activity Nuclear Protein Database - Task Id: 10 - Activity Id: 4";
-            String wAW = "Workflow GeneExtraction was attributed to experiment Gene Extraction Experiment - Workflow Id: 10 - Experiment Id: 8";
-            String aBO = "Task geneID acted on behalf of task geneIDCon";
-            
-            List<String> us = new ArrayList<>();
-            us.add(u);
-            us.add(u2);
-            
-            List<String> wib = new ArrayList<>();
-            wib.add(wIB);
-            
-            List<String> waw = new ArrayList<>();
-            waw.add(wAW);
-            
-            List<String> abo = new ArrayList<>();
-            abo.add(aBO);
-            
-            used = us;
-            wasAssociatedWith = waw;
-            wasInformedBy = wib;
-            actedBehalfOf = abo;
-            
-        }
-    }
-    
     public void showDetails(String name, String type){
         System.out.println("Details of "+name);
         System.out.println("Workflow type "+type);
@@ -258,15 +204,45 @@ public final class ResultsPatternFormat {
 //        }
     }
     
+    public String seachWSDLLocationBioCatalogue(String serviceId) throws BioCatalogueException, ParseException{
+        if (serviceId != null) {
+            BioCatalogueClient searchServiceDataById = new BioCatalogueClient();
+            searchServiceDataById.setBaseUri("https://www.biocatalogue.org");
+            ServiceData serviceData = searchServiceDataById.serviceData(serviceId);
+            fileLocation = serviceData.getServiceVariants().getWsdlLocation();
+        }
+        return fileLocation;
+    }
+    
+    public StreamedContent createComponentFile(ResultsPatternFormat rpf) throws IOException, MalformedURLException, BioCatalogueException, ParseException{
+        StreamedContent f;
+        if(rpf != null){
+            if(rpf.getRepositoryName().toLowerCase().contains("catalogue")){
+                f = createServiceFile(rpf.getServiceIdRepository());
+            }
+            else if(rpf.getRepositoryName().toLowerCase().contains("experiment")){
+                f = createFileMyExperiment(rpf);
+            }else{
+                f = createGenericServiceFile();
+            }
+        }else{
+            f = createGenericServiceFile();
+        }
+        return f;                
+    }
+    
     /**
      * It creates a service file to download
      *
      * @param serviceId
+     * @return 
      * @throws MalformedURLException
      * @throws IOException
      * @throws BioCatalogueException
+     * @throws org.json.simple.parser.ParseException
      */
-    public void createServiceFile(String serviceId) throws MalformedURLException, IOException, BioCatalogueException, ParseException {
+    public StreamedContent createServiceFile(String serviceId) throws MalformedURLException, IOException, BioCatalogueException, ParseException {
+        StreamedContent f;
         if (serviceId != null) {
             BioCatalogueClient searchServiceDataById = new BioCatalogueClient();
             searchServiceDataById.setBaseUri("https://www.biocatalogue.org");
@@ -281,26 +257,26 @@ public final class ResultsPatternFormat {
                 //System.out.println("Connection Code: "+code);
                 if (code == 200) {//it checks that the page exists and does not return error
                     InputStream stream = url.openStream();
-                    StreamedContent file = new DefaultStreamedContent(stream, "file/wsdl", "service" + serviceId + ".wsdl");
-                    this.setFile(file);
+                    f = new DefaultStreamedContent(stream, "file/wsdl", "service" + serviceId + ".wsdl");
                 } else {
-                    createGenericServiceFile();
+                    f = createGenericServiceFile();
                 }
             } else {
-                createGenericServiceFile();
+                f = createGenericServiceFile();
             }
-
         } else {
-            createGenericServiceFile();
+            f = createGenericServiceFile();
         }
+        return f;
     }
 
     /**
      * Creates a generic file to download
      *
+     * @return a generic file
      * @throws IOException
      */
-    public void createGenericServiceFile() throws IOException {
+    public StreamedContent createGenericServiceFile() throws IOException {
         File file = new File("serviceDocument.txt");
         file.createNewFile();
         FileWriter writer = new FileWriter(file);
@@ -310,10 +286,11 @@ public final class ResultsPatternFormat {
         FileInputStream fis = new FileInputStream(file);
         InputStream inpS = fis;
         StreamedContent fileCreated = new DefaultStreamedContent(inpS, "file/txt", "serviceDocument.txt");
-        this.file = fileCreated;
+        return fileCreated;
     }
 
-    public ResultsPatternFormat createFileMyExperiment(ResultsPatternFormat rpf) throws MalformedURLException, IOException {
+    public StreamedContent createFileMyExperiment(ResultsPatternFormat rpf) throws MalformedURLException, IOException {
+        StreamedContent f;
         if (rpf.getFileLocation() != null && rpf.getFileLocation().contains("http://")) {
             URL url = new URL(rpf.getFileLocation());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -326,15 +303,112 @@ public final class ResultsPatternFormat {
                 String s = rpf.getFileLocation();
                 String fileExtension = s.substring(s.lastIndexOf(".") + 1, s.length());
                 String fileName = s.substring(s.lastIndexOf("/") + 1, s.length());
-                StreamedContent file = new DefaultStreamedContent(stream, fileExtension, fileName);
-                rpf.setFile(file);
+                f = new DefaultStreamedContent(stream, fileExtension, fileName);
             } else {
-                rpf.createGenericServiceFile();
+                f = rpf.createGenericServiceFile();
             }
         }else {
-            rpf.createGenericServiceFile();
+            f = rpf.createGenericServiceFile();
         }
-        return rpf;
+        return f;
+    }
+
+    /**
+     * @return the ownerCity
+     */
+    public String getOwnerCity() {
+        return ownerCity;
+    }
+
+    /**
+     * @param ownerCity the ownerCity to set
+     */
+    public void setOwnerCity(String ownerCity) {
+        this.ownerCity = ownerCity;
+    }
+
+    /**
+     * @return the createdAt
+     */
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * @return the updatedAt
+     */
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * @param updatedAt the updatedAt to set
+     */
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * @return the licenseType
+     */
+    public String getLicenseType() {
+        return licenseType;
+    }
+
+    /**
+     * @param licenseType the licenseType to set
+     */
+    public void setLicenseType(String licenseType) {
+        this.licenseType = licenseType;
+    }
+
+    /**
+     * @return the archivedAt
+     */
+    public String getArchivedAt() {
+        return archivedAt;
+    }
+
+    /**
+     * @param archivedAt the archivedAt to set
+     */
+    public void setArchivedAt(String archivedAt) {
+        this.archivedAt = archivedAt;
+    }
+
+    /**
+     * @return the monitoringStatusLabel
+     */
+    public String getMonitoringStatusLabel() {
+        return monitoringStatusLabel;
+    }
+
+    /**
+     * @param monitoringStatusLabel the monitoringStatusLabel to set
+     */
+    public void setMonitoringStatusLabel(String monitoringStatusLabel) {
+        this.monitoringStatusLabel = monitoringStatusLabel;
+    }
+
+    /**
+     * @return the monitoringStatusLastChecked
+     */
+    public String getMonitoringStatusLastChecked() {
+        return monitoringStatusLastChecked;
+    }
+
+    /**
+     * @param monitoringStatusLastChecked the monitoringStatusLastChecked to set
+     */
+    public void setMonitoringStatusLastChecked(String monitoringStatusLastChecked) {
+        this.monitoringStatusLastChecked = monitoringStatusLastChecked;
     }
 
 //    /**
@@ -354,71 +428,5 @@ public final class ResultsPatternFormat {
     /**
      * @return the used
      */
-    public List<String> getUsed() {
-        return used;
-    }
-
-    /**
-     * @param used the used to set
-     */
-    public void setUsed(List<String> used) {
-        this.used = used;
-    }
-
-    /**
-     * @return the wasAssociatedWith
-     */
-    public List<String> getWasAssociatedWith() {
-        return wasAssociatedWith;
-    }
-
-    /**
-     * @param wasAssociatedWith the wasAssociatedWith to set
-     */
-    public void setWasAssociatedWith(List<String> wasAssociatedWith) {
-        this.wasAssociatedWith = wasAssociatedWith;
-    }
-
-    /**
-     * @return the wasInformedBy
-     */
-    public List<String> getWasInformedBy() {
-        return wasInformedBy;
-    }
-
-    /**
-     * @param wasInformedBy the wasInformedBy to set
-     */
-    public void setWasInformedBy(List<String> wasInformedBy) {
-        this.wasInformedBy = wasInformedBy;
-    }
-
-    /**
-     * @return the wasEndedBy
-     */
-    public List<String> getWasEndedBy() {
-        return wasEndedBy;
-    }
-
-    /**
-     * @param wasEndedBy the wasEndedBy to set
-     */
-    public void setWasEndedBy(List<String> wasEndedBy) {
-        this.wasEndedBy = wasEndedBy;
-    }
-
-    /**
-     * @return the actedBehalfOf
-     */
-    public List<String> getActedBehalfOf() {
-        return actedBehalfOf;
-    }
-
-    /**
-     * @param actedBehalfOf the actedBehalfOf to set
-     */
-    public void setActedBehalfOf(List<String> actedBehalfOf) {
-        this.actedBehalfOf = actedBehalfOf;
-    }
 
 }

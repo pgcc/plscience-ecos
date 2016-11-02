@@ -18,8 +18,21 @@ import br.ufjf.myexperiment.model.Pack;
 import br.ufjf.myexperiment.model.Workflow;
 import br.ufjf.pgcc.plscience.bean.experiments.prototyping.SearchBioCatalogue;
 import br.ufjf.pgcc.plscience.bean.experiments.prototyping.SearchMyExperiment;
+import br.ufjf.pgcc.plscience.dao.ActedOnBehalfOfDAO;
+import br.ufjf.pgcc.plscience.dao.TaskDAO;
+import br.ufjf.pgcc.plscience.dao.UsedDAO;
+import br.ufjf.pgcc.plscience.dao.WasAssociatedWithDAO;
+import br.ufjf.pgcc.plscience.dao.WasEndedByDAO;
+import br.ufjf.pgcc.plscience.dao.WasInformedByDAO;
 import br.ufjf.pgcc.plscience.message.InfoMessage;
 import br.ufjf.pgcc.plscience.message.WarningMessage;
+import br.ufjf.pgcc.plscience.model.ActedOnBehalfOf;
+import br.ufjf.pgcc.plscience.model.Task;
+import br.ufjf.pgcc.plscience.model.Used;
+import br.ufjf.pgcc.plscience.model.WasAssociatedWith;
+import br.ufjf.pgcc.plscience.model.WasEndedBy;
+import br.ufjf.pgcc.plscience.model.WasInformedBy;
+import br.ufjf.pgcc.plscience.ontology.OntologyDAO;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +47,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.json.simple.parser.ParseException;
+import org.mindswap.wsdl.WSDLOperation;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -54,6 +68,7 @@ public class SearchComponents implements Serializable {
     private ArrayList<Result> results;
     private ArrayList<ResultsPatternFormat> patternResults;
     private Result selectedResult;
+    private ProvenanceDetails provenanceDetails;
     //private AnalyzeCollaborationServiceBean primeCollaborationServices;
     //private ServiceRecovery primeCollaborationServicesRanked;
     //private SearchPrime searchPrime;
@@ -76,10 +91,12 @@ public class SearchComponents implements Serializable {
         if (selectedComponents.length != 0) {
             if (componentWasSelected("service")) {
                 bioSearch();
+                System.out.println("BioCatalogue Search Completed!");
             }
             if (componentWasSelected("workflow") || componentWasSelected("file")
                     || componentWasSelected("pack")) {
                 myExperimentSearch();
+                System.out.println("MyExperiment Search Completed!");
             }
             System.out.println("Search completed!");
         } else {
@@ -121,9 +138,32 @@ public class SearchComponents implements Serializable {
                     }
                     if (w.getContentUri() != null && !w.getContentUri().equals("")) {
                         rpf.setFileLocation(w.getContentUri());
-                        rpf = rpf.createFileMyExperiment(rpf);
-                    }else {
-                        rpf.createGenericServiceFile();
+                        //rpf = rpf.createFileMyExperiment(rpf);
+                    }
+                    if (w.getCountry() != null && !w.getCountry().equals("")) {
+                        rpf.setOwnerCountry(w.getCountry());
+                    } else {
+                        rpf.setOwnerCountry("---");
+                    }
+                    if (w.getCity() != null && !w.getCity().equals("")) {
+                        rpf.setOwnerCity(w.getCity());
+                    } else {
+                        rpf.setOwnerCity("---");
+                    }
+                    if (w.getCreatedAt() != null && !w.getCreatedAt().equals("")) {
+                        rpf.setCreatedAt(w.getCreatedAt());
+                    } else {
+                        rpf.setCreatedAt("---");
+                    }
+                    if (w.getUpdatedAt() != null && !w.getUpdatedAt().equals("")) {
+                        rpf.setUpdatedAt(w.getUpdatedAt());
+                    } else {
+                        rpf.setUpdatedAt("---");
+                    }
+                    if (w.getLicenseType() != null && !w.getLicenseType().equals("")) {
+                        rpf.setLicenseType(w.getLicenseType());
+                    } else {
+                        rpf.setLicenseType("---");
                     }
                     rpf.setComponentType("Workflow");
                     rpf.setRepositoryName("myExperiment");
@@ -156,8 +196,8 @@ public class SearchComponents implements Serializable {
                     }
                     if (f.getContentUri() != null && !f.getContentUri().equals("")) {
                         rpf.setFileLocation(f.getContentUri());
-                        rpf = rpf.createFileMyExperiment(rpf);
-                    }else {
+                        rpf.createFileMyExperiment(rpf);
+                    } else {
                         rpf.createGenericServiceFile();
                     }
                     rpf.setComponentType("File");
@@ -191,10 +231,10 @@ public class SearchComponents implements Serializable {
                     }
                     if (p.getContentUri() != null && !p.getContentUri().equals("")) {
                         rpf.setFileLocation(p.getContentUri());
-                        rpf = rpf.createFileMyExperiment(rpf);
-                    }else {
+                        rpf.createFileMyExperiment(rpf);
+                    } else {
                         rpf.createGenericServiceFile();
-                    }                    
+                    }
                     rpf.setComponentType("Pack");
                     rpf.setRepositoryName("myExperiment");
                     getPatternResults().add(rpf);
@@ -228,7 +268,7 @@ public class SearchComponents implements Serializable {
                 if (result.getDescription() != null) {
                     rpf.setDescription(result.getDescription());
                 } else {
-                    rpf.setName("---");
+                    rpf.setDescription("---");
                 }
                 if (result.getResource() != null) {
                     String serviceAddress = result.getResource();
@@ -239,24 +279,6 @@ public class SearchComponents implements Serializable {
                     ServiceData serviceData = searchServiceDataById.serviceData(serviceId);
                     rpf.setServiceIdRepository(serviceId);
                     rpf.setFileLocation(serviceData.getServiceVariants().getWsdlLocation());
-                    System.out.println(rpf.getFileLocation());
-                    if (rpf.getFileLocation() != null && rpf.getFileLocation().contains("http://")) {
-                        URL url = new URL(rpf.getFileLocation());
-                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                        connection.setRequestMethod("GET");
-                        connection.connect();
-                        int code = connection.getResponseCode();
-                        //System.out.println("Connection Code: "+code);
-                        if (code == 200) {//it checks that the page exists and does not return error
-                            InputStream stream = url.openStream();
-                            StreamedContent file = new DefaultStreamedContent(stream, "file/wsdl", "service" + rpf.getServiceIdRepository() + ".wsdl");
-                            rpf.setFile(file);
-                        } else {
-                            rpf.createGenericServiceFile();
-                        }
-                    } else {
-                        rpf.createGenericServiceFile();
-                    }
                 }
                 if (result.getSubmitter() != null) {
                     String ownerValue = result.getSubmitter();
@@ -287,6 +309,26 @@ public class SearchComponents implements Serializable {
                 if (result.getResource() != null) {
                     rpf.setFileLocation(result.getResource());
                 }
+                if(result.getCreated_at() != null){
+                    rpf.setCreatedAt(result.getCreated_at());
+                }else{
+                    rpf.setCreatedAt("---");
+                }
+                if(result.getArchived_at() != null){
+                    rpf.setArchivedAt(result.getArchived_at());
+                }else{
+                    rpf.setArchivedAt("---");
+                }
+                if(result.getLatest_monitoring_status() != null){
+                    rpf.setMonitoringStatusLabel(result.getLatest_monitoring_status().getLabel());
+                }else{
+                    rpf.setMonitoringStatusLabel("---");
+                }
+                if(result.getLatest_monitoring_status().getLast_checked() != null){
+                    rpf.setMonitoringStatusLastChecked(result.getLatest_monitoring_status().getLast_checked());
+                }else{
+                    rpf.setMonitoringStatusLastChecked("---");
+                }
                 rpf.setComponentType("Service - " + result.getService_technology_types().get(0));
                 rpf.setRepositoryName("BioCatalogue");
                 getPatternResults().add(rpf);
@@ -307,6 +349,162 @@ public class SearchComponents implements Serializable {
             }
         }
         return false;
+    }
+
+    /**
+     *
+     * @param result
+     */
+    public void viewDetails(ResultsPatternFormat result) throws IOException, BioCatalogueException, ParseException {
+        String name = result.getName();
+        String type = result.getComponentType();
+        List<String> used = new ArrayList<>();//used prov
+        List<String> wib = new ArrayList<>(); //was informed by prov
+        List<String> waw = new ArrayList<>();//was associated with prov
+        List<String> abo = new ArrayList<>();//acted behalf of prov
+        List<String> web = new ArrayList<>();//was ended by prov
+
+        OntologyDAO ontoDAO = new OntologyDAO();//pegar inferencias da ontologia para a tarefa
+        //List<String> evolutionTaskOntology = ontoDAO.buscarEvolutionToTask(type);
+
+        provenanceDetails = new ProvenanceDetails();
+        ResultsPatternFormat resultPatternFormat = new ResultsPatternFormat();
+
+        resultPatternFormat.setName(name);
+        resultPatternFormat.setComponentType(type);
+
+        if (type.contains("Service") || type.contains("service")) {
+
+            String fileLocation = result.getFileLocation();
+            if (result.getRepositoryName().contains("Catalogue")) {
+
+                if (!fileLocation.toUpperCase().contains("WSDL")) {
+                    ResultsPatternFormat rpf = new ResultsPatternFormat();
+                    fileLocation = rpf.seachWSDLLocationBioCatalogue(result.getServiceIdRepository());
+                }
+
+                //System.out.println("Localizacao do WSDL: "+fileLocation);
+                if (fileLocation != null) {
+                    ServiceManager sM = new ServiceManager();
+                    List<WSDLOperation> operations;
+                    operations = sM.generatesServiceInformation(fileLocation);
+                    provenanceDetails.setServiceOperations(operations);
+                    if (operations != null) {
+                        for (WSDLOperation op : operations) {
+                            Task task = new Task();
+                            TaskDAO taskDAO = new TaskDAO();
+                            UsedDAO usedDAO = new UsedDAO();
+                            WasInformedByDAO wasInformedByDAO = new WasInformedByDAO();
+                            WasAssociatedWithDAO wasAssociatedWithDAO = new WasAssociatedWithDAO();
+                            ActedOnBehalfOfDAO actedOnBehalfOf = new ActedOnBehalfOfDAO();
+                            WasEndedByDAO wasEndedByDAO = new WasEndedByDAO();
+
+                            List<Integer> listUsedWorkflows = new ArrayList<>();
+                            List<Used> listUsed = new ArrayList<>();
+                            List<WasInformedBy> listWasInformedBy = new ArrayList<>();
+                            List<WasAssociatedWith> listWasAssociatedWith = new ArrayList<>();
+                            List<ActedOnBehalfOf> listActedOnBehalfOf = new ArrayList<>();
+                            List<WasEndedBy> listWasEndedBy = new ArrayList<>();
+
+                            task = taskDAO.buscar(op.getName());
+
+                            if (task != null) {
+                                //evolutionTaskOntology = ontoDAO.buscarEvolutionToTask(type);
+                                listUsed = usedDAO.searchTask(task.getIdTask());
+                                for (Used u : listUsed) {
+                                    String usedProvenanceDataTask = u.getDescription() + " Task Id: "
+                                            + u.getTaskidTask().getIdTask().toString()
+                                            + " Workflow Id: " + u.getWorkflowidWorkflow().getIdWorkflow().toString();
+                                    if (!used.contains(usedProvenanceDataTask)) {
+                                        used.add(usedProvenanceDataTask);
+                                    }
+                                    if (!listUsedWorkflows.contains(u.getWorkflowidWorkflow().getIdWorkflow())) {
+                                        listUsedWorkflows.add(u.getWorkflowidWorkflow().getIdWorkflow());
+                                    }
+                                }
+
+                                listWasInformedBy = wasInformedByDAO.searchTask(task.getIdTask());
+                                for (WasInformedBy w : listWasInformedBy) {
+                                    String wasInfByProvDataTask = w.getDescription() + " Task Id: "
+                                            + w.getTaskidTask().getIdTask().toString()
+                                            + " Activity Id: " + w.getActivityidActivity().getIdActivity().toString();
+                                    if (!wib.contains(wasInfByProvDataTask)) {
+                                        wib.add(wasInfByProvDataTask);
+                                    }
+                                }
+
+                                listWasEndedBy = wasEndedByDAO.searchTask(task.getIdTask());
+                                for (WasEndedBy w : listWasEndedBy) {
+                                    String wasEndedByProvTaskData = w.getDescription() + " Task Id: "
+                                            + w.getTaskidTask().getIdTask().toString()
+                                            + " Activity Id: " + w.getActivityidActivity().getIdActivity().toString();
+                                    if (!web.contains(wasEndedByProvTaskData)) {
+                                        web.add(wasEndedByProvTaskData);
+                                    }
+                                }
+
+                                for (Integer i : listUsedWorkflows) {
+                                    listWasAssociatedWith = wasAssociatedWithDAO.buscarWorkflow(i);
+                                    for (WasAssociatedWith w : listWasAssociatedWith) {
+                                        String wasAssocWithProvDataTask = w.getDescription() + " Experiment Id: "
+                                                + w.getExperimentExperiment().getIdExperiment().toString() + " Workflow Id: "
+                                                + w.getWorkflowidWorkflow().getIdWorkflow().toString();
+                                        if (!waw.contains(wasAssocWithProvDataTask)) {
+                                            waw.add(wasAssocWithProvDataTask);
+                                        }
+                                    }
+                                    listActedOnBehalfOf = actedOnBehalfOf.buscar(i);
+                                    for (ActedOnBehalfOf a : listActedOnBehalfOf) {
+                                        String actOnBehOf = a.getDescription() + " Input Port Id: "
+                                                + a.getInputPortidPort().getIdPort().toString() + " Output Port Id: "
+                                                + a.getOutputPortidPort().getIdPort().toString();
+                                        if (!abo.contains(actOnBehOf)) {
+                                            abo.add(actOnBehOf);
+                                        }
+                                    }
+                                }
+                                if (used.isEmpty()) {
+                                    used.add("Used Provenance Data not found for this service");
+                                }
+                                if (wib.isEmpty()) {
+                                    wib.add("'Was Informed By' Provenance Data not found for this service");
+                                }
+                                if (waw.isEmpty()) {
+                                    waw.add("'Was Associated With' Provenance Data not found for this service");
+                                }
+                                if (abo.isEmpty()) {
+                                    abo.add("'Acted On Behalf Of' Provenance Data not found for this service");
+                                }
+//                                if(evolutionTaskOntology.isEmpty()){
+//                                    evolutionTaskOntology.add("No inferences made for this service");
+//                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            provenanceDetails.setUsed(used);
+            provenanceDetails.setWasInformedBy(wib);
+            provenanceDetails.setWasAssociatedWith(waw);
+            provenanceDetails.setActedBehalfOf(abo);
+            provenanceDetails.setWasEndedBy(web);
+//            provenanceDetails.setEvolutionTaskOntology(evolutionTaskOntology);
+
+        }
+
+        resultPatternFormat.setOwnerCountryFlagImage(result.getOwnerCountryFlagImage());
+        resultPatternFormat.setOwnerCity(result.getOwnerCity());
+        resultPatternFormat.setLicenseType(result.getLicenseType());
+        resultPatternFormat.setCreatedAt(result.getCreatedAt());
+        resultPatternFormat.setUpdatedAt(result.getUpdatedAt());
+        resultPatternFormat.setOwner(result.getOwner());
+        resultPatternFormat.setOwnerCountry(result.getOwnerCountry());
+        resultPatternFormat.setArchivedAt(result.getArchivedAt());
+        resultPatternFormat.setMonitoringStatusLabel(result.getMonitoringStatusLabel());
+        resultPatternFormat.setMonitoringStatusLastChecked(result.getMonitoringStatusLastChecked());
+        provenanceDetails.setResPatF(resultPatternFormat);
+
     }
 
     /**
@@ -433,5 +631,19 @@ public class SearchComponents implements Serializable {
      */
     public void setSelectedComponents(String[] selectedComponents) {
         this.selectedComponents = selectedComponents;
+    }
+
+    /**
+     * @return the provenanceDetails
+     */
+    public ProvenanceDetails getProvenanceDetails() {
+        return provenanceDetails;
+    }
+
+    /**
+     * @param provenanceDetails the provenanceDetails to set
+     */
+    public void setProvenanceDetails(ProvenanceDetails provenanceDetails) {
+        this.provenanceDetails = provenanceDetails;
     }
 }

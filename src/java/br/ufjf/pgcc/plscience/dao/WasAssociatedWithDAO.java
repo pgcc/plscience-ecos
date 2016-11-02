@@ -28,6 +28,13 @@ public class WasAssociatedWithDAO extends PersistenceUtil{
         return query.getResultList();
     }
     
+        public List<WasAssociatedWith> buscarWorkflow(int idworkflow) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT DISTINCT waw FROM WasAssociatedWith waw WHERE waw.workflowidWorkflow.idWorkflow = :id");
+        query.setParameter("id", idworkflow);
+        return query.getResultList();
+    }
+    
     /**
      * Busca associacoes pela id do workflow
      * @param idworkflow

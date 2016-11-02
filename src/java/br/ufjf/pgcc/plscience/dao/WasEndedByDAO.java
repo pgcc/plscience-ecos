@@ -27,6 +27,13 @@ public class WasEndedByDAO extends PersistenceUtil{
         query.setParameter("id", idworkflow);
         return query.getResultList();
     }
+  
+    public List<WasEndedBy> searchTask(int idTask) {
+        EntityManager em = PersistenceUtil.getEntityManager();
+        Query query = em.createQuery("SELECT DISTINCT web FROM WasEndedBy web Where web.taskidTask.idTask = :id");
+        query.setParameter("id", idTask);
+        return query.getResultList();
+    }
 
     public List<WasEndedBy> buscarTodas() {
         EntityManager em = PersistenceUtil.getEntityManager();
