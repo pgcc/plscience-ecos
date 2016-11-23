@@ -20,8 +20,10 @@ public class WordNetHandler {
 	private List<String> listaHiperonimos = new ArrayList<String>();// lista de hiperonimos
         
 	//modifique esses atributos para o local da sua WordNet
-	private final String unidade = "D:/Wordnet/";
-	private final String diretorioWordNet = "C:/Program Files (x86)/WordNet/2.1/bin/wn ";
+	//private final String unidade = "D:/Wordnet/";
+        //private final String diretorioWordNet = "C:/Program Files (x86)/WordNet/2.1/bin/wn ";
+        private final String unidade = "/usr/share/wordnet";
+        private final String diretorioWordNet = "/usr/bin/wn";
 
 	/**
 	 * Consulta pelo conceito, caso seja do tipo Noum

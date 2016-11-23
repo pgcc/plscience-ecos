@@ -100,7 +100,7 @@
                 </p:accordionPanel>
 
                 <p:commandButton value="Search" icon="ui-icon-search" 
-                                 actionListener="#{searchComponents.search()}" 
+                                 actionListener="#{searchComponents.search()}"
                                  update="searchResults"    />
             </p:panel>
             <p:panel header="Results" style="margin: 10px 0;">
@@ -302,7 +302,7 @@
                                     </p:dataTable>
                                 </p:column>                                
                                 <p:column headerText="Service Annotation">
-                                    <p:commandButton value="Generate OWL-S" action="#{details.semanticAnnotation(task)}"/>
+                                    <p:commandButton value="Generate OWL-S" action="#{details.semanticAnnotation(task,details)}"/>
                                 </p:column>
                             </p:dataTable>                               
                         </p:tab>                        

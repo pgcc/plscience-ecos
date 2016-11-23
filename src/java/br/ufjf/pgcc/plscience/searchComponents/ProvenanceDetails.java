@@ -15,25 +15,15 @@ import org.mindswap.wsdl.WSDLOperation;
 import org.mindswap.wsdl.WSDLParameter;
 
 /**
- * This class is used to present the provenance details of a service
- * or workflow previously used in a experiment
+ * This class is used to present the provenance details of a service or workflow
+ * previously used in a experiment
+ *
  * @author phillipe
  */
-
 @ManagedBean(name = "serpd")
 @ViewScoped
 public class ProvenanceDetails {
-//    private String componentName;
-//    private String componentType;
-//    private String componentDescription;
-//    private String owner;
-//    private String ownerCountry;
-//    private String ownerCountryFlagImage;
-//    private String ownerCity;
-//    private String createdAt;
-//    private String updatedAt;
-//    private String licenseType;
-//    private String idRepository;
+
     private ResultsPatternFormat resPatF;
     private List<WSDLOperation> serviceOperations;
     private List<String> used;
@@ -43,32 +33,70 @@ public class ProvenanceDetails {
     private List<String> actedBehalfOf;
     private List<String> evolutionTaskOntology;
 
-    public void semanticAnnotation(WSDLOperation wsdlOperation) throws IOException, FileNotFoundException, URISyntaxException{
+    /**
+     * It makes a semantic annotation to the found tasks
+     *
+     * @param wsdlOperation
+     * @param details
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws URISyntaxException
+     */
+    public void semanticAnnotation(WSDLOperation wsdlOperation,ProvenanceDetails details) throws IOException, FileNotFoundException, URISyntaxException {
         ServiceManager sm = new ServiceManager();
-        sm.OWLSGenerator(wsdlOperation);
+        sm.OWLSGenerator(wsdlOperation,details);
     }
-    
+
+/**
+ * It generates a String to Semantic Annotation with provenance Data
+ * @param provenanceDetails
+ * @return 
+ */
+    public String generatesString(ProvenanceDetails provenanceDetails) {
+        String provenanceData = "";
+        if (provenanceDetails != null) {
+            for (String s : provenanceDetails.getUsed()) {
+                provenanceData += s + " ";
+            }
+            for (String s : provenanceDetails.getWasInformedBy()) {
+                provenanceData += s + " ";
+            }
+            for (String s : provenanceDetails.getWasAssociatedWith()) {
+                provenanceData += s + " ";
+            }
+            for (String s : provenanceDetails.getActedBehalfOf()) {
+                provenanceData += s + " ";
+            }
+            for (String s : provenanceDetails.getWasEndedBy()) {
+                provenanceData += s + " ";
+            }
+        }
+        return provenanceData;
+    }
+
     /**
      * Returns a short name for a parameter
+     *
      * @param parameter
-     * @return 
+     * @return
      */
-    public String getShortNameParameter(WSDLParameter parameter){
+    public String getShortNameParameter(WSDLParameter parameter) {
         String shortName = ServiceManager.getShortName(parameter);
         return shortName;
     }
-    
+
     /**
      * Returns a short type for a parameter
+     *
      * @param parameter
-     * @return 
+     * @return
      */
-    public String getShortTypeParameter(WSDLParameter parameter){
+    public String getShortTypeParameter(WSDLParameter parameter) {
         ServiceManager sm = new ServiceManager();
         String shortType = sm.getShortType(parameter);
         return shortType;
     }
-    
+
     /**
      * @return the used
      */
@@ -165,7 +193,7 @@ public class ProvenanceDetails {
      */
     public void setEvolutionTaskOntology(List<String> evolutionTaskOntology) {
         this.evolutionTaskOntology = evolutionTaskOntology;
-    }    
+    }
 
     /**
      * @return the resPatF

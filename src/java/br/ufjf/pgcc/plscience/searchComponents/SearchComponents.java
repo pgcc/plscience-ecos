@@ -357,6 +357,7 @@ public class SearchComponents implements Serializable {
      */
     public void viewDetails(ResultsPatternFormat result) throws IOException, BioCatalogueException, ParseException {
         String name = result.getName();
+        String servDescription = result.getDescription();
         String type = result.getComponentType();
         List<String> used = new ArrayList<>();//used prov
         List<String> wib = new ArrayList<>(); //was informed by prov
@@ -371,6 +372,7 @@ public class SearchComponents implements Serializable {
         ResultsPatternFormat resultPatternFormat = new ResultsPatternFormat();
 
         resultPatternFormat.setName(name);
+        resultPatternFormat.setDescription(servDescription);
         resultPatternFormat.setComponentType(type);
 
         if (type.contains("Service") || type.contains("service")) {

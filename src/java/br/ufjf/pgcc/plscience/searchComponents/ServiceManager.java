@@ -47,8 +47,7 @@ public class ServiceManager implements Serializable {
     private final QNameProvider qNames = new QNameProvider();
 
     //Vector<WSDLParameter> inputParameters;
-
-    public List<WSDLOperation> generatesServiceInformation(String fileURL){
+    public List<WSDLOperation> generatesServiceInformation(String fileURL) {
         setFileURL(fileToURI(fileURL).replaceAll(" ", "%20"));
         WSDLService service;
         try {
@@ -56,10 +55,10 @@ public class ServiceManager implements Serializable {
             serviceOperations = service.getOperations();
         } catch (Exception ex) {
             Logger.getLogger(ServiceManager.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
         return serviceOperations;
     }
-    
+
     /**
      * generates Service Information
      */
@@ -102,6 +101,99 @@ public class ServiceManager implements Serializable {
     }
 
     /**
+     * It generates an OWL-S file with the service name, the service
+     * description, service operation name, service operation description and
+     * provenance data
+     *
+     * @param wsdlOperation
+     * @param provenanceDetails
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public void OWLSGenerator(WSDLOperation wsdlOperation, ProvenanceDetails provenanceDetails) throws FileNotFoundException, IOException, URISyntaxException {
+        String operationName = wsdlOperation.getName();
+        String name = operationName.replaceAll(" ", "_");
+        String finalDescription; //serv. description + operation description + provenance data
+        String operationDescription;
+        String provenanceData;
+        String serviceName;
+        String serviceDescription;
+        String containsProvenanceData;
+
+        if (provenanceDetails.getUsed() != null) {
+            containsProvenanceData = provenanceDetails.getUsed().get(0);
+            if (containsProvenanceData.contains(operationName)) {
+                provenanceData = provenanceDetails.generatesString(provenanceDetails);
+            }else
+                provenanceData = "";
+        }else{
+            provenanceData = "";
+        }           
+
+        if (provenanceDetails.getResPatF().getName() == null) {
+            serviceName = "";
+        } else {
+            serviceName = provenanceDetails.getResPatF().getName();
+        }
+
+        if (provenanceDetails.getResPatF().getDescription() == null) {
+            serviceDescription = "";
+        } else {
+            serviceDescription = provenanceDetails.getResPatF().getDescription();
+        }
+
+        if (wsdlOperation.getDocumentation() == null) {
+            operationDescription = "Generated from " + fileURL;
+        } else {
+            operationDescription = wsdlOperation.getDocumentation();
+        }
+
+        finalDescription = serviceName + " " + serviceDescription + " "
+                + name + " " + operationDescription + " " + provenanceData;
+
+        String logicalURI = "http://localhost:8084/plscience-ecos/" + name + ".owl";
+        WSDLTranslator translator = new WSDLTranslator(wsdlOperation, logicalURI, name);
+        translator.setServiceName(name);
+        translator.setTextDescription(finalDescription);
+
+        Vector<WSDLParameter> inpParameters = wsdlOperation.getInputs();
+        Vector<WSDLParameter> outParameters = wsdlOperation.getOutputs();
+
+        Set usedNames = new HashSet();
+        if (!generateOWLsInputs(inpParameters, translator, wsdlOperation, usedNames)) {
+            System.out.println("ERROR");
+        }
+        if (!generateOWLsOutputs(outParameters, translator, wsdlOperation, usedNames)) {
+            System.out.println("ERROR");
+        }
+
+        String owlsDir = File.separatorChar + "home" + File.separatorChar + "phillipe" + File.separatorChar + "Documentos"
+                + File.separatorChar + "VirtualRepository";
+        if (repositoryURL != null) {
+            owlsDir = repositoryURL;
+            owlsDir = owlsDir.replaceAll("/", Matcher.quoteReplacement(File.separator));
+            System.out.println("repository URL is not null");
+        }
+
+        String owls = owlsDir + File.separatorChar + operationName + ".owl";
+
+        File owlsFile = new File(owls);
+        if (owlsFile.exists()) {
+            owlsFile.delete();
+            try {
+                owlsFile.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(ServiceManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        try (FileOutputStream fos = new FileOutputStream(owlsFile)) {
+            translator.writeOWLS(fos);
+        }
+    }
+
+    /**
      * It generates an OWL-S file
      *
      * @param wsdlOperation
@@ -132,15 +224,15 @@ public class ServiceManager implements Serializable {
         if (!generateOWLsInputs(inpParameters, translator, wsdlOperation, usedNames)) {
             System.out.println("ERROR");
         }
-        if (generateOWLsOutputs(outParameters, translator, wsdlOperation, usedNames)) {
+        if (!generateOWLsOutputs(outParameters, translator, wsdlOperation, usedNames)) {
             System.out.println("ERROR");
         }
-        
+
         String owlsDir = File.separatorChar + "home" + File.separatorChar + "phillipe" + File.separatorChar + "Documentos"
-                +File.separatorChar+"VirtualRepository";
-        if(repositoryURL != null){
+                + File.separatorChar + "VirtualRepository";
+        if (repositoryURL != null) {
             owlsDir = repositoryURL;
-            owlsDir = owlsDir.replaceAll("/",Matcher.quoteReplacement(File.separator));
+            owlsDir = owlsDir.replaceAll("/", Matcher.quoteReplacement(File.separator));
             System.out.println("repository URL is not null");
         }
 
@@ -251,8 +343,8 @@ public class ServiceManager implements Serializable {
             e.printStackTrace();
             return "";
         }
-    }    
-    
+    }
+
     /**
      * @return the repositoryURL
      */
