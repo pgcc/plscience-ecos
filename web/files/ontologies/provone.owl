@@ -1,0 +1,391 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.dataone.org/provone/2015/01/15/ontology#"
+     xml:base="http://purl.dataone.org/provone/2015/01/15/ontology"
+     xmlns:core="http://purl.org/vocab/frbr/core#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:prov="http://www.w3.org/ns/prov#">
+    <owl:Ontology rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#">
+        <owl:versionIRI rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#"/>
+        <owl:imports rdf:resource="http://www.w3.org/ns/prov#"/>
+        <rdfs:comment>This document describes an extension of the W3C PROV standard for scientific workflow provenance.  It represents a potential standard published publicly for evaluation and possible adoption.  However, it is not associated with and is not supported by any standards organization.</rdfs:comment>
+        <prov:specializationOf>http://www.w3.org/ns/prov-o</prov:specializationOf>
+        <rdfs:seeAlso>http://www.w3.org/ns/prov</rdfs:seeAlso>
+        <rdfs:label>DataONE PROV Extension for Scientific Workflow Provenance</rdfs:label>
+        <owl:versionInfo>Version 1.0</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#domain -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#domain"/>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#range -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#range"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#category -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/prov#category"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#definition -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/prov#definition"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#specializationOf -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/prov#specializationOf"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#connectsTo -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#connectsTo">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Port"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Channel"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#controlledBy -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#controlledBy">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Controller"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#controls -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#controls">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Controller"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#hadEntity -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hadEntity">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Generation"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Usage"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#hadInPort -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hadInPort">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Usage"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Port"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#hadOutPort -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hadOutPort">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Generation"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Port"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#hasDefaultParam -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hasDefaultParam">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Port"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#hasInPort -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hasInPort">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Port"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Port"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#wasPartOf -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#wasPartOf">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#agent -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#agent"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#qualifiedAssociation -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#qualifiedAssociation">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Association"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#qualifiedGeneration -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#qualifiedGeneration">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Generation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#qualifiedUsage -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#qualifiedUsage">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Usage"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#used -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#used">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasAssociatedWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasAssociatedWith">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#User"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasDerivedFrom">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasGeneratedBy">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasInformedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasInformedBy">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Channel -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Channel">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Controller -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Controller">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Data -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Data">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Document -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Document">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Execution -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Execution">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Port -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Port">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Program -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Program">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Plan"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#User -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#User">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Agent"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Visualization -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Visualization">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Workflow -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Workflow">
+        <rdfs:subClassOf rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Activity -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Activity"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Agent -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Agent"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Association -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Association"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Entity -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Entity"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Generation -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Generation"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Plan -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Plan"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Usage -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Usage"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi -->
+

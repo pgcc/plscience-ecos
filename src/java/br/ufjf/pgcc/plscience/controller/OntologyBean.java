@@ -18,7 +18,7 @@ import javax.faces.bean.ViewScoped;
  * @author phillipe
  */
 
-@ManagedBean(name = "ontologyBean")
+@ManagedBean(name = "ontologyBeanBanco")
 @ViewScoped
 public class OntologyBean implements Serializable{
     private Ontology ontology;

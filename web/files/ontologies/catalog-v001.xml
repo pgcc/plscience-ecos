@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1472089811986" name="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl" uri="CollaborativePL-ScienceOntology.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1472089811986" name="http://plscience.superdignus.com/SequenceAligningOntology" uri="SequenceAligningOntologyv1b.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1472089811986" name="http://www.nenc.ufjf.br/ontologies/collaborationOntology" uri="collaborationService.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1472089811986" name="http://www.semanticweb.org/fran/ontologies/2014/11/untitled-ontology-27" uri="ServiceDescriptionInf.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1472089811986" name="http://www.w3.org/ns/prov" uri="prov-oext.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1480348191748" name="http://plscience.superdignus.com/CollaborativePLScienceOntology.owl" uri="CollaborativePL-ScienceOntology.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1480348191748" name="http://plscience.superdignus.com/SequenceAligningOntology" uri="SequenceAligningOntologyv1b.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1480348191748" name="http://purl.dataone.org/provone/2015/01/15/ontology" uri="provone.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1480348191748" name="http://www.nenc.ufjf.br/ontologies/collaborationOntology" uri="collaborationService.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1480348191748" name="http://www.semanticweb.org/fran/ontologies/2014/11/untitled-ontology-27" uri="ServiceDescriptionInf.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1480348191748" name="duplicate:http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment" uri="provone-experiment-instances.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1480348191748" name="duplicate:http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment" uri="provone-experiment-load.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1480348191748" name="duplicate:http://www.w3.org/ns/prov" uri="prov-o.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1480348191748" name="duplicate:http://www.w3.org/ns/prov" uri="prov-oext.owl"/>
     </group>
 </catalog>

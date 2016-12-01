@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#"
+     xml:base="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:provone="http://purl.dataone.org/provone/2015/01/15/ontology#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:prov="http://www.w3.org/ns/prov#"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment">
+        <owl:imports rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled -->
+
+    <owl:AnnotationProperty rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#definition -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/prov#definition"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#wasPartOf -->
+
+    <owl:ObjectProperty rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#wasPartOf">
+        <owl:equivalentProperty rdf:resource="http://www.w3.org/ns/prov#wasInformedBy"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hadTask"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#createdBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#createdBy">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#responsibleFor"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Experiment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Organization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#evolutionTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#evolutionTo">
+        <owl:inverseOf rdf:resource="http://www.w3.org/ns/prov#wasDerivedFrom"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#execute -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#execute">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#executedIn"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.w3.org/ns/prov#qualifiedAssociation"/>
+            <rdf:Description rdf:about="http://www.w3.org/ns/prov#hadPlan"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#executedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#executedIn">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hadTask -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hadTask"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hasResearcher -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hasResearcher">
+        <owl:inverseOf rdf:resource="http://www.w3.org/ns/prov#actedOnBehalfOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#ResearchGroup"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hasWorkflow -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hasWorkflow">
+        <owl:equivalentProperty rdf:resource="http://www.w3.org/ns/prov#hadMember"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#isPartOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Experiment"/>
+        <rdfs:range rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Workflow"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#isPartOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#isPartOf"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#isSimilar -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#isSimilar">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#managed -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#managed">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wasManagedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#responsibleFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#responsibleFor"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#servedTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#servedTo">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wasServedBy"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Service"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Task"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#usedWfms -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#usedWfms">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Experiment"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Wfms"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hasWorkflow"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wasManagedBy"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wasManagedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wasManagedBy">
+        <rdfs:domain rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Workflow"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Wfms"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wasServedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wasServedBy">
+        <owl:equivalentProperty rdf:resource="http://www.w3.org/ns/prov#wasAssociatedWith"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#actedOnBehalfOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#actedOnBehalfOf"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#hadMember -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#hadMember"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#hadPlan -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#hadPlan"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#qualifiedAssociation -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#qualifiedAssociation"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasAssociatedWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasAssociatedWith"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasDerivedFrom"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasInfluencedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasInfluencedBy">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#createdBy"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hasResearcher"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.w3.org/ns/prov#wasDerivedFrom"/>
+            <rdf:Description rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasInformedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasInformedBy"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Execution -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Execution">
+        <prov:definition>A Task is something that a workflow needs to execute.</prov:definition>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Program -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#User -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#User">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.dataone.org/provone/2015/01/15/ontology#Workflow -->
+
+    <owl:Class rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#Workflow">
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Experiment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Experiment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Experiment">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Collection"/>
+        <prov:definition>It is an empirical research performed by scientific workflows wich conduct the study.</prov:definition>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#ResearchGroup -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#ResearchGroup">
+        <rdfs:subClassOf rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#User"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Organization"/>
+        <prov:definition>A group of researchers working on the experiment.</prov:definition>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Service -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Service">
+        <rdfs:subClassOf rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#SoftwareAgent"/>
+        <prov:definition>A service is a running software that perform a specific task.</prov:definition>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Task -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Task">
+        <rdfs:subClassOf rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+        <prov:definition>A Task represents the execution of a Program which is part of a workflow execution.</prov:definition>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Wfms -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Wfms">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#SoftwareAgent"/>
+        <prov:definition>Workflow Management System (WfMS)</prov:definition>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Collection -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Collection"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Organization -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Organization"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Person -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Person"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#SoftwareAgent -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#SoftwareAgent"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Jose_Maria_David -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Jose_Maria_David">
+        <rdf:type rdf:resource="http://www.w3.org/ns/prov#Person"/>
+        <prov:actedOnBehalfOf rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Nenc"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Kepler -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Kepler">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Wfms"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Lenita_Ambrosio -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Lenita_Ambrosio">
+        <rdf:type rdf:resource="http://www.w3.org/ns/prov#Person"/>
+        <prov:actedOnBehalfOf rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Nenc"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Nenc -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Nenc">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#ResearchGroup"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Regina_Braga -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Regina_Braga">
+        <rdf:type rdf:resource="http://www.w3.org/ns/prov#Person"/>
+        <prov:actedOnBehalfOf rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Nenc"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Taverna -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Taverna">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Wfms"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#execWfSimpleSum01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#execWfSimpleSum01">
+        <rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+        <execute rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wfSimpleSum01"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#expSum01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#expSum01">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Experiment"/>
+        <createdBy rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Nenc"/>
+        <hasWorkflow rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wfSimpleSum01"/>
+        <hasWorkflow rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wfSimpleSum02"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#expSum02 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#expSum02">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Experiment"/>
+        <hasWorkflow rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wfSimpleSum01"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#expSum03 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#expSum03">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Experiment"/>
+        <hasWorkflow rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wfSimpleSum02"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#prAddition -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#prAddition">
+        <rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wfSimpleSum01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wfSimpleSum01">
+        <rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Workflow"/>
+        <wasManagedBy rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Kepler"/>
+        <provone:hasSubProgram rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#prAddition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wfSimpleSum02 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wfSimpleSum02">
+        <rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Workflow"/>
+        <wasManagedBy rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#Kepler"/>
+        <prov:wasDerivedFrom rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#wfSimpleSum01"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Rules
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#x">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#w">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#y">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#z">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></rdfs:comment>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Experiment Similarity 02</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hasWorkflow"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#x"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#w"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hasWorkflow"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#y"/>
+                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#z"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://www.w3.org/ns/prov#wasDerivedFrom"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#z"/>
+                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#w"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#isSimilar"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#y"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#x"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></rdfs:comment>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Experiment Similarity 01</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hasWorkflow"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#x"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#w"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#hasWorkflow"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#y"/>
+                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#w"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#isSimilar"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#x"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#y"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi -->
+

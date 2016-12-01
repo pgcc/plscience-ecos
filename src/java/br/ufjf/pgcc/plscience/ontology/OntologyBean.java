@@ -113,4 +113,9 @@ public class OntologyBean implements Serializable {
         return ontologys;
     }
 
+     
+    public List<String> getIsSimilar(String experiment) {
+        ontologys = new InferenceLayer().jenaGetIsSimilarInf(experiment.replace(" ", "."));
+        return ontologys;
+    }
 }
