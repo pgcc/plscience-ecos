@@ -1,19 +1,20 @@
-<ui:composition template="/WEB-INF/templates/experimentLayout.xhtml"
+<ui:composition template="/WEB-INF/templates/workflowLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">    
+                xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
+        <h2 class="page-header">Information</h2>
         <div class="row">
             <div class="col-md-2">
                 <ui:include src="contextMenu.xhtml" />
             </div>
             <div class="col-md-10">
-                <h2>Is Similar</h2>
+                <h2>All Information</h2>
                 <h:form id="formPrincipal">
                     <div align="center">
-                        <p:dataTable var="ont" value="#{newOntologyBean.buscarsimilar(workspace.experiment.name)}"
+                        <p:dataTable var="ont" value="#{newOntologyBean.allInformation(workflowBean.workflow.name)}"
                                      id="tbl" emptyMessage="No records found"
                                      paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                      paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
@@ -32,12 +33,12 @@
 
                         <h:commandLink id="excel">
                             <p:graphicImage name="./images/exports/excel.png" />
-                            <p:dataExporter type="xls" target="tbl" fileName="information" postProcessor="#{newOntologyBean.postProcessXLS}" />
+                            <p:dataExporter type="xls" target="tbl" fileName="information" postProcessor="#{ontologyBean.postProcessXLS}" />
                         </h:commandLink>
 
                         <h:commandLink id="pdf">
                             <p:graphicImage name="./images/exports/pdf.png" />
-                            <p:dataExporter type="pdf" target="tbl" fileName="information" preProcessor="#{newOntologyBean.preProcessPDF}" />
+                            <p:dataExporter type="pdf" target="tbl" fileName="information" preProcessor="#{ontologyBean.preProcessPDF}" />
                         </h:commandLink>
 
 

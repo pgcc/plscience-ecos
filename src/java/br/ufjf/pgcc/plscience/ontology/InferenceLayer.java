@@ -7,6 +7,7 @@ package br.ufjf.pgcc.plscience.ontology;
 
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -15,6 +16,7 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -74,7 +76,6 @@ public class InferenceLayer {
                 + OntologyController.URI
                 + entidade
                 + "> ?predicate ?object} ";
-
         Query query = QueryFactory.create(queryStr);
         QueryExecution execution = QueryExecutionFactory.create(query, controller.getInfModel());
         ResultSet results = execution.execSelect();
@@ -84,9 +85,43 @@ public class InferenceLayer {
                 QuerySolution qs = results.next();
                 Resource predicate = qs.getResource("?predicate");
                 Resource resource = qs.getResource("?object");
+                
+                String p = predicate.toString();
+                if(p.contains("#"))
+                    p = p.split("#")[1];
+                String r = resource.toString();
+                if(r.contains("#"))
+                    r = r.split("#")[1];
+                
                 if (resource.toString() != null && !resource.toString().equals("null") && predicate.toString() != null && !predicate.toString().equals("null")) {
-                    list.add(predicate.toString() + " = " + resource.toString());
+                    list.add(p + " => " + r);
                 }
+            }
+        } catch (AbstractMethodError ex) {
+            ex.printStackTrace();
+        }
+        execution.close();
+
+        return list;
+    }
+
+    public List<String> sparqlGetResult(String queryStr) {
+        if (queryStr == null || queryStr == "") {
+            queryStr = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                    + "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                    + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                    + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                    + "SELECT ?subject ?object\n"
+                    + "	WHERE { ?subject rdfs:subClassOf ?object }";
+        }
+        Query query = QueryFactory.create(queryStr);
+        QueryExecution execution = QueryExecutionFactory.create(query, controller.getInfModel());
+        ResultSet results = execution.execSelect();
+        List<String> list = new ArrayList<>();
+        try {
+            while (results.hasNext()) {
+                QuerySolution qs = results.next();
+                list.add(qs.toString());
             }
         } catch (AbstractMethodError ex) {
             ex.printStackTrace();
@@ -110,7 +145,8 @@ public class InferenceLayer {
     }
 
     public List<String> jenaGetOPAssertionsByIndividualInf(String individualName, String opPrefix, String objectPropertyName) {
-        ObjectProperty objectProperty = controller.getOntModel().getObjectProperty(getUri(opPrefix) + objectPropertyName);
+        OntProperty objectProperty;
+        objectProperty = controller.getOntModel().getObjectProperty(getUri(opPrefix) + objectPropertyName);
         Resource resource = controller.getInfModel().getResource(OntologyController.URI + individualName);
         List<String> listProperties = new ArrayList<>();
         if (resource != null && objectProperty != null) {
@@ -123,19 +159,27 @@ public class InferenceLayer {
     }
 
     public List<String> jenaGetUsedWfmsInf(String individualName) {
-        return jenaGetOPAssertionsByIndividualInf(individualName, "provone-experimet", "usedWfms");
+        return jenaGetOPAssertionsByIndividualInf(individualName, "prov-se-o", "usedWfms");
     }
 
     public List<String> jenaGetExecuteInf(String individualName) {
-        return jenaGetOPAssertionsByIndividualInf(individualName, "provone-experimet", "execute");
+        return jenaGetOPAssertionsByIndividualInf(individualName, "prov-se-o", "execute");
     }
 
     public List<String> jenaGetExecutedInInf(String individualName) {
-        return jenaGetOPAssertionsByIndividualInf(individualName, "provone-experimet", "executedIn");
+        return jenaGetOPAssertionsByIndividualInf(individualName, "prov-se-o", "executedIn");
     }
 
     public List<String> jenaGetIsSimilarInf(String individualName) {
-        return jenaGetOPAssertionsByIndividualInf(individualName, "provone-experimet", "isSimilar");
+        return jenaGetOPAssertionsByIndividualInf(individualName, "prov-se-o", "isSimilar");
+    }
+
+    public List<String> jenaGetEvolutionTo(String individualName) {
+        return jenaGetOPAssertionsByIndividualInf(individualName, "prov", "hadDerivation");
+    }
+
+    public List<String> jenaGetEvolutionOf(String individualName) {
+        return jenaGetOPAssertionsByIndividualInf(individualName, "prov", "wasDerivedFrom");
     }
 
     public List<String> jenaGetWasInfluencedByInf(String individualName) {
@@ -154,7 +198,7 @@ public class InferenceLayer {
                 return OntologyController.PROV_URI;
             case "provone":
                 return OntologyController.PROVONE_URI;
-            case "provone-experiment":
+            case "prov-se-o":
                 return OntologyController.URI;
             default:
                 return OntologyController.URI;

@@ -29,17 +29,17 @@ public class OntologyController {
     private final OntModel ontModel;
 
     //uri da ontologia
-    public static final String URI = "http://www.semanticweb.org/lenita/ontologies/2016/7/prov-one-experiment#";
+    public static final String URI = "http://www.semanticweb.org/lenita/ontologies/2016/10/prov-se-o#";
 
     //uri das ontologias importadas
     public static final String PROV_URI = "http://www.w3.org/ns/prov#";
     public static final String PROVONE_URI = "http://purl.dataone.org/provone/2015/01/15/ontology#";
 
     //caminho para a ontologia
-    public static final String ONTOLOGY = "../../files/ontologies/provone-experiment-instances.owl";
+    public static final String ONTOLOGY = "../../files/ontologies/prov-se-o.owl";
 
     //caminho para a ontologia carregada
-    public static final String ONTOLOGY_LOAD = System.getProperty("user.home") + "\\AppData\\Local\\Temp\\provone-experiment-load.owl";
+    public static final String ONTOLOGY_LOAD = System.getProperty("user.home") + "\\AppData\\Local\\Temp\\prov-se-o-load.owl";
 
     //caminho para as ontologias importadas
     public static final String PROV_ONTOLOGY = "../../files/ontologies/prov-o.owl";
@@ -64,6 +64,7 @@ public class OntologyController {
         model.read(Paths.get(ONTOLOGY_LOAD).toUri().toString());
 
         ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM, model);
+        ontModel.loadImports();
         ontModel.prepare();
 
         Reasoner reasoner = PelletReasonerFactory.theInstance().create();
@@ -80,11 +81,14 @@ public class OntologyController {
     }
 
     public static void main(String[] args) {
+        //colocar public static final String ONTOLOGY = "/files/ontologies/prov-se-o.owl";
+        // e Paths.get(OntologyController.ONTOLOGY).toUri().toString() no read
         InferenceLayer inferenceLayer = new InferenceLayer();
-        List<String> sparqlGetPropertiesByIndividualInf = inferenceLayer.sparqlGetPropertiesByIndividualInf("Teste.Similar");
-        for (String string : sparqlGetPropertiesByIndividualInf) {
+        List<String> jenaGetEvolutionTo = inferenceLayer.jenaGetEvolutionTo("SimpleAddition");
+        for (String string : jenaGetEvolutionTo) {
             System.out.println(string);
         }
         System.out.println("OK \\o/ \\o/");
     }
+
 }

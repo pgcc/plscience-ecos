@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">                
+    <h:form>
+        <p:menu style="width: 100%">
+            <p:submenu label="Informations">
+                <p:menuitem value="Evolution To" icon="ui-icon-check"  outcome="/restrict/workflow/history_1/ontologyevolutionto.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Evolution Of" icon="ui-icon-check"  outcome="/restrict/workflow/history_1/ontologyevolutionof.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Similar Workflows" icon="ui-icon-check"  outcome="/restrict/workflow/history_1/workflowsimilar.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem> 
+                <p:menuitem value="All information" icon="ui-icon-check"  outcome="/restrict/workflow/history_1/ontologyallinformation.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+                <p:menuitem value="SPARQL" icon="ui-icon-check"  outcome="/restrict/workflow/history_1/ontologysparql.xhtml">
+                    <f:param name="tab" value="3" />
+                </p:menuitem>
+            </p:submenu>
+        </p:menu>
+    </h:form>
+</ui:composition>

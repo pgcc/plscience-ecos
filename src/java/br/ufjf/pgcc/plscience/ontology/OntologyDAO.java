@@ -515,7 +515,7 @@ public class OntologyDAO {
                 + "PREFIX prov: <http://www.w3.org/ns/prov#>\n"
                 + "\n"
                 + "SELECT ?subject ?object\n"
-                + "	WHERE { ?subject prov:EvolutionOf <http://www.w3.org/ns/prov#" + workflow + ">}";
+                + "	WHERE { ?subject prov:EvolutionOf prov:" + workflow.replace(" ", ".") + ".}";
         Query query = QueryFactory.create(sql);
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         ResultSet results = qe.execSelect();
@@ -552,7 +552,7 @@ public class OntologyDAO {
                 + "PREFIX prov: <http://www.w3.org/ns/prov#>\n"
                 + "\n"
                 + "SELECT ?subject ?object\n"
-                + "	WHERE { ?subject prov:EvolutionTo <http://www.w3.org/ns/prov#" + workflow + ">}";
+                + "	WHERE { ?subject prov:EvolutionTo prov:" + workflow.replace(" ", ".") + ".}";
         Query query = QueryFactory.create(sql);
         QueryExecution qe = QueryExecutionFactory.create(query, model);
         ResultSet results = qe.execSelect();
@@ -599,7 +599,7 @@ public class OntologyDAO {
         for (Object u : useds) {
             used = (Used) u;
 
-            sql2 = sql2 + " ?subject prov:Used <http://www.w3.org/ns/prov#" + used.getTaskidTask().getName() + ">.";
+            sql2 = sql2 + " ?subject prov:Used prov:" + used.getTaskidTask().getName().replace(" ", ".") + ".";
         }
 
         sql = sql + sql2 + "}}";

@@ -23,7 +23,7 @@ public class Response {
     }
 
     public Response(String value) {
-        value = value.replace(OntologyController.URI, "provone-experiment:");
+        value = value.replace(OntologyController.URI, "provseo:");
         value = value.replace(OntologyController.PROVONE_URI, "provone:");
         value = value.replace(OntologyController.PROV_URI, "prov:");
         this.value = value;

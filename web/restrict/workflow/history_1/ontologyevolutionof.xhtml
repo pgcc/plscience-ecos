@@ -1,23 +1,24 @@
-<ui:composition template="/WEB-INF/templates/experimentLayout.xhtml"
+<ui:composition template="/WEB-INF/templates/workflowLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">    
+                xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
+        <h2 class="page-header">Information</h2>
         <div class="row">
             <div class="col-md-2">
                 <ui:include src="contextMenu.xhtml" />
             </div>
             <div class="col-md-10">
-                <h2>Is Similar</h2>
+                <h2>Evolution Of</h2>
                 <h:form id="formPrincipal">
                     <div align="center">
-                        <p:dataTable var="ont" value="#{newOntologyBean.buscarsimilar(workspace.experiment.name)}"
+                        <p:dataTable var="ont" value="#{newOntologyBean.getEvolutionOf(workflowBean.workflow.name)}"
                                      id="tbl" emptyMessage="No records found"
                                      paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                      paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999" style="width:100%">
-
+                            
                             <p:column headerText="Information with inferences" sortBy="#{ont}" filterBy="#{ont}">
                                 <h:outputText value="#{ont}" />
                             </p:column>
