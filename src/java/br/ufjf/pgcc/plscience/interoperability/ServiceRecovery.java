@@ -34,8 +34,9 @@ public class ServiceRecovery {
             StringBuilder sb = new StringBuilder();
 
             //CAMINHO LOCAL
-            File file = new File("D:\\Ontologias\\ServiceDescriptionInf.owl");
-
+            //File file = new File("D:\\Ontologias\\ServiceDescriptionInf.owl");
+            File file = new File("/home/phillipe/NetBeansProjects/plscience-ecos/web/files/ontologies/ServiceDescriptionInf.owl");
+            
             //CAMINHO NO SERVIDOR
             //File file = new File("/var/www/ontologies/ServiceDescriptionInf.owl");
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
@@ -137,8 +138,14 @@ public class ServiceRecovery {
                 int synIni = partial.indexOf(";");
                 int synFim = partial.indexOf("\"/>");
                 String syntacticName = partial.substring(synIni + 1, synFim);
+                
+                System.out.println("Pragmatic Name: "+pragmaticName);
+                System.out.println("Semantic Name: "+semanticName);
+                System.out.println("Syntatic Name: "+syntacticName);                
                 ServiceDescriptionVO serv = new ServiceDescriptionVO();
-                serv.setIncludesSyntactic(SyntacticRecovery(syntacticName, individuals));
+                //o erro acontece por aqui
+                SyntacticVO syntVOaux = SyntacticRecovery(syntacticName, individuals);
+                serv.setIncludesSyntactic(syntVOaux);
                 serv.setIncludesSemantic(SemanticRecovery(semanticName, individuals));
                 serv.setIncludesPragmatic(PragmaticRecovery(pragmaticName, individuals));
                 serv.setName(serviceName);
@@ -160,6 +167,7 @@ public class ServiceRecovery {
         int returnIni = partial.indexOf("hasReturn>");
         int returnFim = partial.indexOf("</");
         SyntacticVO syn = new SyntacticVO();
+        //eh aqui exatamente o erro! INI > FIM ???
         syn.setHasReturn(partial.substring(returnIni + 10, returnFim));
 
         partial = partial.substring(returnFim + 3);

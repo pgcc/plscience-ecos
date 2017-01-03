@@ -24,6 +24,8 @@ import br.ufjf.pgcc.plscience.dao.UsedDAO;
 import br.ufjf.pgcc.plscience.dao.WasAssociatedWithDAO;
 import br.ufjf.pgcc.plscience.dao.WasEndedByDAO;
 import br.ufjf.pgcc.plscience.dao.WasInformedByDAO;
+import br.ufjf.pgcc.plscience.interoperability.ServiceRecovery;
+import br.ufjf.pgcc.plscience.interoperability.SimilarityCalculation1;
 import br.ufjf.pgcc.plscience.message.InfoMessage;
 import br.ufjf.pgcc.plscience.message.WarningMessage;
 import br.ufjf.pgcc.plscience.model.ActedOnBehalfOf;
@@ -33,23 +35,24 @@ import br.ufjf.pgcc.plscience.model.WasAssociatedWith;
 import br.ufjf.pgcc.plscience.model.WasEndedBy;
 import br.ufjf.pgcc.plscience.model.WasInformedBy;
 import br.ufjf.pgcc.plscience.ontology.OntologyDAO;
-import java.io.FileInputStream;
+import br.ufjf.pgcc.plscience.vo.ContextVO;
+import br.ufjf.pgcc.plscience.vo.HardwareVO;
+import br.ufjf.pgcc.plscience.vo.PragmaticVO;
+import br.ufjf.pgcc.plscience.vo.RankingVO;
+import br.ufjf.pgcc.plscience.vo.SemanticVO;
+import br.ufjf.pgcc.plscience.vo.ServiceDescriptionVO;
+import br.ufjf.pgcc.plscience.vo.SyntacticVO;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.json.simple.parser.ParseException;
 import org.mindswap.wsdl.WSDLOperation;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -69,22 +72,42 @@ public class SearchComponents implements Serializable {
     private ArrayList<ResultsPatternFormat> patternResults;
     private Result selectedResult;
     private ProvenanceDetails provenanceDetails;
-    //private AnalyzeCollaborationServiceBean primeCollaborationServices;
-    //private ServiceRecovery primeCollaborationServicesRanked;
-    //private SearchPrime searchPrime;
+    private ServiceDescriptionVO serviceDescriptionVO;
+    private List<ServiceDescriptionVO> servicesPrime;
 
     public SearchComponents() {
+        //bioCatalogue
         bioClient = new BioCatalogueClient();
         bioClient.setBaseUri("https://www.biocatalogue.org");
+
+        //myExperiment
         myExpClient = new MyExperimentClient();
         myExpClient.setBaseUri("http://www.myexperiment.org");
+
+        //ESECO Instances - PRIME
+        serviceDescriptionVO = new ServiceDescriptionVO();
+        SyntacticVO sync = new SyntacticVO();
+        serviceDescriptionVO.setIncludesSyntactic(sync);
+        SemanticVO sem = new SemanticVO();
+        serviceDescriptionVO.setIncludesSemantic(sem);
+        PragmaticVO prag = new PragmaticVO();
+        serviceDescriptionVO.setIncludesPragmatic(prag);
+        ArrayList<String> funcs = new ArrayList();
+        serviceDescriptionVO.getIncludesSemantic().setHasFunctionalRequirements(funcs);
+        ContextVO con = new ContextVO();
+        serviceDescriptionVO.getIncludesPragmatic().setIncludesContext(con);
+        HardwareVO hard = new HardwareVO();
+        serviceDescriptionVO.getIncludesPragmatic().setIncludesHardware(hard);
+        servicesPrime = new ArrayList<>();
     }
 
     /**
-     * Search in all integrated repositories
+     * Search in all repositories
      *
      * @throws BioCatalogueException
      * @throws MyExperimentException
+     * @throws java.io.IOException
+     * @throws org.json.simple.parser.ParseException
      */
     public void search() throws BioCatalogueException, MyExperimentException, IOException, ParseException {
         setPatternResults(new ArrayList<>());
@@ -92,6 +115,11 @@ public class SearchComponents implements Serializable {
             if (componentWasSelected("service")) {
                 bioSearch();
                 System.out.println("BioCatalogue Search Completed!");
+
+                //primeSearch
+                System.out.println("Searching in E-SECO Instances!");
+                primeSearch();
+                System.out.println("PRIME Search Completed");
             }
             if (componentWasSelected("workflow") || componentWasSelected("file")
                     || componentWasSelected("pack")) {
@@ -108,6 +136,7 @@ public class SearchComponents implements Serializable {
      * Search in myExperiment Repository
      *
      * @throws br.ufjf.myexperiment.exception.MyExperimentException
+     * @throws java.io.IOException
      */
     public void myExperimentSearch() throws MyExperimentException, IOException {
         Search myExpResult = SearchMyExperiment.searchAllComponents(searchQuery, myExpClient);
@@ -249,6 +278,7 @@ public class SearchComponents implements Serializable {
      *
      * @throws br.ufjf.biocatalogue.exception.BioCatalogueException
      * @throws java.io.IOException
+     * @throws org.json.simple.parser.ParseException
      */
     public void bioSearch() throws BioCatalogueException, IOException, ParseException {
         scope = "services";
@@ -256,7 +286,7 @@ public class SearchComponents implements Serializable {
         results = searchBio.search(searchQuery, scope, results, bioClient);
         System.out.println("Serching in BioCatalogue Repository");
         if (results == null || results.isEmpty()) {
-            InfoMessage.infoServicesNotFound();
+            InfoMessage.infoServicesNotFoundBioCatalogue();
         } else {
             for (Result result : results) {
                 ResultsPatternFormat rpf = new ResultsPatternFormat();
@@ -309,30 +339,193 @@ public class SearchComponents implements Serializable {
                 if (result.getResource() != null) {
                     rpf.setFileLocation(result.getResource());
                 }
-                if(result.getCreated_at() != null){
+                if (result.getCreated_at() != null) {
                     rpf.setCreatedAt(result.getCreated_at());
-                }else{
+                } else {
                     rpf.setCreatedAt("---");
                 }
-                if(result.getArchived_at() != null){
+                if (result.getArchived_at() != null) {
                     rpf.setArchivedAt(result.getArchived_at());
-                }else{
+                } else {
                     rpf.setArchivedAt("---");
                 }
-                if(result.getLatest_monitoring_status() != null){
+                if (result.getLatest_monitoring_status() != null) {
                     rpf.setMonitoringStatusLabel(result.getLatest_monitoring_status().getLabel());
-                }else{
+                } else {
                     rpf.setMonitoringStatusLabel("---");
                 }
-                if(result.getLatest_monitoring_status().getLast_checked() != null){
+                if (result.getLatest_monitoring_status().getLast_checked() != null) {
                     rpf.setMonitoringStatusLastChecked(result.getLatest_monitoring_status().getLast_checked());
-                }else{
+                } else {
                     rpf.setMonitoringStatusLastChecked("---");
                 }
                 rpf.setComponentType("Service - " + result.getService_technology_types().get(0));
                 rpf.setRepositoryName("BioCatalogue");
                 getPatternResults().add(rpf);
             }
+        }
+    }
+
+    /**
+     * Search services in E-SECO Instances using PRIME
+     *
+     * @throws IOException
+     */
+    public void primeSearch() throws IOException {
+        ArrayList<String> s = new ArrayList();
+        s.add(serviceDescriptionVO.getIncludesSemantic().getHasFunctionalRequirement());
+        serviceDescriptionVO.getIncludesSemantic().setHasFunctionalRequirements(s);
+
+        ServiceRecovery sr = new ServiceRecovery();
+        List<ServiceDescriptionVO> servicesRecovery;
+        List<ServiceDescriptionVO> servicesRankingSorted = new ArrayList<>();
+        servicesRecovery = sr.Recovery();
+
+        SimilarityCalculation1 sc1 = new SimilarityCalculation1();
+        ArrayList<RankingVO> rankingServices = new ArrayList<>();
+
+        for (ServiceDescriptionVO sVo : servicesRecovery) {
+            RankingVO rVo = new RankingVO();
+            rVo.setServiceRecovery(sVo);
+            rVo.setServiceComparison(serviceDescriptionVO);
+            rVo.setSimilarity(sc1.calculate(serviceDescriptionVO, sVo, 1, 1, 1));
+            rankingServices.add(rVo);
+        }
+
+        System.out.println("Sorting services using PRIME!");
+        Collections.sort(rankingServices);
+
+        for (RankingVO rank : rankingServices) {
+            servicesRankingSorted.add(rank.getServiceRecovery());
+            //System.out.println("Nome Serv: " + rank.getServiceRecovery().getName() + " Simil: " + rank.getSimilarity());
+        }
+
+        setServicesPrime(servicesRankingSorted);
+
+        for (ServiceDescriptionVO se : servicesPrime) {
+            ResultsPatternFormat rpf = new ResultsPatternFormat();
+            rpf.setComponentType("Service");
+            rpf.setRepositoryName("E-SECO");
+            rpf.setOwnerCountry("Brazil");
+
+            if (se.getName() != null && !se.getName().equals("")) {
+                rpf.setName(se.getName());
+            } else {
+                rpf.setName("---");
+            }
+
+            if (se.getIncludesSyntactic().getHasReturn() != null) {
+                rpf.setReturnPrimeSin(se.getIncludesSyntactic().getHasReturn());
+            } else {
+                rpf.setReturnPrimeSin("---");
+            }
+
+            if (se.getIncludesSyntactic().getHasAddress() != null) {
+                rpf.setFileLocation(se.getIncludesSyntactic().getHasAddress());
+            } else {
+                rpf.setFileLocation("---");
+            }
+
+            if (se.getIncludesSemantic().getHasSemanticReturn() != null) {
+                rpf.setReturnPrimeSem(se.getIncludesSemantic().getHasSemanticReturn());
+            } else {
+                rpf.setReturnPrimeSem("---");
+            }
+
+            if (se.getIncludesSemantic().getHasSemanticReception() != null) {
+                rpf.setReceptionPrimeSem(se.getIncludesSemantic().getHasSemanticReception());
+            } else {
+                rpf.setReceptionPrimeSem("---");
+            }
+
+            if (se.getIncludesSemantic().getHasSemanticRepresentation() != null) {
+                rpf.setRepresentationPrimeSem(se.getIncludesSemantic().getHasSemanticRepresentation());
+            } else {
+                rpf.setRepresentationPrimeSem("---");
+            }
+
+            if (se.getIncludesSemantic().getHasFunctionalRequirement() != null) {
+                rpf.setFunctionalRequirementPrimeSem(se.getIncludesSemantic().getHasFunctionalRequirement());
+            } else {
+                rpf.setFunctionalRequirementPrimeSem("---");
+            }
+
+            if (se.getIncludesPragmatic().getHasNonFunctionalReq() != null) {
+                rpf.setNonFunctionalRequirementPrimePra(se.getIncludesPragmatic().getHasNonFunctionalReq());
+            } else {
+                rpf.setNonFunctionalRequirementPrimePra("---");
+            }
+
+            if (se.getIncludesPragmatic().getIncludesContext() != null) {
+
+                if (se.getIncludesPragmatic().getIncludesContext().getHasArtifact() != null) {
+                    rpf.setArtifactPrimePra(se.getIncludesPragmatic().getIncludesContext().getHasArtifact());
+                } else {
+                    rpf.setArtifactPrimePra("---");
+                }
+
+                if (se.getIncludesPragmatic().getIncludesContext().getHasDomain() != null) {
+                    rpf.setDomainPrimePra(se.getIncludesPragmatic().getIncludesContext().getHasDomain());
+                } else {
+                    rpf.setDomainPrimePra("---");
+                }
+
+                if (se.getIncludesPragmatic().getIncludesContext().getHasLicense() != null) {
+                    rpf.setLicenseType(se.getIncludesPragmatic().getIncludesContext().getHasLicense());
+                } else {
+                    rpf.setLicenseType("---");
+                }
+
+                if (se.getIncludesPragmatic().getIncludesContext().getHasComments() != null) {
+                    rpf.setDescription(se.getIncludesPragmatic().getIncludesContext().getHasComments());
+                } else {
+                    rpf.setDescription("---");
+                }
+
+                if (se.getIncludesPragmatic().getIncludesContext().getHow() != null) {
+                    rpf.setPurposePrimePra(se.getIncludesPragmatic().getIncludesContext().getHow());
+                } else {
+                    rpf.setPurposePrimePra("---");
+                }
+
+                if (se.getIncludesPragmatic().getIncludesContext().getWhere() != null) {
+                    rpf.setProviderPrimePra(se.getIncludesPragmatic().getIncludesContext().getWhere());
+                } else {
+                    rpf.setProviderPrimePra("---");
+                }
+
+                if (se.getIncludesPragmatic().getIncludesContext().getWhen() != null) {
+                    rpf.setArchivedAt(se.getIncludesPragmatic().getIncludesContext().getWhen());
+                } else {
+                    rpf.setArchivedAt("---");
+                }
+
+                if (se.getIncludesPragmatic().getIncludesContext().getWho() != null) {
+                    rpf.setOwner(se.getIncludesPragmatic().getIncludesContext().getWho());
+                } else {
+                    rpf.setOwner("---");
+                }
+
+                if (se.getIncludesPragmatic().getIncludesContext().getHasRestriction() != null) {
+                    rpf.setRestrictionPrimePra(se.getIncludesPragmatic().getIncludesContext().getHasRestriction());
+                } else {
+                    rpf.setRestrictionPrimePra("---");
+                }
+
+            } else {
+                rpf.setArtifactPrimePra("---");
+                rpf.setDomainPrimePra("---");
+                rpf.setPurposePrimePra("---");
+                rpf.setProviderPrimePra("---");
+                rpf.setArchivedAt("---");
+                rpf.setRestrictionPrimePra("---");
+                rpf.setLicenseType("---");
+                rpf.setOwner("---");
+                rpf.setDescription("---");
+            }
+
+            //adding service
+            getPatternResults().add(rpf);
         }
     }
 
@@ -354,10 +547,11 @@ public class SearchComponents implements Serializable {
     /**
      *
      * @param result
+     * @throws java.io.IOException
+     * @throws br.ufjf.biocatalogue.exception.BioCatalogueException
+     * @throws org.json.simple.parser.ParseException
      */
     public void viewDetails(ResultsPatternFormat result) throws IOException, BioCatalogueException, ParseException {
-        String name = result.getName();
-        String servDescription = result.getDescription();
         String type = result.getComponentType();
         List<String> used = new ArrayList<>();//used prov
         List<String> wib = new ArrayList<>(); //was informed by prov
@@ -369,11 +563,6 @@ public class SearchComponents implements Serializable {
         //List<String> evolutionTaskOntology = ontoDAO.buscarEvolutionToTask(type);
 
         provenanceDetails = new ProvenanceDetails();
-        ResultsPatternFormat resultPatternFormat = new ResultsPatternFormat();
-
-        resultPatternFormat.setName(name);
-        resultPatternFormat.setDescription(servDescription);
-        resultPatternFormat.setComponentType(type);
 
         if (type.contains("Service") || type.contains("service")) {
 
@@ -393,7 +582,7 @@ public class SearchComponents implements Serializable {
                     provenanceDetails.setServiceOperations(operations);
                     if (operations != null) {
                         for (WSDLOperation op : operations) {
-                            Task task = new Task();
+                            Task task;
                             TaskDAO taskDAO = new TaskDAO();
                             UsedDAO usedDAO = new UsedDAO();
                             WasInformedByDAO wasInformedByDAO = new WasInformedByDAO();
@@ -494,19 +683,7 @@ public class SearchComponents implements Serializable {
 //            provenanceDetails.setEvolutionTaskOntology(evolutionTaskOntology);
 
         }
-
-        resultPatternFormat.setOwnerCountryFlagImage(result.getOwnerCountryFlagImage());
-        resultPatternFormat.setOwnerCity(result.getOwnerCity());
-        resultPatternFormat.setLicenseType(result.getLicenseType());
-        resultPatternFormat.setCreatedAt(result.getCreatedAt());
-        resultPatternFormat.setUpdatedAt(result.getUpdatedAt());
-        resultPatternFormat.setOwner(result.getOwner());
-        resultPatternFormat.setOwnerCountry(result.getOwnerCountry());
-        resultPatternFormat.setArchivedAt(result.getArchivedAt());
-        resultPatternFormat.setMonitoringStatusLabel(result.getMonitoringStatusLabel());
-        resultPatternFormat.setMonitoringStatusLastChecked(result.getMonitoringStatusLastChecked());
-        provenanceDetails.setResPatF(resultPatternFormat);
-
+        provenanceDetails.setResPatF(result);
     }
 
     /**
@@ -647,5 +824,33 @@ public class SearchComponents implements Serializable {
      */
     public void setProvenanceDetails(ProvenanceDetails provenanceDetails) {
         this.provenanceDetails = provenanceDetails;
+    }
+
+    /**
+     * @return the serviceDescriptionVO
+     */
+    public ServiceDescriptionVO getServiceDescriptionVO() {
+        return serviceDescriptionVO;
+    }
+
+    /**
+     * @param serviceDescriptionVO the serviceDescriptionVO to set
+     */
+    public void setServiceDescriptionVO(ServiceDescriptionVO serviceDescriptionVO) {
+        this.serviceDescriptionVO = serviceDescriptionVO;
+    }
+
+    /**
+     * @return the servicesPrime
+     */
+    public List<ServiceDescriptionVO> getServicesPrime() {
+        return servicesPrime;
+    }
+
+    /**
+     * @param servicesPrime the servicesPrime to set
+     */
+    public void setServicesPrime(List<ServiceDescriptionVO> servicesPrime) {
+        this.servicesPrime = servicesPrime;
     }
 }

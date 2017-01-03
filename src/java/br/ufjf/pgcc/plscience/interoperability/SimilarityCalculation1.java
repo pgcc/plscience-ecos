@@ -157,8 +157,11 @@ public class SimilarityCalculation1 {
              semanticSimilarity = semanticSimilarity + 2;
          }
           //nfrs.add("nao pode isso"); // sentença
-          if(!serviceRegistered.getIncludesPragmatic().getHasNonFunctionalRequirement().isEmpty()){
-             if(!serviceSearched.getIncludesPragmatic().getHasNonFunctionalRequirement().isEmpty()){
+          if(serviceRegistered.getIncludesPragmatic() != null && 
+                  serviceRegistered.getIncludesPragmatic().getHasNonFunctionalRequirement() != null &&
+                  !serviceRegistered.getIncludesPragmatic().getHasNonFunctionalRequirement().isEmpty()){
+             if(serviceSearched.getIncludesPragmatic().getHasNonFunctionalRequirement() != null && 
+                     !serviceSearched.getIncludesPragmatic().getHasNonFunctionalRequirement().isEmpty()){
                 
                  if(serviceRegistered.getIncludesPragmatic().getHasNonFunctionalRequirement().get(0)!= null && !"".equals(serviceRegistered.getIncludesPragmatic().getHasNonFunctionalRequirement().get(0))){
                     for(String s: serviceSearched.getIncludesPragmatic().getHasNonFunctionalRequirement()){
@@ -302,7 +305,9 @@ public class SimilarityCalculation1 {
         }
         double localSimilarityPrevious=0;
         double localSimilarity=0;
-        if(!serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasInvolved().isEmpty()){
+        if(serviceRegistered.getIncludesPragmatic().getIncludesContext() != null &&
+                serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasInvolved() != null 
+                && !serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasInvolved().isEmpty()){
            if(null!= serviceSearched.getIncludesPragmatic().getIncludesContext().getHasInvolved() && !serviceSearched.getIncludesPragmatic().getIncludesContext().getHasInvolved().isEmpty()){
             
                for (ScientistVO scien : serviceRegistered.getIncludesPragmatic().getIncludesContext().getHasInvolved()) {

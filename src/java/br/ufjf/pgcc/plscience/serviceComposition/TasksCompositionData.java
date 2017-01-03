@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufjf.pgcc.plscience.serviceComposition.test;
+package br.ufjf.pgcc.plscience.serviceComposition;
 
+import br.ufjf.pgcc.plscience.serviceComposition.test.TaskInput;
+import br.ufjf.pgcc.plscience.serviceComposition.test.TaskOutput;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;

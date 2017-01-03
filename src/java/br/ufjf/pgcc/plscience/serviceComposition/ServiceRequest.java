@@ -5,23 +5,32 @@
  */
 package br.ufjf.pgcc.plscience.serviceComposition;
 
+import br.ufjf.pgcc.plscience.searchComponents.ResultsPatternFormat;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author phillipe
  */
 
-@ManagedBean()
-@ViewScoped
-public class ServiceRequest {
+public class ServiceRequest implements Serializable{
     private List<String> inputParametersName;
     private List<String> inputParametersType;
     private List<String> outputParametersName;
     private List<String> outputParametersType;
     private List<String> keywords;
+    private ResultsPatternFormat patternRequest;
+    
+    /**
+     
+     * @throws java.io.IOException
+     */
+    public ServiceRequest() throws IOException{
+        patternRequest = new ResultsPatternFormat();
+    }
+    
     /**
      * @return the inputParametersName
      */
@@ -90,6 +99,20 @@ public class ServiceRequest {
      */
     public void setKeywords(List<String> keywords) {
         this.keywords = keywords;
+    }
+
+    /**
+     * @return the patternRequest
+     */
+    public ResultsPatternFormat getPatternRequest() {
+        return patternRequest;
+    }
+
+    /**
+     * @param patternRequest the patternRequest to set
+     */
+    public void setPatternRequest(ResultsPatternFormat patternRequest) {
+        this.patternRequest = patternRequest;
     }
     
     

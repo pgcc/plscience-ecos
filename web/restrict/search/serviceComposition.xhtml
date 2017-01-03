@@ -4,7 +4,6 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-                
     <ui:define name="content">
         <h2 class="page-header">Service Composition</h2>
 
@@ -12,6 +11,9 @@
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
             <p:graphicImage name="/images/ajax-loader.gif" />
         </p:dialog>
+        <p:dialog  widgetVar="dlg" id="imgDlg" resizable="f" height="400px" width="600px">
+            <p:graphicImage name="/images/socialNetwork.png" width="550px"/>
+        </p:dialog>        
         
         <h:form id="uploadServices" enctype="multipart/form-data">
             <p:growl id="growl" />
@@ -63,8 +65,85 @@
                                  required="false" 
                                  label="SearchTerm"
                                  size="50">
-                    </p:inputText>                    
+                    </p:inputText>
                 </p:panelGrid>
+                <p:accordionPanel>                
+                    <p:tab title="Prime Search - Syntactic">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="returnPrimeSin" value="Return:" />
+                            <h:inputText 
+                                id="returnPrimeSin"
+                                value="#{serviceComposition.serviceRequest.patternRequest.returnPrimeSin}"/>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Prime Search - Semantic">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="returnPrimeSem" value="Semantic Return" />
+                            <h:inputText id="returnPrimeSem"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.returnPrimeSem}"/>
+                            <h:outputLabel for="receptionPrimeSem" value="Semantic Reception" />
+                            <h:inputText id="receptionPrimeSem"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.receptionPrimeSem}"/>
+                            <h:outputLabel for="representationPrimeSem" value="Semantic Representation" />
+                            <h:inputText id="representationPrimeSem"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.representationPrimeSem}"/>
+                            <h:outputLabel for="functionalRequirementPrimeSem" value="Functional Requirement" />
+                            <h:inputText id="functionalRequirementPrimeSem"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.functionalRequirementPrimeSem}"/>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Prime Search - Pragmatic">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="nonFunctionalRequirementPrimePra" value="Non Functional Requirement" />
+                            <h:inputText id="nonFunctionalRequirementPrimePra"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.nonFunctionalRequirementPrimePra}"/>
+                            <h:outputLabel value="Context" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel for="artifactPrimePra" value="Artifact" />
+                            <h:inputText id="artifactPrimePra"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.artifactPrimePra}"/>
+                            <h:outputLabel for="domainPrimePra" value="Domain" />
+                            <h:inputText id="domainPrimePra"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.domainPrimePra}"/>
+                            <h:outputLabel for="licenseType" value="License" />
+                            <h:inputText id="licenseType"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.licenseType}"/>
+                            <h:outputLabel for="description" value="Comments" />
+                            <h:inputText id="description"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.description}"/>
+                            <h:outputLabel for="purposePrimePra" value="Purpose" />
+                            <h:inputText id="purposePrimePra"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.purposePrimePra}"/>
+                            <h:outputLabel for="providerPrimePra" value="Provider" />
+                            <h:inputText id="providerPrimePra"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.providerPrimePra}"/>
+                            <h:outputLabel for="archivedAt" value="Publication Data" />
+                            <h:inputText id="archivedAt"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.archivedAt}"/>
+                            <h:outputLabel for="owner" value="Scientist Name" />
+                            <h:inputText id="owner"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.owner}"/>
+                            <h:outputLabel for="restrictionPrimePra" value="Restriction" />
+                            <h:inputText id="restrictionPrimePra"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.restrictionPrimePra}"/>
+                            <h:outputLabel value="Hardware" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel for="hardwareCPUPrimePra" value="CPU"/>
+                            <h:inputText id="hardwareCPUPrimePra" value="#{serviceComposition.serviceRequest.patternRequest.hardwareCPUPrimePra}"/>
+                            <h:outputLabel for="hardwareOperationalSystemPrimePra" value="Operational System" />
+                            <h:inputText id="hardwareOperationalSystemPrimePra"
+                                         value="#{serviceComposition.serviceRequest.patternRequest.hardwareOperationalSystemPrimePra}"/>
+                            <h:outputLabel for="hardwareRAMPrimePra" value="RAM (GB)" />
+                            <h:inputText id="hardwareRAMPrimePra" value="#{serviceComposition.serviceRequest.patternRequest.hardwareRAMPrimePra}">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <h:outputLabel for="hardwareROMPrimePra" value="ROM (GB)"/>
+                            <h:inputText id="hardwareROMPrimePra" value="#{serviceComposition.serviceRequest.patternRequest.hardwareROMPrimePra}">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>    
+                        </h:panelGrid>
+                    </p:tab>
+                </p:accordionPanel>                
 
                 <p:commandButton value="Search" icon="ui-icon-search"
                                  actionListener="#{serviceComposition.searchRelevantServices()}"
@@ -83,10 +162,10 @@
                         <p:dataTable var="resultInputs" value="#{result.taskInputs}" id="inp" 
                                  emptyMessage="No records found">
                             <p:column headerText="Parameter" width="30%">
-                                <h:outputText value="#{resultInputs.inputParameter}"/>
+                                <h:outputText value="#{resultInputs.inputParameter}" title="#{resultInputs.inputParameter}"/>
                             </p:column> 
                             <p:column headerText="Type" width="30%">
-                                <h:outputText value="{#{resultInputs.inputType}}"/>
+                                <h:outputText value="{#{resultInputs.inputType}}" title="{#{resultInputs.inputType}}"/>
                             </p:column>                             
                     </p:dataTable>
                     </p:column>
@@ -94,22 +173,31 @@
                     <p:dataTable var="resultOutputs" value="#{result.taskOutputs}" id="out"
                                  emptyMessage="No records found">
                             <p:column headerText="Parameter" width="30%">
-                                <h:outputText value="#{resultOutputs.outputParameter}"/>
+                                <h:outputText value="#{resultOutputs.outputParameter}" title="#{resultOutputs.outputParameter}"/>
                             </p:column> 
                             <p:column headerText="Type" width="30%">
-                                <h:outputText value="{#{resultOutputs.outputType}}"/>
+                                <h:outputText value="{#{resultOutputs.outputType}}" title="{#{resultOutputs.outputType}}"/>
                             </p:column>                             
                     </p:dataTable>
                     </p:column>
                     <p:column headerText="Details" width="15%" style="text-align: center">
                              <p:commandButton value="More Details"/>
                     </p:column>
-                    <p:column headerText="Add to the graph" width="15%" style="text-align: center">
-                             <p:commandButton value="Add Task"/>
+                    <p:column headerText="Dependences Analysis" width="15%" style="text-align: center">
+                             <p:commandButton value="Dependencies"
+                                 action="#{serviceComposition.generateGraph(result.taskName)}"
+                                 />
                     </p:column>
                 </p:dataTable>
             </p:panel>
-            <p:panel header="Composition Graph" style="margin: 10px 0;">
+            <p:panel header="Analysis of Services" style="margin: 10px 0 0 10px; border: none">
+                <div id="container">
+                <div align="center">
+                    <p:commandButton value="View Social Network" action="#{serviceComposition.viewSocialNetwork()}"/>
+                </div>                    
+                <div id="graph-container">
+                </div>                    
+                </div>
             </p:panel>            
         </h:form>
     </ui:define>

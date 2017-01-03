@@ -22,12 +22,15 @@ public class InfoMessage {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Packs not found!"));
     }
         
-    public static void infoServicesNotFound() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Services not found!"));
+    public static void infoServicesNotFoundBioCatalogue() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Services not found in Bio Catalogue Repository!"));
     }     
     
-        public static void infoWorkflowsNotFound() {
+    public static void infoWorkflowsNotFound() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Workflows not found!"));
-    }     
+    }
     
+    public static void graphNotGenerated(){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "The graph can not be generated!"));
+    }    
 }

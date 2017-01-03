@@ -34,20 +34,54 @@ public final class ResultsPatternFormat {
     private String repositoryName;
     private String serviceIdRepository;
     private String componentType;
-    private String description;
-    private String owner;
+    private String description;//comments in prime
+    private String owner;//scientist name in prime
     private String createdAt;
-    private String archivedAt;
+    private String archivedAt;//publication data in prime
     private String updatedAt;
     private String ownerCity;
     private String ownerCountry;
     private String ownerCountryFlagImage;
-    private String fileLocation;
-    private String licenseType;
+    private String fileLocation;//address in prime
+    private String licenseType;//license in prime
     private String monitoringStatusLabel;
     private String monitoringStatusLastChecked;
 
+    //prime
+    private String returnPrimeSin;
+    private String returnPrimeSem;
+    private String receptionPrimeSem;
+    private String representationPrimeSem;
+    private String functionalRequirementPrimeSem;
+    private String nonFunctionalRequirementPrimePra;
+    private String artifactPrimePra;
+    private String domainPrimePra;
+    private String purposePrimePra;
+    private String providerPrimePra;
+    private String restrictionPrimePra;
+    private String hardwareCPUPrimePra;
+    private String hardwareOperationalSystemPrimePra;
+    private String hardwareRAMPrimePra;
+    private String hardwareROMPrimePra;
+
     public ResultsPatternFormat() throws MalformedURLException, IOException {
+
+        description = "";
+        returnPrimeSin = "";
+        returnPrimeSem = "";
+        receptionPrimeSem = "";
+        representationPrimeSem = "";
+        functionalRequirementPrimeSem = "";
+        nonFunctionalRequirementPrimePra = "";
+        artifactPrimePra = "";
+        domainPrimePra = "";
+        purposePrimePra = "";
+        providerPrimePra = "";
+        restrictionPrimePra = "";
+        hardwareCPUPrimePra = "";
+        hardwareOperationalSystemPrimePra = "";
+        hardwareRAMPrimePra = "";
+        hardwareROMPrimePra = "";
         createGenericServiceFile();
     }
 
@@ -178,9 +212,9 @@ public final class ResultsPatternFormat {
         this.serviceIdRepository = serviceIdRepository;
     }
 
-    public void showDetails(String name, String type){
-        System.out.println("Details of "+name);
-        System.out.println("Workflow type "+type);
+    public void showDetails(String name, String type) {
+        System.out.println("Details of " + name);
+        System.out.println("Workflow type " + type);
 //        if(type.contains("workflow") || type.contains("Workflow")){
 //            WorkflowDAO workf = new WorkflowDAO();
 //            Workflow w = workf.buscarPorNome(name);
@@ -203,8 +237,8 @@ public final class ResultsPatternFormat {
 //            }
 //        }
     }
-    
-    public String seachWSDLLocationBioCatalogue(String serviceId) throws BioCatalogueException, ParseException{
+
+    public String seachWSDLLocationBioCatalogue(String serviceId) throws BioCatalogueException, ParseException {
         if (serviceId != null) {
             BioCatalogueClient searchServiceDataById = new BioCatalogueClient();
             searchServiceDataById.setBaseUri("https://www.biocatalogue.org");
@@ -213,29 +247,28 @@ public final class ResultsPatternFormat {
         }
         return fileLocation;
     }
-    
-    public StreamedContent createComponentFile(ResultsPatternFormat rpf) throws IOException, MalformedURLException, BioCatalogueException, ParseException{
+
+    public StreamedContent createComponentFile(ResultsPatternFormat rpf) throws IOException, MalformedURLException, BioCatalogueException, ParseException {
         StreamedContent f;
-        if(rpf != null){
-            if(rpf.getRepositoryName().toLowerCase().contains("catalogue")){
+        if (rpf != null) {
+            if (rpf.getRepositoryName().toLowerCase().contains("catalogue")) {
                 f = createServiceFile(rpf.getServiceIdRepository());
-            }
-            else if(rpf.getRepositoryName().toLowerCase().contains("experiment")){
+            } else if (rpf.getRepositoryName().toLowerCase().contains("experiment")) {
                 f = createFileMyExperiment(rpf);
-            }else{
+            } else {
                 f = createGenericServiceFile();
             }
-        }else{
+        } else {
             f = createGenericServiceFile();
         }
-        return f;                
+        return f;
     }
-    
+
     /**
      * It creates a service file to download
      *
      * @param serviceId
-     * @return 
+     * @return
      * @throws MalformedURLException
      * @throws IOException
      * @throws BioCatalogueException
@@ -307,7 +340,7 @@ public final class ResultsPatternFormat {
             } else {
                 f = rpf.createGenericServiceFile();
             }
-        }else {
+        } else {
             f = rpf.createGenericServiceFile();
         }
         return f;
@@ -411,6 +444,219 @@ public final class ResultsPatternFormat {
         this.monitoringStatusLastChecked = monitoringStatusLastChecked;
     }
 
+    /**
+     * @return the returnPrimeSin
+     */
+    public String getReturnPrimeSin() {
+        return returnPrimeSin;
+    }
+
+    /**
+     * @param returnPrimeSin the returnPrimeSin to set
+     */
+    public void setReturnPrimeSin(String returnPrimeSin) {
+        this.returnPrimeSin = returnPrimeSin;
+    }
+
+    /**
+     * @return the returnPrimeSem
+     */
+    public String getReturnPrimeSem() {
+        return returnPrimeSem;
+    }
+
+    /**
+     * @param returnPrimeSem the returnPrimeSem to set
+     */
+    public void setReturnPrimeSem(String returnPrimeSem) {
+        this.returnPrimeSem = returnPrimeSem;
+    }
+
+    /**
+     * @return the receptionPrimeSem
+     */
+    public String getReceptionPrimeSem() {
+        return receptionPrimeSem;
+    }
+
+    /**
+     * @param receptionPrimeSem the receptionPrimeSem to set
+     */
+    public void setReceptionPrimeSem(String receptionPrimeSem) {
+        this.receptionPrimeSem = receptionPrimeSem;
+    }
+
+    /**
+     * @return the representationPrimeSem
+     */
+    public String getRepresentationPrimeSem() {
+        return representationPrimeSem;
+    }
+
+    /**
+     * @param representationPrimeSem the representationPrimeSem to set
+     */
+    public void setRepresentationPrimeSem(String representationPrimeSem) {
+        this.representationPrimeSem = representationPrimeSem;
+    }
+
+    /**
+     * @return the functionalRequirementPrimeSem
+     */
+    public String getFunctionalRequirementPrimeSem() {
+        return functionalRequirementPrimeSem;
+    }
+
+    /**
+     * @param functionalRequirementPrimeSem the functionalRequirementPrimeSem to
+     * set
+     */
+    public void setFunctionalRequirementPrimeSem(String functionalRequirementPrimeSem) {
+        this.functionalRequirementPrimeSem = functionalRequirementPrimeSem;
+    }
+
+    /**
+     * @return the nonFunctionalRequirementPrimePra
+     */
+    public String getNonFunctionalRequirementPrimePra() {
+        return nonFunctionalRequirementPrimePra;
+    }
+
+    /**
+     * @param nonFunctionalRequirementPrimePra the
+     * nonFunctionalRequirementPrimePra to set
+     */
+    public void setNonFunctionalRequirementPrimePra(String nonFunctionalRequirementPrimePra) {
+        this.nonFunctionalRequirementPrimePra = nonFunctionalRequirementPrimePra;
+    }
+
+    /**
+     * @return the artifactPrimePra
+     */
+    public String getArtifactPrimePra() {
+        return artifactPrimePra;
+    }
+
+    /**
+     * @param artifactPrimePra the artifactPrimePra to set
+     */
+    public void setArtifactPrimePra(String artifactPrimePra) {
+        this.artifactPrimePra = artifactPrimePra;
+    }
+
+    /**
+     * @return the domainPrimePra
+     */
+    public String getDomainPrimePra() {
+        return domainPrimePra;
+    }
+
+    /**
+     * @param domainPrimePra the domainPrimePra to set
+     */
+    public void setDomainPrimePra(String domainPrimePra) {
+        this.domainPrimePra = domainPrimePra;
+    }
+
+    /**
+     * @return the providerPrimePra
+     */
+    public String getProviderPrimePra() {
+        return providerPrimePra;
+    }
+
+    /**
+     * @param providerPrimePra the providerPrimePra to set
+     */
+    public void setProviderPrimePra(String providerPrimePra) {
+        this.providerPrimePra = providerPrimePra;
+    }
+
+    /**
+     * @return the restrictionPrimePra
+     */
+    public String getRestrictionPrimePra() {
+        return restrictionPrimePra;
+    }
+
+    /**
+     * @param restrictionPrimePra the restrictionPrimePra to set
+     */
+    public void setRestrictionPrimePra(String restrictionPrimePra) {
+        this.restrictionPrimePra = restrictionPrimePra;
+    }
+
+    /**
+     * @return the hardwareCPUPrimePra
+     */
+    public String getHardwareCPUPrimePra() {
+        return hardwareCPUPrimePra;
+    }
+
+    /**
+     * @param hardwareCPUPrimePra the hardwareCPUPrimePra to set
+     */
+    public void setHardwareCPUPrimePra(String hardwareCPUPrimePra) {
+        this.hardwareCPUPrimePra = hardwareCPUPrimePra;
+    }
+
+    /**
+     * @return the hardwareOperationalSystemPrimePra
+     */
+    public String getHardwareOperationalSystemPrimePra() {
+        return hardwareOperationalSystemPrimePra;
+    }
+
+    /**
+     * @param hardwareOperationalSystemPrimePra the
+     * hardwareOperationalSystemPrimePra to set
+     */
+    public void setHardwareOperationalSystemPrimePra(String hardwareOperationalSystemPrimePra) {
+        this.hardwareOperationalSystemPrimePra = hardwareOperationalSystemPrimePra;
+    }
+
+    /**
+     * @return the hardwareRAMPrimePra
+     */
+    public String getHardwareRAMPrimePra() {
+        return hardwareRAMPrimePra;
+    }
+
+    /**
+     * @param hardwareRAMPrimePra the hardwareRAMPrimePra to set
+     */
+    public void setHardwareRAMPrimePra(String hardwareRAMPrimePra) {
+        this.hardwareRAMPrimePra = hardwareRAMPrimePra;
+    }
+
+    /**
+     * @return the hardwareROMPrimePra
+     */
+    public String getHardwareROMPrimePra() {
+        return hardwareROMPrimePra;
+    }
+
+    /**
+     * @param hardwareROMPrimePra the hardwareROMPrimePra to set
+     */
+    public void setHardwareROMPrimePra(String hardwareROMPrimePra) {
+        this.hardwareROMPrimePra = hardwareROMPrimePra;
+    }
+
+    /**
+     * @return the purposePrimePra
+     */
+    public String getPurposePrimePra() {
+        return purposePrimePra;
+    }
+
+    /**
+     * @param purposePrimePra the purposePrimePra to set
+     */
+    public void setPurposePrimePra(String purposePrimePra) {
+        this.purposePrimePra = purposePrimePra;
+    }
+
 //    /**
 //     * @return the listAssociatedExperiments
 //     */
@@ -424,9 +670,7 @@ public final class ResultsPatternFormat {
 //    public void setListAssociatedExperiments(List<WasAssociatedWith> listAssociatedExperiments) {
 //        this.listAssociatedExperiments = listAssociatedExperiments;
 //    }
-
     /**
      * @return the used
      */
-
 }

@@ -1,0 +1,123 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Additional Data to Service Registry</h2>
+
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="/images/ajax-loader.gif" />
+        </p:dialog>        
+
+        <h:form id="additionalData">
+            <p:growl id="growl" />
+            <p:panel header="Additional Data" style="margin: 10px 0;">
+                <p:messages id="messages" />
+                <p:panelGrid columns="2">
+                    <h:outputLabel for="repositoryURL" value="Enter your Repository URL: " 
+                                   title="URL of the services virtual repository:"/>
+                    <p:inputText id="repositoryURL" 
+                                 value="#{primeData.repositoryURL}" 
+                                 required="true" 
+                                 label="RepositoryURL"
+                                 size="50">
+                        <f:validateLength minimum="6" />
+                    </p:inputText>
+                    <h:outputLabel for="searchTerm" value="Enter the Service name (without extension)"
+                                   title="Service name (without extension):"/>
+                    <p:inputText id="fileName" 
+                                 value="#{primeData.fileName}" 
+                                 required="true" 
+                                 label="SearchTerm"
+                                 size="50">
+                        <f:validateLength minimum="4" />
+                    </p:inputText>
+                </p:panelGrid>
+
+                <p:accordionPanel>                
+                    <p:tab title="Prime Search - Syntactic">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="returnPrimeSin" value="Return:" />
+                            <h:inputText 
+                                id="returnPrimeSin"
+                                value="#{primeData.patternFormat.returnPrimeSin}"/>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Prime Search - Semantic">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="returnPrimeSem" value="Semantic Return" />
+                            <h:inputText id="returnPrimeSem"
+                                         value="#{primeData.patternFormat.returnPrimeSem}"/>
+                            <h:outputLabel for="receptionPrimeSem" value="Semantic Reception" />
+                            <h:inputText id="receptionPrimeSem"
+                                         value="#{primeData.patternFormat.receptionPrimeSem}"/>
+                            <h:outputLabel for="representationPrimeSem" value="Semantic Representation" />
+                            <h:inputText id="representationPrimeSem"
+                                         value="#{primeData.patternFormat.representationPrimeSem}"/>
+                            <h:outputLabel for="functionalRequirementPrimeSem" value="Functional Requirement" />
+                            <h:inputText id="functionalRequirementPrimeSem"
+                                         value="#{primeData.patternFormat.functionalRequirementPrimeSem}"/>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Prime Search - Pragmatic">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="nonFunctionalRequirementPrimePra" value="Non Functional Requirement" />
+                            <h:inputText id="nonFunctionalRequirementPrimePra"
+                                         value="#{primeData.patternFormat.nonFunctionalRequirementPrimePra}"/>
+                            <h:outputLabel value="Context" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel for="artifactPrimePra" value="Artifact" />
+                            <h:inputText id="artifactPrimePra"
+                                         value="#{primeData.patternFormat.artifactPrimePra}"/>
+                            <h:outputLabel for="domainPrimePra" value="Domain" />
+                            <h:inputText id="domainPrimePra"
+                                         value="#{primeData.patternFormat.domainPrimePra}"/>
+                            <h:outputLabel for="licenseType" value="License" />
+                            <h:inputText id="licenseType"
+                                         value="#{primeData.patternFormat.licenseType}"/>
+                            <h:outputLabel for="description" value="Comments" />
+                            <h:inputText id="description"
+                                         value="#{primeData.patternFormat.description}"/>
+                            <h:outputLabel for="purposePrimePra" value="Purpose" />
+                            <h:inputText id="purposePrimePra"
+                                         value="#{primeData.patternFormat.purposePrimePra}"/>
+                            <h:outputLabel for="providerPrimePra" value="Provider" />
+                            <h:inputText id="providerPrimePra"
+                                         value="#{primeData.patternFormat.providerPrimePra}"/>
+                            <h:outputLabel for="archivedAt" value="Publication Data" />
+                            <h:inputText id="archivedAt"
+                                         value="#{primeData.patternFormat.archivedAt}"/>
+                            <h:outputLabel for="owner" value="Scientist Name" />
+                            <h:inputText id="owner"
+                                         value="#{primeData.patternFormat.owner}"/>
+                            <h:outputLabel for="restrictionPrimePra" value="Restriction" />
+                            <h:inputText id="restrictionPrimePra"
+                                         value="#{primeData.patternFormat.restrictionPrimePra}"/>
+                            <h:outputLabel value="Hardware" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
+                            <h:outputLabel for="hardwareCPUPrimePra" value="CPU"/>
+                            <h:inputText id="hardwareCPUPrimePra" value="#{primeData.patternFormat.hardwareCPUPrimePra}"/>
+                            <h:outputLabel for="hardwareOperationalSystemPrimePra" value="Operational System" />
+                            <h:inputText id="hardwareOperationalSystemPrimePra"
+                                         value="#{primeData.patternFormat.hardwareOperationalSystemPrimePra}"/>
+                            <h:outputLabel for="hardwareRAMPrimePra" value="RAM (GB)" />
+                            <h:inputText id="hardwareRAMPrimePra" value="#{primeData.patternFormat.hardwareRAMPrimePra}">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <h:outputLabel for="hardwareROMPrimePra" value="ROM (GB)"/>
+                            <h:inputText id="hardwareROMPrimePra" value="#{primeData.patternFormat.hardwareROMPrimePra}">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>    
+                        </h:panelGrid>
+                    </p:tab>
+                </p:accordionPanel>
+
+                <p:commandButton value="Save File" icon="ui-icon-document" 
+                                 actionListener="#{primeData.saveFile()}"/>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

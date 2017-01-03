@@ -122,14 +122,18 @@ public class ServiceManager implements Serializable {
         String containsProvenanceData;
 
         if (provenanceDetails.getUsed() != null) {
-            containsProvenanceData = provenanceDetails.getUsed().get(0);
+            
+            if(provenanceDetails.getUsed().size() > 0){
+                containsProvenanceData = provenanceDetails.getUsed().get(0);
             if (containsProvenanceData.contains(operationName)) {
                 provenanceData = provenanceDetails.generatesString(provenanceDetails);
             }else
                 provenanceData = "";
+            }else
+                provenanceData = "";
         }else{
             provenanceData = "";
-        }           
+        }
 
         if (provenanceDetails.getResPatF().getName() == null) {
             serviceName = "";

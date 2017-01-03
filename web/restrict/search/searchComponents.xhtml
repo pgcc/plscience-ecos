@@ -38,61 +38,77 @@
                     <p:tab title="Prime Search - Syntactic">
                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                             <h:outputLabel for="hasAddress" value="Address: " />
-                            <h:inputText 
-                                id="hasAddress"/>                        
+                            <h:inputText id="hasAddress"
+                                         value="#{searchComponents.serviceDescriptionVO.includesSyntactic.hasAddress}"/> 
                             <h:outputLabel for="hasReturn" value="Return:" />
                             <h:inputText 
-                                id="hasReturn"/>                  
+                                id="hasReturn"
+                                value="#{searchComponents.serviceDescriptionVO.includesSyntactic.hasReturn}"/>
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Prime Search - Semantic">
                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                             <h:outputLabel for="hasSemanticReturn" value="Semantic Return" />
-                            <h:inputText id="hasSemanticReturn"/>             
+                            <h:inputText id="hasSemanticReturn"
+                             value="#{searchComponents.serviceDescriptionVO.includesSemantic.hasSemanticReturn}"/>             
                             <h:outputLabel for="hasSemanticReception" value="Semantic Reception" />
-                            <h:inputText id="hasSemanticReception"/>
+                            <h:inputText id="hasSemanticReception"
+                             value="#{searchComponents.serviceDescriptionVO.includesSemantic.hasSemanticReception}"/>
                             <h:outputLabel for="hasSemanticRepresentation" value="Semantic Representation" />
-                            <h:inputText id="hasSemanticRepresentation"/>
+                            <h:inputText id="hasSemanticRepresentation"
+                            value="#{searchComponents.serviceDescriptionVO.includesSemantic.hasSemanticRepresentation}"/>
                             <h:outputLabel for="hasFunctionalRequirement" value="Functional Requirement" />
-                            <h:inputText id="hasFunctionalRequirement"/>
+                            <h:inputText id="hasFunctionalRequirement"
+                            value="#{searchComponents.serviceDescriptionVO.includesSemantic.hasFunctionalRequirement}"/>
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Prime Search - Pragmatic">
                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                             <h:outputLabel for="hasNonFunctionalReq" value="Non Functional Requirement" />
-                            <h:inputText id="hasNonFunctionalReq"/>
+                            <h:inputText id="hasNonFunctionalReq"
+                             value="#{searchComponents.serviceDescriptionVO.includesPragmatic.hasNonFunctionalReq}"/>
                             <h:outputLabel value="Context" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                             <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                             <h:outputLabel for="hasArtifact" value="Artifact" />
-                            <h:inputText id="hasArtifact"/>
+                            <h:inputText id="hasArtifact"
+                            value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesContext.hasArtifact}"/>
                             <h:outputLabel for="hasDomain" value="Domain" />
-                            <h:inputText id="hasDomain"/>
+                            <h:inputText id="hasDomain"
+                            value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesContext.hasDomain}"/>
                             <h:outputLabel for="hasLicense" value="License" />
-                            <h:inputText id="hasLicense"/>
+                            <h:inputText id="hasLicense"
+                            value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesContext.hasLicense}"/>
                             <h:outputLabel for="hasComments" value="Comments" />
-                            <h:inputText id="hasComments"/>
+                            <h:inputText id="hasComments"
+                            value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesContext.hasComments}"/>
                             <h:outputLabel for="how" value="Purpose" />
-                            <h:inputText id="how"/>
+                            <h:inputText id="how"
+                            value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesContext.how}"/>
                             <h:outputLabel for="where" value="Provider" />
-                            <h:inputText id="where"/>
+                            <h:inputText id="where"
+                            value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesContext.where}"/>
                             <h:outputLabel for="when" value="Publication Data" />
-                            <h:inputText id="when"/>
+                            <h:inputText id="when"
+                            value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesContext.when}"/>
                             <h:outputLabel for="who" value="Scientist Name" />
-                            <h:inputText id="who"/>
+                            <h:inputText id="who"
+                            value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesContext.who}"/>
                             <h:outputLabel for="hasRestriction" value="Restriction" />
-                            <h:inputText id="hasRestriction"/>
+                            <h:inputText id="hasRestriction"
+                            value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesContext.hasRestriction}"/>
                             <h:outputLabel value="Hardware" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
                             <h:outputLabel value="" for="serviceDescriptionVO" styleClass="panelGridLabel"/>
-                            <h:outputLabel for="hasCPU" value="CPU" />
-                            <h:inputText id="hasCPU"/>
+                            <h:outputLabel for="hasCPU" value="CPU"/>
+                            <h:inputText id="hasCPU" value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesHardware.hasCPU}"/>
                             <h:outputLabel for="hasOperationalSystem" value="Operational System" />
-                            <h:inputText id="hasOperationalSystem"/>
+                            <h:inputText id="hasOperationalSystem"
+                            value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesHardware.hasOperationalSystem}"/>
                             <h:outputLabel for="hasRAM" value="RAM (GB)" />
-                            <h:inputText id="hasRAM">
+                            <h:inputText id="hasRAM" value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesHardware.hasRAM}">
                                 <f:validateRegex pattern="[0-9]*"/>
                             </h:inputText>
                             <h:outputLabel for="hasROM" value="ROM (GB)"/>
-                            <h:inputText id="hasROM" >
+                            <h:inputText id="hasROM" value="#{searchComponents.serviceDescriptionVO.includesPragmatic.includesHardware.hasROM}">
                                 <f:validateRegex pattern="[0-9]*"/>
                             </h:inputText>    
                         </h:panelGrid>
@@ -270,6 +286,36 @@
                                 <p:column>
                                     <h:outputText value="#{details.resPatF.licenseType}"/>                                    
                                 </p:column>
+                                <p:column>
+                                    <h:outputText value="PRIME - Return:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.returnPrimeSin}"/>                                    
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="PRIME - Semantic Return:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.returnPrimeSem}"/>                                    
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="PRIME - Semantic Reception:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.receptionPrimeSem}"/>                                    
+                                </p:column> 
+                                <p:column>
+                                    <h:outputText value="PRIME - Semantic Representation" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.representationPrimeSem}"/>                                    
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="PRIME - Functional Requirements" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.functionalRequirementPrimeSem}"/>                                    
+                                </p:column>                                
                             </p:panelGrid>                            
                         </p:tab>
                         <p:tab title="Service Semantic Annotation">
