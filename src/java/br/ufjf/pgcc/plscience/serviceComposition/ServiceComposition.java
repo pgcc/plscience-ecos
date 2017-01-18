@@ -67,7 +67,7 @@ import org.w3c.dom.NodeList;
 @ManagedBean()
 @ViewScoped
 public class ServiceComposition implements Serializable {
-    
+
     private List<UploadedFile> servicesFile;
     private String requestInpParameterNameForm;
     private String requestInpParameterTypeForm;
@@ -78,13 +78,15 @@ public class ServiceComposition implements Serializable {
     private List<TasksCompositionData> tasksCompositionData;
     private List<ServiceFromVR> servicesFromVR;
     private List<ServiceDescriptionVO> servicesPrime;
+    private Integer substituteServices;
     private final HashMap<ServiceDescriptionVO, ServiceFromVR> servicesHashMap = new HashMap<>();
-    
+
     public ServiceComposition() throws IOException {
         servicesFile = new ArrayList<>();
         serviceRequest = new ServiceRequest();
         servicesFromVR = new ArrayList<>();
         servicesPrime = new ArrayList<>();
+        substituteServices = 0;
     }
 
     /**
@@ -113,17 +115,17 @@ public class ServiceComposition implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
         if (event.getFile() != null) {
             servicesFile.add(event.getFile());
-            
+
             Path folder = Paths.get("/home/phillipe/Documentos/VirtualRepository");
             String filename = FilenameUtils.getBaseName(event.getFile().getFileName());
             //String extension = FilenameUtils.getExtension(ue.getFileName());
             String extension = "owl";
             Path file = Files.createTempFile(folder, filename, "." + extension);
-            
+
             try (InputStream input = event.getFile().getInputstream()) {
                 Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
             }
-            
+
         }
         //testUpload();
     }
@@ -153,7 +155,7 @@ public class ServiceComposition implements Serializable {
             RequestContext.getCurrentInstance().execute(script);
         }
     }
-    
+
     public ServiceFromVR findServiceFromVR(String taskName) {
         for (ServiceFromVR sfvr : servicesFromVR) {
             if (sfvr.getName().contains(taskName)) {
@@ -207,19 +209,96 @@ public class ServiceComposition implements Serializable {
     }
 
     /**
+     * It returns the node if the graph contains the service
+     *
+     * @param g a composition graph
+     * @param s a service from the repository
+     * @return
+     */
+    public GraphNode graphContainsService(CompositionGraph g, ServiceFromVR s) {
+        if (s == null) {
+            return null;
+        }
+        if (s.getName() == null) {
+            return null;
+        }
+        if (s.getName().equals("")) {
+            return null;
+        }
+        String serviceName = s.getName();
+        if (g.getServicesNodes() == null) {
+            return null;
+        }
+        for (int i = 0; i < g.getServicesNodes().size(); i++) {
+            if (g.getServicesNodes().get(i).getServiceName().contains(serviceName)) {
+                return g.getServicesNodes().get(i);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * It returns if a graph contains an edge
+     * @param serviceName1
+     * @param serviceName2
+     * @param edgesList list of edges
+     * @param directed verify if the graph is directed
+     * @return 
+     */
+    public boolean graphContainsEdge(String serviceName1, String serviceName2,
+            List<InteroperatesWithEdge> edgesList, boolean directed) {
+        if (edgesList == null || edgesList.isEmpty()) {
+            return false;
+        }
+        for (int i = 0; i < edgesList.size(); i++) {
+            if (edgesList.get(i) != null && edgesList.get(i).getSource() != null && 
+            edgesList.get(i).getTarget() != null) {
+                if (edgesList.get(i).getSource().contains(serviceName1)) {
+                    if (edgesList.get(i).getTarget().contains(serviceName2)) {
+                        return true;
+                    }
+                }
+                if (!directed) {
+                    if (edgesList.get(i).getSource().contains(serviceName2)) {
+                        if (edgesList.get(i).getTarget().contains(serviceName1)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * search a service in the graph
+     * @param cg
+     * @param serviceName
+     * @return 
+     */
+    public GraphNode searchServiceGraph(CompositionGraph cg,String serviceName){
+        for(GraphNode n:cg.getServicesNodes()){
+            if(n.getServiceName().contains(serviceName)){
+                return n;
+            }
+        }
+        return null;
+    }
+
+    /**
      * it generates a javascript code to the linkurious library
      *
      * @param taskName
      * @return
      */
     public String linkuriousScriptGenerator(String taskName) {
-        
+
         String script = "";
         CompositionGraph graph = new CompositionGraph();
         List<GraphNode> servicesNodes = new ArrayList<>();
-        List<InteroperatesWithEdge> interoperatesWithList = new ArrayList<>();
+        List<InteroperatesWithEdge> interoperatesWithEdgesList = new ArrayList<>();
         List<ServiceFromVR> interopServicesList;
-        
+
         ServiceFromVR sfvr = findServiceFromVR(taskName);
         if (sfvr != null) {
             GraphNode gNode = new GraphNode();
@@ -236,11 +315,12 @@ public class ServiceComposition implements Serializable {
             gNode.setColor(gNode.getColor(gNode.getRepositoryName(), gNode.getType()));
             gNode.setId(sfvr.getName());
             gNode.setLabel(sfvr.getName());
+            gNode.setInteroperatesWithNodeList(new ArrayList());
             servicesNodes.add(gNode);
-            
+
             interopServicesList = interoperatesWith(sfvr);
-            System.out.println("Interoperates With List Size: " + interopServicesList.size());
-            
+            System.out.println(sfvr.getName() + " interoperates with : " + interopServicesList.size() + " services");
+
             if (interopServicesList.size() > 0) {
                 for (ServiceFromVR s : interopServicesList) {
                     InteroperatesWithEdge edgeInteroperation = new InteroperatesWithEdge();
@@ -257,28 +337,60 @@ public class ServiceComposition implements Serializable {
                     }
                     n.setId(s.getName());
                     n.setLabel(s.getName());
-                    if ((!n.getRepositoryName().equals("")) && (!n.getType().equals(""))) {
+                    if ((n.getRepositoryName() != null && !n.getRepositoryName().equals(""))
+                            && (n.getType() != null && !n.getType().equals(""))) {
                         n.setColor(n.getColor(n.getRepositoryName(), n.getType()));
                     }
+
+                    //adding nodes and edges that interoperates with secondary services
+                    List<ServiceFromVR> interopServicesListSecondaryNodes;
+                    interopServicesListSecondaryNodes = interoperatesWith(s);
+                    if (interopServicesListSecondaryNodes.size() > 0) {
+                        n.setInteroperatesWithNodeList(interopServicesListSecondaryNodes);
+                    }
+
+                    //adding this node to the graph
                     servicesNodes.add(n);
+                    //adding nodes that interoperates with gNode to the services Nodes
+                    servicesNodes.get(0).getInteroperatesWithNodeList().add(s);
                     edgeInteroperation.getInteroperatesWith().setDirected(false);
                     edgeInteroperation.getInteroperatesWith().setFrom(gNode);
                     edgeInteroperation.getInteroperatesWith().setTo(n);
                     edgeInteroperation.setSource(gNode.getServiceName());
                     edgeInteroperation.setTarget(n.getServiceName());
-                    interoperatesWithList.add(edgeInteroperation);
+                    interoperatesWithEdgesList.add(edgeInteroperation);
                 }
                 graph.setServicesNodes(servicesNodes);
-                graph.setInteroperatesWithList(interoperatesWithList);
+                
+                //verify the existence of all edges (not considering the first node)
+                List<GraphNode> nodes = graph.getServicesNodes();
+                for(int i=1;i<nodes.size();i++){
+                    GraphNode node = nodes.get(i);
+                    List<ServiceFromVR> interopServices = node.getInteroperatesWithNodeList();
+                    for(int j=0;j<interopServices.size();j++){
+                        ServiceFromVR s = interopServices.get(j);
+                        if(!graphContainsEdge(node.getServiceName(), s.getName(), interoperatesWithEdgesList, false)){
+                            GraphNode gn = searchServiceGraph(graph, s.getName());
+                            InteroperatesWithEdge edge = new InteroperatesWithEdge();
+                            edge.getInteroperatesWith().setDirected(false);
+                            edge.getInteroperatesWith().setFrom(node);
+                            edge.getInteroperatesWith().setTo(gn);
+                            edge.setSource(node.getServiceName());
+                            edge.setTarget(s.getName());
+                            interoperatesWithEdgesList.add(edge);
+                        }
+                    }
+                }
+                graph.setInteroperatesWithList(interoperatesWithEdgesList);
                 
                 int size = graph.getServicesNodes().size();
                 System.out.println("Number of nodes: " + size);
                 int i = 0;
-                
+
                 script = "var s,"
                         + "g = {nodes: [],edges: []};\n"
                         + "g.nodes.push(\n";
-                
+
                 for (GraphNode n : graph.getServicesNodes()) {
                     script += "{";
                     script += "      id: '" + n.getId() + "',\n";
@@ -290,9 +402,19 @@ public class ServiceComposition implements Serializable {
                     script += "      data: {\n";
                     script += "        name: '" + n.getServiceName() + "',\n";
                     script += "        value: '" + n.getType() + "',\n";
-                    script += "        type: '" + n.getType()+ "',\n";
-                    script += "        repository: '" + n.getRepositoryName()+ "',\n";                    
-                    script += "        owner: '" + n.getOwner()+ "'\n";                    
+                    script += "        type: '" + n.getType() + "',\n";
+                    script += "        repository: '" + n.getRepositoryName() + "',\n";
+                    //this condition presents the possible substitute services for the current service
+                    if (n.getInteroperatesWithNodeList() != null && n.getInteroperatesWithNodeList().size() > 0) {
+                        int intoList = n.getInteroperatesWithNodeList().size();
+                        for (int count = 0; count < intoList; count++) {
+                            String serviceName = n.getInteroperatesWithNodeList().get(count).getName();
+                            int soma = count + 1;
+                            script += "        sub" + soma + ": '" + serviceName + "',\n";
+                            substituteServices = count + 1;
+                        }
+                    }
+                    script += "        owner: '" + n.getOwner() + "'\n";
                     script += "      }\n";
                     i++;
                     if (i == size) {
@@ -323,7 +445,7 @@ public class ServiceComposition implements Serializable {
                     }
                 }
                 script += ");\n";
-                script += renderizeScript();                
+                script += renderizeScript();
             } else {
                 InfoMessage.graphNotGenerated();
             }
@@ -626,8 +748,13 @@ public class ServiceComposition implements Serializable {
                 + "    '<div class=\"arrow\"></div>' +\n"
                 + "    ' <div class=\"sigma-tooltip-header\">{{label}}</div>' +\n"
                 + "    '  <div class=\"sigma-tooltip-body\">' +\n"
-                + "    '   <p> Context menu for {{data.name}} </p>' +\n"
-                + "    '  </div>' +\n"
+                + "    '   <p> Possible alternate services: </p>' +\n";
+        if (substituteServices > 0) {
+            for (int i = 0; i < substituteServices; i++) {
+                rend += "    '   <p> Service " + (i + 1) + ": {{data.sub" + (i + 1) + "}} </p>' +\n";
+            }
+        }
+        rend += "    '  </div>' +\n"
                 + "    ' <div class=\"sigma-tooltip-footer\">Number of connections: {{degree}}</div>',\n"
                 + "    renderer: function(node, template) {\n"
                 + "      node.degree = this.degree(node.id);\n"
@@ -702,7 +829,7 @@ public class ServiceComposition implements Serializable {
                 + "});\n"
                 + "s.bind('hovers', function(e) {\n"
                 + "  console.log(e.type, e.data.captor, e.data);\n"
-                + "});";        
+                + "});";
         return rend;
     }
 
@@ -720,7 +847,7 @@ public class ServiceComposition implements Serializable {
      * @throws URISyntaxException
      */
     public void readFilesToSearchTerms() throws IOException, URISyntaxException {
-        
+
         File f = new File("/home/phillipe/Documentos/VirtualRepository");
         File[] serviceFiles = f.listFiles();
 
@@ -729,7 +856,7 @@ public class ServiceComposition implements Serializable {
         for (File file : serviceFiles) {
             if (file != null) {
                 extension = FilenameUtils.getExtension(file.getAbsolutePath());
-                
+
                 if (extension.equals("owl")) {
                     ServiceFromVR sfvr = new ServiceFromVR();
                     //it gets the inputStream
@@ -737,12 +864,12 @@ public class ServiceComposition implements Serializable {
 
                     //create a kb
                     OWLKnowledgeBase kb = OWLFactory.createKB();
-                    
+
                     String uriFile = "http://localhost:8084/plscience-ecos/" + file.getName();
                     System.out.println("URI FILE: " + uriFile);
-                    
+
                     URI uri = new URI(uriFile);
-                    
+
                     System.out.println("InputStream: " + inputStream);
                     System.out.println("uri: " + uri.toString());
                     Service service = kb.readService(inputStream, uri);
@@ -755,20 +882,20 @@ public class ServiceComposition implements Serializable {
                         //System.out.println("Service name: "+service.getName());
                         sfvr.setName(service.getName());
                     }
-                    
+
                     if (service.getProfile() != null && service.getProfile().getTextDescription() != null) {
                         String description = service.getProfile().getTextDescription();
                         sfvr.setDescription(sfvr.getName() + " " + description);
-                        
+
                     } else if (service.getProfile() != null) {
                         sfvr.setDescription("-");
                     }
-                    
+
                     if (service.getProfile() != null) {
-                        
+
                         OWLIndividualList owlIndListInputs = service.getProfile().getInputs();
                         OWLIndividualList owlIndListOutputs = service.getProfile().getOutputs();
-                        
+
                         List<String> inputs = new ArrayList<>();
                         List<String> inputsType = new ArrayList<>();
                         List<String> outputs = new ArrayList<>();
@@ -797,7 +924,7 @@ public class ServiceComposition implements Serializable {
                             String type = owlType.toString();
                             outputsType.add(type);
                         }
-                        
+
                         sfvr.setInputs(inputs);
                         sfvr.setInputsType(inputsType);
                         sfvr.setOutputs(outputs);
@@ -831,114 +958,114 @@ public class ServiceComposition implements Serializable {
         serviceReq.getIncludesPragmatic().setIncludesContext(con);
         HardwareVO hard = new HardwareVO();
         serviceReq.getIncludesPragmatic().setIncludesHardware(hard);
-        
+
         if (serviceRequest.getPatternRequest().getReturnPrimeSin() != null) {
             String returnSynt = serviceRequest.getPatternRequest().getReturnPrimeSin();
             serviceReq.getIncludesSyntactic().setHasReturn(returnSynt);
         }
-        
+
         if (serviceRequest.getPatternRequest().getReturnPrimeSem() != null) {
             String returnSem = serviceRequest.getPatternRequest().getReturnPrimeSem();
             serviceReq.getIncludesSemantic().setHasSemanticReturn(returnSem);
         }
-        
+
         if (serviceRequest.getPatternRequest().getReceptionPrimeSem() != null) {
             String receptionSem = serviceRequest.getPatternRequest().getReceptionPrimeSem();
             serviceReq.getIncludesSemantic().setHasSemanticReception(receptionSem);
         }
-        
+
         if (serviceRequest.getPatternRequest().getRepresentationPrimeSem() != null) {
             String representation = serviceRequest.getPatternRequest().getRepresentationPrimeSem();
             serviceReq.getIncludesSemantic().setHasSemanticRepresentation(representation);
         }
-        
+
         if (serviceRequest.getPatternRequest().getFunctionalRequirementPrimeSem() != null) {
             String funcReq = serviceRequest.getPatternRequest().getFunctionalRequirementPrimeSem();
             serviceReq.getIncludesSemantic().setHasFunctionalRequirement(funcReq);
         }
-        
+
         if (serviceRequest.getPatternRequest().getNonFunctionalRequirementPrimePra() != null) {
             String nonFuncReq = serviceRequest.getPatternRequest().getNonFunctionalRequirementPrimePra();
             serviceReq.getIncludesPragmatic().setHasNonFunctionalReq(nonFuncReq);
         }
-        
+
         if (serviceRequest.getPatternRequest().getNonFunctionalRequirementPrimePra() != null) {
             String nonFuncReq = serviceRequest.getPatternRequest().getNonFunctionalRequirementPrimePra();
             serviceReq.getIncludesPragmatic().setHasNonFunctionalReq(nonFuncReq);
         }
-        
+
         if (serviceRequest.getPatternRequest().getArtifactPrimePra() != null) {
             String artifact = serviceRequest.getPatternRequest().getArtifactPrimePra();
             serviceReq.getIncludesPragmatic().getIncludesContext().setHasArtifact(artifact);
         }
-        
+
         if (serviceRequest.getPatternRequest().getDomainPrimePra() != null) {
             String domain = serviceRequest.getPatternRequest().getDomainPrimePra();
             serviceReq.getIncludesPragmatic().getIncludesContext().setHasDomain(domain);
         }
-        
+
         if (serviceRequest.getPatternRequest().getLicenseType() != null) {
             String license = serviceRequest.getPatternRequest().getLicenseType();
             serviceReq.getIncludesPragmatic().getIncludesContext().setHasLicense(license);
         }
-        
+
         if (serviceRequest.getPatternRequest().getDescription() != null) {
             String comments = serviceRequest.getPatternRequest().getDescription();
             serviceReq.getIncludesPragmatic().getIncludesContext().setHasComments(comments);
         }
-        
+
         if (serviceRequest.getPatternRequest().getPurposePrimePra() != null) {
             String purpose = serviceRequest.getPatternRequest().getPurposePrimePra();
             serviceReq.getIncludesPragmatic().getIncludesContext().setHow(purpose);
         }
-        
+
         if (serviceRequest.getPatternRequest().getProviderPrimePra() != null) {
             String provider = serviceRequest.getPatternRequest().getProviderPrimePra();
             serviceReq.getIncludesPragmatic().getIncludesContext().setWhere(provider);
         }
-        
+
         if (serviceRequest.getPatternRequest().getArchivedAt() != null) {
             String publicationData = serviceRequest.getPatternRequest().getArchivedAt();
             serviceReq.getIncludesPragmatic().getIncludesContext().setWhen(publicationData);
         }
-        
+
         if (serviceRequest.getPatternRequest().getOwner() != null) {
             String owner = serviceRequest.getPatternRequest().getOwner();
             serviceReq.getIncludesPragmatic().getIncludesContext().setWho(owner);
         }
-        
+
         if (serviceRequest.getPatternRequest().getRestrictionPrimePra() != null) {
             String rest = serviceRequest.getPatternRequest().getRestrictionPrimePra();
             serviceReq.getIncludesPragmatic().getIncludesContext().setHasRestriction(rest);
         }
-        
+
         if (serviceRequest.getPatternRequest().getHardwareCPUPrimePra() != null) {
             String cpu = serviceRequest.getPatternRequest().getHardwareCPUPrimePra();
             serviceReq.getIncludesPragmatic().getIncludesHardware().setHasCPU(cpu);
         }
-        
+
         if (serviceRequest.getPatternRequest().getHardwareOperationalSystemPrimePra() != null) {
             String os = serviceRequest.getPatternRequest().getHardwareOperationalSystemPrimePra();
             serviceReq.getIncludesPragmatic().getIncludesHardware().setHasOperationalSystem(os);
         }
-        
+
         if (serviceRequest.getPatternRequest().getHardwareRAMPrimePra() != null) {
             String ram = serviceRequest.getPatternRequest().getHardwareRAMPrimePra();
             serviceReq.getIncludesPragmatic().getIncludesHardware().setHasRAM(ram);
         }
-        
+
         if (serviceRequest.getPatternRequest().getHardwareROMPrimePra() != null) {
             String rom = serviceRequest.getPatternRequest().getHardwareROMPrimePra();
             serviceReq.getIncludesPragmatic().getIncludesHardware().setHasROM(rom);
         }
-        
+
         if (keywords.contains("interoperability")) {
             serviceReq.getIncludesPragmatic().setHasNonFunctionalReq("interoperability");
         }
         if (keywords.contains("linux")) {
             serviceReq.getIncludesPragmatic().getIncludesHardware().setHasOperationalSystem("linux");
         }
-        
+
         return serviceReq;
     }
 
@@ -946,22 +1073,22 @@ public class ServiceComposition implements Serializable {
      * List the relevant services using PRIME
      */
     public void listRelevantServices() {
-        
+
         SimilarityCalculation1 similarityCalc = new SimilarityCalculation1();
         ArrayList<RankingVO> rankingServices = new ArrayList<>();
         List<ServiceDescriptionVO> servicesRankingSorted = new ArrayList<>();
-        
+
         System.out.println("Listing Relevant Services");
 
         //setting request in prime format
         String type = "commas";
         keywords = StopWordsRemoval.removeStopWords(keywords, type);
-        
+
         ServiceDescriptionVO serviceReq = new ServiceDescriptionVO();
 
         //service request to prime format
         serviceReq = processServiceRequest(serviceReq);
-        
+
         for (ServiceFromVR sfvr : servicesFromVR) {
             String description = sfvr.getDescription();
             type = "space";
@@ -982,10 +1109,10 @@ public class ServiceComposition implements Serializable {
             serviceDescriptionVO.getIncludesPragmatic().setIncludesContext(cont);
             HardwareVO hardw = new HardwareVO();
             serviceDescriptionVO.getIncludesPragmatic().setIncludesHardware(hardw);
-            
+
             addServiceToPrimeFormat(sfvr, serviceDescriptionVO, description);
         }
-        
+
         for (ServiceDescriptionVO sVo : servicesPrime) {
             RankingVO rVo = new RankingVO();
             rVo.setServiceRecovery(sVo);
@@ -993,15 +1120,15 @@ public class ServiceComposition implements Serializable {
             rVo.setSimilarity(similarityCalc.calculate(serviceReq, sVo, 1, 1, 1));
             rankingServices.add(rVo);
         }
-        
+
         System.out.println("Sorting services using PRIME!");
         Collections.sort(rankingServices);
-        
+
         for (RankingVO rank : rankingServices) {
             servicesRankingSorted.add(rank.getServiceRecovery());
             System.out.println("Nome Serv: " + rank.getServiceRecovery().getName() + " Simil: " + rank.getSimilarity());
         }
-        
+
         showServicesRanking(rankingServices);
     }
 
@@ -1014,14 +1141,14 @@ public class ServiceComposition implements Serializable {
      */
     public void addServiceToPrimeFormat(ServiceFromVR sfvr, ServiceDescriptionVO serviceDescriptionVO,
             String description) {
-        
+
         ArrayList<String> parametersInp = new ArrayList<>();
         ArrayList<String> parametersOut = new ArrayList<>();
         parametersInp = (ArrayList<String>) (sfvr.getInputs());
         parametersOut = (ArrayList<String>) (sfvr.getOutputs());
-        
+
         ArrayList<String> parameters = new ArrayList<>();
-        
+
         for (int i = 0; i < parametersInp.size(); i++) {
             if (parametersOut.size() > i) {
                 String pin = (String) parametersInp.get(i);
@@ -1033,10 +1160,10 @@ public class ServiceComposition implements Serializable {
                 parameters.add(pin);
             }
         }
-        
+
         serviceDescriptionVO.getIncludesSyntactic().setHasParameters(parameters);
         String servName = sfvr.getName();
-        
+
         serviceDescriptionVO = addServiceDescriptionVO(sfvr, serviceDescriptionVO, servName, description);
         serviceDescriptionVO.setName(servName);
         servicesHashMap.put(serviceDescriptionVO, sfvr);
@@ -1054,11 +1181,11 @@ public class ServiceComposition implements Serializable {
      */
     public ServiceDescriptionVO addServiceDescriptionVO(ServiceFromVR sfvr, ServiceDescriptionVO serviceDescriptionVO,
             String servName, String description) {
-        
+
         if (servName == null || servName.equals("")) {
             return serviceDescriptionVO;
         }
-        
+
         String repositoryURL;
         repositoryURL = File.separatorChar + "home" + File.separatorChar + "phillipe"
                 + File.separatorChar + "Documentos" + File.separatorChar + "VirtualRepository";
@@ -1071,16 +1198,16 @@ public class ServiceComposition implements Serializable {
             Document doc = docBuilder.parse(inputFile);
             //Node service = doc.getFirstChild();
             Node serviceData = doc.getElementsByTagName("serviceData").item(0);
-            
+
             NodeList list = serviceData.getChildNodes();
             for (int temp = 0; temp < list.getLength(); temp++) {
                 Node node = list.item(temp);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) node;
-                    
+
                     if (eElement.getTextContent() != null && !eElement.getTextContent().equals("")) {
                         String content = eElement.getTextContent();
-                        
+
                         if ("type".equals(eElement.getNodeName())) {
                             sfvr.setType(content);
                         }
@@ -1144,7 +1271,7 @@ public class ServiceComposition implements Serializable {
                     }
                 }
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1165,7 +1292,7 @@ public class ServiceComposition implements Serializable {
             List<TaskInput> tinptList = new ArrayList<>();
             List<TaskOutput> toutList = new ArrayList<>();
             tcd.setTaskName(rank.getServiceRecovery().getName());
-            
+
             ServiceFromVR sfvr = servicesHashMap.get(rank.getServiceRecovery());
             if (sfvr.getInputs() != null && sfvr.getInputsType() != null
                     && sfvr.getInputs().size() == sfvr.getInputsType().size()) {
@@ -1178,14 +1305,14 @@ public class ServiceComposition implements Serializable {
             }
             if (sfvr.getOutputs() != null && sfvr.getOutputsType() != null
                     && sfvr.getOutputs().size() == sfvr.getOutputsType().size()) {
-                for (int i = 0; i < sfvr.getInputs().size(); i++) {
+                for (int i = 0; i < sfvr.getOutputs().size(); i++) {
                     TaskOutput o1 = new TaskOutput();
                     o1.setOutputParameter(sfvr.getOutputs().get(i));
                     o1.setOutputType(sfvr.getOutputsType().get(i));
                     toutList.add(o1);
                 }
             }
-            
+
             tcd.setTaskInputs(tinptList);
             tcd.setTaskOutputs(toutList);
             tasksCompositionData.add(tcd);
@@ -1209,7 +1336,7 @@ public class ServiceComposition implements Serializable {
         o1.setOutputParameter("result");
         o1.setOutputType("npd:SQLqueryResult");
         toutt1.add(o1);
-        
+
         t1.setTaskName("search");
         t1.setTaskInputs(tinpt1);
         t1.setTaskOutputs(toutt1);
@@ -1227,7 +1354,7 @@ public class ServiceComposition implements Serializable {
         o2.setOutputParameter("result");
         o2.setOutputType("npd:geneIDResult");
         toutt2.add(o2);
-        
+
         t2.setTaskName("geneId");
         t2.setTaskInputs(tinpt2);
         t2.setTaskOutputs(toutt2);
@@ -1245,13 +1372,13 @@ public class ServiceComposition implements Serializable {
         o3.setOutputParameter("result");
         o3.setOutputType("xsd:string");
         toutt3.add(o3);
-        
+
         t3.setTaskName("schema");
         t3.setTaskInputs(tinpt3);
         t3.setTaskOutputs(toutt3);
         tasksCompositionData.add(t3);
     }
-    
+
     public void addParametersToServiceRequest() {
         if (requestInpParameterNameForm != null && !requestInpParameterNameForm.equals("")) {
             addInputParametersNameReq(requestInpParameterNameForm);
@@ -1297,13 +1424,13 @@ public class ServiceComposition implements Serializable {
         System.out.println("InpParName: " + inputParametersName);
         List<String> listP = StringFormToList(inputParametersName);
         serviceRequest.setInputParametersName(listP);
-        
+
         if (listP == null) {
             System.out.println("Lista eh null ");
         } else {
             System.out.println("Lista não eh null ");
         }
-        
+
         for (String teste : serviceRequest.getInputParametersName()) {
             System.out.println("Teste vale: " + teste);
         }
@@ -1473,5 +1600,19 @@ public class ServiceComposition implements Serializable {
      */
     public void setServicesFromVR(List<ServiceFromVR> servicesFromVR) {
         this.servicesFromVR = servicesFromVR;
+    }
+
+    /**
+     * @return the substituteServices
+     */
+    public Integer getSubstituteServices() {
+        return substituteServices;
+    }
+
+    /**
+     * @param substituteServices the substituteServices to set
+     */
+    public void setSubstituteServices(Integer substituteServices) {
+        this.substituteServices = substituteServices;
     }
 }
