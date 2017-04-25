@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <h:form id="form">     
+
+        <p:dataList  id="dataListAgentLog" var="agent" value="#{agentBean.agentsLog}" type="definition" style="alignment-baseline: middle" styleClass="datalist-noborder"> 
+            <h:panelGrid columns="2" cellpadding="0" >
+                <h:panelGrid columns="2" cellpadding="2" >
+                    <h:graphicImage name="/images/icon/messageIcon40.png" />
+                    <h:outputText value="#{agent.name} - #{agent.institution.acronym}" style="font-weight:bold" />
+                    <h:outputText value="#{agent.role.roleName}" />
+                </h:panelGrid>
+            </h:panelGrid>           
+        </p:dataList>
+    </h:form>
+</ui:composition>

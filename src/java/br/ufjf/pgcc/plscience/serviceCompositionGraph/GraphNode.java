@@ -6,13 +6,17 @@
 package br.ufjf.pgcc.plscience.serviceCompositionGraph;
 
 import br.ufjf.pgcc.plscience.serviceComposition.ServiceFromVR;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author phillipe
  */
 public class GraphNode {
+
     private String serviceName;
     private String id;
     private String label;
@@ -22,15 +26,26 @@ public class GraphNode {
     private String repositoryName;
     private String owner;
     private String type;
+    private Integer fanIn;
+    private Integer fanOut;
+    private Double closenessValue;
+    private Double betweennessValue;
     private List<ServiceFromVR> interoperatesWithNodeList;
+    private List<ServiceFromVR> dependsOfNodeList;
     private List<ServiceFromVR> composedByNodeList;
+    private int distanceFromSource;
+    private List<GraphNode> neighbors;
 
-    public GraphNode(){
+    public GraphNode() {
         size = "20";
         color = "#000";
         value = "atomic";
+        fanIn = 0;
+        fanOut = 0;
+        distanceFromSource = Integer.MAX_VALUE;
+        neighbors = new ArrayList<>();
     }
-    
+
     /**
      * @return the repositoryName
      */
@@ -163,18 +178,18 @@ public class GraphNode {
     public String getColor() {
         return color;
     }
-    
-    public String getColor(String repositoryName,String type) {
-        if(repositoryName.toLowerCase().contains("catalog")){
+
+    public String getColor(String repositoryName, String type) {
+        if (repositoryName.toLowerCase().contains("catalog")) {
             color = "#000";
-        }else if(repositoryName.toLowerCase().contains("seco")){
+        } else if (repositoryName.toLowerCase().contains("seco")) {
             color = "#0F0";
         }
-        if(!type.contains("atomic")){
+        if (!type.contains("atomic")) {
             color = "#F00";
         }
         return color;
-    }    
+    }
 
     /**
      * @param color the color to set
@@ -195,5 +210,148 @@ public class GraphNode {
      */
     public void setValue(String value) {
         this.value = value;
+    }
+
+    /**
+     * @return the dependsOfNodeList
+     */
+    public List<ServiceFromVR> getDependsOfNodeList() {
+        return dependsOfNodeList;
+    }
+
+    /**
+     * @param dependsOfNodeList the dependsOfNodeList to set
+     */
+    public void setDependsOfNodeList(List<ServiceFromVR> dependsOfNodeList) {
+        this.dependsOfNodeList = dependsOfNodeList;
+    }
+
+    /**
+     * @return the fanIn
+     */
+    public Integer getFanIn() {
+        return fanIn;
+    }
+
+    /**
+     * @param fanIn the fanIn to set
+     */
+    public void setFanIn(Integer fanIn) {
+        this.fanIn = fanIn;
+    }
+
+    /**
+     * @return the fanOut
+     */
+    public Integer getFanOut() {
+        return fanOut;
+    }
+
+    /**
+     * @param fanOut the fanOut to set
+     */
+    public void setFanOut(Integer fanOut) {
+        this.fanOut = fanOut;
+    }
+
+    /**
+     * @return the distanceFromSource
+     */
+    public int getDistanceFromSource() {
+        return distanceFromSource;
+    }
+
+    /**
+     * @param distanceFromSource the distanceFromSource to set
+     */
+    public void setDistanceFromSource(int distanceFromSource) {
+        this.distanceFromSource = distanceFromSource;
+    }
+
+    /**
+     * @return the neighbors
+     */
+    public List<GraphNode> getNeighbors() {
+        return neighbors;
+    }
+
+    /**
+     * @param neighbors the neighbors to set
+     */
+    public void setNeighbors(List<GraphNode> neighbors) {
+        this.neighbors = neighbors;
+    }
+
+    public void printAllNodeNeighbors(CompositionGraph graph) {
+        System.out.println("Printing neighbors:");
+        for (GraphNode node : graph.getServicesNodes()) {
+            System.out.println("Service Name: " + node.getServiceName() + "\n");
+            System.out.println("Neighbors list: ");
+            for (GraphNode node1 : node.getNeighbors()) {
+                System.out.println("----------------");
+                System.out.println("Name: " + node1.getServiceName());
+                System.out.println("Distance from source: " + node1.getDistanceFromSource());
+                System.out.println("----------------");
+            }
+        }
+    }
+
+    public Double calculateClosenessValue(CompositionGraph graph, Map<GraphNode, Integer> distances) {
+
+        Integer numberOfNodes = 0;
+        Integer sumOfDistances = 0;
+        Double closeness = 0.0;
+        DecimalFormat format = new DecimalFormat("#.##");  
+
+        if (graph.getServicesNodes() == null || graph.getServicesNodes().isEmpty()) {
+            return closeness;
+        }
+
+        numberOfNodes = graph.getServicesNodes().size();
+
+        for (GraphNode node : graph.getServicesNodes()) {
+            Integer distance = distances.get(node);
+            sumOfDistances += distance;
+            /*The source node does not influence 
+            the calculation because his value is equal to 0*/
+        }
+
+        if (numberOfNodes > 0.0) {
+            Double sumOfDistancesFinal = (double) sumOfDistances;
+            Double numberOfNodesFinal = (double) (numberOfNodes - 1);
+            closeness = sumOfDistancesFinal/numberOfNodesFinal;
+        }
+
+        closeness = Double.valueOf(format.format(closeness));
+        return closeness;
+
+    }
+
+    /**
+     * @return the closenessValue
+     */
+    public Double getClosenessValue() {
+        return closenessValue;
+    }
+
+    /**
+     * @param closenessValue the closenessValue to set
+     */
+    public void setClosenessValue(Double closenessValue) {
+        this.closenessValue = closenessValue;
+    }
+
+    /**
+     * @return the betweennessValue
+     */
+    public Double getBetweennessValue() {
+        return betweennessValue;
+    }
+
+    /**
+     * @param betweennessValue the betweennessValue to set
+     */
+    public void setBetweennessValue(Double betweennessValue) {
+        this.betweennessValue = betweennessValue;
     }
 }

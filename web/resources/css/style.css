@@ -98,3 +98,8 @@ header h1 {
 .accordionMenu .ui-helper-clearfix:after {
  height:inherit !important;
 }
+
+.textAlignLeftForum {
+    margin-left: 10%;
+    text-align: left;
+}

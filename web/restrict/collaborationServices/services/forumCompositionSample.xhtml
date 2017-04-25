@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <h:form id="form">     
+
+            <h:panelGrid columns="1" cellpadding="0" style="width: 100%">
+                <h:panelGrid columns="1" cellpadding="2" style="width: 100%" >
+                    <h:panelGrid columns="2" cellpadding="2" style="width: 100%" >
+                    <h:outputText value="João - UFJF" style="font-weight:bold"/>
+                    <p:graphicImage name="/images/scientist.png" width="30%" />                    
+                    </h:panelGrid>
+                    <h:outputText value="I liked this composition"/>
+                    <h:outputText value="12 hours ago" style="color: grey;font-size: smaller"/>
+                    <p:button value="Reply"/>
+                    <h:panelGrid style="background-color: #DDD; border: #1A1A1A; width: 100%"
+                                 class="textAlignLeftForum">
+                    <h:panelGrid columns="2" cellpadding="2" style="width: 100%" >
+                    <h:outputText value="Maria - UFRJ" style="font-weight:bold"/>
+                    <p:graphicImage name="/images/scientistb.png" width="30%" />                    
+                    </h:panelGrid>
+                        <h:outputText value="I liked too"/>
+                    <h:outputText value="9 hours ago" style="color: grey;font-size: smaller"/>
+                        <p:button value="Reply"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid columns="1" cellpadding="2" style="width: 100%" >
+                    <h:panelGrid columns="2" cellpadding="2" style="width: 100%" >
+                    <h:outputText value="Alice - UFJF" style="font-weight:bold"/>
+                    <p:graphicImage name="/images/scientistb.png" width="30%" />                    
+                    </h:panelGrid>
+                    <h:outputText value="I used the service CompGeneId in an experiment, but I
+                                  didn't like the result"/>
+                    <h:outputText value="2 hours ago" style="color: grey;font-size: smaller"/>
+                    <p:button value="Reply"/>
+                </h:panelGrid>                
+            </h:panelGrid>           
+    </h:form>
+</ui:composition>

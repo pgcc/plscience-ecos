@@ -12,11 +12,13 @@ package br.ufjf.pgcc.plscience.serviceCompositionGraph;
 public class SimpleEdge {
     private GraphNode from;
     private GraphNode to;
+    private int weight;
     private boolean directed;
     
     SimpleEdge(){
         from = new GraphNode();
         to = new GraphNode();
+        weight = 1;
         directed = false;
     }
 
@@ -60,5 +62,19 @@ public class SimpleEdge {
      */
     public void setDirected(boolean directed) {
         this.directed = directed;
+    }
+
+    /**
+     * @return the weight
+     */
+    public int getWeight() {
+        return weight;
+    }
+
+    /**
+     * @param weight the weight to set
+     */
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }

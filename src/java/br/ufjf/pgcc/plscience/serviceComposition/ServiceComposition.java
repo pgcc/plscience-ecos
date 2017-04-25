@@ -8,9 +8,12 @@ package br.ufjf.pgcc.plscience.serviceComposition;
 import br.ufjf.pgcc.plscience.interoperability.SimilarityCalculation1;
 import br.ufjf.pgcc.plscience.message.InfoMessage;
 import br.ufjf.pgcc.plscience.relevantServices.StopWordsRemoval;
+import static br.ufjf.pgcc.plscience.serviceComposition.WordNetDictionary.loadDictionary;
+import br.ufjf.pgcc.plscience.serviceComposition.metrics.CompositionMetrics;
 import br.ufjf.pgcc.plscience.serviceComposition.test.TaskOutput;
 import br.ufjf.pgcc.plscience.serviceComposition.test.TaskInput;
 import br.ufjf.pgcc.plscience.serviceCompositionGraph.CompositionGraph;
+import br.ufjf.pgcc.plscience.serviceCompositionGraph.DependsOfEdge;
 import br.ufjf.pgcc.plscience.serviceCompositionGraph.GraphNode;
 import br.ufjf.pgcc.plscience.serviceCompositionGraph.InteroperatesWithEdge;
 import br.ufjf.pgcc.plscience.vo.ContextVO;
@@ -20,12 +23,14 @@ import br.ufjf.pgcc.plscience.vo.RankingVO;
 import br.ufjf.pgcc.plscience.vo.SemanticVO;
 import br.ufjf.pgcc.plscience.vo.ServiceDescriptionVO;
 import br.ufjf.pgcc.plscience.vo.SyntacticVO;
+import edu.mit.jwi.IDictionary;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -37,15 +42,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.io.FilenameUtils;
 import org.mindswap.owl.OWLFactory;
-import org.mindswap.owl.OWLIndividual;
 import org.mindswap.owl.OWLIndividualList;
 import org.mindswap.owl.OWLKnowledgeBase;
 import org.mindswap.owl.OWLType;
@@ -59,6 +66,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -145,8 +153,10 @@ public class ServiceComposition implements Serializable {
      * it generates and plots a graph for composed services
      *
      * @param taskName
+     * @throws org.xml.sax.SAXException
+     * @throws java.io.IOException
      */
-    public void generateGraph(String taskName) {
+    public void generateGraph(String taskName) throws SAXException, IOException {
         System.out.println("Initializing graph for the service " + taskName);
         String script;
         //script = linkuriousSampleScriptGenerator();
@@ -163,6 +173,60 @@ public class ServiceComposition implements Serializable {
             }
         }
         return null;
+    }
+
+    /**
+     * it returns a list of services atomics (dependencies) to a composed
+     * service
+     *
+     * @param searched
+     * @return
+     * @throws org.xml.sax.SAXException
+     * @throws java.io.IOException
+     */
+    public List<ServiceFromVR> dependsOf(ServiceFromVR searched) throws SAXException, IOException {
+        List<ServiceFromVR> listDependencies = new ArrayList<>();
+        if (searched.getType().contains("comp")) {
+            System.out.println(searched.getName() + " is composed");
+
+            File fOwlFile = new File("/home/phillipe/Documentos/VirtualRepository/"
+                    + searched.getName() + ".owl");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder;
+            try {
+                docBuilder = dbFactory.newDocumentBuilder();
+                Document doc = docBuilder.parse(fOwlFile);
+                doc.getDocumentElement().normalize();
+                Node owlOntology = doc.getElementsByTagName("owl:Ontology").item(0);
+                NodeList children = owlOntology.getChildNodes();
+
+                for (int temp = 0; temp < children.getLength(); temp++) {
+                    Node nNode = children.item(temp);
+                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+                        if ("owl:imports".equals(eElement.getNodeName())) {
+                            String attributeResource = eElement.getAttribute("rdf:resource");
+                            //System.out.println("resource: "+attributeResource);
+                            String[] parts = attributeResource.split("/");
+                            Integer tam = parts.length;
+                            if (tam > 0) {
+                                String serviceName = parts[tam - 1];
+                                serviceName = serviceName.replace(".owl", "");
+                                System.out.println("ServiceName: " + serviceName);
+                                ServiceFromVR sfvr = findServiceFromVR(serviceName);
+                                if (sfvr != null) {
+                                    listDependencies.add(sfvr);
+                                }
+                            }
+                        }
+                    }
+                }
+
+            } catch (ParserConfigurationException ex) {
+                Logger.getLogger(ServiceComposition.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return listDependencies;
     }
 
     /**
@@ -239,11 +303,12 @@ public class ServiceComposition implements Serializable {
 
     /**
      * It returns if a graph contains an edge
+     *
      * @param serviceName1
      * @param serviceName2
      * @param edgesList list of edges
      * @param directed verify if the graph is directed
-     * @return 
+     * @return
      */
     public boolean graphContainsEdge(String serviceName1, String serviceName2,
             List<InteroperatesWithEdge> edgesList, boolean directed) {
@@ -251,8 +316,8 @@ public class ServiceComposition implements Serializable {
             return false;
         }
         for (int i = 0; i < edgesList.size(); i++) {
-            if (edgesList.get(i) != null && edgesList.get(i).getSource() != null && 
-            edgesList.get(i).getTarget() != null) {
+            if (edgesList.get(i) != null && edgesList.get(i).getSource() != null
+                    && edgesList.get(i).getTarget() != null) {
                 if (edgesList.get(i).getSource().contains(serviceName1)) {
                     if (edgesList.get(i).getTarget().contains(serviceName2)) {
                         return true;
@@ -269,17 +334,70 @@ public class ServiceComposition implements Serializable {
         }
         return false;
     }
-    
+
     /**
      * search a service in the graph
+     *
      * @param cg
      * @param serviceName
-     * @return 
+     * @return
      */
-    public GraphNode searchServiceGraph(CompositionGraph cg,String serviceName){
-        for(GraphNode n:cg.getServicesNodes()){
-            if(n.getServiceName().contains(serviceName)){
+    public GraphNode searchServiceGraph(CompositionGraph cg, String serviceName) {
+        for (GraphNode n : cg.getServicesNodes()) {
+            if (n.getServiceName().contains(serviceName)) {
                 return n;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * sets a graph node with ServiceFromVR parameters
+     *
+     * @param s
+     * @return
+     */
+    public GraphNode addDataToGraphNode(ServiceFromVR s) {
+
+        GraphNode n = new GraphNode();
+        if (s != null) {
+            if (s.getName() != null) {
+                n.setServiceName(s.getName());
+            }
+            if (s.getRepositoryName() != null) {
+                n.setRepositoryName(s.getRepositoryName());
+            }
+            if (s.getOwner() != null) {
+                n.setOwner(s.getOwner());
+            }
+            if (s.getType() != null) {
+                n.setType(s.getType());
+            }
+            n.setId(s.getName());
+            n.setLabel(s.getName());
+            if ((n.getRepositoryName() != null && !n.getRepositoryName().equals(""))
+                    && (n.getType() != null && !n.getType().equals(""))) {
+                n.setColor(n.getColor(n.getRepositoryName(), n.getType()));
+            }
+        }
+        return n;
+    }
+
+    /**
+     * search a serviceFromVR in the graph, return a node or null
+     *
+     * @param service
+     * @param servicesNodes
+     * @return
+     */
+    public GraphNode searchServiceFromVRInTheGraph(ServiceFromVR service, List<GraphNode> servicesNodes) {
+        if (servicesNodes != null && servicesNodes.size() > 0) {
+            int numberOfNodes = servicesNodes.size();
+            for (int i = 0; i < numberOfNodes; i++) {
+                GraphNode g = servicesNodes.get(i);
+                if (g.getServiceName().equals(service.getName())) {
+                    return g;
+                }
             }
         }
         return null;
@@ -291,13 +409,15 @@ public class ServiceComposition implements Serializable {
      * @param taskName
      * @return
      */
-    public String linkuriousScriptGenerator(String taskName) {
+    public String linkuriousScriptGenerator(String taskName) throws SAXException, IOException {
 
         String script = "";
         CompositionGraph graph = new CompositionGraph();
         List<GraphNode> servicesNodes = new ArrayList<>();
         List<InteroperatesWithEdge> interoperatesWithEdgesList = new ArrayList<>();
+        List<DependsOfEdge> dependsOfEdgesList = new ArrayList<>();
         List<ServiceFromVR> interopServicesList;
+        List<ServiceFromVR> depServicesList = new ArrayList<>();
 
         ServiceFromVR sfvr = findServiceFromVR(taskName);
         if (sfvr != null) {
@@ -316,6 +436,7 @@ public class ServiceComposition implements Serializable {
             gNode.setId(sfvr.getName());
             gNode.setLabel(sfvr.getName());
             gNode.setInteroperatesWithNodeList(new ArrayList());
+            gNode.setDependsOfNodeList(new ArrayList<>());
             servicesNodes.add(gNode);
 
             interopServicesList = interoperatesWith(sfvr);
@@ -358,18 +479,153 @@ public class ServiceComposition implements Serializable {
                     edgeInteroperation.getInteroperatesWith().setTo(n);
                     edgeInteroperation.setSource(gNode.getServiceName());
                     edgeInteroperation.setTarget(n.getServiceName());
+
+                    //adding neighbors
+                    if (!gNode.getNeighbors().contains(n)) {
+                        gNode.getNeighbors().add(n);
+                    }
+                    if (!n.getNeighbors().contains(gNode)) {
+                        n.getNeighbors().add(gNode);
+                    }
+
                     interoperatesWithEdgesList.add(edgeInteroperation);
                 }
+
+                //adding primary dependencies (selected service only)
+                if (gNode.getType().toLowerCase().contains("comp")) {
+                    depServicesList = dependsOf(sfvr);
+                }
+
+                if (depServicesList.size() > 0) {
+
+                    //setting fan-out metric (number of services that gNode uses)
+                    gNode.setFanOut(depServicesList.size());
+
+                    for (ServiceFromVR s : depServicesList) {
+                        DependsOfEdge edgeDependency = new DependsOfEdge();
+                        GraphNode n = new GraphNode();
+                        boolean serviceExistsInTheGraph = false;
+                        for (GraphNode gn : servicesNodes) {
+                            if (gn.getServiceName().equals(s.getName())) {
+                                serviceExistsInTheGraph = true;
+                                n = gn;
+                            }
+                        }
+                        if (!serviceExistsInTheGraph) {
+                            n = addDataToGraphNode(s);
+                            //System.out.println("Adding the service " + n.getServiceName() + " as a dependency");
+                            servicesNodes.add(n);
+                        }
+
+                        n.setFanIn(n.getFanIn() + 1);
+                        servicesNodes.get(0).getDependsOfNodeList().add(s);
+                        edgeDependency.getDependsOf().setDirected(true);
+                        edgeDependency.getDependsOf().setFrom(servicesNodes.get(0));
+                        edgeDependency.getDependsOf().setTo(n);
+                        edgeDependency.setSource(gNode.getServiceName());
+                        edgeDependency.setTarget(n.getServiceName());
+
+                        //adding neighbors
+                        if (!servicesNodes.get(0).getNeighbors().contains(n)) {
+                            servicesNodes.get(0).getNeighbors().add(n);
+                        }
+                        
+                        if (!n.getNeighbors().contains(servicesNodes.get(0))) {
+                            n.getNeighbors().add(servicesNodes.get(0));
+                        }
+                        dependsOfEdgesList.add(edgeDependency);
+                    }
+                }
+
+                //adding secondary Dependencies (another composed services)
+                if (interopServicesList.size() > 0) {
+                    for (ServiceFromVR interopService : interopServicesList) {
+                        /*verify if a services that interoperates
+                        with the selected service is composed
+                         */
+
+                        //if the service is composed, add the edges
+                        if (interopService.getType().toLowerCase().contains("comp")) {
+                            //get the composedNode in the graph
+                            GraphNode composedN = searchServiceFromVRInTheGraph(interopService, servicesNodes);
+
+                            /*
+                            if(composedN != null)
+                                System.out.println("compN name: "+composedN.getServiceName());
+                             */
+                            List<ServiceFromVR> secondaryDependencies = new ArrayList<>();
+                            if (!depServicesList.contains(interopService)) {
+                                secondaryDependencies = dependsOf(interopService);
+                                int numberOfDep = secondaryDependencies.size();
+//                                System.out.println("Number Of dep to the service "+interopService.getName()+":"
+//                                        + " "+numberOfDep);
+                                if (numberOfDep > 0) {
+
+                                    //setting fan-out metric
+                                    composedN.setFanOut(composedN.getFanOut() + numberOfDep);
+                                    for (int i = 0; i < numberOfDep; i++) {
+                                        ServiceFromVR serviceD = secondaryDependencies.get(i);
+                                        GraphNode dep = searchServiceFromVRInTheGraph(serviceD, servicesNodes);
+                                        if (dep == null) {
+                                            //node doesn't exists
+                                            //create node
+                                            dep = new GraphNode();
+                                            dep.setServiceName(serviceD.getName());
+                                            if (serviceD.getRepositoryName() != null) {
+                                                dep.setRepositoryName(serviceD.getRepositoryName());
+                                            }
+                                            if (serviceD.getType() != null) {
+                                                dep.setType(serviceD.getType());
+                                            }
+                                            if (serviceD.getOwner() != null) {
+                                                dep.setOwner(serviceD.getOwner());
+                                            }
+                                            dep.setColor(dep.getColor(dep.getRepositoryName(), dep.getType()));
+                                            dep.setId(serviceD.getName());
+                                            dep.setLabel(serviceD.getName());
+                                            dep.setInteroperatesWithNodeList(new ArrayList());
+                                            dep.setDependsOfNodeList(new ArrayList<>());
+                                            servicesNodes.add(dep);
+                                        }
+
+                                        dep.setFanIn(dep.getFanIn() + 1);
+
+                                        //creating dependencies edges
+                                        DependsOfEdge edgeDependency = new DependsOfEdge();
+                                        edgeDependency.getDependsOf().setDirected(true);
+                                        edgeDependency.getDependsOf().setFrom(composedN);
+                                        edgeDependency.getDependsOf().setTo(dep);
+                                        edgeDependency.setSource(interopService.getName());
+                                        edgeDependency.setTarget(secondaryDependencies.get(i).getName());
+
+                                        //adding neighbors
+                                        if (!composedN.getNeighbors().contains(dep)) {
+                                            composedN.getNeighbors().add(dep);
+                                        }
+                                        if (!dep.getNeighbors().contains(composedN)) {
+                                            dep.getNeighbors().add(composedN);
+                                        }
+
+                                        dependsOfEdgesList.add(edgeDependency);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 graph.setServicesNodes(servicesNodes);
-                
-                //verify the existence of all edges (not considering the first node)
+                graph.setDependsOfList(dependsOfEdgesList);
+
+                //verify the existence of all interoperability edges (not considering the first node)
                 List<GraphNode> nodes = graph.getServicesNodes();
-                for(int i=1;i<nodes.size();i++){
+                int interopSize = interoperatesWithEdgesList.size();
+                for (int i = 1; i < interopSize; i++) {
                     GraphNode node = nodes.get(i);
                     List<ServiceFromVR> interopServices = node.getInteroperatesWithNodeList();
-                    for(int j=0;j<interopServices.size();j++){
+                    for (int j = 0; j < interopServices.size(); j++) {
                         ServiceFromVR s = interopServices.get(j);
-                        if(!graphContainsEdge(node.getServiceName(), s.getName(), interoperatesWithEdgesList, false)){
+                        if (!graphContainsEdge(node.getServiceName(), s.getName(), interoperatesWithEdgesList, false)) {
                             GraphNode gn = searchServiceGraph(graph, s.getName());
                             InteroperatesWithEdge edge = new InteroperatesWithEdge();
                             edge.getInteroperatesWith().setDirected(false);
@@ -377,16 +633,39 @@ public class ServiceComposition implements Serializable {
                             edge.getInteroperatesWith().setTo(gn);
                             edge.setSource(node.getServiceName());
                             edge.setTarget(s.getName());
+
+                            //adding neighbors
+                            if (!node.getNeighbors().contains(gn)) {
+                                node.getNeighbors().add(gn);
+                            }
+                            if (!gn.getNeighbors().contains(node)) {
+                                gn.getNeighbors().add(node);
+                            }
+
                             interoperatesWithEdgesList.add(edge);
                         }
                     }
                 }
                 graph.setInteroperatesWithList(interoperatesWithEdgesList);
-                
+
                 int size = graph.getServicesNodes().size();
                 System.out.println("Number of nodes: " + size);
                 int i = 0;
+                
+                //calculate closeness metric for all nodes
+                CompositionMetrics.closenessCentrality(graph);
+                
+                //calculate betweneess metric for all nodes
+                CompositionMetrics.betweennessCentrality(graph);
+                
+                CompositionMetrics.SetEdgeSizeValue(graph);
+                
+//                for(GraphNode node:graph.getServicesNodes()){
+//                    System.out.println("Service name: "+node.getServiceName());
+//                    System.out.println("Closeness value: "+node.getClosenessValue());
+//                }
 
+                //creating the script
                 script = "var s,"
                         + "g = {nodes: [],edges: []};\n"
                         + "g.nodes.push(\n";
@@ -403,6 +682,10 @@ public class ServiceComposition implements Serializable {
                     script += "        name: '" + n.getServiceName() + "',\n";
                     script += "        value: '" + n.getType() + "',\n";
                     script += "        type: '" + n.getType() + "',\n";
+                    script += "        fanin: '" + n.getFanIn() + "',\n";
+                    script += "        fanout: '" + n.getFanOut() + "',\n";
+                    script += "        closeness: '" + n.getClosenessValue()+ "',\n";
+                    script += "        betweenness: '" + n.getBetweennessValue()+ "',\n";
                     script += "        repository: '" + n.getRepositoryName() + "',\n";
                     //this condition presents the possible substitute services for the current service
                     if (n.getInteroperatesWithNodeList() != null && n.getInteroperatesWithNodeList().size() > 0) {
@@ -426,7 +709,8 @@ public class ServiceComposition implements Serializable {
                 script += ");\n";
                 script += "g.edges.push(";
                 int edgeId = 0;
-                int numberOfEdges = graph.getInteroperatesWithList().size();
+                int numberOfInteropEdges = graph.getInteroperatesWithList().size();
+                int numberOfDependEdges = graph.getDependsOfList().size();
                 for (InteroperatesWithEdge edge : graph.getInteroperatesWithList()) {
                     script += "{\n";
                     script += "      id: 'e" + edgeId + "',\n";
@@ -438,12 +722,34 @@ public class ServiceComposition implements Serializable {
                     script += "      type: '" + edge.getType() + "',\n";
                     script += "      size: " + edge.getSize() + "\n";
                     edgeId++;
-                    if (edgeId == numberOfEdges) {
+                    if (edgeId == numberOfInteropEdges
+                            && numberOfDependEdges == 0) {
                         script += "}\n";
                     } else {
                         script += "},\n";
                     }
                 }
+
+                int positionOfDepEdge = 0;
+                for (DependsOfEdge edge : graph.getDependsOfList()) {
+                    script += "{\n";
+                    script += "      id: 'e" + edgeId + "',\n";
+                    script += "      label: '" + edge.getLabel() + "',\n";
+                    script += "      source: '" + edge.getSource() + "',\n";
+                    script += "      target: '" + edge.getTarget() + "',\n";
+                    script += "      color: '" + edge.getColor() + "',\n";
+                    script += "      hover_color: '" + edge.getHoverColor() + "',\n";
+                    script += "      type: '" + edge.getType() + "',\n";
+                    script += "      size: " + edge.getSize() + "\n";
+                    edgeId++;
+                    positionOfDepEdge++;
+                    if (positionOfDepEdge == numberOfDependEdges) {
+                        script += "}\n";
+                    } else {
+                        script += "},\n";
+                    }
+                }
+
                 script += ");\n";
                 script += renderizeScript();
             } else {
@@ -683,7 +989,7 @@ public class ServiceComposition implements Serializable {
                 + "    minNodeSize: 20,\n"
                 + "    maxNodeSize: 20,\n"
                 + "    minEdgeSize: 3,\n"
-                + "    maxEdgeSize: 3,\n"
+                + "    maxEdgeSize: 10,\n"
                 + "    dragNodeStickiness: 0.01,\n"
                 + "    nodeBorderSize: 2,\n"
                 + "    defaultNodeBorderColor: '#000',\n"
@@ -727,6 +1033,10 @@ public class ServiceComposition implements Serializable {
                 + "    '      <tr><th>Type</th> <td>{{data.type}}</td></tr>' +\n"
                 + "	'      <tr><th>Repository Name</th> <td>{{data.repository}}</td></tr>' +    \n"
                 + "	'      <tr><th>Owner</th> <td>{{data.owner}}</td></tr>' +\n"
+                + "	'      <tr><th>Fan-in</th> <td>{{data.fanin}}</td></tr>' +\n"
+                + "	'      <tr><th>Fan-out</th> <td>{{data.fanout}}</td></tr>' +\n"
+                + "	'      <tr><th>Closeness</th> <td>{{data.closeness}}</td></tr>' +\n"                
+                + "	'      <tr><th>Betweenness</th> <td>{{data.betweenness}}</td></tr>' +\n"                
                 + "    '    </table>' +\n"
                 + "    '  </div>' +\n"
                 + "    '  <div class=\"sigma-tooltip-footer\">Number of connections: {{degree}}</div>',\n"
@@ -747,11 +1057,12 @@ public class ServiceComposition implements Serializable {
                 + "    template:\n"
                 + "    '<div class=\"arrow\"></div>' +\n"
                 + "    ' <div class=\"sigma-tooltip-header\">{{label}}</div>' +\n"
-                + "    '  <div class=\"sigma-tooltip-body\">' +\n"
-                + "    '   <p> Possible alternate services: </p>' +\n";
+                + "    '  <div class=\"sigma-tooltip-body2\">' +\n"
+                + "    '   <p> Possible alternative services: </p>' +\n";
         if (substituteServices > 0) {
             for (int i = 0; i < substituteServices; i++) {
-                rend += "    '   <p> Service " + (i + 1) + ": {{data.sub" + (i + 1) + "}} </p>' +\n";
+                if(i < 4)    
+                    rend += "    '   <p> Service " + (i + 1) + ": {{data.sub" + (i + 1) + "}} </p>' +\n";
             }
         }
         rend += "    '  </div>' +\n"
@@ -874,12 +1185,12 @@ public class ServiceComposition implements Serializable {
                     System.out.println("uri: " + uri.toString());
                     Service service = kb.readService(inputStream, uri);
 
-                    //System.out.println("Process Type: " + service.getProcess().getType());
+                    System.out.println("Process Type: " + service.getProcess().getType());
                     if (service.getName() == null) {
                         //System.out.println("Service name is null");
                         sfvr.setName("-");
                     } else {
-                        //System.out.println("Service name: "+service.getName());
+                        System.out.println("Service name: " + service.getName());
                         sfvr.setName(service.getName());
                     }
 
@@ -1086,6 +1397,14 @@ public class ServiceComposition implements Serializable {
 
         ServiceDescriptionVO serviceReq = new ServiceDescriptionVO();
 
+        try {
+            if (serviceRequest.getInputParametersName() != null) {
+                servicesFromVR = semanticRelevantsFilter(servicesFromVR);
+            }
+        } catch (IOException ex) {
+            //Logger.getLogger(ServiceComposition.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         //service request to prime format
         serviceReq = processServiceRequest(serviceReq);
 
@@ -1130,6 +1449,103 @@ public class ServiceComposition implements Serializable {
         }
 
         showServicesRanking(rankingServices);
+    }
+
+    /**
+     * Filter to semantic relevants services
+     *
+     * @param services
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     */
+    public List semanticRelevantsFilter(List services) throws MalformedURLException, IOException {
+        if (serviceRequest.getInputParametersName() == null
+                && serviceRequest.getOutputParametersName() == null) {
+            return services;
+        }
+
+        System.out.println("Opening WordNet Dictionary");
+        WordNetDictionary wnd = new WordNetDictionary();
+        IDictionary dict = loadDictionary();
+        dict.open();
+
+        List inpParametersRequest = serviceRequest.getInputParametersName();
+        List outParametersRequest = serviceRequest.getOutputParametersName();
+        List<ServiceFromVR> newServicesList = new ArrayList();
+
+        boolean containsSemanticInput = false;
+        boolean containsSemanticOutput = false;
+        boolean isExactOrPluginCase = false;
+
+        for (Object se : services) {
+
+            if (inpParametersRequest != null && inpParametersRequest.size() > 0) {
+                for (Object o : inpParametersRequest) {
+                    String par = (String) o;
+                    //getAllSynonymsInput
+                    List listSInp = wnd.getSynonyms(dict, par);
+                    ServiceFromVR s = (ServiceFromVR) se;
+
+                    //verify semantic inputs
+                    for (int i = 0; i < s.getInputs().size(); i++) {
+                        for (int j = 0; j < listSInp.size(); j++) {
+                            if (s.getInputs().get(i).equals(listSInp.get(j))) {
+                                containsSemanticInput = true;
+                            }
+                        }
+                        if (containsSemanticInput) {
+                            newServicesList.add(s);
+                        }
+                        containsSemanticInput = false;
+                    }
+                }
+            }
+
+            if (outParametersRequest != null && outParametersRequest.size() > 0) {
+                for (Object o2 : outParametersRequest) {
+                    String outputName = (String) o2;
+                    //getAllSynonymsOutput
+                    List listSOut = wnd.getSynonyms(dict, outputName);
+                    List listHOut = wnd.getSynonyms(dict, outputName);
+                    ServiceFromVR s = (ServiceFromVR) se;
+
+                    //verify semantic outputs
+                    for (int i = 0; i < s.getOutputs().size(); i++) {
+                        for (int j = 0; j < listSOut.size(); j++) {
+                            //verify semantic outputs
+                            if (s.getOutputs().get(i).equals(listSOut.get(j))) {
+                                containsSemanticOutput = true;
+                            }
+                        }
+                        if (containsSemanticOutput && !newServicesList.contains(s)) {
+                            newServicesList.add(s);
+                        }
+                        containsSemanticOutput = false;
+                    }
+
+                    //verify plugin and exact cases
+                    for (int i = 0; i < s.getInputs().size(); i++) {
+                        for (int numHyp = 0; numHyp < listHOut.size(); numHyp++) {
+                            if (s.getInputs().get(i).equals(listHOut.get(numHyp))) {
+                                isExactOrPluginCase = true;//plugin case ok
+                                //output of request plugin input of service
+                            }
+                            if (s.getInputs().get(i).equals(outputName)) {
+                                isExactOrPluginCase = true;//exact case ok
+                                //output of request equal input of service
+                            }
+
+                        }
+                        if (isExactOrPluginCase && !newServicesList.contains(s)) {
+                            newServicesList.add(s);
+                        }
+                        isExactOrPluginCase = false;
+                    }
+                }
+            }
+        }
+        return newServicesList;
     }
 
     /**
@@ -1426,9 +1842,9 @@ public class ServiceComposition implements Serializable {
         serviceRequest.setInputParametersName(listP);
 
         if (listP == null) {
-            System.out.println("Lista eh null ");
+            System.out.println("List is null ");
         } else {
-            System.out.println("Lista não eh null ");
+            System.out.println("List is not null ");
         }
 
         for (String teste : serviceRequest.getInputParametersName()) {

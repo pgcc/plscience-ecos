@@ -32,6 +32,11 @@
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>WSGeneIdStr</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>    
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -66,6 +71,10 @@
     <servlet-mapping>
         <servlet-name>WsAlignmentServices</servlet-name>
         <url-pattern>/WsAlignmentServices</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WSGeneIdStr</servlet-name>
+        <url-pattern>/WSGeneIdStr</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

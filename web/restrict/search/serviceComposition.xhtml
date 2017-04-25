@@ -11,10 +11,9 @@
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
             <p:graphicImage name="/images/ajax-loader.gif" />
         </p:dialog>
-        <p:dialog  widgetVar="dlg" id="imgDlg" resizable="f" height="400px" width="600px">
-            <p:graphicImage name="/images/socialNetwork.png" width="550px"/>
+        <p:dialog  widgetVar="dlg" id="imgDlg" height="200px" width="300px" resizable="false">
+            <p:graphicImage name="/images/socialNetwork.png" width="250px"/>
         </p:dialog>        
-        
         <h:form id="uploadServices" enctype="multipart/form-data">
             <p:growl id="growl" />
             <p:panel header="Upload Services" style="margin: 10px 0;">
@@ -24,7 +23,6 @@
                     multiple="true" sizeLimit="100000" fileLimit="20" allowTypes="/(\.|\/)(owl)$/" />
                 </p:panel>
         </h:form>
-
         <h:form id="compositionForm">
             <p:growl id="growl" />
             <p:panel header="Relevant Services Search" style="margin: 10px 0;">
@@ -38,13 +36,6 @@
                                  label="SearchTerm"
                                  size="50">
                     </p:inputText>
-                    <h:outputLabel for="inpParametersType" value="Enter the Input Parameters Type (Separated by Commas)"/>
-                    <p:inputText id="inputParameterType" 
-                                 value="#{serviceComposition.requestInpParameterTypeForm}"
-                                 required="false"
-                                 label="SearchTerm"
-                                 size="50">
-                    </p:inputText>
                     <h:outputLabel for="outParametersName" value="Enter the Output Parameters Name (Separated by Commas)"/>
                     <p:inputText id="outputParameterName" 
                                  value="#{serviceComposition.requestOutParameterNameForm}"
@@ -52,13 +43,6 @@
                                  label="SearchTerm"
                                  size="50">
                     </p:inputText>
-                    <h:outputLabel for="outParametersType" value="Enter the Output Parameters Type (Separated by Commas)"/>
-                    <p:inputText id="outputParameterType" 
-                                 value="#{serviceComposition.requestOutParameterTypeForm}"
-                                 required="false" 
-                                 label="SearchTerm"
-                                 size="50">
-                    </p:inputText>     
                     <h:outputLabel for="keywords" value="Enter with keywords (Separated by Commas)"/>
                     <p:inputText id="keywords"
                                  value="#{serviceComposition.keywords}"
@@ -189,8 +173,10 @@
                                  />
                     </p:column>
                 </p:dataTable>
-            </p:panel>
+            </p:panel>            
             <p:panel header="Analysis of Services" style="margin: 10px 0 0 10px; border: none">
+             <p:layout style="min-width:400px;min-height:500px;">
+            <p:layoutUnit position="center" resizable="true" > 
                 <div id="container">
                 <div align="center">
                     <p:commandButton value="View Social Network" action="#{serviceComposition.viewSocialNetwork()}"/>
@@ -198,6 +184,11 @@
                 <div id="graph-container">
                 </div>                    
                 </div>
+            </p:layoutUnit>
+            <p:layoutUnit position="east" size="25%" header="Composition Validation" resizable="true" closable="true" collapsible="true" effect="drop">
+                <ui:include src="/restrict/collaborationServices/services/forumCompositionSample.xhtml" />
+            </p:layoutUnit>
+        </p:layout>
             </p:panel>            
         </h:form>
     </ui:define>
