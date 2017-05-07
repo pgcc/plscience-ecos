@@ -132,6 +132,9 @@ footer{
 }
 
 .col-header {
-  padding-bottom: 9px;
-  margin: 90px 0 30px;
+  margin: 46px 0 30px;
+}
+
+.tag-cloud{
+    margin: 120px 50px 30px;
 }

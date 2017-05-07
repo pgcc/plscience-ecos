@@ -7,8 +7,9 @@ package br.ufjf.pgcc.plscience.social.api.model.dblp;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.Comparator;
 
-public class Coauthor {
+public class Coauthor{
 
     @SerializedName("count")
     @Expose
@@ -45,3 +46,4 @@ public class Coauthor {
     }
 
 }
+

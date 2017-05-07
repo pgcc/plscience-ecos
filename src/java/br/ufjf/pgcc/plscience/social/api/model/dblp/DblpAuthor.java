@@ -7,6 +7,9 @@ package br.ufjf.pgcc.plscience.social.api.model.dblp;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import java.util.List;
 
@@ -68,6 +71,7 @@ public class DblpAuthor {
     }
 
     public List<Coauthor> getCoauthors(){
+        coauthors.sort((Coauthor c1, Coauthor c2) -> c1.getCount().compareTo(c2.getCount()));
         return coauthors;
     }
 

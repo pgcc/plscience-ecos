@@ -8,8 +8,7 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> </link>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-        <section>
+        <h:form id="form">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
@@ -35,6 +34,9 @@
                                         <li><strong>Cited By: </strong>
                                             <h:outputText id="cited_by" value="#{socialProfileBean.scholarAuthor.citedby}"/>
                                         </li>
+                                        <li><strong>Coauthors: </strong>
+                                            <h:outputText id="coauthors" value="#{socialProfileBean.dblpAuthor.coauthCount}"/>
+                                        </li>
                                         <li><strong>Tags: </strong>
                                             <h:outputText id="tags" value="#{socialProfileBean.scholarAuthor.interests}"/>
                                         </li>
@@ -48,10 +50,23 @@
                                             <h3 class="panel-title">Publications</h3>
                                         </div>
                                         <div class="panel-body">
-                                            <p:dataList value="#{socialProfileBean.publications}" var="publication" paginator="true" rows="10" styleClass="paginated">
-
-                                                #{publication.bib.title}, #{publication.bib.year}
-                                            </p:dataList>
+                                            <p:dataTable id="publications" var="pub" 
+                                                         value="#{socialProfileBean.publications}" 
+                                                         paginator="true"
+                                                         rows="10"
+                                                         tableStyle="width:auto">
+                                                <p:column headerText="Title">
+                                                    <h:outputText value="#{pub.bib.title}" />
+                                                </p:column>
+                                                <p:column headerText="Year">
+                                                    <h:outputText value="#{pub.bib.year}" />
+                                                </p:column>
+                                                <p:column style="width:32px;text-align: center">
+                                                    <p:commandButton update=":form:pubDetail" oncomplete="PF('pubDialog').show()" icon="ui-icon-search" title="View">
+                                                        <f:setPropertyActionListener value="#{pub}" target="#{socialProfileBean.selectedPublication}" />
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:dataTable>
                                         </div>
                                     </div>
                                 </div>
@@ -59,39 +74,65 @@
                         </div>
                     </div>
                     <div class="col-md-4">
+                        <div class="tag-cloud">
+                            <p:tagCloud model="#{socialProfileBean.tagCloud}"/>
+                        </div>
                         <div class="panel panel-default col-header">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Indices</h3>
                             </div>
                             <div class="panel-body">
+                                <p:dataTable var="indice" value="#{socialProfileBean.indices}">
+                                    <p:column headerText="Indices">
+                                        <h:outputText value="#{indice.description}" />
+                                    </p:column>
 
+                                    <p:column headerText="All">
+                                        <h:outputText value="#{indice.valueAll}" />
+                                    </p:column>
+
+                                    <p:column headerText="Since 2012">
+                                        <h:outputText value="#{indice.value2012}" />
+                                    </p:column>
+                                </p:dataTable>
                             </div>
                         </div>
                         <div class="panel panel-default groups">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Greatest Contributors</h3>
+                                <h3 class="panel-title">Coauthors</h3>
                             </div>
                             <div class="panel-body">
-
-                                <a href="#" class="btn btn-default">See All...</a>
+                                <p:dataList value="#{socialProfileBean.coauthors}" var="coauthor" paginator="true" rows="10" styleClass="paginated">
+                                    <p:commandLink 
+                                    value="#{coauthor.name} (#{coauthor.count})"/>
+                                </p:dataList>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
-        </section>
 
-        <footer>
-            <div class="container">
-                <p>Social E-SECO</p>
-            </div>
-        </footer>
+            <footer>
+                <div class="container">
+                    <p>Social E-SECO</p>
+                </div>
+            </footer>
 
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="js/bootstrap.js"></script>
+            <p:dialog header="Publication Info" widgetVar="pubDialog" modal="true" showEffect="fade" hideEffect="fade" 
+                      resizable="false" draggable="false">
+                <p:outputPanel id="pubDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty socialProfileBean.selectedPublication}" columnClasses="value,value">
+                        <h:outputText value="Title:" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.title}" />
+                        <h:outputText value="Year" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.year}" />
+                        <h:outputText value="Cited By:" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.citedby}" />
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
 
+        </h:form>
     </ui:define>
 </ui:composition>
