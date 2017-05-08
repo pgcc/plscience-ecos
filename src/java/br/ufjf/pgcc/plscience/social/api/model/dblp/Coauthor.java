@@ -7,13 +7,12 @@ package br.ufjf.pgcc.plscience.social.api.model.dblp;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import java.util.Comparator;
 
 public class Coauthor{
 
     @SerializedName("count")
     @Expose
-    private String count;
+    private int count;
     @SerializedName("name")
     @Expose
     private String name;
@@ -21,11 +20,11 @@ public class Coauthor{
     @Expose
     private String urlpt;
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 

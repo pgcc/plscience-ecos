@@ -71,7 +71,6 @@ public class DblpAuthor {
     }
 
     public List<Coauthor> getCoauthors(){
-        coauthors.sort((Coauthor c1, Coauthor c2) -> c1.getCount().compareTo(c2.getCount()));
         return coauthors;
     }
 

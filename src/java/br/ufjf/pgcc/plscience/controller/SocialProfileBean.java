@@ -13,11 +13,8 @@ import br.ufjf.pgcc.plscience.util.wordCounter.WordCounts;
 import br.ufjf.pgcc.plscience.util.wordCounter.WordUtils;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
-import java.util.concurrent.atomic.AtomicInteger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
 import org.primefaces.model.tagcloud.DefaultTagCloudItem;
@@ -31,16 +28,19 @@ import org.primefaces.model.tagcloud.TagCloudModel;
 @ManagedBean(name = "socialProfileBean")
 @ApplicationScoped
 public class SocialProfileBean {
-
+    private String scholarAuthorName = "Regina Braga";
+    private String dblpAuthorName = "Regina M. M. Braga";
+    
     private ScholarAuthor scholarAuthor = new ScholarAuthor();
     private DblpAuthor dblpAuthor = new DblpAuthor();
     private Publication selectedPublication;
     private TagCloudModel tagCloud;
     private String publicationTitles;
+    
 
     public SocialProfileBean() {
-        scholarAuthor = ScholarClient.getAuthor("Regina Braga", "localhost");
-        dblpAuthor = DblpClient.getAuthor("Regina M. M. Braga", "localhost");
+        scholarAuthor = ScholarClient.getAuthor(scholarAuthorName, "localhost");
+        dblpAuthor = DblpClient.getAuthor(dblpAuthorName, "localhost");
         
         scholarAuthor.getPublications().forEach((pub) -> {
             publicationTitles += " " + pub.getBib().getTitle();
@@ -78,7 +78,13 @@ public class SocialProfileBean {
     }
 
     public Publication getSelectedPublication() {
-        return selectedPublication;
+        if(selectedPublication == null){
+            return selectedPublication;
+        }
+        else{
+            selectedPublication = ScholarClient.getFilledPublication(scholarAuthorName, selectedPublication.getIdCitations(), "localhost");
+            return selectedPublication;
+        }
     }
 
     public void setSelectedPublication(Publication selectedPublication) {

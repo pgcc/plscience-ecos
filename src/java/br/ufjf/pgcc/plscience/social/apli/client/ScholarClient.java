@@ -8,8 +8,10 @@ package br.ufjf.pgcc.plscience.social.apli.client;
 import br.ufjf.pgcc.plscience.social.api.model.scholar.ScholarAuthor;
 import br.ufjf.pgcc.plscience.social.api.model.scholar.Publication;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 
 import java.lang.reflect.Type;
@@ -43,8 +45,30 @@ public class ScholarClient {
             author.setPublications(pubs);
             return author;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (JsonSyntaxException | UniformInterfaceException e) {
+            return null;
+        }
+    }
+    
+    public static Publication getFilledPublication(String authorName, String publicationId, String host) {
+        try {
+
+            String authorPath = "/scholar/author/";
+            String publications = "/publications/";
+            String protocol = "http://";
+            String port = ":8080";
+
+            authorName = authorName.replaceAll(" ", "%20");
+
+            Client c = Client.create();
+            WebResource wr = c.resource(protocol + host + port + authorPath + authorName + publications + publicationId);
+            String json = wr.get(String.class);
+            Gson gson = new Gson();
+
+            return gson.fromJson(json, new TypeToken<Publication>() {
+            }.getType());
+
+        }catch (JsonSyntaxException | UniformInterfaceException e) {
             return null;
         }
     }
