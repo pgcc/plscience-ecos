@@ -37,7 +37,7 @@
                                         <li><strong>Coauthors: </strong>
                                             <h:outputText id="coauthors" value="#{socialProfileBean.dblpAuthor.coauthCount}"/>
                                         </li>
-                                        <li><strong>Tags: </strong>
+                                        <li><strong>Interests: </strong>
                                             <h:outputText id="tags" value="#{socialProfileBean.scholarAuthor.interests}"/>
                                         </li>
                                     </ul>
@@ -62,7 +62,7 @@
                                                     <h:outputText value="#{pub.bib.year}" />
                                                 </p:column>
                                                 <p:column style="width:32px;text-align: center">
-                                                    <p:commandButton update=":form:pubDetail" oncomplete="PF('pubDialog').show()" icon="ui-icon-search" title="View">
+                                                    <p:commandButton update=":form:pubDetail" oncomplete="PF('pubDialog').show()"  icon="ui-icon-search" title="View">
                                                         <f:setPropertyActionListener value="#{pub}" target="#{socialProfileBean.selectedPublication}" />
                                                     </p:commandButton>
                                                 </p:column>
@@ -75,6 +75,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="tag-cloud">
+                            <h3>Tags</h3>
                             <p:tagCloud model="#{socialProfileBean.tagCloud}"/>
                         </div>
                         <div class="panel panel-default col-header">
@@ -104,7 +105,7 @@
                             <div class="panel-body">
                                 <p:dataList value="#{socialProfileBean.coauthors}" var="coauthor" paginator="true" rows="10" styleClass="paginated">
                                     <p:commandLink 
-                                    value="#{coauthor.name} (#{coauthor.count})"/>
+                                        value="#{coauthor.name} (#{coauthor.count})"/>
                                 </p:dataList>
                             </div>
                         </div>
@@ -122,13 +123,33 @@
             <p:dialog header="Publication Info" widgetVar="pubDialog" modal="true" showEffect="fade" hideEffect="fade" 
                       resizable="false" draggable="false">
                 <p:outputPanel id="pubDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty socialProfileBean.selectedPublication}" columnClasses="value,value">
+                    <p:panelGrid  columns="2" 
+                                  rendered="#{not empty socialProfileBean.selectedPublication}" 
+                                  columnClasses="value,value"
+                                  style="border:none;margin:0 auto;width:500px;">
                         <h:outputText value="Title:" />
-                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.title}" />
-                        <h:outputText value="Year" />
+                        <a href="#{socialProfileBean.selectedPublication.bib.url}" target="_blank">
+                            #{socialProfileBean.selectedPublication.bib.title}</a>
+                        <h:outputText value="Authors" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.author}" />
+                        <h:outputText value="Publication Date" />
                         <h:outputText value="#{socialProfileBean.selectedPublication.bib.year}" />
-                        <h:outputText value="Cited By:" />
+                        <h:outputText value="Pages" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.pages}" />
+                        <h:outputText value="Publisher" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.publisher}" />
+                        <h:outputText value="Abstract" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.description}" />
+                        <h:outputText value="Journal" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.journal}" />
+                        <h:outputText value="Volume" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.volume}" />
+                        <h:outputText value="Number" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.number}" />
+                        <h:outputText value="Cited By" />
                         <h:outputText value="#{socialProfileBean.selectedPublication.citedby}" />
+                        <h:outputText value="PDF" />
+                        <a href="#{socialProfileBean.selectedPublication.bib.eprint}" target="_blank">Link</a>
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>

@@ -82,7 +82,8 @@ public class SocialProfileBean {
             return selectedPublication;
         }
         else{
-            selectedPublication = ScholarClient.getFilledPublication(scholarAuthorName, selectedPublication.getIdCitations(), "localhost");
+            if(selectedPublication.getFilled() == false)
+                selectedPublication = ScholarClient.getFilledPublication(scholarAuthorName, selectedPublication.getIdCitations(), "localhost");
             return selectedPublication;
         }
     }
