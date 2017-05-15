@@ -1,5 +1,6 @@
 package br.ufjf.pgcc.plscience.controller;
 
+import br.ufjf.pgcc.plscience.model.Agent;
 import br.ufjf.pgcc.plscience.social.api.model.dblp.Coauthor;
 import br.ufjf.pgcc.plscience.social.api.model.dblp.DblpAuthor;
 import br.ufjf.pgcc.plscience.social.api.model.scholar.Indice;
@@ -17,6 +18,10 @@ import java.util.Set;
 import java.util.SortedMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
+import javax.servlet.http.HttpSession;
 import org.primefaces.model.tagcloud.DefaultTagCloudItem;
 import org.primefaces.model.tagcloud.DefaultTagCloudModel;
 import org.primefaces.model.tagcloud.TagCloudModel;
@@ -28,17 +33,25 @@ import org.primefaces.model.tagcloud.TagCloudModel;
 @ManagedBean(name = "socialProfileBean")
 @ApplicationScoped
 public class SocialProfileBean {
-    private String scholarAuthorName = "Regina Braga";
-    private String dblpAuthorName = "Regina M. M. Braga";
+    private String scholarAuthorName;
+    private String dblpAuthorName;
     
     private ScholarAuthor scholarAuthor = new ScholarAuthor();
     private DblpAuthor dblpAuthor = new DblpAuthor();
     private Publication selectedPublication;
     private TagCloudModel tagCloud;
     private String publicationTitles;
+    private Agent loggedAgent;
     
-
     public SocialProfileBean() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();  
+        HttpSession session = (HttpSession) externalContext.getSession(true);  
+        UserLoginBean userLoginBean = (UserLoginBean) session.getAttribute("userLoginBean");
+        loggedAgent = userLoginBean.getAgentLog();
+        
+        scholarAuthorName = loggedAgent.getScholarName();
+        dblpAuthorName = loggedAgent.getDblpName();
+        
         scholarAuthor = ScholarClient.getAuthor(scholarAuthorName, "localhost");
         dblpAuthor = DblpClient.getAuthor(dblpAuthorName, "localhost");
         
@@ -97,7 +110,7 @@ public class SocialProfileBean {
     }
 
     public List<Indice> getIndices() {
-        List<Indice> indices = new ArrayList<Indice>();
+        List<Indice> indices = new ArrayList<>();
         List<String> researcherIndices = scholarAuthor.getCitationIndices();
         Indice citationIndice = new Indice("Citations", Integer.parseInt(researcherIndices.get(0)), Integer.parseInt(researcherIndices.get(1)));
         Indice hIndex = new Indice("h-index", Integer.parseInt(researcherIndices.get(2)), Integer.parseInt(researcherIndices.get(3)));
@@ -109,4 +122,11 @@ public class SocialProfileBean {
 
         return indices;
     }
+    
+    public void loadAuthor(String authorName){
+        FacesContext context = FacesContext.getCurrentInstance();
+         
+        context.addMessage(null, new FacesMessage("TODO:",  "Update Page With Author: " + authorName));  
+    }
+    
 }

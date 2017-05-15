@@ -58,6 +58,13 @@ public class Agent implements Serializable {
     @Basic(optional = false)
     @Column(name = "Name")
     private String name;
+    @Basic(optional = false)
+    @Column(name = "dblp_name")
+    private String dblpName;
+    @Basic(optional = false)
+    @Column(name = "scholar_name")
+    private String scholarName;
+    
 
     @Column(name = "Description")
     private String description;
@@ -158,6 +165,22 @@ public class Agent implements Serializable {
 
     public void setInstitution(br.ufjf.pgcc.plscience.model.Entity institution) {
         this.institution = institution;
+    }
+    
+    public String getScholarName() {
+        return this.scholarName;
+    }
+
+    public void setScholarName(String scholarName) {
+        this.scholarName = scholarName;
+    }
+    
+    public String getDblpName() {
+        return this.dblpName;
+    }
+
+    public void setDblpName(String dblpName) {
+        this.dblpName = dblpName;
     }
 
     /**
