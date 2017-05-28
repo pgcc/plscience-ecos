@@ -8,6 +8,8 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> </link>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css" rel="stylesheet" type="text/css" />
         <h:form id="form">
             <p:growl id="growl" showDetail="true" sticky="true" />
             <div class="container">
@@ -70,6 +72,14 @@
                                             </p:dataTable>
                                         </div>
                                     </div>
+                                    <div class="panel panel-default page-header"> 
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Coauthor Network</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div id="mynetwork"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -113,6 +123,8 @@
 
                     </div>
                 </div>
+
+
             </div>
 
             <footer>
@@ -155,6 +167,66 @@
                 </p:outputPanel>
             </p:dialog>
 
+
         </h:form>
+
+        <script type="text/javascript">
+            var nodes = null;
+            var edges = null;
+            var network = null;
+
+            function draw() {
+                // create people.
+                // value corresponds with the age of the person
+                nodes = [
+                    {id: 1, value: 15, label: 'Regina Braga'},
+                    {id: 2, value: 15, label: 'Fernanda Campos'},
+                    {id: 3, value: 15, label: 'José Maria N. David'},
+                    {id: 4, value: 15, label: 'Cláudia Maria Lima Werner'},
+                    {id: 5, value: 15, label: 'Ely Edison Matos'},
+                    {id: 6, value: 15, label: 'Marta Mattoso'},
+                    {id: 7, value: 15, label: 'Gabriella Castro'},
+                    {id: 8, value: 15, label: 'Laryssa Machado'},
+                    {id: 9, value: 15, label: 'Wander Gaspar'},
+                    {id: 10, value: 15, label: 'Frâncila Weidt Neiva'},
+                    {id: 11, value: 15, label: 'Wander Gaspar'},
+                    {id: 12, value: 15, label: 'Tadeu Classe'}
+                ];
+
+                // create connections between people
+                // value corresponds with the amount of contact between two people
+                edges = [
+                    {from: 1, to: 2, value: 28, title: '28 collaborations'},
+                    {from: 1, to: 3, value: 14, title: '14 collaborations'},
+                    {from: 1, to: 4, value: 9, title: '9 collaborations'},
+                    {from: 1, to: 5, value: 8, title: '8 collaborations'},
+                    {from: 1, to: 6, value: 6, title: '6 collaborations'},
+                    {from: 1, to: 7, value: 5, title: '5 collaborations'},
+                    {from: 1, to: 8, value: 5, title: '5 collaborations'},
+                    {from: 1, to: 9, value: 4, title: '4 collaborations'},
+                    {from: 1, to: 10, value: 4, title: '4 collaborations'},
+                    {from: 2, to: 11, value: 3, title: '3 collaborations'},
+                    {from: 2, to: 12, value: 2, title: '2 collaborations'},
+                    {from: 2, to: 3, value: 14, title: '14 collaborations'},
+                    {from: 2, to: 5, value: 8, title: '8 collaborations'},
+                    {from: 2, to: 7, value: 4, title: '4 collaborations'},
+                    {from: 2, to: 10, value: 4, title: '4 collaborations'}
+                ];
+
+                // Instantiate our network object.
+                var container = document.getElementById('mynetwork');
+                var data = {
+                    nodes: nodes,
+                    edges: edges
+                };
+                var options = {
+                    nodes: {
+                        shape: 'dot',
+                    }
+                };
+                network = new vis.Network(container, data, options);
+            }
+        </script>
+
     </ui:define>
 </ui:composition>

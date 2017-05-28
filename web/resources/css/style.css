@@ -138,3 +138,9 @@ footer{
 .tag-cloud{
     margin: 58px 50px 30px;
 }
+
+ #mynetwork {
+      width: 715px;
+      height: 600px;
+      border: 1px solid lightgray;
+    }
