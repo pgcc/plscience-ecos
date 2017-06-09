@@ -45,6 +45,10 @@ header h1 {
     display: none;
 }
 
+th {
+  background-color: transparent !important;
+}
+
 .panelGridLabel {
     text-align: right;
     display: block;

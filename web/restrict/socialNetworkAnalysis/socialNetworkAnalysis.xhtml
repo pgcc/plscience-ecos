@@ -1,0 +1,79 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Social Network Analysis</h2>
+
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="/images/ajax-loader.gif" />
+        </p:dialog>
+
+        <h:form id="socialNetworkForm">
+            <p:growl id="growl" />
+            <p:growl id="msg" />
+            <p:panel header="Search" style="margin: 10px 0;">
+                <h:outputLabel for="relationshipType" value="Relationship Type: " />
+                <p:selectManyCheckbox id="basic" layout="grid" columns="2" value="#{socialNetworkGraph.selectedRelationships}">
+                    <f:selectItem itemLabel="Bibliographic Production (Blue)" itemValue="bib"/>
+                    <f:selectItem itemLabel="Completed Guidances (Green)" itemValue="gui" />
+                    <f:selectItem itemLabel="Projects (Orange)" itemValue="pro" />     
+                    <f:selectItem itemLabel="Technical Production (Red)" itemValue="tec" />
+                </p:selectManyCheckbox>
+
+                <h:outputLabel for="visLevel" value="Visualization Level: " />
+                <p:selectOneRadio id="vis" value="#{socialNetworkGraph.visualizationLevel}">
+                    <f:selectItem itemLabel="Universities" itemValue="1"/>
+                    <f:selectItem itemLabel="Groups" itemValue="2" />
+                    <f:selectItem itemLabel="Researchers" itemValue="3" />
+                </p:selectOneRadio>
+
+                <h:outputLabel for="evolAnalysis" value="Evolutionary Analysis" />                
+                <h:panelGrid columns="1" style="margin-bottom: 10px">
+                    <h:outputText id="displayRange" value="Between #{socialNetworkGraph.minYearEvolution} and #{socialNetworkGraph.maxYearEvolution}" />
+                    <p:slider for="txt1,txt2" minValue="1950" 
+                              maxValue="2017"
+                              step="1"
+                              display="displayRange" style="width: 400px" range="true" displayTemplate="Between {min} and {max}" />
+                </h:panelGrid>
+                <h:inputHidden id="txt1" value="#{socialNetworkGraph.minYearEvolution}" />
+                <h:inputHidden id="txt2" value="#{socialNetworkGraph.maxYearEvolution}" />
+
+                <p:dialog header="Slider Values" showEffect="fade" hideEffect="fade" widgetVar="dlg">
+                    <h:panelGrid id="display" columns="1" cellpadding="5">
+                        <h:outputText value="Range: [#{socialNetworkGraph.minYearEvolution},#{socialNetworkGraph.maxYearEvolution}]" />
+                    </h:panelGrid>
+                </p:dialog>                
+
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                    <h:outputText value="Force Link Visualization: " />
+                    <p:selectBooleanCheckbox value="#{socialNetworkGraph.forceLink}">
+                        <p:ajax update="msg" listener="#{socialNetworkGraph.addMessage}" />
+                    </p:selectBooleanCheckbox>
+                    <h:outputText value="Show Edges Weights: " />
+                    <p:selectBooleanCheckbox value="#{socialNetworkGraph.showWeight}">
+                        <p:ajax update="msg" listener="#{socialNetworkGraph.addMessageWeight}" />
+                    </p:selectBooleanCheckbox>                
+                </h:panelGrid>
+
+                <p:commandButton value="Generate Graph" icon="ui-icon-search" 
+                                 actionListener="#{socialNetworkGraph.generateGraph()}" onclick="clearBox('container')"/>
+            </p:panel>
+
+            <p:panel header="Social Network Analysis" style="margin: 10px 0 0 10px; border: none">
+                <p:layout style="min-width:400px;min-height:500px;">
+                    <p:layoutUnit position="center" resizable="true" > 
+                        <div id="container">
+                            <div id="graph-container2">
+                                <div id="notice" class="hidden">layout in progress...</div>
+                            </div>                    
+                        </div>
+                    </p:layoutUnit>
+                </p:layout>
+            </p:panel>            
+        </h:form>
+    </ui:define>
+</ui:composition>

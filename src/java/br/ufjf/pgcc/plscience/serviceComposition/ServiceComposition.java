@@ -1062,7 +1062,7 @@ public class ServiceComposition implements Serializable {
         if (substituteServices > 0) {
             for (int i = 0; i < substituteServices; i++) {
                 if(i < 4)    
-                    rend += "    '   <p> Service " + (i + 1) + ": {{data.sub" + (i + 1) + "}} </p>' +\n";
+                    rend += "    '   <p> {{data.sub" + (i + 1) + "}} </p>' +\n";
             }
         }
         rend += "    '  </div>' +\n"

@@ -13,3 +13,17 @@ function start() {
 function stop() {
     PF('statusDialog').hide();
 }
+
+function clearBox(elementID)
+{
+    var div = document.getElementById(elementID);
+    while(div.firstChild){
+        div.removeChild(div.firstChild);
+    }    
+}
+
+function clearFirstChild(elementID)
+{
+    var div = document.getElementById(elementID);
+    div.empty();
+}

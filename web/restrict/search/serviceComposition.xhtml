@@ -16,12 +16,13 @@
         </p:dialog>        
         <h:form id="uploadServices" enctype="multipart/form-data">
             <p:growl id="growl" />
+            <p:growl id="msg" />
             <p:panel header="Upload Services" style="margin: 10px 0;">
                 <p:messages id="messages" />
-            <p:fileUpload mode="advanced" fileUploadListener="#{serviceComposition.handleFileUpload}"
+                <p:fileUpload mode="advanced" fileUploadListener="#{serviceComposition.handleFileUpload}"
                               dragDropSupport="false"
-                    multiple="true" sizeLimit="100000" fileLimit="20" allowTypes="/(\.|\/)(owl)$/" />
-                </p:panel>
+                              multiple="true" sizeLimit="100000" fileLimit="20" allowTypes="/(\.|\/)(owl)$/" />
+            </p:panel>
         </h:form>
         <h:form id="compositionForm">
             <p:growl id="growl" />
@@ -144,51 +145,51 @@
                     </p:column>                        
                     <p:column headerText="Inputs" width="30%">
                         <p:dataTable var="resultInputs" value="#{result.taskInputs}" id="inp" 
-                                 emptyMessage="No records found">
+                                     emptyMessage="No records found">
                             <p:column headerText="Parameter" width="30%">
                                 <h:outputText value="#{resultInputs.inputParameter}" title="#{resultInputs.inputParameter}"/>
                             </p:column> 
                             <p:column headerText="Type" width="30%">
                                 <h:outputText value="{#{resultInputs.inputType}}" title="{#{resultInputs.inputType}}"/>
                             </p:column>                             
-                    </p:dataTable>
+                        </p:dataTable>
                     </p:column>
--                    <p:column headerText="Outputs" width="30%">
-                    <p:dataTable var="resultOutputs" value="#{result.taskOutputs}" id="out"
-                                 emptyMessage="No records found">
+                    <p:column headerText="Outputs" width="30%">
+                        <p:dataTable var="resultOutputs" value="#{result.taskOutputs}" id="out"
+                                     emptyMessage="No records found">
                             <p:column headerText="Parameter" width="30%">
                                 <h:outputText value="#{resultOutputs.outputParameter}" title="#{resultOutputs.outputParameter}"/>
                             </p:column> 
                             <p:column headerText="Type" width="30%">
                                 <h:outputText value="{#{resultOutputs.outputType}}" title="{#{resultOutputs.outputType}}"/>
                             </p:column>                             
-                    </p:dataTable>
+                        </p:dataTable>
                     </p:column>
                     <p:column headerText="Details" width="15%" style="text-align: center">
-                             <p:commandButton value="More Details"/>
+                        <p:commandButton value="More Details"/>
                     </p:column>
                     <p:column headerText="Dependences Analysis" width="15%" style="text-align: center">
-                             <p:commandButton value="Dependencies"
-                                 action="#{serviceComposition.generateGraph(result.taskName)}"
-                                 />
+                        <p:commandButton value="Dependencies" onclick="clearBox('graph-container')"
+                                         actionListener="#{serviceComposition.generateGraph(result.taskName)}" />
                     </p:column>
                 </p:dataTable>
             </p:panel>            
-            <p:panel header="Analysis of Services" style="margin: 10px 0 0 10px; border: none">
-             <p:layout style="min-width:400px;min-height:500px;">
-            <p:layoutUnit position="center" resizable="true" > 
-                <div id="container">
-                <div align="center">
-                    <p:commandButton value="View Social Network" action="#{serviceComposition.viewSocialNetwork()}"/>
-                </div>                    
-                <div id="graph-container">
-                </div>                    
-                </div>
-            </p:layoutUnit>
-            <p:layoutUnit position="east" size="25%" header="Composition Validation" resizable="true" closable="true" collapsible="true" effect="drop">
-                <ui:include src="/restrict/collaborationServices/services/forumCompositionSample.xhtml" />
-            </p:layoutUnit>
-        </p:layout>
+            <p:panel header="Composition" style="border: none">
+                <p:tabView style="height: 600px; border: none;">
+                    <p:tab title="Services">
+                        <p:panel header="Analysis of Services" style="margin: 10px 0 0 10px; border: none">
+                            <p:layout style="min-width:400px;min-height:500px;">
+                                <p:layoutUnit position="center" resizable="true" > 
+                                    <div id="graph-container">
+                                    </div>
+                                </p:layoutUnit>
+                            </p:layout>
+                        </p:panel>                        
+                    </p:tab>
+                    <p:tab title="Social Network">
+                        <ui:include src="/restrict/socialNetworkAnalysis/analysisFormSimple.xhtml" />
+                    </p:tab>
+                </p:tabView>                    
             </p:panel>            
         </h:form>
     </ui:define>
