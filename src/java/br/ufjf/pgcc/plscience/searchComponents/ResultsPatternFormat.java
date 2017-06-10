@@ -310,7 +310,7 @@ public final class ResultsPatternFormat {
      * @throws IOException
      */
     public StreamedContent createGenericServiceFile() throws IOException {
-        File file = new File("serviceDocument.txt");
+        File file = new File("/home/phillipe/Documentos/serviceDocument.txt");
         file.createNewFile();
         FileWriter writer = new FileWriter(file);
         writer.write("File can not be generated");

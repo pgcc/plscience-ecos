@@ -10,6 +10,7 @@ import br.ufjf.pgcc.plscience.serviceCompositionGraph.DependsOfEdge;
 import br.ufjf.pgcc.plscience.serviceCompositionGraph.GraphNode;
 import br.ufjf.pgcc.plscience.serviceCompositionGraph.SimpleEdge;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -166,8 +167,13 @@ public class CompositionMetrics {
      */
     public static Double normalizeValueLinear(Double min, Double max, Double value) {
         Double normalizedValue = 0.0;
-        DecimalFormat format = new DecimalFormat("#.##");
+        DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+        
+        //It avoids mistakes for those who have the default language like Portuguese or French
+        symbols.setDecimalSeparator('.');        
 
+        DecimalFormat format = new DecimalFormat("#.##",symbols);
+        
         if ((max - min) != 0.0) {
             normalizedValue = (value - min) / (max - min);
         }

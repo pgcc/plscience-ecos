@@ -60,6 +60,19 @@ public class SocialNetworkGraph implements Serializable {
         //building the graph
         GraphSN graph = SNFileManager.readXMLBuildGraph(visualizationLevel, minYearEvolution, maxYearEvolution);
 
+        if(visualizationLevel.equals("3") && (graph.getResearcherNodes() == null || graph.getResearcherNodes().isEmpty())){
+            System.out.println("Graph is empty");
+            return;
+        }
+        if(visualizationLevel.equals("2") && (graph.getGroupNodes() == null || graph.getGroupNodes().isEmpty())){
+            System.out.println("Graph is empty");
+            return;
+        }
+        if(visualizationLevel.equals("1") && (graph.getUniversityNodes() == null || graph.getUniversityNodes().isEmpty())){
+            System.out.println("Graph is empty");
+            return;
+        }
+        
         //generation Stript
         script = linkuriousScriptGenerator(graph);
         if (!script.equals("")) {

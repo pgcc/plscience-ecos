@@ -1,0 +1,169 @@
+Eduardo Sany Laber	PUC-RJ
+Marcus Vinicius Soledade Poggi de Aragao	PUC-RJ
+Ruy Luiz Milidiu	PUC-RJ
+Antonio Luz Furtado	PUC-RJ
+Marco Antonio Casanova	PUC-RJ
+Rubens Nascimento Melo	PUC-RJ
+Sergio Lifschitz	PUC-RJ
+Bruno Feijo	PUC-RJ
+Arndt von Staa	PUC-RJ
+Carlos José Pereira de Lucena	PUC-RJ
+Julio Cesar Sampaio do Prado Leite	PUC-RJ
+Renato Fontoura de Gusmão Cerqueira	PUC-RJ
+Roberto Ierusalimschy	PUC-RJ
+Simone Diniz Junqueira Barbosa	PUC-RJ
+Sérgio Colcher	PUC-RJ
+Daniel Schwabe	PUC-RJ
+Hugo Fuks	PUC-RJ
+Clarisse Sieckenius de Souza	PUC-RJ
+Noemi de La Rocque Rodriguez	PUC-RJ
+Luiz Fernando Gomes Soares	PUC-RJ
+Markus Endler	PUC-RJ
+Edward Hermann Haeusler	PUC-RJ
+Alberto Henrique Frade Laender	UFMG
+Antonio Alfredo Ferreira Loureiro	UFMG
+Antonio Otavio Fernandes	UFMG
+Arnaldo de Albuquerque Araújo	UFMG
+Berthier Ribeiro de Araujo Neto	UFMG
+Carlos Camarão de Figueiredo	UFMG
+Clarindo Isaias Pereira da Silva e Padua	UFMG
+Claudionor Jose Nunes Coelho Junior	UFMG
+Clodoveu Augusto Davis Junior	UFMG
+Dorgival Olavo Guedes Neto	UFMG
+Frederico Ferreira Campos filho	UFMG
+Geraldo Robson Mateus	UFMG
+Guilherme Augusto Silva Pereira	UFMG
+Hao Chi Wong	UFMG
+Henrique Pacca Loureiro Luna	UFMG
+José Lopes de Siqueira Neto	UFMG
+Jose Marcos Silva Nogueira	UFMG
+José Monteiro da Mata	UFMG
+José Nagib Cotrim Árabe	UFMG
+Jussara Marques de Almeida	UFMG
+Luiz Chaimowicz	UFMG
+Marcos André Gonçalves	UFMG
+Marcos Augusto dos Santos	UFMG
+Mário Fernando Montenegro Campos	UFMG
+Mariza Andrade da Silva Bigonha	UFMG
+Newton José Vieira	UFMG
+Nivio Ziviani	UFMG
+Osvaldo Sergio Farhat de Carvalho	UFMG
+Raquel Oliveira Prates	UFMG
+Renato Antonio Celso Ferreira	UFMG
+Roberto da Silva Bigonha	UFMG
+Rodolfo Sergio Ferreira de Resende	UFMG
+Rodrigo Lima Carceroni	UFMG
+Sergio Vale Aguiar Campos	UFMG
+Virgilio Augusto Fernandes Almeida	UFMG
+Wagner Meira Junior	UFMG
+Alex Sandro Gomes	UFPE
+Alexandre Cabral Mota	UFPE
+Alexandre Marcos Lins de Vasconcelos	UFPE
+Aluizio Fausto Ribeiro Araújo	UFPE
+Ana Carolina Brandao Salgado	UFPE
+Andre Luís de Medeiros Santos	UFPE
+Augusto Cezar Alves Sampaio	UFPE
+Edna Natividade da Silva Barros	UFPE
+Fabio Queda Bueno da Silva	UFPE
+Fernando da Fonseca de Souza	UFPE
+Flávia de Almeida Barros	UFPE
+Francisco de Assis Tenorio de Carvalho	UFPE
+Frederico Luiz Gonçalves de Freitas	UFPE
+Geber Lisboa Ramalho	UFPE
+George Darmiton da Cunha Cavalcanti	UFPE
+Germano Crispim Vasconcelos	UFPE
+Hermano Perrelli de Moura	UFPE
+Jacques Pierre Louis Robin	UFPE
+Jaelson Freire Brelaz de Castro	UFPE
+José Augusto Suruagy Monteiro	UFPE
+Judith Kelner	UFPE
+Katia Silva Guimarães	UFPE
+Manoel Eusebio de Lima	UFPE
+Marcelo Walter	UFPE
+Marcilia Andrade Campos	UFPE
+Nelson Souto Rosa	UFPE
+Paulo Henrique Monteiro Borba	UFPE
+Paulo Jorge Leitao Adeodato	UFPE
+Paulo Roberto Freire Cunha	UFPE
+Paulo Romero Martins Maciel	UFPE
+Renata Maria Cardoso Rodrigues de Souza	UFPE
+Roberto Souto Maior de Barros	UFPE
+Ruy José Guerra Barretto de Queiroz	UFPE
+Sergio Vanderlei Cavalcante	UFPE
+Silvio Romero de Lemos Meira	UFPE
+Teresa Bernarda Ludermir	UFPE
+Valeria Cesario Times	UFPE
+Otto Corrêa Rotunno Filho	UFRJ
+Celina Miraglia Herrera de Figueiredo	UFRJ
+Márcia Rosana Cerioli	UFRJ
+Sulamita Klein	UFRJ
+Claudio Luis de Amorim	UFRJ
+Edil Severiano Tavares Fernandes	UFRJ
+Felipe Maia Galvão França	UFRJ
+Valmir Carneiro Barbosa	UFRJ
+Claudio Esperança	UFRJ
+Geraldo Bonorino Xexéo	UFRJ
+Marta Lima de Queiros Mattoso	UFRJ
+Antonio Alberto Fernandes de Oliveira	UFRJ
+Paulo Roma Cavalcanti	UFRJ
+Ricardo Cordeiro de Farias	UFRJ
+Ana Regina Cavalcanti da Rocha	UFRJ
+Claudia Maria Lima Werner	UFRJ
+Guilherme Horta Travassos	UFRJ
+Claudio Thomas Bornstein	UFRJ
+Henrique Luiz Cukierman	UFRJ
+Gerson Zaverucha	UFRJ
+Luis Alfredo Vidal de Carvalho	UFRJ
+Mario Roberto Folhadela Benevides	UFRJ
+Paulo Augusto Silva Veloso	UFRJ
+Adilson Elias Xavier	UFRJ
+Marcia Helena Costa Fampa	UFRJ
+Nelson Maculan Filho	UFRJ
+Susana Scheimberg de Makler	UFRJ
+Daniel Ratton Figueiredo	UFRJ
+Edmundo Albuquerque de Souza e Silva	UFRJ
+Rosa Maria Meri Leão	UFRJ
+Altamiro Amadeu Susin	UFRGS
+Ricardo Augusto da Luz Reis	UFRGS
+Sergio Bampi	UFRGS
+Carla Maria Dal Sasso Freitas	UFRGS
+Joao Luiz Dihl Comba	UFRGS
+Manuel Menezes de Oliveira Neto	UFRGS
+Marcelo Soares Pimenta	UFRGS
+Álvaro Freitas Moreira	UFRGS
+Daltro José Nunes	UFRGS
+Leila Ribeiro	UFRGS
+Luís da Cunha Lamb	UFRGS
+Roberto Tom Price	UFRGS
+Antonio Carlos da Rocha Costa	UFRGS
+Luciana Salete Buriol	UFRGS
+Paulo Fernando Blauth Menezes	UFRGS
+Aline Villavicencio	UFRGS
+Ana Lucia Cetertich Bazzan	UFRGS
+Dante Augusto Couto Barone	UFRGS
+Luis Otavio Campos Alvares	UFRGS
+Mara Abel	UFRGS
+Paulo Martins Engel	UFRGS
+Érika Fernandes Cota	UFRGS
+Fernanda Gusmão de Lima Kastensmidt	UFRGS
+Renato Perez Ribas	UFRGS
+Carlos Alberto Heuser	UFRGS
+Jose Palazzo Moreira de Oliveira	UFRGS
+Jose Valdeni de Lima	UFRGS
+Renata Galante	UFRGS
+Claudio Fernando Resin Geyer	UFRGS
+Nicolas Maillard	UFRGS
+Philippe Olivier Alexandre Navaux	UFRGS
+Joao Cesar Netto	UFRGS
+Lisandro Zambenedetti Granville	UFRGS
+Liane Margarida Rockenbach Tarouco	UFRGS
+Maria Janilce Bosquiroli Almeida	UFRGS
+Carlos Eduardo Pereira	UFRGS
+Luigi Carro	UFRGS
+Marcelo Soares Lubaszewski	UFRGS
+Ingrid Eleonora Schreiber Jansch Porto	UFRGS
+Raul Fernando Weber	UFRGS
+Taisy Silva Weber	UFRGS
+Geraldo Zimbrao da Silva	UFRJ
+Jonice de Oliveira Sampaio	UFRJ
+Jano Moreira de Souza	UFRJ

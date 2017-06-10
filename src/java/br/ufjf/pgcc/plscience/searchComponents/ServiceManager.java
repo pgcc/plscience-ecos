@@ -40,8 +40,8 @@ import org.mindswap.wsdl.WSDLTranslator;
 @ViewScoped
 public class ServiceManager implements Serializable {
 
-    private String repositoryURL;
-    private static String fileURL;
+    private String repositoryURL = "/home/phillipe/Documentos/VirtualRepository";
+    private static String fileURL = "http://npd.hgu.mrc.ac.uk/soap/npd.wsdl";
     private ServiceManagerData serviceInfo;
     private List<WSDLOperation> serviceOperations;
     private final QNameProvider qNames = new QNameProvider();

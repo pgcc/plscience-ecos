@@ -7,6 +7,7 @@ package br.ufjf.pgcc.plscience.serviceCompositionGraph;
 
 import br.ufjf.pgcc.plscience.serviceComposition.ServiceFromVR;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -301,7 +302,12 @@ public class GraphNode {
         Integer numberOfNodes = 0;
         Integer sumOfDistances = 0;
         Double closeness = 0.0;
-        DecimalFormat format = new DecimalFormat("#.##");  
+        DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+        
+        //It avoids mistakes for those who have the default language like Portuguese or French
+        symbols.setDecimalSeparator('.');
+        
+        DecimalFormat format = new DecimalFormat("#.##",symbols);  
 
         if (graph.getServicesNodes() == null || graph.getServicesNodes().isEmpty()) {
             return closeness;
@@ -321,7 +327,7 @@ public class GraphNode {
             Double numberOfNodesFinal = (double) (numberOfNodes - 1);
             closeness = sumOfDistancesFinal/numberOfNodesFinal;
         }
-
+        
         closeness = Double.valueOf(format.format(closeness));
         return closeness;
 
