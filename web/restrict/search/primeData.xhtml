@@ -38,6 +38,32 @@
                 </p:panelGrid>
 
                 <p:accordionPanel>                
+                    <p:tab title="Service Data">
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="inputs" value="Inputs (Name,Type-)" />
+                            <h:inputText 
+                                id="inputs"
+                                value="#{primeData.patternFormat.inputs}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="outputs" value="Outputs (Name,Type-)" />
+                            <h:inputText 
+                                id="outputs"
+                                value="#{primeData.patternFormat.outputs}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="serviceType" value="Service Type (atomic or composed)" />
+                            <h:inputText 
+                                id="serviceType"
+                                value="#{primeData.patternFormat.serviceType}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                            <h:outputLabel for="dependencies" value=" Dependencies (Separated by commas)" />
+                            <h:inputText 
+                                id="dependencies"
+                                value="#{primeData.patternFormat.dependencies}"/>
+                        </h:panelGrid>                        
+                    </p:tab>                    
                     <p:tab title="Prime Search - Syntactic">
                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
                             <h:outputLabel for="returnPrimeSin" value="Return:" />

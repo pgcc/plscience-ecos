@@ -26,6 +26,7 @@ public class GraphNode {
     private String value;
     private String repositoryName;
     private String owner;
+    private String description;
     private String type;
     private Integer fanIn;
     private Integer fanOut;
@@ -359,5 +360,19 @@ public class GraphNode {
      */
     public void setBetweennessValue(Double betweennessValue) {
         this.betweennessValue = betweennessValue;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

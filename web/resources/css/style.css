@@ -107,3 +107,47 @@ th {
     margin-left: 10%;
     text-align: left;
 }
+
+.boldBorderCenter {
+    font-weight: bold;
+    border-style: solid;
+    text-align: center;
+}
+
+.chat{
+    height: 340px;
+    background-color: #DDD;
+    overflow: auto;
+}
+
+.messageChat{
+    position: relative;
+    height: 100px;
+}
+
+.rightMessage{
+    position: relative;
+    float: right;
+    width: 70%;
+}
+
+.left{
+    position: relative;
+    float: left;
+    width: 30%;
+}
+
+.messageSendChat{
+    position: relative;
+    float: bottom;
+}
+
+.chatCompositionSelection{
+    position: relative;
+    float: top;
+    text-align: center;
+}
+
+.imageChat{
+    width: 50px;
+}

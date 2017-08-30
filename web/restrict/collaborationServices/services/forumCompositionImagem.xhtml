@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <h:form id="formCompositionValidation">     
+
+        <div class="chat">
+            <div class="messageChat">
+                <div class="left">
+                    <div>
+                    <h:outputText value="Pedro" style="font-weight:bold"/>
+                    </div>
+                    <div>
+                        <p:graphicImage name="/images/scientists/pedro.png" width="75px"/>
+                    </div>
+                </div>
+                <div class="rightMessage">
+                    <h:outputText value="Mas o nó verde também é atômico, tem alguma diferença?"/>              
+                </div>
+            </div>
+            <p:separator />
+            <div class="messageChat">
+                <div class="left">
+                    <div>
+                    <h:outputText value="Marcio" style="font-weight:bold"/>
+                    </div>
+                    <div>
+                        <p:graphicImage name="/images/scientists/marcio.png" width="75px"/>
+                    </div>
+                </div>
+                <div class="rightMessage">
+                    <h:outputText value="considerando que getID e geneID não dependem dos outros, 
+                                  qual a importancia que gidSchema, c1 fields e 
+                                  search têm na rede para aparecerem?"/>              
+                </div>
+            </div>
+            <p:separator />
+            <div class="messageChat">
+                <div class="left">
+                    <div>
+                    <h:outputText value="Iuri" style="font-weight:bold"/>
+                    </div>
+                    <div>
+                        <p:graphicImage name="/images/scientists/iuri.png" width="75px"/>
+                    </div>
+                </div>
+                <div class="rightMessage">
+                    <h:outputText value="Respondendo a pergunta do Pedro primeiramente, 
+                                  as cores diferentes representam o repositório do serviço."/>              
+                </div>
+            </div>
+            <p:separator />
+            
+        </div>
+        <h:panelGrid columns="1" cellpadding="0" style="width: 100%">
+            <h:outputLabel value="Message"/>
+            <h:inputText id="msag"/>
+            <p:commandButton value="Send"/>
+        </h:panelGrid>
+    </h:form>
+</ui:composition>

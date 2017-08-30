@@ -16,7 +16,7 @@
             <p:growl id="growl" />
             <p:growl id="msg" />
             <p:panel header="Search" style="margin: 10px 0;">
-                <h:outputLabel for="relationshipType" value="Relationship Type: " />
+                <h:outputLabel for="basic" value="Relationship Type: " />
                 <p:selectManyCheckbox id="basic" layout="grid" columns="2" value="#{socialNetworkGraph.selectedRelationships}">
                     <f:selectItem itemLabel="Bibliographic Production (Blue)" itemValue="bib"/>
                     <f:selectItem itemLabel="Completed Guidances (Green)" itemValue="gui" />
@@ -24,14 +24,14 @@
                     <f:selectItem itemLabel="Technical Production (Red)" itemValue="tec" />
                 </p:selectManyCheckbox>
 
-                <h:outputLabel for="visLevel" value="Visualization Level: " />
+                <h:outputLabel for="vis" value="Visualization Level: " />
                 <p:selectOneRadio id="vis" value="#{socialNetworkGraph.visualizationLevel}">
                     <f:selectItem itemLabel="Universities" itemValue="1"/>
                     <f:selectItem itemLabel="Groups" itemValue="2" />
                     <f:selectItem itemLabel="Researchers" itemValue="3" />
                 </p:selectOneRadio>
 
-                <h:outputLabel for="evolAnalysis" value="Evolutionary Analysis" />                
+                <h:outputLabel value="Evolutionary Analysis" />                
                 <h:panelGrid columns="1" style="margin-bottom: 10px">
                     <h:outputText id="displayRange" value="Between #{socialNetworkGraph.minYearEvolution} and #{socialNetworkGraph.maxYearEvolution}" />
                     <p:slider for="txt1,txt2" minValue="1950" 
@@ -48,6 +48,11 @@
                     </h:panelGrid>
                 </p:dialog>                
 
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel value="Researcher Name" for="acSimple" />
+                    <p:autoComplete id="acSimple" minQueryLength="3" maxResults="10" value="#{socialNetworkGraph.txtResearcherName}" completeMethod="#{socialNetworkGraph.completeTextResearcher}" />
+                </h:panelGrid>
+
                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                     <h:outputText value="Force Link Visualization: " />
                     <p:selectBooleanCheckbox value="#{socialNetworkGraph.forceLink}">
@@ -56,7 +61,7 @@
                     <h:outputText value="Show Edges Weights: " />
                     <p:selectBooleanCheckbox value="#{socialNetworkGraph.showWeight}">
                         <p:ajax update="msg" listener="#{socialNetworkGraph.addMessageWeight}" />
-                    </p:selectBooleanCheckbox>                
+                    </p:selectBooleanCheckbox>
                 </h:panelGrid>
 
                 <p:commandButton value="Generate Graph" icon="ui-icon-search" 

@@ -9,6 +9,8 @@ import br.ufjf.pgcc.plscience.serviceCompositionGraph.CompositionGraph;
 import br.ufjf.pgcc.plscience.serviceCompositionGraph.DependsOfEdge;
 import br.ufjf.pgcc.plscience.serviceCompositionGraph.GraphNode;
 import br.ufjf.pgcc.plscience.serviceCompositionGraph.SimpleEdge;
+import br.ufjf.pgcc.plscience.socialNetworkAnalysis.GraphSN;
+import br.ufjf.pgcc.plscience.socialNetworkAnalysis.NodeSN;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -26,21 +28,22 @@ import org.graphstream.graph.implementations.SingleGraph;
  */
 public class CompositionMetrics {
 
-    public static void SetEdgeSizeValue(CompositionGraph graph){
-        for(DependsOfEdge dep:graph.getDependsOfList()){
+    public static void SetEdgeSizeValue(CompositionGraph graph) {
+        for (DependsOfEdge dep : graph.getDependsOfList()) {
             GraphNode nodeTo = dep.getDependsOf().getTo();
-            if(nodeTo.getClosenessValue() <= 0.5){
+            if (nodeTo.getClosenessValue() <= 0.5) {
                 dep.setSize("10");
-            }else{
+            } else {
                 dep.setSize("1");
             }
-            dep.setLabel("Depends of (C "+nodeTo.getClosenessValue()+")");
+            dep.setLabel("Depends of (C " + nodeTo.getClosenessValue() + ")");
         }
     }
-    
+
     /**
      * It calculates the closeness centrality for all nodes of a composition
-     * @param graph 
+     *
+     * @param graph
      */
     public static void closenessCentrality(CompositionGraph graph) {
         Double minClosenessValue = Double.MAX_VALUE;
@@ -48,23 +51,128 @@ public class CompositionMetrics {
         Double closenessValue = 0.0;
         for (GraphNode node : graph.getServicesNodes()) {
             Map<GraphNode, Integer> distances;
+            
+            
             distances = graph.calculateShortestDistanceGraph(graph, node);
             closenessValue = node.calculateClosenessValue(graph, distances);
-            
-            if(closenessValue > maxClosenessValue)
+
+            if (closenessValue > maxClosenessValue) {
                 maxClosenessValue = closenessValue;
-            
-            if(closenessValue < minClosenessValue)
+            }
+
+            if (closenessValue < minClosenessValue) {
                 minClosenessValue = closenessValue;
-            
+            }
+
             node.setClosenessValue(node.calculateClosenessValue(graph, distances));
         }
-        
+
         //normalization
-        for (GraphNode node:graph.getServicesNodes()){
+        for (GraphNode node : graph.getServicesNodes()) {
             Double closenessNormalized = CompositionMetrics.normalizeValueLinear(minClosenessValue, maxClosenessValue, node.getClosenessValue());
             node.setClosenessValue(closenessNormalized);
         }
+    }
+
+    public static GraphSN closenessCentralitySocialNetworkResearchers(GraphSN graph) {
+        Double minClosenessValue = Double.MAX_VALUE;
+        Double maxClosenessValue = 0.0;
+        Double closenessValue = 0.0;
+        for (NodeSN node : graph.getResearcherNodes()) {
+            Map<NodeSN, Integer> distances;
+            
+            System.out.println("Shortest Distances to "+node.getFullName());
+            distances = calculateShortestDistanceGraph(graph, node);
+
+            System.out.println("Closeness Value to "+node.getFullName());
+            closenessValue = node.calculateClosenessValue(graph, distances);
+
+            if (closenessValue > maxClosenessValue) {
+                maxClosenessValue = closenessValue;
+            }
+
+            if (closenessValue < minClosenessValue) {
+                minClosenessValue = closenessValue;
+            }
+
+            String globCentrality = node.calculateClosenessValue(graph, distances).toString();
+            node.setGlobalCentrality(globCentrality);
+        }
+
+        //normalization
+        for (NodeSN node : graph.getResearcherNodes()) {
+            Double gC = Double.parseDouble(node.getGlobalCentrality());
+            Double closenessNormalized = CompositionMetrics.normalizeValueLinear(minClosenessValue, maxClosenessValue, gC);
+            node.setGlobalCentrality(closenessNormalized.toString());
+        }
+        return graph;
+    }
+
+    public static NodeSN minDistance(List<NodeSN> nodes) {
+        if (nodes != null) {
+            NodeSN menor;
+            menor = nodes.get(0);
+            for (NodeSN n : nodes) {
+                if (n.getDistanceFromSource() < menor.getDistanceFromSource()) {
+                    menor = n;
+                }
+            }
+            return menor;
+        }
+        System.out.println("nodes list is null in minDistance method - CompositionMetrics Class");
+        return null;
+    }
+
+    public static Map<NodeSN, Integer> calculateShortestDistanceGraph(GraphSN graph, NodeSN sourceNode) {
+
+        Map<NodeSN, Integer> distanceToSource = new HashMap<>();
+        List<NodeSN> unVisitedNodes = new ArrayList<>();
+        List<NodeSN> neighborsSource;
+
+        //unvisitedNodes initially contains all nodes
+        for (NodeSN node : graph.getResearcherNodes()) {
+            node.setDistanceFromSource(Integer.MAX_VALUE);
+            unVisitedNodes.add(node);
+        }
+
+        //initially all vertices have infinite distance (constructor)
+        //setting source distance as 0
+        sourceNode.setDistanceFromSource(0);
+
+        distanceToSource.put(sourceNode, 0);
+
+        //unVisitedNodes = copy.getServicesNodes();
+        unVisitedNodes.remove(sourceNode);
+
+        neighborsSource = NodeSN.getNodeSNNeighbors(sourceNode);
+        System.out.println("Neighbors: "+neighborsSource.size());
+        
+        if (neighborsSource.size() > 0) {
+            for (NodeSN neighb : neighborsSource) {
+                neighb.setDistanceFromSource(1);
+                distanceToSource.put(neighb, 1);
+            }
+
+            //while	the arrayList is not empty
+            while (!unVisitedNodes.isEmpty()) {
+                NodeSN u = minDistance(unVisitedNodes);
+                unVisitedNodes.remove(u);
+
+                List<NodeSN> uNeigh = NodeSN.getNodeSNNeighbors(u);
+
+                if (u != null && uNeigh != null) {
+                    for (NodeSN v : uNeigh) {
+                        if (v.getDistanceFromSource() > u.getDistanceFromSource()) {
+                            v.setDistanceFromSource(u.getDistanceFromSource() + 1);
+                            distanceToSource.put(v, u.getDistanceFromSource() + 1);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        return distanceToSource;
     }
 
     /**
@@ -168,12 +276,12 @@ public class CompositionMetrics {
     public static Double normalizeValueLinear(Double min, Double max, Double value) {
         Double normalizedValue = 0.0;
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
-        
-        //It avoids mistakes for those who have the default language like Portuguese or French
-        symbols.setDecimalSeparator('.');        
 
-        DecimalFormat format = new DecimalFormat("#.##",symbols);
-        
+        //It avoids mistakes for those who have the default language like Portuguese or French
+        symbols.setDecimalSeparator('.');
+
+        DecimalFormat format = new DecimalFormat("#.##", symbols);
+
         if ((max - min) != 0.0) {
             normalizedValue = (value - min) / (max - min);
         }

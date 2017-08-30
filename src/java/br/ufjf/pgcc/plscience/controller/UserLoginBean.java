@@ -78,6 +78,7 @@ public class UserLoginBean implements Serializable {
             //passa o status do usuário para online
             while(a.getStatus().getStatusName().equals("Offline")) {
                 a.setStatus(new StatusDAO().getStatusByName("Online"));
+                a.setLoggedIn(true);
                 agentDAO.persistir(a);
             }
             setAgentLog(a); 
@@ -91,6 +92,7 @@ public class UserLoginBean implements Serializable {
         //passa o status do usuário para online
         while(agentLog.getStatus().getStatusName().equals("Online")) {
             agentLog.setStatus(new StatusDAO().getStatusByName("Offline"));
+            agentLog.setLoggedIn(false);
             new AgentDAO().persistir(agentLog);
         }        
         

@@ -7,13 +7,10 @@
     <ui:define name="content">
         <h2 class="page-header">Service Composition</h2>
 
-        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
             <p:graphicImage name="/images/ajax-loader.gif" />
         </p:dialog>
-        <p:dialog  widgetVar="dlg" id="imgDlg" height="200px" width="300px" resizable="false">
-            <p:graphicImage name="/images/socialNetwork.png" width="250px"/>
-        </p:dialog>        
         <h:form id="uploadServices" enctype="multipart/form-data">
             <p:growl id="growl" />
             <p:growl id="msg" />
@@ -30,7 +27,7 @@
                 <p:messages id="messages" />
 
                 <p:panelGrid columns="2">
-                    <h:outputLabel for="inpParametersName" value="Enter the Input Parameters Name (Separated by Commas)"/>
+                    <h:outputLabel for="inputParameterName" value="Enter the Input Parameters Name (Separated by Commas)"/>
                     <p:inputText id="inputParameterName" 
                                  value="#{serviceComposition.requestInpParameterNameForm}"
                                  required="false"
@@ -166,7 +163,7 @@
                         </p:dataTable>
                     </p:column>
                     <p:column headerText="Details" width="15%" style="text-align: center">
-                        <p:commandButton value="More Details"/>
+                        <p:commandButton value="More Details" icon="ui-icon-extlink"/>
                     </p:column>
                     <p:column headerText="Dependences Analysis" width="15%" style="text-align: center">
                         <p:commandButton value="Dependencies" onclick="clearBox('graph-container')"
@@ -174,23 +171,36 @@
                     </p:column>
                 </p:dataTable>
             </p:panel>            
-            <p:panel header="Composition" style="border: none">
-                <p:tabView style="height: 600px; border: none;">
-                    <p:tab title="Services">
-                        <p:panel header="Analysis of Services" style="margin: 10px 0 0 10px; border: none">
-                            <p:layout style="min-width:400px;min-height:500px;">
-                                <p:layoutUnit position="center" resizable="true" > 
-                                    <div id="graph-container">
-                                    </div>
-                                </p:layoutUnit>
-                            </p:layout>
-                        </p:panel>                        
-                    </p:tab>
-                    <p:tab title="Social Network">
-                        <ui:include src="/restrict/socialNetworkAnalysis/analysisFormSimple.xhtml" />
-                    </p:tab>
-                </p:tabView>                    
-            </p:panel>            
         </h:form>
+        <p:panel header="Composition" id="noborderComposition">
+            <p:tabView id="tabViewComposition">
+                <p:tab title="Services">
+                    <p:panel header="Analysis of Services" id="analysisOfServicesComposition">
+                        <p:layout style="width:100%;height:500px;">
+                            <p:layoutUnit position="center" resizable="true" > 
+                                <div class="boldBorderCenter"> 
+                                    <p:outputLabel>
+                                        <p:graphicImage name="/images/composition/subtitleComposition.png" width="70%">                                            
+                                        </p:graphicImage>
+                                        <br/>Use right-click on a node to identify possible alternative services and the services description.
+                                    </p:outputLabel>
+                                </div>
+                                <div id="graph-container">
+                                </div>
+                            </p:layoutUnit>
+                        <p:layoutUnit position="east" size="30%" header="Composition Evaluation" resizable="true" closable="true" collapsible="true" effect="drop">
+                            <ui:include src="/restrict/collaborationServices/services/forumCompositionFinal.xhtml" />
+                        </p:layoutUnit>
+                        </p:layout>
+                    </p:panel>                        
+                </p:tab>
+                <p:tab title="Social Network">
+                    <ui:include src="/restrict/socialNetworkAnalysis/analysisFormSimple.xhtml" />
+                </p:tab>
+                <p:tab title="Composition Evaluation">
+                    <ui:include src="/restrict/composition/compositionEvaluationForm.xhtml" />
+                </p:tab>
+            </p:tabView>                    
+        </p:panel>            
     </ui:define>
 </ui:composition>

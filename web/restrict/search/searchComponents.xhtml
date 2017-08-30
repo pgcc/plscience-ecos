@@ -19,7 +19,7 @@
                 <p:selectManyCheckbox id="basic" value="#{searchComponents.selectedComponents}">
                     <f:selectItem itemLabel="Files" itemValue="file"/>
                     <f:selectItem itemLabel="Packs" itemValue="pack" />
-                    <f:selectItem itemLabel="Services" itemValue="service" />     
+                    <f:selectItem itemLabel="Services" itemValue="service"/>     
                     <f:selectItem itemLabel="Workflows" itemValue="workflow" />
                 </p:selectManyCheckbox>                    
                 <h:panelGrid columns="3" cellpadding="4">
@@ -272,8 +272,21 @@
                                     <h:outputText value="Monitoring Status:" style="font-weight: bold"/>
                                 </p:column>
                                 <p:column>
-                                    <h:outputText value="#{details.resPatF.monitoringStatusLabel}"/>                                    
-                                </p:column> 
+                                    <h:outputText value="#{details.resPatF.monitoringStatusLabel}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="File Location:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.fileLocation}"/>
+<!--                                    <p:button value="#{details.resPatF.fileLocation}" onclick="window.open('#{details.resPatF.fileLocation}')" />-->
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="WSDL Location:" style="font-weight: bold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{details.resPatF.acquireWSDL(details.resPatF.serviceIdRepository,details.resPatF.repositoryName)}"/>
+                                </p:column>                                
                                 <p:column>
                                     <h:outputText value="Last Checked:" style="font-weight: bold"/>
                                 </p:column>
@@ -283,8 +296,7 @@
                                 <p:column>
                                     <h:outputText value="License Type:" style="font-weight: bold"/>
                                 </p:column>
-                                <p:column>
-                                    <h:outputText value="#{details.resPatF.licenseType}"/>                                    
+                                <p:column>                                    <h:outputText value="#{details.resPatF.licenseType}"/>                                    
                                 </p:column>
                                 <p:column>
                                     <h:outputText value="PRIME - Return:" style="font-weight: bold"/>

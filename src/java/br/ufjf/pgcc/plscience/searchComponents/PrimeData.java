@@ -63,11 +63,30 @@ public class PrimeData {
                 Node node = list.item(temp);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) node;
-//                    if ("type".equals(eElement.getNodeName())) {
-//                        if ("atomic".equals(eElement.getTextContent())) {
-//                            eElement.setTextContent("composed");
-//                        }
-//                    }
+                    if ("type".equals(eElement.getNodeName())) {
+                        if (!patternFormat.getInputs().equals("")) {
+                            eElement.setTextContent(patternFormat.getServiceType());
+                        }
+                    }
+                    
+                    if ("inputs".equals(eElement.getNodeName())) {
+                        if (!patternFormat.getInputs().equals("")) {
+                            eElement.setTextContent(patternFormat.getInputs());
+                        }
+                    }
+                    
+                    if ("outputs".equals(eElement.getNodeName())) {
+                        if (!patternFormat.getOutputs().equals("")) {
+                            eElement.setTextContent(patternFormat.getOutputs());
+                        }
+                    }
+                    
+                    if ("dependencies".equals(eElement.getNodeName())) {
+                        if (!patternFormat.getDependencies().equals("")) {
+                            eElement.setTextContent(patternFormat.getDependencies());
+                        }
+                    }
+                    
                     if ("licenseType".equals(eElement.getNodeName())) {
                         if (!patternFormat.getLicenseType().equals("")) {
                             eElement.setTextContent(patternFormat.getLicenseType());

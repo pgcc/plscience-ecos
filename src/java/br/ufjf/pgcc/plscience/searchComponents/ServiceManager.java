@@ -22,6 +22,15 @@ import java.util.regex.Matcher;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.mindswap.owl.vocabulary.OWL;
 import org.mindswap.owl.vocabulary.XSD;
 import org.mindswap.utils.QNameProvider;
@@ -31,6 +40,8 @@ import org.mindswap.wsdl.WSDLOperation;
 import org.mindswap.wsdl.WSDLParameter;
 import org.mindswap.wsdl.WSDLService;
 import org.mindswap.wsdl.WSDLTranslator;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -41,7 +52,8 @@ import org.mindswap.wsdl.WSDLTranslator;
 public class ServiceManager implements Serializable {
 
     private String repositoryURL = "/home/phillipe/Documentos/VirtualRepository";
-    private static String fileURL = "http://npd.hgu.mrc.ac.uk/soap/npd.wsdl";
+    //private static String fileURL = "http://npd.hgu.mrc.ac.uk/soap/npd.wsdl";
+    private static String fileURL = "http://localhost:8084/plscience-ecos/WsUserList?wsdl";
     private ServiceManagerData serviceInfo;
     private List<WSDLOperation> serviceOperations;
     private final QNameProvider qNames = new QNameProvider();
@@ -196,6 +208,223 @@ public class ServiceManager implements Serializable {
             translator.writeOWLS(fos);
         }
     }
+    
+    public void generateOWLSAndXMLFile(WSDLOperation wsdlOperation) throws IOException, FileNotFoundException, URISyntaxException, TransformerException, ParserConfigurationException{
+        OWLSGenerator(wsdlOperation);
+        generatesXMLFileToServiceDescription(wsdlOperation);
+    }
+    
+    public void generatesXMLFileToServiceDescription(WSDLOperation wsdlOperation) throws ParserConfigurationException, TransformerException{
+        
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+            // root elements
+            Document doc = docBuilder.newDocument();
+            Element rootElement = doc.createElement("service");
+
+            // staff elements
+            Element serviceData = doc.createElement("serviceData");
+            rootElement.appendChild(serviceData);
+
+            String serviceName = "";
+            String serviceDescription = "";
+            String operationName;
+            String serviceType = "atomic";
+            String repositoryName = "E-SECO";//local service
+            String operationDescription = "";
+            String serviceOwner = "";
+            String serviceReturnPrimeSin = "";
+            String serviceReturnPrimeSem = "";
+            String serviceReceptionPrimeSem = "";
+            String serviceRepresentationPrimeSem = "";
+            String serviceFunctionalRequirementPrimeSem = "";
+            String serviceNonFunctionalRequirementPrimePra = "";
+            String serviceArtifactPrimePra = "";
+            String serviceDomainPrimePra = "";
+            String servicePurposePrimePra = "";
+            String serviceProviderPrimePra = "";
+            String serviceRestrictionPrimePra = "";
+            String serviceLicenseTypePrimePra = "";
+            String serviceHardwareCPUPrimePra = "";
+            String serviceHardwareOperationalSystemPrimePra = "";
+            String serviceHardwareRAMPrimePra = "";
+            String serviceHardwareROMPrimePra = "";
+            String inputs = "";
+            String outputs = "";
+            String dependencies = "";
+
+            if (wsdlOperation.getInputs() != null) {
+                Vector<WSDLParameter> ins = wsdlOperation.getInputs();
+                for (int i = 0; i < ins.size(); i++) {
+                    String inputName;
+                    String inputType;
+
+                    if (!(ins.get(i).getName().equals("")) && !(ins.get(i).getType().getLocalPart().equals(""))) {
+                        inputName = ins.get(i).getName();
+                        inputType = ins.get(i).getType().getLocalPart();
+                        inputs = inputs + inputName + "," + inputType + "-";
+                    }
+                }
+            }
+
+            if (wsdlOperation.getOutputs() != null) {
+                Vector<WSDLParameter> out = wsdlOperation.getOutputs();
+                for (int i = 0; i < out.size(); i++) {
+                    String outputName;
+                    String outputType;
+
+                    if (!(out.get(i).getName().equals("")) && !(out.get(i).getType().getLocalPart().equals(""))) {
+                        outputName = out.get(i).getName();
+                        outputType = out.get(i).getType().getLocalPart();
+                        outputs = outputs + outputName + "," + outputType + "-";
+                    }
+                }
+            }
+
+            if (wsdlOperation.getName() != null && !wsdlOperation.getName().isEmpty()) {
+                operationName = wsdlOperation.getName();
+            } else {
+                operationName = "service";
+            }
+            Element name = doc.createElement("name");
+            name.appendChild(doc.createTextNode(operationName));
+            serviceData.appendChild(name);
+
+            //type elements
+            Element type = doc.createElement("type");
+            type.appendChild(doc.createTextNode(serviceType));
+            serviceData.appendChild(type);
+            
+            //inputs
+            Element inputsElement = doc.createElement("inputs");
+            inputsElement.appendChild(doc.createTextNode(inputs));
+            serviceData.appendChild(inputsElement);
+            
+            //outputs
+            Element outputsElement = doc.createElement("outputs");
+            outputsElement.appendChild(doc.createTextNode(outputs));
+            serviceData.appendChild(outputsElement);
+            
+            //dependencies
+            Element depElement = doc.createElement("dependencies");
+            depElement.appendChild(doc.createTextNode(dependencies));
+            serviceData.appendChild(depElement);            
+
+            // repository elements
+            Element repository = doc.createElement("repository");
+            repository.appendChild(doc.createTextNode(repositoryName));
+            serviceData.appendChild(repository);
+
+            // description elements
+            Element description = doc.createElement("description");
+            description.appendChild(doc.createTextNode(operationDescription));
+            serviceData.appendChild(description);
+
+            // owner elements
+            Element owner = doc.createElement("owner");
+            owner.appendChild(doc.createTextNode(serviceOwner));
+            serviceData.appendChild(owner);
+
+            //license elements
+            Element license = doc.createElement("licenseType");
+            license.appendChild(doc.createTextNode(serviceLicenseTypePrimePra));
+            serviceData.appendChild(license);
+
+            //primeElements
+            //prime Syntatic
+            //returnPrimeSyn
+            Element returnPrimeSyn = doc.createElement("returnPrimeSyn");
+            returnPrimeSyn.appendChild(doc.createTextNode(serviceReturnPrimeSin));
+            serviceData.appendChild(returnPrimeSyn);
+
+            //prime Semantic
+            //returnPrimeSem
+            Element returnPrimeSem = doc.createElement("returnPrimeSem");
+            returnPrimeSem.appendChild(doc.createTextNode(serviceReturnPrimeSem));
+            serviceData.appendChild(returnPrimeSem);
+
+            //receptionPrimeSem
+            Element receptionPrimeSem = doc.createElement("receptionPrimeSem");
+            receptionPrimeSem.appendChild(doc.createTextNode(serviceReceptionPrimeSem));
+            serviceData.appendChild(receptionPrimeSem);
+
+            //representationPrimeSem
+            Element representationPrimeSem = doc.createElement("representationPrimeSem");
+            representationPrimeSem.appendChild(doc.createTextNode(serviceRepresentationPrimeSem));
+            serviceData.appendChild(representationPrimeSem);
+
+            //functionalRequirementPrimeSem
+            Element functionalRequirementPrimeSem = doc.createElement("functionalRequirementPrimeSem");
+            functionalRequirementPrimeSem.appendChild(doc.createTextNode(serviceFunctionalRequirementPrimeSem));
+            serviceData.appendChild(functionalRequirementPrimeSem);
+
+            //prime pragmatic
+            //nonFunctionalRequirementPrimePra
+            Element nonFunctionalRequirementPrimePra = doc.createElement("nonFunctionalRequirementPrimePra");
+            nonFunctionalRequirementPrimePra.appendChild(doc.createTextNode(serviceNonFunctionalRequirementPrimePra));
+            serviceData.appendChild(nonFunctionalRequirementPrimePra);
+
+            //artifactPrimePra
+            Element artifactPrimePra = doc.createElement("artifactPrimePra");
+            artifactPrimePra.appendChild(doc.createTextNode(serviceArtifactPrimePra));
+            serviceData.appendChild(artifactPrimePra);
+
+            //domainPrimePra
+            Element domainPrimePra = doc.createElement("domainPrimePra");
+            domainPrimePra.appendChild(doc.createTextNode(serviceDomainPrimePra));
+            serviceData.appendChild(domainPrimePra);
+
+            //purposePrimePra
+            Element purposePrimePra = doc.createElement("purposePrimePra");
+            purposePrimePra.appendChild(doc.createTextNode(servicePurposePrimePra));
+            serviceData.appendChild(purposePrimePra);
+
+            //providerPrimePra
+            Element providerPrimePra = doc.createElement("providerPrimePra");
+            providerPrimePra.appendChild(doc.createTextNode(serviceProviderPrimePra));
+            serviceData.appendChild(providerPrimePra);
+
+            //restrictionPrimePra
+            Element restrictionPrimePra = doc.createElement("restrictionPrimePra");
+            restrictionPrimePra.appendChild(doc.createTextNode(serviceRestrictionPrimePra));
+            serviceData.appendChild(restrictionPrimePra);
+
+            //hardwareCPUPrimePra
+            Element hardwareCPUPrimePra = doc.createElement("hardwareCPUPrimePra");
+            hardwareCPUPrimePra.appendChild(doc.createTextNode(serviceHardwareCPUPrimePra));
+            serviceData.appendChild(hardwareCPUPrimePra);
+
+            //hardwareOperationalSystem
+            Element hardwareOperationalSystem = doc.createElement("hardwareOperationalSystem");
+            hardwareOperationalSystem.appendChild(doc.createTextNode(serviceHardwareOperationalSystemPrimePra));
+            serviceData.appendChild(hardwareOperationalSystem);
+
+            //hardwareRAMPrimePra
+            Element hardwareRAMPrimePra = doc.createElement("hardwareRAMPrimePra");
+            hardwareRAMPrimePra.appendChild(doc.createTextNode(serviceHardwareRAMPrimePra));
+            serviceData.appendChild(hardwareRAMPrimePra);
+
+            //hardwareROMPrimePra
+            Element hardwareROMPrimePra = doc.createElement("hardwareROMPrimePra");
+            hardwareROMPrimePra.appendChild(doc.createTextNode(serviceHardwareROMPrimePra));
+            serviceData.appendChild(hardwareROMPrimePra);
+
+            doc.appendChild(rootElement);
+
+            // write the content into xml file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+
+            StreamResult result = new StreamResult(new File("/home/phillipe/Documentos/VirtualRepository/" + operationName + ".xml"));
+            // Output to console for testing
+            // StreamResult result = new StreamResult(System.out);
+            transformer.transform(source, result);
+    }
+            
+        
+
 
     /**
      * It generates an OWL-S file

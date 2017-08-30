@@ -35,7 +35,74 @@ import org.mindswap.query.ValueMap;
  */
 public class Execution {
     public static void main(String[] args) throws ExecutionException{
-        //crete an execution engine
+        
+        //System.out.println("Gene Id: "+returnGeneId("ATRX"));
+//        //crete an execution engine
+//        ProcessExecutionEngine exec = OWLSFactory.createExecutionEngine();
+//        
+//        //create a monitor
+//        exec.addMonitor(new DefaultProcessMonitor());
+//        
+//        //create a kb
+//        OWLKnowledgeBase kb = OWLFactory.createKB();
+//        
+//        try {
+//            //String uriFile = "http://localhost:8084/plscience-ecos/getEvsData.owl";
+//            //String uriFile = "http://localhost:8084/plscience-ecos/geneID.owl";
+//            String uriFile = "http://localhost:8084/plscience-ecos/KelvinToFahreinheith.owl";
+//            //String uriFile = "http://localhost:8084/plscience-ecos/Add.owl";
+//            URI uri = new URI(uriFile);
+//            //File file = new File("/home/phillipe/Documentos/VirtualRepository/getEvsData.owl");
+//            File file = new File("/home/phillipe/Documentos/VirtualRepository/KelvinToFahreinheith.owl");
+//            //File file = new File("/home/phillipe/Documentos/VirtualRepository/Add.owl");
+//            InputStream inputStream = new FileInputStream(file);
+//            
+//            Service service = kb.readService(inputStream, uri);
+//            Process abProcess = service.getProcess();
+//            
+//            ValueMap<Input,OWLValue> inputs = new ValueMap<Input,OWLValue>();
+//            
+////            //input value
+//            //String inValue;
+//            String input1;
+//            String input2;
+//
+//            //inValue = JOptionPane.showInputDialog("Input:");
+//            //inValue = "139574";
+//            input1 = JOptionPane.showInputDialog("Input 1:");
+//            //input2 = JOptionPane.showInputDialog("Input 2:");
+//            
+//            //set value in map
+//            //inputs.setValue(abProcess.getInputs().get(0), kb.createDataValue(inValue));
+//            inputs.setValue(abProcess.getInputs().get(0), kb.createDataValue(input1));
+//            //inputs.setValue(abProcess.getInputs().get(1), kb.createDataValue(input2));
+//            
+//            System.out.println("Running the process");
+//            
+//            ValueMap<Output,OWLValue> outputs = exec.execute(abProcess, inputs, kb);
+//
+//            System.out.println("get Output");
+//            //get the output
+//            OWLDataValue out = outputs.getDataValue(abProcess.getOutput());
+//            
+//            //display the value
+//            JOptionPane.showMessageDialog(null,"Result "+out.getValue().toString());
+//            System.out.println("Result "+out.getValue().toString());
+//            
+//            
+//        } catch (IOException ex) {
+//            Logger.getLogger(Execution.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (URISyntaxException ex) {
+//            Logger.getLogger(Execution.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        
+    }
+    
+    public static String returnGeneId(String geneName) throws ExecutionException{
+        String output = "";
+
+        //create an execution engine
         ProcessExecutionEngine exec = OWLSFactory.createExecutionEngine();
         
         //create a monitor
@@ -45,13 +112,9 @@ public class Execution {
         OWLKnowledgeBase kb = OWLFactory.createKB();
         
         try {
-            //String uriFile = "http://localhost:8084/plscience-ecos/getEvsData.owl";
-            //String uriFile = "http://localhost:8084/plscience-ecos/geneID.owl";
-            String uriFile = "http://localhost:8084/plscience-ecos/Add.owl";
+            String uriFile = "http://localhost:8084/plscience-ecos/geneID.owl";
             URI uri = new URI(uriFile);
-            //File file = new File("/home/phillipe/Documentos/VirtualRepository/getEvsData.owl");
-            //File file = new File("/home/phillipe/Documentos/VirtualRepository/geneID.owl");
-            File file = new File("/home/phillipe/Documentos/VirtualRepository/Add.owl");
+            File file = new File("/home/phillipe/Documentos/VirtualRepository3/geneID.owl");
             InputStream inputStream = new FileInputStream(file);
             
             Service service = kb.readService(inputStream, uri);
@@ -59,21 +122,10 @@ public class Execution {
             
             ValueMap<Input,OWLValue> inputs = new ValueMap<Input,OWLValue>();
             
-//            //input value
-            //String inValue;
-            String input1;
-            String input2;
+            //String input1;
 
-            //inValue = JOptionPane.showInputDialog("Input:");
-            //inValue = "139574";
-            input1 = JOptionPane.showInputDialog("Input 1:");
-            input2 = JOptionPane.showInputDialog("Input 2:");
-            
-            //set value in map
-            //inputs.setValue(abProcess.getInputs().get(0), kb.createDataValue(inValue));
-            inputs.setValue(abProcess.getInputs().get(0), kb.createDataValue(input1));
-            inputs.setValue(abProcess.getInputs().get(1), kb.createDataValue(input2));
-            
+            //input1 = JOptionPane.showInputDialog("Input 1:");
+            inputs.setValue(abProcess.getInputs().get(0), kb.createDataValue(geneName));           
             System.out.println("Running the process");
             
             ValueMap<Output,OWLValue> outputs = exec.execute(abProcess, inputs, kb);
@@ -83,16 +135,15 @@ public class Execution {
             OWLDataValue out = outputs.getDataValue(abProcess.getOutput());
             
             //display the value
-            JOptionPane.showMessageDialog(null,"Result "+out.getValue().toString());
-            
-            
+            //JOptionPane.showMessageDialog(null,"Result "+out.getValue().toString());
+            //System.out.println("Result "+out.getValue().toString());
+            output = out.getValue().toString();
             
         } catch (IOException ex) {
             Logger.getLogger(Execution.class.getName()).log(Level.SEVERE, null, ex);
         } catch (URISyntaxException ex) {
             Logger.getLogger(Execution.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+        return output;
     }
 }

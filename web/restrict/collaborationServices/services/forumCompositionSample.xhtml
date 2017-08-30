@@ -5,36 +5,60 @@
                 xmlns:p="http://primefaces.org/ui">
     <h:form id="formCompositionValidation">     
 
-            <h:panelGrid columns="1" cellpadding="0" style="width: 100%">
-                <h:panelGrid columns="1" cellpadding="2" style="width: 100%" >
-                    <h:panelGrid columns="2" cellpadding="2" style="width: 100%" >
-                    <h:outputText value="João - UFJF" style="font-weight:bold"/>
-                    <p:graphicImage name="/images/scientist.png" width="30%" />                    
-                    </h:panelGrid>
-                    <h:outputText value="I liked this composition"/>
-                    <h:outputText value="12 hours ago" style="color: grey;font-size: smaller"/>
-                    <p:button value="Reply"/>
-                    <h:panelGrid style="background-color: #DDD; border: #1A1A1A; width: 100%"
-                                 class="textAlignLeftForum">
-                    <h:panelGrid columns="2" cellpadding="2" style="width: 100%" >
-                    <h:outputText value="Maria - UFRJ" style="font-weight:bold"/>
-                    <p:graphicImage name="/images/scientistb.png" width="30%" />                    
-                    </h:panelGrid>
-                        <h:outputText value="I liked too"/>
-                    <h:outputText value="9 hours ago" style="color: grey;font-size: smaller"/>
-                        <p:button value="Reply"/>
-                    </h:panelGrid>
-                </h:panelGrid>
-                <h:panelGrid columns="1" cellpadding="2" style="width: 100%" >
-                    <h:panelGrid columns="2" cellpadding="2" style="width: 100%" >
-                    <h:outputText value="Alice - UFJF" style="font-weight:bold"/>
-                    <p:graphicImage name="/images/scientistb.png" width="30%" />                    
-                    </h:panelGrid>
-                    <h:outputText value="I used the service CompGeneId in an experiment, but I
-                                  didn't like the result"/>
-                    <h:outputText value="2 hours ago" style="color: grey;font-size: smaller"/>
-                    <p:button value="Reply"/>
-                </h:panelGrid>                
-            </h:panelGrid>           
+        <div class="chat">
+            <div class="messageChat">
+                <div class="left">
+                    <div>
+                    <h:outputText value="Leonardo" style="font-weight:bold"/>
+                    </div>
+                    <div>
+                        <p:graphicImage name="/images/scientists/leonardo.png" width="70%"/>
+                    </div>
+                </div>
+                <div class="rightMessage">
+                    <h:outputText value="Tanto em questão de redução do número de serviços 
+                                  que vocês utilizarão, quanto em segurança em 
+                                  utilizar um serviço que tende a ser mais estável"/>              
+                </div>
+            </div>
+            <p:separator />
+            <div class="messageChat">
+                <div class="left">
+                    <div>
+                    <h:outputText value="Lenita" style="font-weight:bold"/>
+                    </div>
+                    <div>
+                        <p:graphicImage name="/images/scientists/lenita.png" width="70%"/>
+                    </div>
+                </div>
+                <div class="rightMessage">
+                    <h:outputText value="Considerando um workflow que necessite apenas do ID do 
+                                  gene, acho que este serviço será muito útil, pois este 
+                                  resultado será obtido de forma mais direta."/>              
+                </div>
+            </div>
+            <p:separator />
+            <div class="messageChat">
+                <div class="left">
+                    <div>
+                    <h:outputText value="Camila" style="font-weight:bold"/>
+                    </div>
+                    <div>
+                        <p:graphicImage name="/images/scientists/camila.png" width="70%"/>
+                    </div>
+                </div>
+                <div class="rightMessage">
+                    <h:outputText value="Caso alguém precise de um serviço nesse 
+                                  modelo, acredito que atenderia sim."/>              
+                </div>
+            </div>
+            <p:separator />
+            
+        </div>
+        <h:panelGrid columns="1" cellpadding="0" style="width: 100%">
+            <h:outputLabel value="Message"/>
+            <h:inputText id="msag"/>
+            <p:commandButton value="Send"/>
+        </h:panelGrid>
     </h:form>
 </ui:composition>

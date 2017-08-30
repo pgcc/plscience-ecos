@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://www.ebi.ac.uk/sbo/main/services/SBOQuery?wsdl" uri="src/conf/xml-resources/web-service-references/SBOQuery/wsdl/www.ebi.ac.uk/sbo/main/services/SBOQuery.wsdl"/>
+    <system systemId="http://www.ebi.ac.uk/sbo/docs/sboxml_schema.xsd" uri="src/conf/xml-resources/web-service-references/SBOQuery/wsdl/www.ebi.ac.uk/sbo/docs/sboxml_schema.xsd"/>
+    <system systemId="http://www.ebi.ac.uk/sbo/docs/sbo-mathml.xsd" uri="src/conf/xml-resources/web-service-references/SBOQuery/wsdl/www.ebi.ac.uk/sbo/docs/sbo-mathml.xsd"/>
+</catalog>

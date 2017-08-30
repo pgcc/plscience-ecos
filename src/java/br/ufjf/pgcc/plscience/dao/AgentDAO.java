@@ -159,6 +159,7 @@ public class AgentDAO extends PersistenceUtil {
             String passwordMD5 = EncryptPasswordUtil.md5(password);
             if (agents.get(0).getPassword().equals(passwordMD5)) {
                 Agent agent = (Agent) agents.get(0);
+                agent.setLoggedIn(true);
                 return agent;
             }
         }

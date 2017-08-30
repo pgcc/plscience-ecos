@@ -61,6 +61,13 @@ public class Agent implements Serializable {
 
     @Column(name = "Description")
     private String description;
+
+    @Column(name = "is_logged")
+    private boolean isLogged;
+    
+    @Column(name = "picture_url")
+    private String picture;
+    
     @JoinColumn(name = "Institution", referencedColumnName = "idEntity")
     @ManyToOne(optional = false)
     private br.ufjf.pgcc.plscience.model.Entity institution;
@@ -275,5 +282,33 @@ public class Agent implements Serializable {
     @Override
     public String toString() {
         return "br.ufjf.pgcc.plscience.model.Agent[ idAgent=" + idAgent + " ]";
+    }
+
+    /**
+     * @return the loggedIn
+     */
+    public boolean getLoggedIn() {
+        return isLogged;
+    }
+
+    /**
+     * @param loggedIn the loggedIn to set
+     */
+    public void setLoggedIn(boolean loggedIn) {
+        this.isLogged = loggedIn;
+    }
+
+    /**
+     * @return the picture
+     */
+    public String getPicture() {
+        return picture;
+    }
+
+    /**
+     * @param picture the picture to set
+     */
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

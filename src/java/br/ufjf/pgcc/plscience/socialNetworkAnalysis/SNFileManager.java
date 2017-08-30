@@ -246,7 +246,7 @@ public class SNFileManager {
                     addGroupEdge(edge);
                     break;
                 case "3":
-                    if (!edgeResearcherExist(edge) && edgeBetweenRangeYear(edge)) {
+                    if (!edgeResearcherExist(edge) && edgeBetweenRangeYear(edge,minYearEvolution,maxYearEvolution)) {
                         researcherEdges.add(edge);
                     }
                     break;
@@ -261,7 +261,7 @@ public class SNFileManager {
      * @param edge
      * @return 
      */
-    public static boolean edgeBetweenRangeYear(EdgeSN edge){
+    public static boolean edgeBetweenRangeYear(EdgeSN edge,int minYearEvolution, int maxYearEvolution){
         
             String edgeYear = edge.getRelationshipYear();
             Integer edgeYearInt = -1;
@@ -320,7 +320,7 @@ public class SNFileManager {
         String year = edge.getRelationshipYear();
         String relationship = edge.getRelationshipType();
         
-        if (!edgeGroupExist(newSource, newTarget,year,relationship) && edgeBetweenRangeYear(edge)) {
+        if (!edgeGroupExist(newSource, newTarget,year,relationship) && edgeBetweenRangeYear(edge,minYearEvolution,maxYearEvolution)) {
             groupEdges.add(edge);
         }
     }

@@ -5,7 +5,15 @@
  */
 package br.ufjf.pgcc.plscience.socialNetworkAnalysis;
 
+import br.ufjf.pgcc.plscience.dao.RelationshipEdgeDAO;
+import br.ufjf.pgcc.plscience.model.NodeBD;
+import br.ufjf.pgcc.plscience.model.RelationshipEdge;
 import java.awt.Color;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -32,8 +40,10 @@ public class NodeSN {
     private String color;
     private String label;
     private String size;
+    private String localImageURL;
     private NodeSNCoordinates coordinates;
     private boolean withoutConnection;
+    private Integer distanceFromSource;
 
     public NodeSN() {
         x = "Math.random()";
@@ -55,29 +65,124 @@ public class NodeSN {
         universityGroup = "";
         yearInNetwork = "";
         withoutConnection = true;
-    }
-    
-//    public static void main(String argv[]) {
-//        System.out.println("Value: " + randomHexadecimalColor(randomColor()));
-//        System.out.println("Value: " + randomHexadecimalColor(randomColor()));
-//        System.out.println("Value: " + randomHexadecimalColor(randomColor()));
-//        System.out.println("Value: " + randomHexadecimalColor(randomColor()));
-//        System.out.println("Value: " + randomHexadecimalColor(randomColor()));
-//    }
-    
-    public static Integer randomValueRange(int minValue, int maxValue){
-        Random rn = new Random();
-        int range = maxValue - minValue + 1;
-        int randomNum =  rn.nextInt(range) + minValue;
-        return randomNum;
-    }    
-   
-    public static String randomHexadecimalColor(Color color){
-        return '#'+handlingHexString(Integer.toHexString(color.getRed()))+
-                handlingHexString(Integer.toHexString(color.getGreen()))+
-                handlingHexString(Integer.toHexString(color.getBlue()));
+        distanceFromSource = 0;
     }
 
+    public static Integer randomValueRange(int minValue, int maxValue) {
+        Random rn = new Random();
+        int range = maxValue - minValue + 1;
+        int randomNum = rn.nextInt(range) + minValue;
+        return randomNum;
+    }
+
+    /**
+     * generates a random hexadecimal color
+     *
+     * @param color
+     * @return
+     */
+    public static String randomHexadecimalColor(Color color) {
+        return '#' + handlingHexString(Integer.toHexString(color.getRed()))
+                + handlingHexString(Integer.toHexString(color.getGreen()))
+                + handlingHexString(Integer.toHexString(color.getBlue()));
+    }
+
+    /**
+     * set a new format to centrality
+     *
+     * @param n
+     * @param type l:local, g:global
+     * @return
+     */
+    public static String newCentralityFormat(NodeSN n, String type) {
+        String newCentrality = "";
+        DecimalFormat df = new DecimalFormat("0.##");
+        String centrality = "";
+        if (type.equals("l")) {
+            centrality = n.getLocalCentrality();
+        } else if (type.equals("g")) {
+            centrality = n.getGlobalCentrality();
+        }
+
+        if (centrality != null && !centrality.equals("")) {
+            Double w = Double.parseDouble(centrality);
+            newCentrality = df.format(w);
+        }
+        return newCentrality;
+    }
+
+    /**
+     * get the neighbors
+     *
+     * @param sourceNode
+     * @return
+     */
+    public static List getNodeSNNeighbors(NodeSN sourceNode) {
+        List<NodeSN> neighborsSource = new ArrayList<>();
+        RelationshipEdgeDAO edgeDAO = new RelationshipEdgeDAO();
+        List<RelationshipEdge> edgeList = edgeDAO.getRelationshipEdgeByNodeId(sourceNode.getId());
+
+        if (edgeList != null) {
+            for (RelationshipEdge e : edgeList) {
+                NodeBD nodeBD;
+                if (e.getNodeSource().getIdNetwork().equals(sourceNode.id)) {
+                    nodeBD = e.getNodeTarget();
+                } else {
+                    nodeBD = e.getNodeSource();
+                }
+                NodeSN n = GraphSN.convertNodeBDInNodeSN(nodeBD);
+                if (!"".equals(n.id)) {
+                    neighborsSource.add(n);
+                }
+            }
+        }
+
+        return neighborsSource;
+    }
+
+    public Double calculateClosenessValue(GraphSN graph, Map<NodeSN, Integer> distances) {
+
+        Integer numberOfNodes = 0;
+        Integer sumOfDistances = 0;
+        Double closeness = 0.0;
+        DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+
+        //It avoids mistakes for those who have the default language like Portuguese or French
+        symbols.setDecimalSeparator('.');
+
+        DecimalFormat format = new DecimalFormat("#.##", symbols);
+
+        if (graph.getResearcherNodes() == null || graph.getResearcherNodes().isEmpty()) {
+            return closeness;
+        }
+
+        numberOfNodes = graph.getResearcherNodes().size();
+
+        for (NodeSN node : graph.getResearcherNodes()) {
+            Integer distance = distances.get(node);
+            if(distance != null)
+                sumOfDistances += distance;
+            /*The source node does not influence 
+            the calculation because his value is equal to 0*/
+        }
+
+        if (numberOfNodes > 0.0) {
+            Double sumOfDistancesFinal = (double) sumOfDistances;
+            Double numberOfNodesFinal = (double) (numberOfNodes - 1);
+            closeness = sumOfDistancesFinal / numberOfNodesFinal;
+        }
+
+        closeness = Double.valueOf(format.format(closeness));
+        return closeness;
+
+    }
+
+    /**
+     * handle a hexadecimal string
+     *
+     * @param hexString
+     * @return
+     */
     public static String handlingHexString(String hexString) {
         String hex = null;
         if (hexString.length() == 1) {
@@ -93,8 +198,8 @@ public class NodeSN {
         float r = rand.nextFloat();
         float g = rand.nextFloat();
         float b = rand.nextFloat();
-        
-        Color c = new Color(r,g,b);
+
+        Color c = new Color(r, g, b);
         c.brighter();//add brightness
         return c;
     }
@@ -104,14 +209,14 @@ public class NodeSN {
         Double r = rand.nextFloat() / 2f + 0.5;//light color
         Double g = rand.nextFloat() / 2f + 0.5;//light color
         Double b = rand.nextFloat() / 2f + 0.5;//light color
-        
+
         float red = r.floatValue();
         float green = g.floatValue();
         float blue = b.floatValue();
-        Color c = new Color(red,green,blue);
+        Color c = new Color(red, green, blue);
         return c;
     }
-    
+
     /**
      * @return the id
      */
@@ -390,5 +495,33 @@ public class NodeSN {
      */
     public void setY(String y) {
         this.y = y;
+    }
+
+    /**
+     * @return the distanceFromSource
+     */
+    public Integer getDistanceFromSource() {
+        return distanceFromSource;
+    }
+
+    /**
+     * @param distanceFromSource the distanceFromSource to set
+     */
+    public void setDistanceFromSource(Integer distanceFromSource) {
+        this.distanceFromSource = distanceFromSource;
+    }
+
+    /**
+     * @return the localImageURL
+     */
+    public String getLocalImageURL() {
+        return localImageURL;
+    }
+
+    /**
+     * @param localImageURL the localImageURL to set
+     */
+    public void setLocalImageURL(String localImageURL) {
+        this.localImageURL = localImageURL;
     }
 }

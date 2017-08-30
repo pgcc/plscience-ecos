@@ -5,13 +5,14 @@
  */
 package br.ufjf.pgcc.plscience.serviceComposition;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author phillipe
  */
-public class ServiceFromVR {
+public class ServiceFromVR implements Serializable{
     private String name;
     private String description;
     private String type;

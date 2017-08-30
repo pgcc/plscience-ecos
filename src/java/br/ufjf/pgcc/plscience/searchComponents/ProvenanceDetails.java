@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -56,8 +57,9 @@ public class ProvenanceDetails {
      * @throws IOException
      * @throws FileNotFoundException
      * @throws URISyntaxException
+     * @throws javax.xml.transform.TransformerException
      */
-    public void semanticAnnotation(WSDLOperation wsdlOperation, ProvenanceDetails details) throws IOException, FileNotFoundException, URISyntaxException {
+    public void semanticAnnotation(WSDLOperation wsdlOperation, ProvenanceDetails details) throws IOException, FileNotFoundException, URISyntaxException, TransformerException {
         ServiceManager sm = new ServiceManager();
         sm.OWLSGenerator(wsdlOperation, details);
         generatesXMLFileToServiceDescription(wsdlOperation, details);
@@ -69,7 +71,7 @@ public class ProvenanceDetails {
      * @param wsdlOperation
      * @param details
      */
-    public void generatesXMLFileToServiceDescription(WSDLOperation wsdlOperation, ProvenanceDetails details) {
+    public void generatesXMLFileToServiceDescription(WSDLOperation wsdlOperation, ProvenanceDetails details) throws TransformerException {
 
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -82,7 +84,7 @@ public class ProvenanceDetails {
             // staff elements
             Element serviceData = doc.createElement("serviceData");
             rootElement.appendChild(serviceData);
-
+            
             // set attribute to staff element
             //Attr attr = doc.createAttribute("id");
             //attr.setValue("1");
@@ -115,6 +117,37 @@ public class ProvenanceDetails {
             String serviceHardwareROMPrimePra = "";
             String containsProvenanceData;
             String provenanceData;
+            String inputs = "";
+            String outputs = "";
+            String dependencies = "";
+
+            if (wsdlOperation.getInputs() != null) {
+                Vector<WSDLParameter> ins = wsdlOperation.getInputs();
+                for (int i = 0; i < ins.size(); i++) {
+                    String inputName;
+                    String inputType;
+
+                    if (!(ins.get(i).getName().equals("")) && !(ins.get(i).getType().getLocalPart().equals(""))) {
+                        inputName = ins.get(i).getName();
+                        inputType = ins.get(i).getType().getLocalPart();
+                        inputs = inputs + inputName + "," + inputType + "-";
+                    }
+                }
+            }
+
+            if (wsdlOperation.getOutputs() != null) {
+                Vector<WSDLParameter> out = wsdlOperation.getOutputs();
+                for (int i = 0; i < out.size(); i++) {
+                    String outputName;
+                    String outputType;
+
+                    if (!(out.get(i).getName().equals("")) && !(out.get(i).getType().getLocalPart().equals(""))) {
+                        outputName = out.get(i).getName();
+                        outputType = out.get(i).getType().getLocalPart();
+                        outputs = outputs + outputName + "," + outputType + "-";
+                    }
+                }
+            }
 
             if (wsdlOperation.getName() != null && !wsdlOperation.getName().isEmpty()) {
                 operationName = wsdlOperation.getName();
@@ -158,7 +191,7 @@ public class ProvenanceDetails {
             if (details.getResPatF() != null && details.getResPatF().getDescription() != null
                     && details.getResPatF().getDescription().length() > 3) {
                 operationDescription = details.getResPatF().getDescription();
-                operationDescription = serviceName + " "+ serviceDescription + " " 
+                operationDescription = serviceName + " " + serviceDescription + " "
                         + operationName + " " + operationDescription + " "
                         + " " + provenanceData;
 
@@ -171,10 +204,10 @@ public class ProvenanceDetails {
             } else {
                 serviceOwner = "";
             }
-            
-            if(details.getResPatF() != null && details.getResPatF().getLicenseType() != null){
+
+            if (details.getResPatF() != null && details.getResPatF().getLicenseType() != null) {
                 serviceLicenseTypePrimePra = details.getResPatF().getLicenseType();
-            }else{
+            } else {
                 serviceLicenseTypePrimePra = "";
             }
 
@@ -242,6 +275,21 @@ public class ProvenanceDetails {
             Element type = doc.createElement("type");
             type.appendChild(doc.createTextNode(serviceType));
             serviceData.appendChild(type);
+            
+            //inputs
+            Element inputsElement = doc.createElement("inputs");
+            inputsElement.appendChild(doc.createTextNode(inputs));
+            serviceData.appendChild(inputsElement);
+            
+            //outputs
+            Element outputsElement = doc.createElement("outputs");
+            outputsElement.appendChild(doc.createTextNode(outputs));
+            serviceData.appendChild(outputsElement);
+            
+            //dependencies
+            Element depElement = doc.createElement("dependencies");
+            depElement.appendChild(doc.createTextNode(dependencies));
+            serviceData.appendChild(depElement);            
 
             // repository elements
             Element repository = doc.createElement("repository");
@@ -261,8 +309,8 @@ public class ProvenanceDetails {
             //license elements
             Element license = doc.createElement("licenseType");
             license.appendChild(doc.createTextNode(serviceLicenseTypePrimePra));
-            serviceData.appendChild(license);            
-            
+            serviceData.appendChild(license);
+
             //primeElements
             //prime Syntatic
             //returnPrimeSyn

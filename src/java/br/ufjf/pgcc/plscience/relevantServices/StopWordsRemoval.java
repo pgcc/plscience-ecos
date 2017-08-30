@@ -41,6 +41,8 @@ public class StopWordsRemoval {
      * @return  
      */
     public static String removeStopWords(String s,String type){
+        if(s == null)
+            return s;
         if(type.contains("commas")){
             s = s.trim().replaceAll("\\s+", ",");
         }else{

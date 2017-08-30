@@ -47,6 +47,12 @@ public final class ResultsPatternFormat {
     private String monitoringStatusLabel;
     private String monitoringStatusLastChecked;
 
+    //to servicesOnly
+    private String inputs;
+    private String outputs;
+    private String serviceType;
+    private String dependencies;
+
     //prime
     private String returnPrimeSin;
     private String returnPrimeSem;
@@ -230,15 +236,22 @@ public final class ResultsPatternFormat {
 //                   System.out.println("Maior que 0");
 //                   if(!listAssociatedExperiments.get(0).getExperimentExperiment().getName().equals("")){
 //                       System.out.println(listAssociatedExperiments.get(0).getExperimentExperiment().getName());
-//                   }else{
-//                       System.out.println("name é ");
 //                   }
 //               }
 //            }
 //        }
     }
+    
+    public String acquireWSDL(String serviceId,String repositoryName) throws BioCatalogueException, ParseException{
+        if(repositoryName.toLowerCase().contains("bio")){
+            return searchWSDLLocationBioCatalogue(serviceId);
+        }
+        return "";
+    }
+	
 
-    public String seachWSDLLocationBioCatalogue(String serviceId) throws BioCatalogueException, ParseException {
+
+    public String searchWSDLLocationBioCatalogue(String serviceId) throws BioCatalogueException, ParseException {
         if (serviceId != null) {
             BioCatalogueClient searchServiceDataById = new BioCatalogueClient();
             searchServiceDataById.setBaseUri("https://www.biocatalogue.org");
@@ -655,6 +668,62 @@ public final class ResultsPatternFormat {
      */
     public void setPurposePrimePra(String purposePrimePra) {
         this.purposePrimePra = purposePrimePra;
+    }
+
+    /**
+     * @return the inputs
+     */
+    public String getInputs() {
+        return inputs;
+    }
+
+    /**
+     * @param inputs the inputs to set
+     */
+    public void setInputs(String inputs) {
+        this.inputs = inputs;
+    }
+
+    /**
+     * @return the serviceType
+     */
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    /**
+     * @param serviceType the serviceType to set
+     */
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    /**
+     * @return the outputs
+     */
+    public String getOutputs() {
+        return outputs;
+    }
+
+    /**
+     * @param outputs the outputs to set
+     */
+    public void setOutputs(String outputs) {
+        this.outputs = outputs;
+    }
+
+    /**
+     * @return the dependencies
+     */
+    public String getDependencies() {
+        return dependencies;
+    }
+
+    /**
+     * @param dependencies the dependencies to set
+     */
+    public void setDependencies(String dependencies) {
+        this.dependencies = dependencies;
     }
 
 //    /**

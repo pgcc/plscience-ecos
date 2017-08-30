@@ -5,11 +5,18 @@
  */
 package br.ufjf.pgcc.plscience.socialNetworkAnalysis;
 
+import br.ufjf.pgcc.plscience.dao.NodeDAO;
+import br.ufjf.pgcc.plscience.dao.RelationshipEdgeDAO;
+import br.ufjf.pgcc.plscience.model.NodeBD;
+import br.ufjf.pgcc.plscience.model.UniversityGroup;
+import java.util.List;
+
 /**
  *
  * @author phillipe
  */
 public class EdgeSN {
+
     private NodeSN from;
     private NodeSN to;
     private String source;
@@ -19,11 +26,11 @@ public class EdgeSN {
     private String color;
     private String hoverColor;
     private String type;
-    private String size;    
+    private String size;
     private String relationshipYear;
     private String relationshipType;
 
-    public EdgeSN(){
+    public EdgeSN() {
         color = "#000";
         hoverColor = "#FC0";
         size = "1";
@@ -36,38 +43,166 @@ public class EdgeSN {
 
     /**
      * return the hexadecimal value to an edge color
+     *
      * @param relationshipType
-     * @return 
+     * @return
      */
-    public static String getEdgeColorByRelationShipType(String relationshipType){
-        if(relationshipType.contains("PRODUCAO_BIBLIOGRAFICA")){
+    public static String getEdgeColorByRelationShipType(String relationshipType) {
+        if (relationshipType.contains("PRODUCAO_BIBLIOGRAFICA")) {
             return "#00f";
-        }else if(relationshipType.contains("ORIENTACAO_CONCLUIDA")){
+        } else if (relationshipType.contains("ORIENTACAO_CONCLUIDA")) {
             return "#0f0";
-        }else if(relationshipType.contains("PROJETO")){
+        } else if (relationshipType.contains("PROJETO")) {
             return "#ffa500";
-        }else if(relationshipType.contains("PRODUCAO_TECNICA")){
+        } else if (relationshipType.contains("PRODUCAO_TECNICA")) {
             return "#f00";
         }
         return "#fff";
     }
+
     /**
      * return the edge size
+     *
      * @param weight
-     * @return 
+     * @return
      */
-    public static String getEdgeSizeByWeight(String weight){
+    public static String getEdgeSizeByWeight(String weight) {
         Double w = Double.parseDouble(weight);
-        if(w >= 0 && w < 0.33){
+        if (w >= 0 && w < 0.33) {
             return "1";
-        }else if(w >= 0.33 && w < 0.66){
+        } else if (w >= 0.33 && w < 0.66) {
             return "3";
-        }else if(w >= 0.66 && w < 1){
+        } else if (w >= 0.66) {
             return "5";
-        }        
+        }
         return weight;
     }
-    
+
+    public static List addGroupEdge(EdgeSN edge, List<NodeSN> researcherNodes, List<EdgeSN> groupEdges,
+            Integer minYearEvolution, Integer maxYearEvolution, List<String> groupEdgeExistence) {
+        String source = edge.getSource();
+        String target = edge.getTarget();
+        String newSource = "";
+        String newTarget = "";
+
+        newSource = searchNodeGroup(source, researcherNodes);
+        newTarget = searchNodeGroup(target, researcherNodes);
+
+        edge.setSource(newSource);
+        edge.setTarget(newTarget);
+
+        String year = edge.getRelationshipYear();
+        String relationship = edge.getRelationshipType();
+
+        if (!edgeGroupExist(newSource, newTarget, year, relationship, groupEdges,
+                groupEdgeExistence)
+                && edgeBetweenRangeYear(edge, minYearEvolution, maxYearEvolution)) {
+            groupEdges.add(edge);
+        }
+        return groupEdges;
+    }
+
+    /**
+     * add a university edge
+     *
+     * @param edge
+     * @param edgeList
+     * @param universityEdges
+     * @param minYearEvolution
+     * @param maxYearEvolution
+     * @param universityEdgeExistence
+     * @param researcherNodes
+     * @return
+     */
+    public static List addUniversityEdge(EdgeSN edge, List<NodeSN> researcherNodes,
+            List<EdgeSN> universityEdges, Integer minYearEvolution,
+            Integer maxYearEvolution, List<String> universityEdgeExistence) {
+        String source = edge.getSource();
+        String target = edge.getTarget();
+
+        String newSource = searchNodeUniversity(source, researcherNodes);
+        String newTarget = searchNodeUniversity(target, researcherNodes);
+
+        //source and target need to be different
+        if (!newSource.equals(newTarget)) {
+            edge.setSource(newSource);
+            edge.setTarget(newTarget);
+
+            if (!edgeUniversityExist(newSource, newTarget, edge.getRelationshipYear(), edge.getRelationshipType(),
+                    universityEdges, universityEdgeExistence)) {
+                universityEdges.add(edge);
+            }
+        }
+        return universityEdges;
+    }
+
+    public static boolean edgeUniversityExist(String source, String target, String year, String relationship,
+            List<EdgeSN> universityEdges, List<String> universityEdgeExistence) {
+
+        String sourceTarget = source + "-" + target + "-" + year + "-" + relationship;
+        String sourceTarget2 = target + "-" + source + "-" + year + "-" + relationship;
+
+        if (universityEdges.isEmpty()) {
+            universityEdgeExistence.add(sourceTarget);
+            universityEdgeExistence.add(sourceTarget2);
+            return false;
+        } else if (universityEdgeExistence.contains(sourceTarget) || universityEdgeExistence.contains(sourceTarget2)) {
+            return true;
+        } else {
+            universityEdgeExistence.add(sourceTarget);
+            universityEdgeExistence.add(sourceTarget2);
+            return false;
+        }
+    }
+
+    public static String searchNodeUniversity(String id, List<NodeSN> researcherNodes) {
+        for (NodeSN n : researcherNodes) {
+            if (n.getId().equals(id)) {
+                return n.getUniversity();
+            }
+        }
+        return "";
+    }
+
+    public static boolean edgeGroupExist(String source, String target, String year, String relationship,
+            List<EdgeSN> groupEdges, List<String> groupEdgeExistence) {
+
+        String sourceTarget = source + "-" + target + "-" + year + "-" + relationship;
+        String sourceTarget2 = target + "-" + source + "-" + year + "-" + relationship;
+
+        if (groupEdges.isEmpty()) {
+            groupEdgeExistence.add(sourceTarget);
+            groupEdgeExistence.add(sourceTarget2);
+            return false;
+        } else if (groupEdgeExistence.contains(sourceTarget) || groupEdgeExistence.contains(sourceTarget2)) {
+            return true;
+        } else {
+            groupEdgeExistence.add(sourceTarget);
+            groupEdgeExistence.add(sourceTarget2);
+            return false;
+        }
+    }
+
+    public static boolean edgeBetweenRangeYear(EdgeSN edge, int minYearEvolution, int maxYearEvolution) {
+
+        String edgeYear = edge.getRelationshipYear();
+        Integer edgeYearInt = -1;
+        if (!edgeYear.equals("")) {
+            edgeYearInt = Integer.parseInt(edgeYear);
+        }
+
+        return ((edgeYearInt != -1) && (edgeYearInt >= minYearEvolution) && (edgeYearInt <= maxYearEvolution));
+    }
+
+    public static String searchNodeGroup(String id, List<NodeSN> researcherNodes) {
+        for (NodeSN n : researcherNodes) {
+            if (n.getId().equals(id)) {
+                return n.getAggregator();
+            }
+        }
+        return "";
+    }
+
     /**
      * @return the from
      */

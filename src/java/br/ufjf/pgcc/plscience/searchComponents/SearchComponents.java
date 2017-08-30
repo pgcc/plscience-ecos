@@ -571,7 +571,7 @@ public class SearchComponents implements Serializable {
 
                 if (!fileLocation.toUpperCase().contains("WSDL")) {
                     ResultsPatternFormat rpf = new ResultsPatternFormat();
-                    fileLocation = rpf.seachWSDLLocationBioCatalogue(result.getServiceIdRepository());
+                    fileLocation = rpf.searchWSDLLocationBioCatalogue(result.getServiceIdRepository());
                 }
 
                 //System.out.println("Localizacao do WSDL: "+fileLocation);

@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <h:form id="formCompositionValidation">     
+
+        <div class="chatCompositionSelection">
+            <p:outputLabel value="Select the composition"/>
+            <br/>
+            <p:selectOneMenu value="#{serviceCompositionEvaluation.selectedComposition}">
+                <f:selectItems value="#{serviceCompositionEvaluation.allCompositions}"/>
+            </p:selectOneMenu>
+        </div>
+        <div class="chat">
+            <p:poll global="false" id="updateMessages" interval="1" update="messageChatList" 
+                    onstart="#{serviceCompositionEvaluation.fillMessagesChat
+                    (serviceCompositionEvaluation.message,false)}"
+                    listener="#{serviceCompositionEvaluation.fillMessagesChat
+                    (serviceCompositionEvaluation.message,false)}"
+                    />
+            <p:dataList id="messageChatList" value="#{serviceCompositionEvaluation.messagesChat}"
+                        itemType="none" var="messages" >
+                <div class="messageChat">
+                    <div class="left">
+                        <div>
+                            <h:outputText value="#{messages.senderName}" style="font-weight:bold"/>
+                        </div>
+                        <div class="imageChat">
+                            <p:graphicImage name="#{messages.senderPicture}" width="50px"/>                            
+                        </div>
+                    </div>
+                    <div class="rightMessage">
+                        <h:outputText value="#{messages.text}"/>              
+                    </div>
+                </div>
+                <p:separator />
+            </p:dataList>
+
+        </div>
+        <div class="messageSendChat">
+            <p:outputLabel value="Message"/>
+            <br/>
+            <p:inputText id="msag" value="#{serviceCompositionEvaluation.message}"/>
+            <br/>
+            <p:commandButton value="Send" actionListener="#{serviceCompositionEvaluation.fillMessagesChat
+                                                            (serviceCompositionEvaluation.message,true)}"/>
+        </div>
+    </h:form>
+</ui:composition>
