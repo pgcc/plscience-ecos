@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+  xmlns:owl="http://www.w3.org/2002/07/owl#" 
+  xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#" 
+  xmlns:service="http://www.daml.org/services/owl-s/1.1/Service.owl#" 
+  xmlns:profile="http://www.daml.org/services/owl-s/1.1/Profile.owl#" 
+  xmlns:process="http://www.daml.org/services/owl-s/1.1/Process.owl#" 
+  xmlns:grounding="http://www.daml.org/services/owl-s/1.1/Grounding.owl#" 
+  xmlns:list="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+  xmlns:expr="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#"
+  xml:base="http://localhost:8084/plscience-ecos/c1.owl"
+  xmlns="http://localhost:8084/plscience-ecos/c1.owl"
+>
+
+<!--Import owl services -->
+<owl:Ontology rdf:about="">
+	<owl:imports rdf:resource="https://sites.google.com/site/testwebservicesowls/services/search.owl"/>
+	<owl:imports rdf:resource="https://sites.google.com/site/testwebservicesowls/services/fields.owl"/>
+</owl:Ontology>
+
+<!--Service Description -->
+<service:Service rdf:ID="c1Service">
+    <service:presents><!--Presents (what it does) -->
+      <profile:Profile rdf:ID="c1Profile"/><!--Profile -->
+    </service:presents>
+    <service:describedBy><!--DescribedBy (how it works) -->
+      <process:CompositeProcess rdf:ID="c1Process"/><!--Process -->
+    </service:describedBy>
+    <service:supports><!--Supports (how to access it) -->
+      <grounding:WsdlGrounding rdf:ID="c1Grounding"/><!--Grounding -->
+    </service:supports>
+</service:Service>
+
+<!-- Profile description -->
+<profile:Profile rdf:ID="c1Profile">
+	<service:presentedBy rdf:resource="#c1Service"/>
+
+	<profile:serviceName>c1</profile:serviceName>
+
+	<profile:textDescription>Composed Service</profile:textDescription>
+ 
+    <profile:hasInput>
+      <process:Input rdf:ID="input">
+        <rdfs:label>input</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <profile:hasOutput>
+      <process:Output rdf:ID="result">
+        <rdfs:label>result</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+      </process:Output>
+    </profile:hasOutput>	
+</profile:Profile>
+
+  <!--Process Description -->
+    <process:CompositeProcess rdf:about="#c1Process">
+    		<service:describes rdf:resource="#c1Service"/>
+
+        	<process:hasInput rdf:resource="#input"/>
+        	<process:hasOutput rdf:resource="#result"/>
+
+        	<!--Service Composition -->
+        	<process:composedOf>
+            <process:Sequence>
+                <process:components>
+                    <process:ControlConstructList>
+                        <list:first rdf:resource="#search"/>
+                        <list:rest>
+                        	<process:ControlConstructList>
+                            	<list:first rdf:resource="#fields"/>
+                            	<list:rest rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#nil"/>    
+                        	</process:ControlConstructList>
+                    	</list:rest>
+                    </process:ControlConstructList>
+                </process:components>
+            </process:Sequence>
+        </process:composedOf>
+
+        <process:hasResult>
+            <process:Result>
+                <process:withOutput>
+                    <process:OutputBinding>
+                        <process:ValueSource>
+                            <process:ValueOf>
+                                <process:fromProcess rdf:resource="#fields"/>
+                                <process:theVar rdf:resource="#https://sites.google.com/site/testwebservicesowls/services/fields.owl#return"/>
+                            </process:ValueOf>                            
+                        </process:ValueSource>
+                        <process:toVar rdf:resource="search"/>
+                    </process:OutputBinding>
+                </process:withOutput>
+            </process:Result>
+        </process:hasResult>
+    </process:CompositeProcess>
+
+    <!-- search -->
+        <process:Perform rdf:ID="search">
+        <process:process rdf:resource="https://sites.google.com/site/testwebservicesowls/services/search.owl#searchProcess"/>
+        <process:hasDataFrom>
+            <process:InputBinding>
+                <process:ValueSource>
+                    <process:ValueOf>
+                        <process:fromProcess rdf:resource="http://www.daml.org/services/owl-s/1.1/Process.owl#ThisPerform"/>
+                        <process:theVar rdf:resource="input"/>
+                    </process:ValueOf>
+                </process:ValueSource>
+                <process:toVar rdf:resource="https://sites.google.com/site/testwebservicesowls/services/search.owl#input"/>
+            </process:InputBinding>
+        </process:hasDataFrom>
+    </process:Perform>
+
+    <!-- fields -->
+            <process:Perform rdf:ID="fields">
+        <process:process rdf:resource="https://sites.google.com/site/testwebservicesowls/services/fields.owl#fieldsProcess"/>
+        <process:hasDataFrom>
+            <process:InputBinding>
+                <process:ValueSource>
+                    <process:ValueOf>
+                        <process:fromProcess rdf:resource="#geneID"/>
+                        <process:theVar rdf:resource="https://sites.google.com/site/testwebservicesowls/services/geneID.owl#result"/>
+                    </process:ValueOf>
+                </process:ValueSource>
+                <process:toVar rdf:resource="https://sites.google.com/site/testwebservicesowls/services/fields.owl#input"/>
+            </process:InputBinding>
+        </process:hasDataFrom>
+    </process:Perform>
+
+    <!-- Grounding description -->
+<grounding:WsdlGrounding rdf:ID="c1Grounding">
+	<service:supportedBy rdf:resource="#c1Service"/>
+	<grounding:hasAtomicProcessGrounding rdf:resource="https://sites.google.com/site/testwebservicesowls/services/geneID.owl#searchAtomicProcessGrounding"/>
+	<grounding:hasAtomicProcessGrounding rdf:resource="https://sites.google.com/site/testwebservicesowls/services/getsearch.owl#getsearchAtomicProcessGrounding"/>
+</grounding:WsdlGrounding>
+</rdf:RDF>

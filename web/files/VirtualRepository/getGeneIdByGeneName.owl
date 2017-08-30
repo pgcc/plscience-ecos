@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://localhost:8084/plscience-ecos/getGeneIdByGeneName.owl"
+    xmlns:list="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+    xmlns:process="http://www.daml.org/services/owl-s/1.1/Process.owl#"
+    xmlns:grounding="http://www.daml.org/services/owl-s/1.1/Grounding.owl#"
+    xmlns:expression="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:profile="http://www.daml.org/services/owl-s/1.1/Profile.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:service="http://www.daml.org/services/owl-s/1.1/Service.owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xml:base="http://localhost:8084/plscience-ecos/getGeneIdByGeneName.owl">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Grounding.owl"/>
+    <owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Profile.owl"/>
+    <owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Service.owl"/>
+    <owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Process.owl"/>
+  </owl:Ontology>
+  <service:Service rdf:ID="getGeneIdByGeneNameService">
+    <service:presents>
+      <profile:Profile rdf:ID="getGeneIdByGeneNameProfile"/>
+    </service:presents>
+    <service:describedBy>
+      <process:AtomicProcess rdf:ID="getGeneIdByGeneNameProcess"/>
+    </service:describedBy>
+    <service:supports>
+      <grounding:WsdlGrounding rdf:ID="getGeneIdByGeneNameGrounding"/>
+    </service:supports>
+  </service:Service>
+  <profile:Profile rdf:about="#getGeneIdByGeneNameProfile">
+    <service:presentedBy rdf:resource="#getGeneIdByGeneNameService"/>
+    <profile:serviceName>getGeneIdByGeneName</profile:serviceName>
+    <profile:textDescription>Esse é um serviço composto que recebe o nome de um Gene, busca por suas informações utilizando um serviço de recuperação de informações sobre genes. Após isso, ele filtra apenas o ID do gene das informações e a retorna.</profile:textDescription>
+    <profile:hasInput>
+      <process:Input rdf:ID="geneName">
+        <rdfs:label>geneName</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+      </process:Input>
+    </profile:hasInput>
+    <profile:hasOutput>
+      <process:Output rdf:ID="return">
+        <rdfs:label>return</rdfs:label>
+        <process:parameterType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+      </process:Output>
+    </profile:hasOutput>
+  </profile:Profile>
+  <process:AtomicProcess rdf:about="#getGeneIdByGeneNameProcess">
+    <rdfs:label>getGeneIdByGeneNameProcess</rdfs:label>
+    <service:describes rdf:resource="#getGeneIdByGeneNameService"/>
+    <process:hasInput rdf:resource="#geneName"/>
+    <process:hasOutput rdf:resource="#return"/>
+  </process:AtomicProcess>
+  <grounding:WsdlGrounding rdf:about="#getGeneIdByGeneNameGrounding">
+    <service:supportedBy rdf:resource="#getGeneIdByGeneNameService"/>
+    <grounding:hasAtomicProcessGrounding>
+      <grounding:WsdlAtomicProcessGrounding rdf:ID="getGeneIdByGeneNameAtomicProcessGrounding"/>
+    </grounding:hasAtomicProcessGrounding>
+  </grounding:WsdlGrounding>
+  <grounding:WsdlAtomicProcessGrounding rdf:about="#getGeneIdByGeneNameAtomicProcessGrounding">
+    <grounding:owlsProcess rdf:resource="#getGeneIdByGeneNameProcess"/>
+    <grounding:wsdlOperation>
+      <grounding:WsdlOperationRef>
+        <grounding:operation rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://localhost:8084/GetGeneIdService/GetGeneId?wsdl#getGeneIdByGeneName</grounding:operation>
+        <grounding:portType rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://localhost:8084/GetGeneIdService/GetGeneId?wsdl#GetGeneIdPort</grounding:portType>
+      </grounding:WsdlOperationRef>
+    </grounding:wsdlOperation>
+    <grounding:wsdlDocument rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://localhost:8084/GetGeneIdService/GetGeneId?wsdl</grounding:wsdlDocument>
+    <grounding:wsdlInputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://getgeneid.ws/#getGeneIdByGeneName</grounding:wsdlInputMessage>
+    <grounding:wsdlOutputMessage rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://getgeneid.ws/#getGeneIdByGeneNameResponse</grounding:wsdlOutputMessage>
+    <grounding:wsdlInput>
+      <grounding:WsdlInputMessageMap>
+        <grounding:owlsParameter rdf:resource="#geneName"/>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://localhost:8084/GetGeneIdService/GetGeneId?wsdl#geneName</grounding:wsdlMessagePart>
+      </grounding:WsdlInputMessageMap>
+    </grounding:wsdlInput>
+    <grounding:wsdlOutput>
+      <grounding:WsdlOutputMessageMap>
+        <grounding:owlsParameter rdf:resource="#return"/>
+        <grounding:wsdlMessagePart rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+        >http://localhost:8084/GetGeneIdService/GetGeneId?wsdl#return</grounding:wsdlMessagePart>
+      </grounding:WsdlOutputMessageMap>
+    </grounding:wsdlOutput>
+  </grounding:WsdlAtomicProcessGrounding>
+</rdf:RDF>
