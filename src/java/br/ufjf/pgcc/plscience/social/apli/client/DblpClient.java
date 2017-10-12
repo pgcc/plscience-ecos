@@ -43,14 +43,10 @@ public class DblpClient {
             wr = c.resource(protocol + host + port + authorPath + authorName + publications);
             json = wr.get(String.class);
             
-            Type listType = new TypeToken<List<Publication>>() {}.getType();
-            List<Publication> pubs = gson.fromJson(json, listType);
-            author.setPublications(pubs);
-            
             wr = c.resource(protocol + host + port + authorPath + authorName + coauthors);
             json = wr.get(String.class);
             
-            listType = new TypeToken<List<Coauthor>>() {}.getType();
+            Type listType = new TypeToken<List<Coauthor>>() {}.getType();
             List<Coauthor> coauths = gson.fromJson(json, listType);
             
             author.setCoauthors(coauths);
