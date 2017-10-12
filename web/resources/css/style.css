@@ -103,6 +103,51 @@ th {
  height:inherit !important;
 }
 
+.ui-icon.fa {
+     text-indent:0px;
+     background-image:none;
+}
+
+.panel-heading{
+    background-image: linear-gradient(#EAEAEA, #DADADA 60%, #C7C7C7);
+    color: #000 !important;
+
+}
+
+.profile ul{
+	margin-top: 30px;
+	margin-left: -30px;
+}
+
+.profile li{
+	list-style: none;
+	line-height: 1.9em;
+}
+
+footer{
+	background: #f4f4f4;
+	height: 90px;
+	color: #000;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 40px;
+	margin-top: 30px;
+	border-top: 7px solid #C7C7C7;
+}
+
+.col-header {
+  margin: 46px 0 30px;
+}
+
+.tag-cloud{
+    margin: 58px 50px 30px;
+}
+
+ #mynetwork {
+      width: 715px;
+      height: 600px;
+      border: 1px solid lightgray;
+    }
 .textAlignLeftForum {
     margin-left: 10%;
     text-align: left;

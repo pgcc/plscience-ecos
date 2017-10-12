@@ -1,0 +1,232 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> </link>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css" rel="stylesheet" type="text/css" />
+        <h:form id="form">
+            <p:growl id="growl" showDetail="true" sticky="true" />
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="profile">
+                            <h1 class="page-header">
+                                <h:outputText id="header_name" value="#{socialProfileBean.scholarAuthor.name}"/>
+                            </h1>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="https://scholar.google.com#{socialProfileBean.scholarAuthor.urlPicture}" class="img-circle" alt="" width="175" height="175"> </img>
+                                </div>
+                                <div class="col-md-8">
+                                    <ul>
+                                        <li><strong>Name: </strong>
+                                            <h:outputText id="name" value="#{socialProfileBean.scholarAuthor.name}"/>
+                                        </li>
+                                        <li><strong>Email: </strong>
+                                            <h:outputText id="e-mail" value="#{socialProfileBean.scholarAuthor.email}"/>
+                                        </li>
+                                        <li><strong>Affiliation </strong>
+                                            <h:outputText id="affiliation" value="#{socialProfileBean.scholarAuthor.affiliation}"/>
+                                        </li>
+                                        <li><strong>Cited By: </strong>
+                                            <h:outputText id="cited_by" value="#{socialProfileBean.scholarAuthor.citedby}"/>
+                                        </li>
+                                        <li><strong>Coauthors: </strong>
+                                            <h:outputText id="coauthors" value="#{socialProfileBean.dblpAuthor.coauthCount}"/>
+                                        </li>
+                                        <li><strong>Interests: </strong>
+                                            <h:outputText id="tags" value="#{socialProfileBean.scholarAuthor.interests}"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default page-header">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Publications</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p:dataTable id="publications" var="pub" 
+                                                         value="#{socialProfileBean.publications}" 
+                                                         paginator="true"
+                                                         rows="10"
+                                                         tableStyle="width:auto">
+                                                <p:column headerText="Title">
+                                                    <h:outputText value="#{pub.bib.title}" />
+                                                </p:column>
+                                                <p:column headerText="Year">
+                                                    <h:outputText value="#{pub.bib.year}" />
+                                                </p:column>
+                                                <p:column style="width:32px;text-align: center">
+                                                    <p:commandButton update=":form:pubDetail" oncomplete="PF('pubDialog').show()"  icon="ui-icon-search" title="View">
+                                                        <f:setPropertyActionListener value="#{pub}" target="#{socialProfileBean.selectedPublication}" />
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default page-header"> 
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Coauthor Network</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div id="mynetwork"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="tag-cloud">
+                            <h3>Tags</h3>
+                            <p:tagCloud model="#{socialProfileBean.tagCloud}"/>
+                        </div>
+                        <div class="panel panel-default col-header">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Indices</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p:dataTable var="indice" value="#{socialProfileBean.indices}">
+                                    <p:column headerText="Indices">
+                                        <h:outputText value="#{indice.description}" />
+                                    </p:column>
+
+                                    <p:column headerText="All">
+                                        <h:outputText value="#{indice.valueAll}" />
+                                    </p:column>
+
+                                    <p:column headerText="Since 2012">
+                                        <h:outputText value="#{indice.value2012}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                        <div class="panel panel-default groups">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Coauthors</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p:dataList value="#{socialProfileBean.coauthors}" var="coauthor" paginator="true" rows="10" styleClass="paginated">
+                                    <p:commandLink 
+                                        value="#{coauthor.name} (#{coauthor.count})" action="#{socialProfileBean.loadAuthor(coauthor.name)}"/>
+                                </p:dataList>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <footer>
+                <div class="container">
+                    <p>Social E-SECO</p>
+                </div>
+            </footer>
+
+            <p:dialog header="Publication Info" widgetVar="pubDialog" modal="true" showEffect="fade" hideEffect="fade" 
+                      resizable="false" draggable="false">
+                <p:outputPanel id="pubDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" 
+                                  rendered="#{not empty socialProfileBean.selectedPublication}" 
+                                  columnClasses="value,value"
+                                  style="border:none;margin:0 auto;width:500px;">
+                        <h:outputText value="Title:" />
+                        <a href="#{socialProfileBean.selectedPublication.bib.url}" target="_blank">
+                            #{socialProfileBean.selectedPublication.bib.title}</a>
+                        <h:outputText value="Authors" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.author}" />
+                        <h:outputText value="Publication Date" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.year}" />
+                        <h:outputText value="Pages" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.pages}" />
+                        <h:outputText value="Publisher" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.publisher}" />
+                        <h:outputText value="Abstract" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.description}" />
+                        <h:outputText value="Journal" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.journal}" />
+                        <h:outputText value="Volume" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.volume}" />
+                        <h:outputText value="Number" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.bib.number}" />
+                        <h:outputText value="Cited By" />
+                        <h:outputText value="#{socialProfileBean.selectedPublication.citedby}" />
+                        <h:outputText value="PDF" />
+                        <a href="#{socialProfileBean.selectedPublication.bib.eprint}" target="_blank">Link</a>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+
+
+        </h:form>
+
+        <script type="text/javascript">
+            var nodes = null;
+            var edges = null;
+            var network = null;
+
+            function draw() {
+                // create people.
+                // value corresponds with the age of the person
+                nodes = [
+                    {id: 1, value: 15, label: 'Regina Braga'},
+                    {id: 2, value: 15, label: 'Fernanda Campos'},
+                    {id: 3, value: 15, label: 'José Maria N. David'},
+                    {id: 4, value: 15, label: 'Cláudia Maria Lima Werner'},
+                    {id: 5, value: 15, label: 'Ely Edison Matos'},
+                    {id: 6, value: 15, label: 'Marta Mattoso'},
+                    {id: 7, value: 15, label: 'Gabriella Castro'},
+                    {id: 8, value: 15, label: 'Laryssa Machado'},
+                    {id: 9, value: 15, label: 'Wander Gaspar'},
+                    {id: 10, value: 15, label: 'Frâncila Weidt Neiva'},
+                    {id: 11, value: 15, label: 'Wander Gaspar'},
+                    {id: 12, value: 15, label: 'Tadeu Classe'}
+                ];
+
+                // create connections between people
+                // value corresponds with the amount of contact between two people
+                edges = [
+                    {from: 1, to: 2, value: 28, title: '28 collaborations'},
+                    {from: 1, to: 3, value: 14, title: '14 collaborations'},
+                    {from: 1, to: 4, value: 9, title: '9 collaborations'},
+                    {from: 1, to: 5, value: 8, title: '8 collaborations'},
+                    {from: 1, to: 6, value: 6, title: '6 collaborations'},
+                    {from: 1, to: 7, value: 5, title: '5 collaborations'},
+                    {from: 1, to: 8, value: 5, title: '5 collaborations'},
+                    {from: 1, to: 9, value: 4, title: '4 collaborations'},
+                    {from: 1, to: 10, value: 4, title: '4 collaborations'},
+                    {from: 2, to: 11, value: 3, title: '3 collaborations'},
+                    {from: 2, to: 12, value: 2, title: '2 collaborations'},
+                    {from: 2, to: 3, value: 14, title: '14 collaborations'},
+                    {from: 2, to: 5, value: 8, title: '8 collaborations'},
+                    {from: 2, to: 7, value: 4, title: '4 collaborations'},
+                    {from: 2, to: 10, value: 4, title: '4 collaborations'}
+                ];
+
+                // Instantiate our network object.
+                var container = document.getElementById('mynetwork');
+                var data = {
+                    nodes: nodes,
+                    edges: edges
+                };
+                var options = {
+                    nodes: {
+                        shape: 'dot',
+                    }
+                };
+                network = new vis.Network(container, data, options);
+            }
+        </script>
+
+    </ui:define>
+</ui:composition>
