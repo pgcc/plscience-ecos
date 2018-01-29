@@ -125,7 +125,8 @@ public class ServiceComposition implements Serializable {
         if (event.getFile() != null) {
             servicesFile.add(event.getFile());
 
-            Path folder = Paths.get("/home/phillipe/Documentos/VirtualRepository");
+            String path = System.getProperty("user.home")+File.separatorChar+"VirtualRepository";
+            Path folder = Paths.get(path);
             String filename = FilenameUtils.getBaseName(event.getFile().getFileName());
             //String extension = FilenameUtils.getExtension(ue.getFileName());
             String extension = "owl";
@@ -197,7 +198,8 @@ public class ServiceComposition implements Serializable {
             System.out.println(fileName + " is composed");
         }
 
-        File inputFile = new File("/home/phillipe/Documentos/VirtualRepository/" + fileName + ".xml");
+        String path = System.getProperty("user.home")+File.separatorChar+"VirtualRepository"+File.separatorChar;
+        File inputFile = new File(path + fileName + ".xml");
         DocumentBuilderFactory docFactory
                 = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder
@@ -243,8 +245,8 @@ public class ServiceComposition implements Serializable {
         if (searched.getType().contains("comp")) {
             System.out.println(searched.getName() + " is composed");
 
-            File fOwlFile = new File("/home/phillipe/Documentos/VirtualRepository/"
-                    + searched.getName() + ".owl");
+            String path = System.getProperty("user.home")+File.separatorChar+"VirtualRepository"+File.separatorChar;
+            File fOwlFile = new File(path + searched.getName() + ".owl");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder;
             try {
@@ -493,7 +495,7 @@ public class ServiceComposition implements Serializable {
                 String description = sfvr.getDescription();
                 description = description.replace("\n", "");
                 gNode.setDescription(description);
-            }
+            }          
             gNode.setColor(gNode.getColor(gNode.getRepositoryName(), gNode.getType()));
             gNode.setId(sfvr.getName());
             gNode.setLabel(sfvr.getName());
@@ -1237,7 +1239,8 @@ public class ServiceComposition implements Serializable {
      */
     public void readFilesToSearchTerms() throws IOException, URISyntaxException {
 
-        File f = new File("/home/phillipe/Documentos/VirtualRepository");
+        String path = System.getProperty("user.home")+File.separatorChar+"VirtualRepository";
+        File f = new File(path);
         File[] serviceFiles = f.listFiles();
 
 //        String[] servicesFileNames = f.list();
@@ -1692,9 +1695,7 @@ public class ServiceComposition implements Serializable {
             return serviceDescriptionVO;
         }
 
-        String repositoryURL;
-        repositoryURL = File.separatorChar + "home" + File.separatorChar + "phillipe"
-                + File.separatorChar + "Documentos" + File.separatorChar + "VirtualRepository";
+        String repositoryURL = System.getProperty("user.home")+File.separatorChar+"VirtualRepository";
         try {
             File inputFile = new File(repositoryURL + File.separatorChar + servName + ".xml");
             DocumentBuilderFactory docFactory

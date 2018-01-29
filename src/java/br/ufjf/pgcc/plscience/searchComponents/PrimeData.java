@@ -37,8 +37,9 @@ public class PrimeData {
     private ResultsPatternFormat patternFormat;
 
     public PrimeData() throws IOException {
-        repositoryURL = File.separatorChar + "home" + File.separatorChar + "phillipe" + File.separatorChar + "Documentos"
-                + File.separatorChar + "VirtualRepository";
+        /*repositoryURL = File.separatorChar + "home" + File.separatorChar + "phillipe" + File.separatorChar + "Documentos" 
+        + File.separatorChar + "VirtualRepository";*/
+        repositoryURL = System.getProperty("user.home")+File.separatorChar+"VirtualRepository";
         fileName = "geneID";
         patternFormat = new ResultsPatternFormat();
     }

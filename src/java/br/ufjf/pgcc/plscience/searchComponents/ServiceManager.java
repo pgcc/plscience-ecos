@@ -51,7 +51,8 @@ import org.w3c.dom.Element;
 @ViewScoped
 public class ServiceManager implements Serializable {
 
-    private String repositoryURL = "/home/phillipe/Documentos/VirtualRepository";
+    private String repositoryURL = System.getProperty("user.home")+File.separatorChar+"VirtualRepository";
+    //private String repositoryURL = "/home/phillipe/Documentos/VirtualRepository";
     //private static String fileURL = "http://npd.hgu.mrc.ac.uk/soap/npd.wsdl";
     private static String fileURL = "http://localhost:8084/plscience-ecos/WsUserList?wsdl";
     private ServiceManagerData serviceInfo;
@@ -188,6 +189,7 @@ public class ServiceManager implements Serializable {
                 + File.separatorChar + "VirtualRepository";
         if (repositoryURL != null) {
             owlsDir = repositoryURL;
+            createVirtualRepositoryFolder(owlsDir);
             owlsDir = owlsDir.replaceAll("/", Matcher.quoteReplacement(File.separator));
             System.out.println("repository URL is not null");
         }
@@ -206,6 +208,16 @@ public class ServiceManager implements Serializable {
 
         try (FileOutputStream fos = new FileOutputStream(owlsFile)) {
             translator.writeOWLS(fos);
+        }
+    }
+    
+    /**
+     * Create a virtual repository folder in the client side
+     */
+    public void createVirtualRepositoryFolder(String path){
+        File directory = new File(path);
+        if (! directory.exists()){
+            directory.mkdirs();
         }
     }
     
@@ -417,7 +429,9 @@ public class ServiceManager implements Serializable {
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
 
-            StreamResult result = new StreamResult(new File("/home/phillipe/Documentos/VirtualRepository/" + operationName + ".xml"));
+            String path = System.getProperty("user.home")+File.separatorChar+"VirtualRepository"+File.separatorChar+operationName+".xml";
+            StreamResult result = new StreamResult(new File(path));
+            //StreamResult result = new StreamResult(new File("/home/phillipe/Documentos/VirtualRepository/" + operationName + ".xml"));
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);

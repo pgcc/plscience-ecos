@@ -5,4 +5,10 @@
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsMessage" name="WsMessage" url-pattern="/WsMessage"/>
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsAlignmentServices" name="WsAlignmentServices" url-pattern="/WsAlignmentServices"/>
   <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WSGeneIdStr" name="WSGeneIdStr" url-pattern="/WSGeneIdStr"/>
+  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.SCView" name="SCView" url-pattern="/SCView"/>
+  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsAlignmentServices" name="WsAlignmentServices" url-pattern="/WsAlignmentServices"/>
+  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.ConvertTemperature" name="ConvertTemperature" url-pattern="/ConvertTemperature"/>
+  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WSGeneIdStr" name="WSGeneIdStr" url-pattern="/WSGeneIdStr"/>
+  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsUserList" name="WsUserList" url-pattern="/WsUserList"/>
+  <endpoint implementation="br.ufjf.pgcc.plscience.webservice.WsMessage" name="WsMessage" url-pattern="/WsMessage"/>
 </endpoints>

@@ -397,7 +397,9 @@ public class ProvenanceDetails {
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
 
-            StreamResult result = new StreamResult(new File("/home/phillipe/Documentos/VirtualRepository/" + operationName + ".xml"));
+            String path = System.getProperty("user.home")+File.separatorChar+"VirtualRepository"+File.separatorChar+operationName+".xml";
+            StreamResult result = new StreamResult(new File(path));
+            //StreamResult result = new StreamResult(new File("/home/phillipe/Documentos/VirtualRepository/" + operationName + ".xml"));
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);

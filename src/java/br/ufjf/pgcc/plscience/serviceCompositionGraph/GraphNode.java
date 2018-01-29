@@ -182,14 +182,19 @@ public class GraphNode {
     }
 
     public String getColor(String repositoryName, String type) {
-        if (repositoryName.toLowerCase().contains("catalog")) {
-            color = "#000";
-        } else if (repositoryName.toLowerCase().contains("seco")) {
+        if(repositoryName != null && !repositoryName.equals("")){
+            if (repositoryName.toLowerCase().contains("catalog")) {
+                color = "#000";
+            } else if (repositoryName.toLowerCase().contains("seco")) {
+                color = "#0F0";
+            }
+            if(type != null && !type.equals("")){
+                if (!type.contains("atomic")) {
+                    color = "#F00";
+                }   
+            }
+        }else
             color = "#0F0";
-        }
-        if (!type.contains("atomic")) {
-            color = "#F00";
-        }
         return color;
     }
 

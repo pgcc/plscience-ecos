@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -35,8 +36,13 @@ public class ServiceRecovery {
 
             //CAMINHO LOCAL
             //File file = new File("D:\\Ontologias\\ServiceDescriptionInf.owl");
-            File file = new File("/home/phillipe/NetBeansProjects/plscience-ecos/web/files/ontologies/ServiceDescriptionInf.owl");
-            
+            //File file = new File("/home/phillipe/NetBeansProjects/plscience-ecos/web/files/ontologies/ServiceDescriptionInf.owl");
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("") +
+            File.separator + "files" + File.separator + "ontologies" + File.separator+
+            "ServiceDescriptionInf.owl";
+                    
+            File file = new File(path);
+           
             //CAMINHO NO SERVIDOR
             //File file = new File("/var/www/ontologies/ServiceDescriptionInf.owl");
             RandomAccessFilePlus rafp = new RandomAccessFilePlus(new RandomAccessFile(file, "rw"));
