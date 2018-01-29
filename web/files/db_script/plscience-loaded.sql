@@ -143,6 +143,8 @@ CREATE TABLE `agent` (
   `role_id` bigint(20) NOT NULL,
   `status_id` bigint(20) NOT NULL,
   `competence_id` bigint(20) NOT NULL,
+  `dblp_name` VARCHAR(255) NULL DEFAULT NULL,
+  `scholar_name` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`idAgent`),
   UNIQUE KEY `Login_UNIQUE` (`Login`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
@@ -163,7 +165,7 @@ CREATE TABLE `agent` (
 
 LOCK TABLES `agent` WRITE;
 /*!40000 ALTER TABLE `agent` DISABLE KEYS */;
-INSERT INTO `agent` VALUES (1,'tassio','tassio.sirqueira@ice.ufjf.br','f10354719639a6e97c1ccc7ed0c5f2d3','Tassio',1,'Aluno de Pós-graduação',1,1,1),(2,'regina','regina@acessa.com','221182760f5b980c97c7a74a94d57364','Regina Braga',1,'Professora de Pós-graduação',1,2,1),(3,'humberto','humbertodalpra@gmail.com','8767bbc52e71900d1f3a50b53196d0e2','Humberto Dalpra',1,'Aluno de Pós-Graduação',1,2,1),(4,'marco','maraujo@acessa.com','f5888d0bb58d611107e11f7cbc41c97a','Marco Antônio Pereira Araújo',1,'Professor de Pós-graduação',1,1,1),(5,'phillipe','phillipe.marques@gmail.com','e10adc3949ba59abbe56e057f20f883e','Phillipe',1,'Teste',1,1,1),(21,'joao','joao@mail.com','e10adc3949ba59abbe56e057f20f883e','João',1,'Teste',1,1,3),(22,'maria','maria@mail.com','e10adc3949ba59abbe56e057f20f883e','Maria',1,'Teste',2,2,3),(23,'miguel','miguel@mail.com','e10adc3949ba59abbe56e057f20f883e','Miguel',1,'Teste',2,1,3),(24,'alice','alice@mail.com','e10adc3949ba59abbe56e057f20f883e','Alice',1,'Teste',2,2,1),(25,'paula','paula@mail.com','e10adc3949ba59abbe56e057f20f883e','Paula',1,'Teste',1,1,2);
+INSERT INTO `agent` VALUES (1,'tassio','tassio.sirqueira@ice.ufjf.br','f10354719639a6e97c1ccc7ed0c5f2d3','Tassio',1,'Aluno de Pós-graduação',1,1,1, "", ""),(2,'regina','regina@acessa.com','221182760f5b980c97c7a74a94d57364','Regina Braga',1,'Professora de Pós-graduação',1,2,1, "", ""),(3,'humberto','humbertodalpra@gmail.com','8767bbc52e71900d1f3a50b53196d0e2','Humberto Dalpra',1,'Aluno de Pós-Graduação',1,2,1, "", ""),(4,'marco','maraujo@acessa.com','f5888d0bb58d611107e11f7cbc41c97a','Marco Antônio Pereira Araújo',1,'Professor de Pós-graduação',1,1,1, "", ""),(5,'phillipe','phillipe.marques@gmail.com','e10adc3949ba59abbe56e057f20f883e','Phillipe',1,'Teste',1,1,1, "", ""),(21,'joao','joao@mail.com','e10adc3949ba59abbe56e057f20f883e','João',1,'Teste',1,1,3, "", ""),(22,'maria','maria@mail.com','e10adc3949ba59abbe56e057f20f883e','Maria',1,'Teste',2,2,3, "", ""),(23,'miguel','miguel@mail.com','e10adc3949ba59abbe56e057f20f883e','Miguel',1,'Teste',2,1,3, "", ""),(24,'alice','alice@mail.com','e10adc3949ba59abbe56e057f20f883e','Alice',1,'Teste',2,2,1, "", ""),(25,'paula','paula@mail.com','e10adc3949ba59abbe56e057f20f883e','Paula',1,'Teste',1,1,2, "", "");
 /*!40000 ALTER TABLE `agent` ENABLE KEYS */;
 UNLOCK TABLES;
 

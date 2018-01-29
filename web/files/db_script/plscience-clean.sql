@@ -105,6 +105,8 @@ CREATE TABLE `agent` (
   `role_id` bigint(20) NOT NULL,
   `status_id` bigint(20) NOT NULL,
   `competence_id` bigint(20) NOT NULL,
+   `dblp_name` VARCHAR(255) NULL DEFAULT NULL,
+  `scholar_name` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`idAgent`),
   UNIQUE KEY `Login_UNIQUE` (`Login`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
